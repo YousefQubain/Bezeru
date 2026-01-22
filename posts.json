@@ -1,0 +1,41 @@
+[
+  {
+    "slug": "micro-adjust-why-it-matters",
+    "title": "Micro-Adjust Clasps: The ‘Small’ Upgrade That Changes Daily Wear",
+    "date": "2026-01-20",
+    "category": "Feature Breakdown",
+    "excerpt": "Micro-adjust isn’t a gimmick—on-wrist it’s comfort, fit, and real-world usability. Here’s what to look for and why it matters.",
+    "content": [
+      { "type": "p", "text": "Micro-adjust clasps are one of the most meaningful quality-of-life upgrades in modern watches. It’s not about specs—it's about comfort across temperature changes and day-to-day movement." },
+      { "type": "h2", "text": "The vintage context" },
+      { "type": "p", "text": "Vintage bracelets often lacked quick adjustment. Owners learned to live with seasonal fit changes, extra links, or strap swaps. Modern micro-adjust solves a problem collectors always had." },
+      { "type": "h2", "text": "What to look for" },
+      { "type": "ul", "items": ["Tool-less adjustment", "Enough range (a few mm)", "Stable lockup", "Slim clasp height"] }
+    ]
+  },
+  {
+    "slug": "vintage-spotlight-slim-cases",
+    "title": "Vintage Spotlight: Why Slim Cases Still Feel More ‘Correct’",
+    "date": "2026-01-21",
+    "category": "Vintage Spotlight",
+    "excerpt": "Before thick sapphire stacks and display backs, many watches nailed proportion. What modern releases can learn from vintage thinness.",
+    "content": [
+      { "type": "p", "text": "A lot of vintage watches wear better than modern equivalents—not because vintage is always superior, but because case thickness stayed disciplined." },
+      { "type": "h2", "text": "Why thickness grew" },
+      { "type": "ul", "items": ["Higher water resistance expectations", "Sapphire crystals", "Display casebacks", "Chunkier movements + modules"] },
+      { "type": "p", "text": "BEZERU verdict: slim isn’t always better, but proportion always wins." }
+    ]
+  },
+  {
+    "slug": "release-radar-week-1",
+    "title": "Release Radar: 5 Drops You Probably Missed",
+    "date": "2026-01-23",
+    "category": "Release Radar",
+    "excerpt": "The algorithm pushes the obvious. Here are five quieter drops worth your attention—especially if you care about design and wearability.",
+    "content": [
+      { "type": "p", "text": "Release Radar is for the quieter releases: thoughtful design updates, ergonomic wins, and under-the-radar improvements." },
+      { "type": "h2", "text": "This week’s shortlist" },
+      { "type": "ul", "items": ["A slim GMT update that prioritizes ergonomics", "A microbrand with surprising case finishing", "A dial typography refresh that fixes spacing", "A bracelet taper that improves comfort", "A lume change that improves legibility"] }
+    ]
+  }
+]
