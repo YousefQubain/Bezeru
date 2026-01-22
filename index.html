@@ -3,57 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — What changed. What matters.</title>
-  <meta name="description" content="BEZERU is a watch publication covering modern and vintage timepieces through feature breakdowns, release radar, and design critique." />
+  <title>BEZERU — Modern & Vintage Watches</title>
+  <meta name="description" content="BEZERU is a contemporary watch publication covering modern and vintage timepieces through feature breakdowns, release radar, and design critique." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html">BEZERU</a>
+    <a class="brand" href="index.html">BEZERU <small>ベゼル</small></a>
     <nav class="nav">
       <a href="index.html" class="active">Home</a>
       <a href="about.html">About</a>
+      <a href="#latest">Latest</a>
     </nav>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <div class="hero-left">
-        <p class="kicker">Modern + vintage watches</p>
-        <h1>What changed.<br/>What matters.</h1>
+      <div>
+        <p class="kicker">Contemporary watch editorial</p>
+        <h1>Modern and vintage watches,<br/>explained without hype.</h1>
         <p class="lede">
-          BEZERU publishes twice a week—feature breakdowns, release radar, and vintage spotlights, with a design-first point of view.
+          BEZERU publishes twice a week. We connect today’s releases to the vintage references that shaped them—focusing on design, ergonomics, and what matters on the wrist.
         </p>
-        <div class="chips">
-          <span class="chip">Feature Breakdown</span>
-          <span class="chip">Release Radar</span>
-          <span class="chip">Vintage Spotlight</span>
-          <span class="chip">Design Critique</span>
-        </div>
       </div>
 
-      <div class="hero-right card">
-        <h2 class="card-title">Publishing schedule</h2>
-        <p class="card-text">
-          <strong>Tuesday:</strong> Feature / Vintage<br/>
-          <strong>Friday:</strong> Release Radar
-        </p>
-        <p class="card-text muted">
-          Add posts in <code>posts.json</code>. The homepage updates automatically.
-        </p>
+      <div class="watch-card">
+        <svg class="watch" viewBox="0 0 520 520" role="img" aria-label="Watch illustration">
+          <!-- Strap -->
+          <rect x="205" y="20" width="110" height="120" rx="30" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+          <rect x="205" y="380" width="110" height="120" rx="30" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
+          <!-- Case -->
+          <circle cx="260" cy="260" r="150" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.20)" stroke-width="2"/>
+          <circle cx="260" cy="260" r="122" fill="rgba(0,0,0,.65)" stroke="rgba(255,255,255,.20)" stroke-width="2"/>
+          <!-- Crown -->
+          <rect x="408" y="246" width="22" height="28" rx="6" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.20)"/>
+          <!-- Indices -->
+          <line x1="260" y1="148" x2="260" y2="170" stroke="rgba(255,255,255,.35)" stroke-width="3" />
+          <line x1="260" y1="350" x2="260" y2="372" stroke="rgba(255,255,255,.35)" stroke-width="3" />
+          <line x1="148" y1="260" x2="170" y2="260" stroke="rgba(255,255,255,.35)" stroke-width="3" />
+          <line x1="350" y1="260" x2="372" y2="260" stroke="rgba(255,255,255,.35)" stroke-width="3" />
+          <!-- Hands -->
+          <line x1="260" y1="260" x2="260" y2="195" stroke="rgba(255,255,255,.55)" stroke-width="5" stroke-linecap="round"/>
+          <line x1="260" y1="260" x2="312" y2="286" stroke="rgba(255,255,255,.40)" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="260" cy="260" r="6" fill="rgba(255,255,255,.65)"/>
+          <!-- Text on dial -->
+          <text x="260" y="290" text-anchor="middle"
+                font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+                font-size="34" font-weight="900"
+                letter-spacing="7"
+                fill="rgba(255,255,255,.88)">
+            BEZERU
+          </text>
+        </svg>
+        <p class="watch-caption">BEZERU is built for collectors and newcomers—design first, vintage aware.</p>
       </div>
     </section>
 
-    <section class="section-head">
-      <h2>Latest Posts</h2>
-      <p class="muted">Newest first. Click to read.</p>
+    <section id="latest" class="section-head">
+      <h2>Latest</h2>
+      <p>Newest first. Click to read.</p>
     </section>
 
     <section id="posts" class="grid"></section>
 
     <footer class="footer">
       <div>© <span id="year"></span> BEZERU</div>
-      <div class="muted">Built on GitHub Pages.</div>
+      <div>Built on GitHub Pages</div>
     </footer>
   </main>
 
@@ -67,14 +82,14 @@
 
       const container = document.getElementById("posts");
       container.innerHTML = posts.map(p => `
-        <article class="post-card">
+        <article class="card">
           <a class="post-link" href="post.html?slug=${encodeURIComponent(p.slug)}">
             <div class="post-meta">
               <span class="pill">${escapeHtml(p.category)}</span>
-              <time class="muted" datetime="${escapeHtml(p.date)}">${formatDate(p.date)}</time>
+              <time datetime="${escapeHtml(p.date)}">${formatDate(p.date)}</time>
             </div>
             <h3>${escapeHtml(p.title)}</h3>
-            <p class="muted">${escapeHtml(p.excerpt)}</p>
+            <p class="excerpt">${escapeHtml(p.excerpt)}</p>
           </a>
         </article>
       `).join("");
@@ -96,10 +111,11 @@
 
     loadPosts().catch(() => {
       document.getElementById("posts").innerHTML = `
-        <div class="card">
+        <article class="card"><div class="post-link">
+          <div class="post-meta"><span class="pill">Setup</span><time>Now</time></div>
           <h3>Posts not loading</h3>
-          <p class="muted">Create <code>posts.json</code> in the same folder as this file.</p>
-        </div>
+          <p class="excerpt">Create <code>posts.json</code> in the repo root (same folder as index.html).</p>
+        </div></article>
       `;
     });
   </script>
