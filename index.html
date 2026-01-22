@@ -1,16 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BEZERU</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEZERU — What changed. What matters.</title>
+  <meta name="description" content="BEZERU is a watch publication covering modern and vintage timepieces through feature breakdowns, release radar, and design critique." />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <header class="topbar">
+    <a class="brand" href="index.html">BEZERU</a>
+    <nav class="nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-  <h1>BEZERU</h1>
-  <p>Modern & vintage watches — what truly matters.</p>
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-left">
+        <p class="kicker">Modern + vintage watches</p>
+        <h1>What changed.<br/>What matters.</h1>
+        <p class="lede">
+          BEZERU publishes twice a week—feature breakdowns, release radar, and vintage spotlights, with a design-first point of view.
+        </p>
+        <div class="chips">
+          <span class="chip">Feature Breakdown</span>
+          <span class="chip">Release Radar</span>
+          <span class="chip">Vintage Spotlight</span>
+          <span class="chip">Design Critique</span>
+        </div>
+      </div>
 
+      <div class="hero-right card">
+        <h2 class="card-title">Publishing schedule</h2>
+        <p class="card-text">
+          <strong>Tuesday:</strong> Feature / Vintage<br/>
+          <strong>Friday:</strong> Release Radar
+        </p>
+        <p class="card-text muted">
+          Add posts in <code>posts.json</code>. The homepage updates automatically.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-head">
+      <h2>Latest Posts</h2>
+      <p class="muted">Newest first. Click to read.</p>
+    </section>
+
+    <section id="posts" class="grid"></section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> BEZERU</div>
+      <div class="muted">Built on GitHub Pages.</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    async function loadPosts() {
+      const res = await fetch("posts.json");
+      const posts = await res.json();
+      posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+
+      const container = document.getElementById("posts");
+      container.innerHTML = posts.map(p => `
+        <article class="post-card">
+          <a class="post-link" href="post.html?slug=${encodeURIComponent(p.slug)}">
+            <div class="post-meta">
+              <span class="pill">${escapeHtml(p.category)}</span>
+              <time class="muted" datetime="${escapeHtml(p.date)}">${formatDate(p.date)}</time>
+            </div>
+            <h3>${escapeHtml(p.title)}</h3>
+            <p class="muted">${escapeHtml(p.excerpt)}</p>
+          </a>
+        </article>
+      `).join("");
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso + "T00:00:00");
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    loadPosts().catch(() => {
+      document.getElementById("posts").innerHTML = `
+        <div class="card">
+          <h3>Posts not loading</h3>
+          <p class="muted">Create <code>posts.json</code> in the same folder as this file.</p>
+        </div>
+      `;
+    });
+  </script>
 </body>
 </html>
