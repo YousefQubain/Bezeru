@@ -36,8 +36,8 @@
       </div>
 
       <div class="watch-card">
-        <!-- NEW WATCH: moonphase at 12 o'clock, BEZERU small at bottom -->
-        <svg class="watch" viewBox="0 0 520 520" role="img" aria-label="Watch with top moonphase and small BEZERU at bottom">
+        <!-- WATCH (aligned moonphase + small BEZERU above 6 marker) -->
+        <svg class="watch" viewBox="0 0 520 520" role="img" aria-label="Dress watch with centered moonphase and blue bezel">
           <defs>
             <linearGradient id="strapGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="rgba(0,0,0,.10)"/>
@@ -45,10 +45,10 @@
               <stop offset="1" stop-color="rgba(0,0,0,.10)"/>
             </linearGradient>
 
-            <radialGradient id="dialGrad" cx="40%" cy="30%" r="75%">
+            <radialGradient id="dialGrad" cx="45%" cy="30%" r="75%">
               <stop offset="0" stop-color="rgba(255,255,255,.98)"/>
-              <stop offset="0.6" stop-color="rgba(255,255,255,.88)"/>
-              <stop offset="1" stop-color="rgba(255,255,255,.78)"/>
+              <stop offset="0.65" stop-color="rgba(255,255,255,.90)"/>
+              <stop offset="1" stop-color="rgba(245,247,252,.86)"/>
             </radialGradient>
 
             <radialGradient id="caseGrad" cx="30%" cy="20%" r="90%">
@@ -58,26 +58,15 @@
             </radialGradient>
 
             <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="rgba(255,255,255,.28)"/>
+              <stop offset="0" stop-color="rgba(255,255,255,.26)"/>
               <stop offset="0.35" stop-color="rgba(255,255,255,.08)"/>
               <stop offset="1" stop-color="rgba(255,255,255,0)"/>
             </linearGradient>
 
-            <clipPath id="moonClipTop">
-              <path d="M170,206 a90,90 0 0,1 180,0 v40 h-180z"></path>
+            <!-- moonphase window: small + centered -->
+            <clipPath id="moonWin">
+              <path d="M200 190 A60 60 0 0 1 320 190 L320 220 L200 220 Z"></path>
             </clipPath>
-
-            <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"/>
-              <feOffset dy="6" result="off"/>
-              <feComponentTransfer>
-                <feFuncA type="linear" slope="0.18"/>
-              </feComponentTransfer>
-              <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
 
           <!-- STRAP -->
@@ -88,11 +77,11 @@
           <circle cx="260" cy="260" r="168" fill="url(#caseGrad)" stroke="rgba(0,0,0,.12)" stroke-width="2"/>
 
           <!-- BEZEL -->
-          <circle class="bezel" cx="260" cy="260" r="152" fill="none" stroke="var(--blue)" stroke-width="18"/>
+          <circle cx="260" cy="260" r="152" fill="none" stroke="var(--blue)" stroke-width="18"/>
           <circle cx="260" cy="260" r="152" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="1"/>
 
-          <!-- BEZEL MARKS (subtle) -->
-          <g stroke="rgba(255,255,255,.9)" stroke-width="2.2" stroke-linecap="round" opacity="0.95">
+          <!-- Bezel ticks -->
+          <g stroke="rgba(255,255,255,.95)" stroke-width="2.2" stroke-linecap="round">
             <g transform="translate(260 260)">
               <line x1="0" y1="-161" x2="0" y2="-146"/>
               <g transform="rotate(90)"><line x1="0" y1="-161" x2="0" y2="-146"/></g>
@@ -103,18 +92,17 @@
 
           <!-- DIAL -->
           <circle cx="260" cy="260" r="122" fill="url(#dialGrad)" stroke="rgba(0,0,0,.12)" stroke-width="2"/>
-          <!-- chapter ring -->
-          <circle cx="260" cy="260" r="108" fill="none" stroke="rgba(0,0,0,.16)" stroke-width="2"/>
+          <circle cx="260" cy="260" r="108" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2"/>
 
-          <!-- INDICES (clean, like photo) -->
+          <!-- INDICES -->
           <g transform="translate(260 260)" stroke-linecap="round">
-            <g stroke="rgba(0,0,0,.40)" stroke-width="4">
+            <g stroke="rgba(0,0,0,.45)" stroke-width="4">
               <line x1="0" y1="-96" x2="0" y2="-78"/>
+              <line x1="96" y1="0" x2="78" y2="0"/>
               <line x1="0" y1="96" x2="0" y2="78"/>
               <line x1="-96" y1="0" x2="-78" y2="0"/>
-              <line x1="96" y1="0" x2="78" y2="0"/>
             </g>
-            <g stroke="rgba(0,0,0,.22)" stroke-width="3">
+            <g stroke="rgba(0,0,0,.25)" stroke-width="3">
               <g transform="rotate(30)"><line x1="0" y1="-94" x2="0" y2="-84"/></g>
               <g transform="rotate(60)"><line x1="0" y1="-94" x2="0" y2="-84"/></g>
               <g transform="rotate(120)"><line x1="0" y1="-94" x2="0" y2="-84"/></g>
@@ -126,25 +114,19 @@
             </g>
           </g>
 
-          <!-- TOP MOONPHASE (like the photo) -->
-          <g filter="url(#softShadow)">
-            <!-- window arc -->
-            <path d="M170,206 a90,90 0 0,1 180,0" fill="none" stroke="rgba(0,0,0,.22)" stroke-width="3" />
-            <!-- sky + moon -->
-            <g clip-path="url(#moonClipTop)">
-              <path d="M170,206 a90,90 0 0,1 180,0 v40 h-180z" fill="#0b1633"/>
-              <!-- stars -->
-              <circle cx="230" cy="195" r="2" fill="rgba(255,255,255,.85)"/>
-              <circle cx="275" cy="187" r="1.6" fill="rgba(255,255,255,.75)"/>
-              <circle cx="305" cy="202" r="1.8" fill="rgba(255,255,255,.65)"/>
-              <!-- moon (visible part) -->
-              <circle id="moonTop" cx="310" cy="203" r="18" fill="#f4f1dc"/>
-              <!-- moving shadow (creates phases) -->
-              <circle id="moonTopShadow" cx="324" cy="203" r="18" fill="#0b1633" opacity="0.95"/>
-            </g>
+          <!-- MOONPHASE (small + centered like your photo) -->
+          <g>
+            <path d="M200 190 A60 60 0 0 1 320 190" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="3"/>
+            <path d="M206 190 A54 54 0 0 1 314 190" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
 
-            <!-- inner frame -->
-            <path d="M178,206 a82,82 0 0,1 164,0" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2" opacity="0.7"/>
+            <g clip-path="url(#moonWin)">
+              <rect x="200" y="170" width="120" height="60" fill="#0b1633"/>
+              <circle cx="236" cy="200" r="2" fill="rgba(255,255,255,.85)"/>
+              <circle cx="280" cy="193" r="1.6" fill="rgba(255,255,255,.75)"/>
+              <circle cx="302" cy="205" r="1.8" fill="rgba(255,255,255,.65)"/>
+              <circle cx="300" cy="206" r="15" fill="#f4f1dc"/>
+              <circle id="moonShadow" cx="312" cy="206" r="15" fill="#0b1633" opacity="0.95"/>
+            </g>
           </g>
 
           <!-- HANDS -->
@@ -160,10 +142,10 @@
           <rect x="430" y="246" width="22" height="28" rx="7" fill="rgba(0,0,0,.08)" stroke="rgba(0,0,0,.18)"/>
           <rect x="452" y="251" width="6" height="18" rx="3" fill="rgba(0,0,0,.10)"/>
 
-          <!-- SMALL BRAND NAME AT BOTTOM -->
-          <text x="260" y="372" text-anchor="middle"
+          <!-- BRAND: small, just above 6 marker -->
+          <text x="260" y="346" text-anchor="middle"
             font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
-            font-size="12" font-weight="800"
+            font-size="11" font-weight="800"
             letter-spacing="4"
             fill="rgba(0,0,0,.62)">BEZERU</text>
 
@@ -172,7 +154,7 @@
         </svg>
 
         <p class="watch-caption">
-          Moonphase up top. Brand signature down low. Clean and calm with royal blue.
+          Moonphase at 12. Calm white dial. Royal blue bezel.
         </p>
       </div>
     </section>
@@ -191,18 +173,19 @@
   </main>
 
   <script>
+    // footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Load posts
+    // ---------- POSTS ----------
     async function loadPosts() {
-      const res = await fetch("posts.json");
+      const res = await fetch("posts.json", { cache: "no-store" });
       const posts = await res.json();
       posts.sort((a, b) => (a.date < b.date ? 1 : -1));
       const container = document.getElementById("posts");
-      container.innerHTML = posts.map(p => QuickCard(p)).join("");
+      container.innerHTML = posts.map(p => card(p)).join("");
     }
 
-    function QuickCard(p){
+    function card(p){
       return `
       <article class="card">
         <a class="post-link" href="post.html?slug=${encodeURIComponent(p.slug)}">
@@ -220,6 +203,7 @@
       const d = new Date(iso + "T00:00:00");
       return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
     }
+
     function escapeHtml(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -231,7 +215,7 @@
 
     loadPosts().catch(() => {});
 
-    // Time zones
+    // ---------- TIMEZONES ----------
     function setTZ(id, tz) {
       const el = document.getElementById(id);
       const fmt = new Intl.DateTimeFormat([], { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false });
@@ -246,10 +230,9 @@
     updateTimezones();
     setInterval(updateTimezones, 15000);
 
-    // Real-time hands + TOP moonphase shadow
+    // ---------- WATCH ANIMATION ----------
     function updateWatch(){
       const now = new Date();
-
       const sec = now.getSeconds() + now.getMilliseconds()/1000;
       const min = now.getMinutes() + sec/60;
       const hr  = (now.getHours()%12) + min/60;
@@ -265,11 +248,11 @@
       const phase = ((days % synodic) + synodic) % synodic;
       const t = phase / synodic;
 
-      const offset = (t < 0.5) ? (14 - (t/0.5)*28) : (-14 + ((t-0.5)/0.5)*28);
-      const shadowTop = document.getElementById("moonTopShadow");
-      if (shadowTop) shadowTop.setAttribute("cx", String(324 + offset));
-    }
+      const offset = (t < 0.5) ? (12 - (t/0.5)*24) : (-12 + ((t-0.5)/0.5)*24);
 
+      const shadow = document.getElementById("moonShadow");
+      if (shadow) shadow.setAttribute("cx", String(312 + offset));
+    }
     updateWatch();
     setInterval(updateWatch, 50);
   </script>
