@@ -3,46 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About — BEZERU</title>
+  <title>BEZERU — About</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .about{max-width:860px;margin:0 auto;padding:26px 16px 70px}
+    .about h1{margin:0 0 10px;font-size:clamp(28px,4vw,44px);line-height:1.05}
+    .about p{color:rgba(11,18,32,.78);font-size:16px}
+    .panel{margin-top:18px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(11,18,32,.06)}
+  </style>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html">BEZERU</a>
+    <a class="brand" href="index.html">BEZERU <small>ベゼル</small></a>
     <nav class="nav">
       <a href="index.html">Home</a>
       <a href="about.html" class="active">About</a>
+      <a href="index.html#latest">Latest</a>
     </nav>
   </header>
 
-  <main class="wrap">
-    <section class="card article">
-      <h1 class="article-title">About BEZERU</h1>
-      <p class="muted">
-        BEZERU is a digital watch publication connecting modern releases with vintage context—focused on design, features, and on-wrist reality.
+  <main class="about">
+    <h1>About BEZERU</h1>
+    <p>
+      BEZERU is a modern + vintage watch publication focused on what actually changes on-wrist:
+      proportion, ergonomics, design decisions, and movement choices.
+    </p>
+
+    <div class="panel">
+      <h2 style="margin:0 0 8px;font-size:14px;letter-spacing:.18em;text-transform:uppercase">Our niche</h2>
+      <p style="margin:0">
+        We translate releases through vintage reference points—so you can see what’s genuinely new
+        versus what’s recycled marketing. Calm design, clean language, and collector-level details.
       </p>
-
-      <div class="rule"></div>
-
-      <h2>What we publish</h2>
-      <ul>
-        <li><strong>Feature Breakdown:</strong> What changed and why it matters.</li>
-        <li><strong>Release Radar:</strong> The best drops you might have missed.</li>
-        <li><strong>Vintage Spotlight:</strong> Classics that still teach modern watchmaking a lesson.</li>
-        <li><strong>Design Critique:</strong> Proportions, typography, finishing, ergonomics.</li>
-      </ul>
-
-      <h2>Schedule</h2>
-      <p>Twice a week: <strong>Tuesday</strong> + <strong>Friday</strong>.</p>
-    </section>
-
-    <footer class="footer">
-      <div>© <span id="year"></span> BEZERU</div>
-    </footer>
+    </div>
   </main>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
