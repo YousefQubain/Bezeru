@@ -96,4 +96,3 @@ code{background:rgba(242,243,245,.08);border:1px solid var(--line);padding:2px 6
   .grid{grid-template-columns:1fr}
   .section-head{flex-direction:column;align-items:flex-start}
 }
-
