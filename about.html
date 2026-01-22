@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — BEZERU</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">BEZERU</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="card article">
+      <h1 class="article-title">About BEZERU</h1>
+      <p class="muted">
+        BEZERU is a digital watch publication connecting modern releases with vintage context—focused on design, features, and on-wrist reality.
+      </p>
+
+      <div class="rule"></div>
+
+      <h2>What we publish</h2>
+      <ul>
+        <li><strong>Feature Breakdown:</strong> What changed and why it matters.</li>
+        <li><strong>Release Radar:</strong> The best drops you might have missed.</li>
+        <li><strong>Vintage Spotlight:</strong> Classics that still teach modern watchmaking a lesson.</li>
+        <li><strong>Design Critique:</strong> Proportions, typography, finishing, ergonomics.</li>
+      </ul>
+
+      <h2>Schedule</h2>
+      <p>Twice a week: <strong>Tuesday</strong> + <strong>Friday</strong>.</p>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> BEZERU</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
