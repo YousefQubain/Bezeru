@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEZERU</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">BEZERU</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <a class="back" href="index.html">← Back</a>
+
+    <article class="article card" id="article">
+      <p class="muted">Loading…</p>
+    </article>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> BEZERU</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const slug = new URLSearchParams(window.location.search).get("slug");
+
+    async function loadPost() {
+      const res = await fetch("posts.json");
+      const posts = await res.json();
+
+      const post = posts.find(p => p.slug === slug) || posts[0];
+      if (!post) throw new Error("No posts found");
+
+      document.title = `${post.title} — BEZERU`;
+
+      document.getElementById("article").innerHTML = `
+        <div class="post-meta">
+          <span class="pill">${escapeHtml(post.category)}</span>
+          <time class="muted" datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
+        </div>
+        <h1 class="article-title">${escapeHtml(post.title)}</h1>
+        <p class="article-excerpt muted">${escapeHtml(post.excerpt)}</p>
+        <div class="rule"></div>
+        <div class="content">${renderContent(post.content)}</div>
+      `;
+    }
+
+    function renderContent(blocks) {
+      if (!Array.isArray(blocks)) return "";
+      return blocks.map(b => {
+        if (b.type === "h2") return `<h2>${escapeHtml(b.text)}</h2>`;
+        if (b.type === "ul") {
+          const items = (b.items || []).map(i => `<li>${escapeHtml(i)}</li>`).join("");
+          return `<ul>${items}</ul>`;
+        }
+        return `<p>${escapeHtml(b.text || "")}</p>`;
+      }).join("");
+    }
+
+    function formatDate(iso) {
+      const d = new Date(iso + "T00:00:00");
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    loadPost().catch(() => {
+      document.getElementById("article").innerHTML = `
+        <h1 class="article-title">Post not found</h1>
+        <p class="muted">Go back and click a post from the homepage.</p>
+      `;
+    });
+  </script>
+</body>
+</html>
