@@ -28,26 +28,53 @@
       </div>
 
       <div class="watch-card">
-        <svg class="watch" viewBox="0 0 520 520" role="img" aria-label="Watch illustration">
+        <!-- Animated watch with ROYAL BLUE bezel -->
+        <svg class="watch" viewBox="0 0 520 520" role="img" aria-label="Animated watch with blue bezel">
           <!-- Strap -->
           <rect x="205" y="20" width="110" height="120" rx="30" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
           <rect x="205" y="380" width="110" height="120" rx="30" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/>
-          <!-- Case -->
-          <circle cx="260" cy="260" r="150" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.20)" stroke-width="2"/>
-          <circle cx="260" cy="260" r="122" fill="rgba(0,0,0,.65)" stroke="rgba(255,255,255,.20)" stroke-width="2"/>
+
+          <!-- Outer Case -->
+          <circle cx="260" cy="260" r="152" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+
+          <!-- BLUE BEZEL -->
+          <circle class="bezel" cx="260" cy="260" r="142" fill="none" stroke="var(--bezel)" stroke-width="18"/>
+
+          <!-- Bezel markers -->
+          <g opacity="0.9">
+            <line x1="260" y1="106" x2="260" y2="126" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+            <line x1="260" y1="394" x2="260" y2="414" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+            <line x1="106" y1="260" x2="126" y2="260" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+            <line x1="394" y1="260" x2="414" y2="260" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+          </g>
+
+          <!-- Dial -->
+          <circle cx="260" cy="260" r="120" fill="rgba(0,0,0,.72)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+
+          <!-- Indices -->
+          <g stroke="rgba(255,255,255,.30)" stroke-width="3" stroke-linecap="round">
+            <line x1="260" y1="150" x2="260" y2="170" />
+            <line x1="260" y1="350" x2="260" y2="370" />
+            <line x1="150" y1="260" x2="170" y2="260" />
+            <line x1="350" y1="260" x2="370" y2="260" />
+          </g>
+
+          <!-- Animated hands (centered at 260,260) -->
+          <g class="hands" transform="translate(260 260)">
+            <!-- hour hand -->
+            <line class="hand hour" x1="0" y1="10" x2="0" y2="-58" />
+            <!-- minute hand -->
+            <line class="hand minute" x1="0" y1="14" x2="0" y2="-92" />
+            <!-- second hand -->
+            <line class="hand second" x1="0" y1="18" x2="0" y2="-102" />
+            <circle r="7" fill="rgba(255,255,255,.7)"/>
+          </g>
+
           <!-- Crown -->
           <rect x="408" y="246" width="22" height="28" rx="6" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.20)"/>
-          <!-- Indices -->
-          <line x1="260" y1="148" x2="260" y2="170" stroke="rgba(255,255,255,.35)" stroke-width="3" />
-          <line x1="260" y1="350" x2="260" y2="372" stroke="rgba(255,255,255,.35)" stroke-width="3" />
-          <line x1="148" y1="260" x2="170" y2="260" stroke="rgba(255,255,255,.35)" stroke-width="3" />
-          <line x1="350" y1="260" x2="372" y2="260" stroke="rgba(255,255,255,.35)" stroke-width="3" />
-          <!-- Hands -->
-          <line x1="260" y1="260" x2="260" y2="195" stroke="rgba(255,255,255,.55)" stroke-width="5" stroke-linecap="round"/>
-          <line x1="260" y1="260" x2="312" y2="286" stroke="rgba(255,255,255,.40)" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="260" cy="260" r="6" fill="rgba(255,255,255,.65)"/>
-          <!-- Text on dial -->
-          <text x="260" y="290" text-anchor="middle"
+
+          <!-- Text -->
+          <text x="260" y="300" text-anchor="middle"
                 font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
                 font-size="34" font-weight="900"
                 letter-spacing="7"
@@ -55,7 +82,10 @@
             BEZERU
           </text>
         </svg>
-        <p class="watch-caption">BEZERU is built for collectors and newcomers—design first, vintage aware.</p>
+
+        <p class="watch-caption">
+          Design-first coverage for collectors and newcomers — modern + vintage, without marketing noise.
+        </p>
       </div>
     </section>
 
@@ -111,11 +141,13 @@
 
     loadPosts().catch(() => {
       document.getElementById("posts").innerHTML = `
-        <article class="card"><div class="post-link">
-          <div class="post-meta"><span class="pill">Setup</span><time>Now</time></div>
-          <h3>Posts not loading</h3>
-          <p class="excerpt">Create <code>posts.json</code> in the repo root (same folder as index.html).</p>
-        </div></article>
+        <article class="card">
+          <div class="post-link">
+            <div class="post-meta"><span class="pill">Setup</span><time>Now</time></div>
+            <h3>Posts not loading</h3>
+            <p class="excerpt">Create <code>posts.json</code> in the repo root (same folder as index.html).</p>
+          </div>
+        </article>
       `;
     });
   </script>
