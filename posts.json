@@ -1,41 +1,37 @@
 [
   {
-    "slug": "micro-adjust-why-it-matters",
-    "title": "Micro-Adjust Clasps: The Small Upgrade That Changes Daily Wear",
-    "date": "2026-01-20",
-    "category": "Feature",
-    "excerpt": "Micro-adjust isn’t a gimmick. It directly affects comfort, fit, and how a watch feels across a full day of wear.",
-    "content": [
-      { "type": "p", "text": "Micro-adjust clasps are one of the most meaningful modern upgrades in watches. They allow small sizing changes without tools, which matters more than most spec-sheet features." },
-      { "type": "h2", "text": "Why vintage struggled here" },
-      { "type": "p", "text": "Older bracelets rarely offered quick adjustment. Collectors relied on half-links or strap swaps to manage seasonal wrist size changes." },
-      { "type": "h2", "text": "What to look for" },
-      { "type": "ul", "items": ["Tool-free adjustment", "At least 3–5mm of range", "Slim clasp thickness", "Secure locking system"] }
-    ]
-  },
-  {
-    "slug": "vintage-thin-cases",
-    "title": "Vintage Spotlight: Why Thin Cases Still Wear Better",
-    "date": "2026-01-21",
-    "category": "Vintage",
-    "excerpt": "Many vintage watches feel better on the wrist because proportions were prioritized over marketing-driven dimensions.",
-    "content": [
-      { "type": "p", "text": "Before display casebacks and stacked movements, case thickness stayed under control. This made watches feel balanced and natural on the wrist." },
-      { "type": "h2", "text": "Why modern watches got thicker" },
-      { "type": "ul", "items": ["Sapphire crystals", "Higher water resistance", "Automatic modules", "Display backs"] },
-      { "type": "p", "text": "Thin does not always mean better, but proportion always wins." }
-    ]
-  },
-  {
-    "slug": "release-radar-week-1",
-    "title": "Release Radar: Quiet Drops Worth Noticing",
+    "slug": "the-bezel-blueprint",
+    "title": "The BEZERU Blueprint: How We Judge Watches",
     "date": "2026-01-23",
-    "category": "Releases",
-    "excerpt": "Not everything launches with hype. These are design-focused releases that deserve more attention.",
+    "category": "Editorial",
+    "excerpt": "The lens we use to review modern and vintage watches—design, ergonomics, movement choices, and what actually matters on the wrist.",
     "content": [
-      { "type": "p", "text": "Release Radar focuses on watches that improve design and wearability rather than marketing noise." },
-      { "type": "h2", "text": "This week’s highlights" },
-      { "type": "ul", "items": ["Slim GMT with proper proportions", "Improved bracelet taper", "Dial typography update", "Better lume color balance"] }
+      "Welcome to BEZERU. This is our editorial lens—simple, consistent, and obsessed with details that affect real wear.",
+      "We care about proportion first: dial-to-case balance, lug length, and how the watch reads from arm’s length.",
+      "Then ergonomics: crown comfort, clasp design, strap taper, and the subtle stuff that makes a watch disappear on-wrist.",
+      "Finally: movement decisions—because engineering choices always show up in the design."
+    ]
+  },
+  {
+    "slug": "vintage-vs-modern-value",
+    "title": "Vintage vs Modern: Where the Value Really Is",
+    "date": "2026-01-20",
+    "category": "Vintage",
+    "excerpt": "A collector’s guide to buying better: originality, service history, and the biggest mistakes new buyers make.",
+    "content": [
+      "Vintage value is rarely about hype—it's about condition, originality, and honest documentation.",
+      "Modern value is about execution: finishing, wearable design, and brand behavior over time."
+    ]
+  },
+  {
+    "slug": "weekly-release-radar-01",
+    "title": "Release Radar: 5 Watches Worth Your Time This Week",
+    "date": "2026-01-18",
+    "category": "Release Radar",
+    "excerpt": "A clean scan of releases—what changed, what’s noise, and what’s genuinely interesting.",
+    "content": [
+      "This week’s radar focuses on small improvements that matter: bracelet taper, dial legibility, and thickness.",
+      "The best releases usually look boring in photos—until you understand the design decisions."
     ]
   }
 ]
