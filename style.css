@@ -1,0 +1,17 @@
+body {
+  background: #0b0c0f;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 120px;
+}
+
+h1 {
+  letter-spacing: 8px;
+  font-size: 52px;
+}
+
+p {
+  color: gold;
+  font-size: 18px;
+}
