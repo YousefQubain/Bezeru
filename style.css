@@ -1,16 +1,13 @@
 :root{
   --bg:#f6f8fc;
-  --paper:#ffffff;
   --text:#0b1220;
   --muted:rgba(11,18,32,.70);
   --line:rgba(11,18,32,.10);
   --radius:18px;
   --max:1120px;
 
-  /* Royal blue */
   --blue:#1e4fff;
 
-  /* Watch hand angles (set by JS) */
   --secDeg: 0deg;
   --minDeg: 0deg;
   --hrDeg: 0deg;
@@ -120,7 +117,6 @@ a{color:inherit;text-decoration:none}
   gap:26px;
   align-items:center;
 }
-
 .kicker{
   margin:0 0 10px;
   color:rgba(11,18,32,.60);
@@ -149,14 +145,12 @@ a{color:inherit;text-decoration:none}
   padding:18px;
   box-shadow:0 18px 60px rgba(11,18,32,.10);
 }
-
 .watch{
   width: min(420px, 100%);
   height: auto;
-  display: block;
-  margin: 0 auto;
+  display:block;
+  margin:0 auto;
 }
-
 .watch-caption{
   margin:10px 0 0;
   text-align:center;
@@ -181,12 +175,7 @@ a{color:inherit;text-decoration:none}
 .section-head p{margin:0; color:var(--muted); font-size:13px}
 
 /* Grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:14px;
-  padding-top:10px;
-}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-top:10px}
 .card{
   border:1px solid var(--line);
   border-radius:var(--radius);
@@ -199,14 +188,8 @@ a{color:inherit;text-decoration:none}
   border-color:rgba(30,79,255,.20);
   box-shadow:0 16px 40px rgba(11,18,32,.10);
 }
-.post-link{display:block; padding:16px}
-.post-meta{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
+.post-link{display:block;padding:16px}
+.post-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
 .pill{
   font-size:11px;
   letter-spacing:.12em;
@@ -218,7 +201,7 @@ a{color:inherit;text-decoration:none}
   color:rgba(11,18,32,.80);
   font-weight:900;
 }
-time{color:rgba(11,18,32,.55); font-size:12px}
+time{color:rgba(11,18,32,.55);font-size:12px}
 .card h3{margin:0 0 8px;font-size:18px;line-height:1.25}
 .excerpt{margin:0;color:rgba(11,18,32,.68);font-size:14px}
 
@@ -235,12 +218,8 @@ time{color:rgba(11,18,32,.55); font-size:12px}
   font-size:13px;
 }
 
-/* Watch details */
-.bezel{
-  filter: drop-shadow(0 0 12px rgba(30,79,255,.20));
-}
-
-/* Hands */
+/* Bezel + hands */
+.bezel{filter: drop-shadow(0 0 12px rgba(30,79,255,.20));}
 .hand{
   stroke: rgba(11,18,32,.72);
   stroke-linecap: round;
@@ -252,9 +231,7 @@ time{color:rgba(11,18,32,.55); font-size:12px}
 .hand.second{ stroke-width: 2; stroke: rgba(30,79,255,.85); transform: rotate(var(--secDeg)); }
 
 /* Responsive */
-@media (max-width:1100px){
-  .tzbar{display:none;}
-}
+@media (max-width:1100px){ .tzbar{display:none;} }
 @media (max-width:980px){
   .hero{grid-template-columns:1fr}
   .grid{grid-template-columns:1fr}
