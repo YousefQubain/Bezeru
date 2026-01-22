@@ -1,90 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="index.html">BEZERU</a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-    </nav>
-  </header>
-
-  <main class="wrap">
-    <a class="back" href="index.html">← Back</a>
-
-    <article class="article card" id="article">
-      <p class="muted">Loading…</p>
-    </article>
-
-    <footer class="footer">
-      <div>© <span id="year"></span> BEZERU</div>
-    </footer>
-  </main>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    const slug = new URLSearchParams(window.location.search).get("slug");
-
-    async function loadPost() {
-      const res = await fetch("posts.json");
-      const posts = await res.json();
-
-      const post = posts.find(p => p.slug === slug) || posts[0];
-      if (!post) throw new Error("No posts found");
-
-      document.title = `${post.title} — BEZERU`;
-
-      document.getElementById("article").innerHTML = `
-        <div class="post-meta">
-          <span class="pill">${escapeHtml(post.category)}</span>
-          <time class="muted" datetime="${escapeHtml(post.date)}">${formatDate(post.date)}</time>
-        </div>
-        <h1 class="article-title">${escapeHtml(post.title)}</h1>
-        <p class="article-excerpt muted">${escapeHtml(post.excerpt)}</p>
-        <div class="rule"></div>
-        <div class="content">${renderContent(post.content)}</div>
-      `;
-    }
-
-    function renderContent(blocks) {
-      if (!Array.isArray(blocks)) return "";
-      return blocks.map(b => {
-        if (b.type === "h2") return `<h2>${escapeHtml(b.text)}</h2>`;
-        if (b.type === "ul") {
-          const items = (b.items || []).map(i => `<li>${escapeHtml(i)}</li>`).join("");
-          return `<ul>${items}</ul>`;
-        }
-        return `<p>${escapeHtml(b.text || "")}</p>`;
-      }).join("");
-    }
-
-    function formatDate(iso) {
-      const d = new Date(iso + "T00:00:00");
-      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    loadPost().catch(() => {
-      document.getElementById("article").innerHTML = `
-        <h1 class="article-title">Post not found</h1>
-        <p class="muted">Go back and click a post from the homepage.</p>
-      `;
-    });
-  </script>
-</body>
-</html>
+[
+  {
+    "slug": "micro-adjust-why-it-matters",
+    "title": "Micro-Adjust Clasps: The Small Upgrade That Changes Daily Wear",
+    "date": "2026-01-20",
+    "category": "Feature",
+    "excerpt": "Micro-adjust isn’t a gimmick. It directly affects comfort, fit, and how a watch feels across a full day of wear.",
+    "content": [
+      { "type": "p", "text": "Micro-adjust clasps are one of the most meaningful modern upgrades in watches. They allow small sizing changes without tools, which matters more than most spec-sheet features." },
+      { "type": "h2", "text": "Why vintage struggled here" },
+      { "type": "p", "text": "Older bracelets rarely offered quick adjustment. Collectors relied on half-links or strap swaps to manage seasonal wrist size changes." },
+      { "type": "h2", "text": "What to look for" },
+      { "type": "ul", "items": ["Tool-free adjustment", "At least 3–5mm of range", "Slim clasp thickness", "Secure locking system"] }
+    ]
+  },
+  {
+    "slug": "vintage-thin-cases",
+    "title": "Vintage Spotlight: Why Thin Cases Still Wear Better",
+    "date": "2026-01-21",
+    "category": "Vintage",
+    "excerpt": "Many vintage watches feel better on the wrist because proportions were prioritized over marketing-driven dimensions.",
+    "content": [
+      { "type": "p", "text": "Before display casebacks and stacked movements, case thickness stayed under control. This made watches feel balanced and natural on the wrist." },
+      { "type": "h2", "text": "Why modern watches got thicker" },
+      { "type": "ul", "items": ["Sapphire crystals", "Higher water resistance", "Automatic modules", "Display backs"] },
+      { "type": "p", "text": "Thin does not always mean better, but proportion always wins." }
+    ]
+  },
+  {
+    "slug": "release-radar-week-1",
+    "title": "Release Radar: Quiet Drops Worth Noticing",
+    "date": "2026-01-23",
+    "category": "Releases",
+    "excerpt": "Not everything launches with hype. These are design-focused releases that deserve more attention.",
+    "content": [
+      { "type": "p", "text": "Release Radar focuses on watches that improve design and wearability rather than marketing noise." },
+      { "type": "h2", "text": "This week’s highlights" },
+      { "type": "ul", "items": ["Slim GMT with proper proportions", "Improved bracelet taper", "Dial typography update", "Better lume color balance"] }
+    ]
+  }
+]
