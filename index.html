@@ -2,161 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BEZERU — Modern & vintage watches, explained without hype.</title>
-  <meta name="description" content="BEZERU is a watch editorial covering modern, vintage, and Gulf/Middle East influence — with design-first critique and real-world wearability." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEZERU</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-top">
-      <a class="brand" href="index.html" aria-label="BEZERU home">
-        <span class="brand-mark">BEZERU</span>
-        <span class="brand-kana">ベゼル</span>
-      </a>
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <!-- LEFT: LOGO -->
+      <div class="brand">
+        <a class="brand-link" href="index.html" aria-label="BEZERU Home">
+          <span class="brand-word">BEZERU</span>
+          <span class="brand-jp">ベゼル</span>
+        </a>
+      </div>
 
-      <div class="worldtime" aria-label="World time">
+      <!-- RIGHT: WORLD CLOCKS -->
+      <div class="world-clocks" aria-label="World time">
         <div class="tz-card" data-tz="America/New_York">
           <div class="tz-label">NEW YORK</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="mini-watch" aria-hidden="true">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
           <div class="tz-time" data-role="time">--:--</div>
         </div>
 
         <div class="tz-card" data-tz="Europe/London">
           <div class="tz-label">LONDON</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="mini-watch" aria-hidden="true">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
           <div class="tz-time" data-role="time">--:--</div>
         </div>
 
         <div class="tz-card" data-tz="Europe/Zurich">
           <div class="tz-label">GENEVA</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="mini-watch" aria-hidden="true">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
           <div class="tz-time" data-role="time">--:--</div>
         </div>
 
         <div class="tz-card" data-tz="Asia/Tokyo">
           <div class="tz-label">TOKYO</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="mini-watch" aria-hidden="true">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
           <div class="tz-time" data-role="time">--:--</div>
         </div>
       </div>
     </div>
 
-    <div class="container header-nav">
-      <nav class="nav" aria-label="Primary">
-        <a class="nav-link active" href="index.html">Home</a>
+    <!-- NAV (aligned under clocks) -->
+    <nav class="main-nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link is-active" href="index.html">Home</a>
+        </li>
 
-        <div class="nav-dropdown">
-          <a class="nav-link" href="articles.html">Articles <span class="chev">▾</span></a>
-          <div class="dropdown-panel" role="menu">
-            <a href="articles.html?cat=latest" role="menuitem">Latest</a>
-            <a href="articles.html?cat=gulf" role="menuitem">Gulf Editions</a>
-            <a href="articles.html?cat=vintage" role="menuitem">Vintage</a>
-            <a href="articles.html?cat=design" role="menuitem">Design Breakdowns</a>
-            <a href="articles.html?cat=guide" role="menuitem">Buying Guides</a>
-            <a href="articles.html?cat=underdogs" role="menuitem">Underdogs</a>
+        <li class="nav-item has-dropdown">
+          <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">
+            Articles <span class="chev">▾</span>
+          </a>
+          <div class="dropdown" role="menu">
+            <a class="dd-link" href="#latest" role="menuitem">Latest</a>
+            <a class="dd-link" href="#latest" role="menuitem">Gulf Editions</a>
+            <a class="dd-link" href="#latest" role="menuitem">Vintage</a>
+            <a class="dd-link" href="#latest" role="menuitem">Design Breakdowns</a>
+            <a class="dd-link" href="#latest" role="menuitem">Buying Guides</a>
+            <a class="dd-link" href="#latest" role="menuitem">Underdogs</a>
           </div>
-        </div>
+        </li>
 
-        <div class="nav-dropdown">
-          <a class="nav-link" href="articles.html?view=types">Watch Types <span class="chev">▾</span></a>
-          <div class="dropdown-panel" role="menu">
-            <a href="articles.html?type=dress" role="menuitem">Dress</a>
-            <a href="articles.html?type=diver" role="menuitem">Diver</a>
-            <a href="articles.html?type=chrono" role="menuitem">Chronograph</a>
-            <a href="articles.html?type=gmt" role="menuitem">GMT / Travel</a>
-            <a href="articles.html?type=complications" role="menuitem">Complications</a>
+        <li class="nav-item has-dropdown">
+          <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">
+            Watch Types <span class="chev">▾</span>
+          </a>
+          <div class="dropdown" role="menu">
+            <a class="dd-link" href="#latest" role="menuitem">Dress</a>
+            <a class="dd-link" href="#latest" role="menuitem">Diver</a>
+            <a class="dd-link" href="#latest" role="menuitem">Chronograph</a>
+            <a class="dd-link" href="#latest" role="menuitem">GMT / Travel</a>
+            <a class="dd-link" href="#latest" role="menuitem">Complications</a>
           </div>
-        </div>
+        </li>
 
-        <a class="nav-link" href="about.html">About</a>
-      </nav>
-    </div>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- HERO -->
-  <main>
+  <!-- HERO (no big watch) -->
+  <main class="page" role="main">
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">CONTEMPORARY WATCH EDITORIAL</div>
-          <h1>Modern and vintage watches, explained without hype.</h1>
-          <p class="lead">
-            BEZERU publishes twice a week. We connect today’s releases to vintage references — with
-            a Gulf/Middle East lens when it matters, and design-first critique always.
-          </p>
-
-          <div class="hero-ctas">
-            <a class="btn" href="articles.html">Read the latest</a>
-            <a class="btn ghost" href="articles.html?cat=gulf">Gulf editions</a>
-          </div>
-        </div>
-
-        <!-- FEATURED STORY (replaces the big watch) -->
-        <div class="featured" aria-label="Featured story">
-          <div class="featured-card" id="featured-card">
-            <div class="tag" id="featured-tag">FEATURE</div>
-            <div class="featured-meta">
-              <h2 id="featured-title">Loading…</h2>
-              <p id="featured-dek" class="dek"></p>
-              <div class="meta-row">
-                <span id="featured-date" class="meta"></span>
-                <span class="dot">•</span>
-                <span id="featured-read" class="meta"></span>
-              </div>
-            </div>
-            <a class="featured-link" id="featured-link" href="articles.html" aria-label="Open featured story"></a>
-          </div>
-        </div>
+      <div class="hero-inner">
+        <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
+        <h1 class="hero-title">Modern and vintage watches, explained without hype.</h1>
+        <p class="hero-sub">
+          BEZERU publishes twice a week. We connect today’s releases to vintage references — with a
+          Gulf/Middle East lens when it matters, and design-first critique always.
+        </p>
+        <a class="hero-cta" href="#latest">Read the latest Gulf editions</a>
       </div>
     </section>
 
-    <!-- LATEST GRID -->
-    <section class="section">
-      <div class="container section-head">
-        <h3>Latest stories</h3>
-        <div class="section-actions">
-          <a class="link" href="articles.html?cat=latest">View all</a>
-        </div>
+    <!-- LATEST STORIES -->
+    <section id="latest" class="section">
+      <div class="section-head">
+        <h2 class="section-title">Latest stories</h2>
+        <a class="section-link" href="#latest">View all</a>
       </div>
 
-      <div class="container">
-        <div class="cards" id="home-cards" aria-live="polite"></div>
+      <div id="cards" class="cards" aria-live="polite">
+        <!-- populated by app.js -->
       </div>
     </section>
 
-    <!-- NEWSLETTER -->
-    <section class="section soft">
-      <div class="container newsletter">
-        <div>
-          <h3>Get BEZERU twice a week</h3>
-          <p class="muted">No spam. Just the sharpest releases, Gulf editions, and design breakdowns.</p>
-        </div>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Nice. Later you can connect this to Mailchimp/Beehiiv.');">
-          <input type="email" placeholder="Email address" required />
-          <button class="btn" type="submit">Subscribe</button>
-        </form>
-      </div>
+    <!-- ABOUT -->
+    <section id="about" class="section about">
+      <h2 class="section-title">About BEZERU</h2>
+      <p class="about-text">
+        BEZERU is a watch publication focused on clarity: what changed, what didn’t, and what matters on the wrist.
+        We cover global releases — and we also spotlight Gulf and Middle East editions, Arabic dials, regional makers,
+        and the design language that travels between cultures.
+      </p>
     </section>
 
     <footer class="footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
-        </div>
-        <div class="footer-links">
-          <a href="articles.html">Articles</a>
-          <a href="about.html">About</a>
-          <a href="articles.html?cat=underdogs">Underdogs</a>
-          <a href="articles.html?cat=gulf">Gulf Editions</a>
-        </div>
+      <div class="footer-inner">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div class="footer-note">Modern + vintage, with a Gulf lens.</div>
       </div>
     </footer>
   </main>
 
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
