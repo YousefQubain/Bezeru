@@ -31,12 +31,12 @@
         <p class="kicker">Contemporary watch editorial</p>
         <h1>Modern and vintage watches,<br/>explained without hype.</h1>
         <p class="lede">
-          BEZERU publishes twice a week. We connect today’s releases to the vintage references that shaped them—focusing on design, ergonomics, and what matters on the wrist.
+          BEZERU publishes twice a week. We connect today's releases to the vintage references that shaped them—focusing on design, ergonomics, and what matters on the wrist.
         </p>
       </div>
 
       <div class="watch-card">
-        <!-- WATCH (aligned moonphase + small BEZERU above 6 marker) -->
+        <!-- WATCH: moonphase at 12 o'clock (centered), BEZERU small above 6 marker -->
         <svg class="watch" viewBox="0 0 520 520" role="img" aria-label="Dress watch with centered moonphase and blue bezel">
           <defs>
             <linearGradient id="strapGrad" x1="0" y1="0" x2="0" y2="1">
@@ -63,7 +63,7 @@
               <stop offset="1" stop-color="rgba(255,255,255,0)"/>
             </linearGradient>
 
-            <!-- moonphase window: small + centered -->
+            <!-- moonphase window: small curved window at 12 o'clock -->
             <clipPath id="moonWin">
               <path d="M200 190 A60 60 0 0 1 320 190 L320 220 L200 220 Z"></path>
             </clipPath>
@@ -76,11 +76,11 @@
           <!-- CASE -->
           <circle cx="260" cy="260" r="168" fill="url(#caseGrad)" stroke="rgba(0,0,0,.12)" stroke-width="2"/>
 
-          <!-- BEZEL -->
-          <circle cx="260" cy="260" r="152" fill="none" stroke="var(--blue)" stroke-width="18"/>
+          <!-- BEZEL (royal blue) -->
+          <circle class="bezel" cx="260" cy="260" r="152" fill="none" stroke="var(--blue)" stroke-width="18"/>
           <circle cx="260" cy="260" r="152" fill="none" stroke="rgba(0,0,0,.08)" stroke-width="1"/>
 
-          <!-- Bezel ticks -->
+          <!-- Bezel markers (12, 3, 6, 9) -->
           <g stroke="rgba(255,255,255,.95)" stroke-width="2.2" stroke-linecap="round">
             <g transform="translate(260 260)">
               <line x1="0" y1="-161" x2="0" y2="-146"/>
@@ -114,17 +114,22 @@
             </g>
           </g>
 
-          <!-- MOONPHASE (small + centered like your photo) -->
+          <!-- MOONPHASE (centered at 12 o'clock, like Seiko photo) -->
           <g>
+            <!-- outer arc -->
             <path d="M200 190 A60 60 0 0 1 320 190" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="3"/>
+            <!-- inner frame -->
             <path d="M206 190 A54 54 0 0 1 314 190" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
 
             <g clip-path="url(#moonWin)">
               <rect x="200" y="170" width="120" height="60" fill="#0b1633"/>
+              <!-- stars -->
               <circle cx="236" cy="200" r="2" fill="rgba(255,255,255,.85)"/>
               <circle cx="280" cy="193" r="1.6" fill="rgba(255,255,255,.75)"/>
               <circle cx="302" cy="205" r="1.8" fill="rgba(255,255,255,.65)"/>
+              <!-- moon -->
               <circle cx="300" cy="206" r="15" fill="#f4f1dc"/>
+              <!-- shadow (moves to create phases) -->
               <circle id="moonShadow" cx="312" cy="206" r="15" fill="#0b1633" opacity="0.95"/>
             </g>
           </g>
@@ -142,14 +147,14 @@
           <rect x="430" y="246" width="22" height="28" rx="7" fill="rgba(0,0,0,.08)" stroke="rgba(0,0,0,.18)"/>
           <rect x="452" y="251" width="6" height="18" rx="3" fill="rgba(0,0,0,.10)"/>
 
-          <!-- BRAND: small, just above 6 marker -->
+          <!-- BRAND: small, just above 6 o'clock marker -->
           <text x="260" y="346" text-anchor="middle"
             font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
             font-size="11" font-weight="800"
             letter-spacing="4"
             fill="rgba(0,0,0,.62)">BEZERU</text>
 
-          <!-- GLASS -->
+          <!-- GLASS highlight -->
           <ellipse cx="235" cy="220" rx="132" ry="110" fill="url(#glassGrad)" opacity="0.55"/>
         </svg>
 
@@ -173,7 +178,7 @@
   </main>
 
   <script>
-    // footer year
+    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // ---------- POSTS ----------
@@ -230,7 +235,7 @@
     updateTimezones();
     setInterval(updateTimezones, 15000);
 
-    // ---------- WATCH ANIMATION ----------
+    // ---------- WATCH ANIMATION (real-time hands + moonphase) ----------
     function updateWatch(){
       const now = new Date();
       const sec = now.getSeconds() + now.getMilliseconds()/1000;
