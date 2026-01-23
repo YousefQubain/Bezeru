@@ -1,20 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — BEZERU</title>
-  <meta name="description" content="BEZERU is a watch editorial: modern + vintage, with Gulf/Middle East influence, and design-first critique without hype." />
+
+  <!-- Use your existing site styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container header-top">
-      <a class="brand" href="index.html" aria-label="BEZERU home">
-        <span class="brand-mark">BEZERU</span>
-        <span class="brand-kana">ベゼル</span>
+  <!-- Header (keeps your site consistent) -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+
+      <!-- Left: Logo -->
+      <a class="brand" href="index.html" aria-label="BEZERU Home">
+        <div class="brand-name">BEZERU</div>
+        <div class="brand-sub">ベゼル</div>
       </a>
 
-      <div class="worldtime" aria-label="World time">
-        <div class="tz-card" data-tz
+      <!-- Right: (Optional) keep same nav style -->
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <div class="nav-dropdown">
+          <button class="nav-link nav-btn" type="button">
+            Articles <span class="caret">▼</span>
+          </button>
+          <div class="dropdown">
+            <a class="dropdown-link" href="articles.html?cat=latest">Latest</a>
+            <a class="dropdown-link" href="articles.html?cat=gulf">Gulf Editions</a>
+            <a class="dropdown-link" href="articles.html?cat=vintage">Vintage</a>
+            <a class="dropdown-link" href="articles.html?cat=design">Design Breakdowns</a>
+            <a class="dropdown-link" href="articles.html?cat=guides">Buying Guides</a>
+            <a class="dropdown-link" href="articles.html?cat=underdogs">Underdogs</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown">
+          <button class="nav-link nav-btn" type="button">
+            Watch Types <span class="caret">▼</span>
+          </button>
+          <div class="dropdown">
+            <a class="dropdown-link" href="articles.html?cat=dress">Dress</a>
+            <a class="dropdown-link" href="articles.html?cat=diver">Diver</a>
+            <a class="dropdown-link" href="articles.html?cat=chronograph">Chronograph</a>
+            <a class="dropdown-link" href="articles.html?cat=gmt">GMT / Travel</a>
+            <a class="dropdown-link" href="articles.html?cat=complications">Complications</a>
+          </div>
+        </div>
+
+        <a class="nav-link is-active" href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <main class="wrap about-page">
+    <div class="about-card">
+      <div class="about-grid">
+        <!-- Photo -->
+        <div class="about-photo">
+          <!-- Put your photo file in the repo root and name it: me.jpg -->
+          <!-- If you use a different name, change it here -->
+          <img src="me.jpg" alt="Portrait of Yousef, founder of BEZERU" />
+        </div>
+
+        <!-- Text -->
+        <div class="about-copy">
+          <div class="kicker">ABOUT</div>
+          <h1>Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
+
+          <p>
+            I started BEZERU because I’ve always loved watches for what they really are:
+            design in motion. A dial can carry history, culture, and engineering in a space
+            smaller than your palm — and the best pieces reward you the more you look.
+          </p>
+
+          <p>
+            I also wanted a place that treats Gulf and Middle Eastern watch culture seriously.
+            From Arabic dials and regional commissions to the collectors shaping modern taste,
+            the influence is real — and often under-covered. BEZERU connects modern releases to
+            their vintage roots, highlights underdogs, and keeps the focus on what matters on the wrist.
+          </p>
+
+          <div class="about-links">
+            <!-- Optional: replace with your links or delete these lines -->
+            <a class="btn" href="articles.html?cat=gulf">Read Gulf Editions</a>
+            <a class="btn btn-ghost" href="mailto:hello@bezeru.com">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-footer">
+        © BEZERU — Modern + vintage, with a Gulf lens.
+      </div>
+    </div>
+  </main>
+
+  <!-- Small script for dropdown hover/focus (works even if your main JS changes) -->
+  <script>
+    // Allow dropdowns to open on click for touch devices
+    document.querySelectorAll(".nav-dropdown .nav-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const dd = btn.parentElement;
+        dd.classList.toggle("open");
+      });
+    });
+
+    // Close dropdown if clicking outside
+    document.addEventListener("click", (e) => {
+      document.querySelectorAll(".nav-dropdown.open").forEach(dd => {
+        if (!dd.contains(e.target)) dd.classList.remove("open");
+      });
+    });
+  </script>
+</body>
+</html>
