@@ -29,15 +29,21 @@ body{
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--max);margin:0 auto;padding:20px 16px 70px}
 
+/* Mobile-first improvements */
+@media (max-width:768px){
+  .wrap{padding:16px 12px 50px}
+}
+
 /* Header */
 .topbar{
   position:sticky; top:0; z-index:50;
   display:flex; align-items:center; justify-content:space-between;
-  gap:18px;
-  padding:16px;
+  gap:12px;
+  padding:12px 16px;
   background:rgba(255,255,255,.78);
   backdrop-filter: blur(12px);
   border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
 }
 
 .brand{
@@ -53,6 +59,11 @@ a{color:inherit;text-decoration:none}
   color:var(--muted);
   font-weight:800;
   margin-left:10px;
+}
+
+@media (max-width:768px){
+  .brand{font-size:18px;letter-spacing:.18em}
+  .brand small{font-size:10px;margin-left:6px}
 }
 
 /* Timezones */
@@ -88,6 +99,10 @@ a{color:inherit;text-decoration:none}
   color:rgba(11,18,32,.85);
 }
 
+@media (max-width:1100px){ 
+  .tzbar{display:none;} 
+}
+
 /* Nav */
 .nav{display:flex; gap:14px; align-items:center; font-size:13px; white-space:nowrap}
 .nav a{
@@ -95,6 +110,9 @@ a{color:inherit;text-decoration:none}
   padding:8px 12px;
   border-radius:999px;
   border:1px solid transparent;
+  min-height:36px;
+  display:flex;
+  align-items:center;
 }
 .nav a:hover{
   color:var(--text);
@@ -105,6 +123,11 @@ a{color:inherit;text-decoration:none}
   color:var(--text);
   border-color:rgba(30,79,255,.22);
   background:rgba(30,79,255,.08);
+}
+
+@media (max-width:768px){
+  .nav{gap:8px;font-size:12px}
+  .nav a{padding:8px 10px;min-height:40px}
 }
 
 /* Hero */
@@ -136,6 +159,13 @@ a{color:inherit;text-decoration:none}
   font-size:16px;
 }
 
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;gap:20px;padding:24px 0 16px}
+  .hero h1{font-size:clamp(28px, 6vw, 42px);line-height:1.1}
+  .lede{font-size:15px;max-width:100%}
+  .kicker{font-size:11px}
+}
+
 /* Watch card */
 .watch-card{
   background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
@@ -157,6 +187,12 @@ a{color:inherit;text-decoration:none}
   font-size:13px;
 }
 
+@media (max-width:768px){
+  .watch-card{padding:14px}
+  .watch{width:100%;max-width:320px}
+  .watch-caption{font-size:12px;margin-top:8px}
+}
+
 /* Latest */
 .section-head{
   display:flex;
@@ -172,6 +208,12 @@ a{color:inherit;text-decoration:none}
   text-transform:uppercase
 }
 .section-head p{margin:0; color:var(--muted); font-size:13px}
+
+@media (max-width:768px){
+  .section-head{flex-direction:column;align-items:flex-start;gap:6px;padding:14px 0 6px}
+  .section-head h2{font-size:13px}
+  .section-head p{font-size:12px}
+}
 
 /* Grid */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-top:10px}
@@ -204,6 +246,17 @@ time{color:rgba(11,18,32,.55);font-size:12px}
 .card h3{margin:0 0 8px;font-size:18px;line-height:1.25}
 .excerpt{margin:0;color:rgba(11,18,32,.68);font-size:14px}
 
+@media (max-width:768px){
+  .grid{grid-template-columns:1fr;gap:12px;padding-top:8px}
+  .card{border-radius:14px}
+  .post-link{padding:14px}
+  .post-meta{flex-wrap:wrap;gap:8px;margin-bottom:8px}
+  .card h3{font-size:16px;line-height:1.3}
+  .excerpt{font-size:13px}
+  .pill{font-size:10px;padding:5px 8px}
+  time{font-size:11px}
+}
+
 /* Footer */
 .footer{
   margin-top:34px;
@@ -215,6 +268,10 @@ time{color:rgba(11,18,32,.55);font-size:12px}
   flex-wrap:wrap;
   color:rgba(11,18,32,.60);
   font-size:13px;
+}
+
+@media (max-width:768px){
+  .footer{flex-direction:column;align-items:flex-start;gap:8px;margin-top:24px;padding-top:14px;font-size:12px}
 }
 
 /* Watch details */
@@ -233,9 +290,33 @@ time{color:rgba(11,18,32,.55);font-size:12px}
 .hand.minute{ stroke-width: 4; transform: rotate(var(--minDeg)); }
 .hand.second{ stroke-width: 2; stroke: rgba(30,79,255,.85); transform: rotate(var(--secDeg)); }
 
-/* Responsive */
-@media (max-width:1100px){ .tzbar{display:none;} }
+/* Responsive - Tablet */
 @media (max-width:980px){
-  .hero{grid-template-columns:1fr}
-  .grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Responsive - Mobile */
+@media (max-width:768px){
+  body{font-size:15px}
+  .topbar{padding:10px 12px;gap:8px}
+  
+  /* Improve touch targets */
+  .nav a, .card, .post-link{
+    -webkit-tap-highlight-color:rgba(30,79,255,.1);
+  }
+  
+  /* Better spacing */
+  .hero{padding:20px 0 14px}
+  .section-head{padding:12px 0 6px}
+}
+
+/* Small mobile */
+@media (max-width:480px){
+  .wrap{padding:12px 10px 40px}
+  .topbar{padding:10px}
+  .brand{font-size:16px;letter-spacing:.15em}
+  .hero h1{font-size:24px}
+  .lede{font-size:14px}
+  .watch-card{padding:12px}
+  .watch{max-width:280px}
 }
