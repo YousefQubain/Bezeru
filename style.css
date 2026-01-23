@@ -5,58 +5,54 @@
   --muted: rgba(11,18,32,.68);
   --line: rgba(11,18,32,.10);
 
-  /* darker, elegant blue */
-  --blue: #163bff;         /* main */
-  --blueDeep: #0d2dd6;     /* accents */
-  --blueSoft: rgba(22,59,255,.12);
+  /* elegant darker blue */
+  --blue: #1233ff;
+  --blueDeep: #0b26c7;
 
   --shadow: 0 18px 60px rgba(11,18,32,.12);
-  --radius: 22px;
-  --radiusSm: 14px;
-
   --max: 1180px;
 }
 
-/* Base */
 *{ box-sizing: border-box; }
-html, body{ height: 100%; }
+html, body{ height:100%; }
 body{
-  margin: 0;
+  margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color: var(--ink);
   background:
-    radial-gradient(1200px 700px at 65% 15%, rgba(22,59,255,.13), transparent 55%),
-    radial-gradient(900px 600px at 20% 60%, rgba(22,59,255,.08), transparent 55%),
+    radial-gradient(1200px 700px at 65% 15%, rgba(18,51,255,.12), transparent 55%),
+    radial-gradient(900px 600px at 20% 60%, rgba(18,51,255,.08), transparent 55%),
     var(--bg);
 }
 
-a{ color: inherit; text-decoration: none; }
-a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+a{ color: inherit; text-decoration:none; }
+a:focus{ outline:2px solid var(--blue); outline-offset:3px; border-radius:10px; }
 
-/* Header */
+/* ================= HEADER ================= */
 .site-header{
   position: sticky;
   top: 0;
-  z-index: 1000; /* important: dropdowns stay on top */
-  background: rgba(255,255,255,.84);
+  z-index: 1000;
+  background: rgba(255,255,255,.86);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
 
+/* 3-column header: brand | clocks | spacer (keeps clocks centered) */
 .header-inner{
   max-width: var(--max);
   margin: 0 auto;
   padding: 18px 22px 8px;
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px 1fr 260px;
   align-items: start;
   gap: 12px;
 }
 
 /* Brand */
-.brand{ display: flex; align-items: center; }
+.brand{ display:flex; align-items:center; }
 .brand-link{
-  display: inline-flex;
+  display:inline-flex;
   align-items: baseline;
   gap: 18px;
 }
@@ -68,20 +64,21 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
 .brand-jp{
   font-size: 15px;
   letter-spacing: .08em;
-  color: var(--muted);
+  color: rgba(11,18,32,.55);
   transform: translateY(2px);
 }
 
-/* World clocks (RIGHT) */
+/* Center group of clocks */
 .world-clocks{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: end;
-  gap: 16px;
+  justify-self: center;
+  display: flex;
+  gap: 34px;
+  align-items: flex-start;
 }
 
+/* each timezone */
 .tz-card{
-  width: 150px;
+  width: 120px;
   text-align: center;
 }
 .tz-label{
@@ -89,133 +86,115 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
   letter-spacing: .22em;
   color: rgba(11,18,32,.55);
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .tz-time{
   margin-top: 8px;
-  font-weight: 700;
+  font-weight: 750;
   font-variant-numeric: tabular-nums;
-  color: rgba(11,18,32,.80);
+  color: rgba(11,18,32,.78);
 }
 
-/* mini analog watch */
+/* Smaller mini analog watch */
 .mini-watch{
-  width: 58px;
-  height: 58px;
+  width: 46px;
+  height: 46px;
   margin: 0 auto;
   border-radius: 50%;
   position: relative;
-  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.95), rgba(255,255,255,.78));
-  box-shadow: 0 10px 22px rgba(11,18,32,.10);
-  border: 5px solid rgba(22,59,255,.90);
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.96), rgba(255,255,255,.82));
+  box-shadow: 0 10px 20px rgba(11,18,32,.10);
+  border: 4px solid rgba(18,51,255,.92);
 }
 .mw-dial{
-  position: absolute;
-  inset: 9px;
-  border-radius: 50%;
+  position:absolute;
+  inset: 7px;
+  border-radius:50%;
   border: 2px solid rgba(11,18,32,.12);
-  background:
-    radial-gradient(circle at 35% 25%, rgba(255,255,255,.96), rgba(245,247,252,.92));
+  background: radial-gradient(circle at 35% 25%, rgba(255,255,255,.98), rgba(245,247,252,.94));
 }
 .mw-hand{
-  position: absolute;
+  position:absolute;
   left: 50%;
   top: 50%;
   transform-origin: 50% 100%;
   transform: translate(-50%, -100%) rotate(0deg);
   border-radius: 10px;
 }
-.mw-hour{
-  width: 5px;
-  height: 16px;
-  background: rgba(11,18,32,.78);
-}
-.mw-minute{
-  width: 4px;
-  height: 22px;
-  background: rgba(11,18,32,.74);
-}
+.mw-hour{ width:4px; height: 13px; background: rgba(11,18,32,.78); }
+.mw-minute{ width:3px; height: 18px; background: rgba(11,18,32,.72); }
 .mw-second{
-  width: 2px;
-  height: 24px;
+  width:2px; height: 19px;
   background: var(--blueDeep);
-  box-shadow: 0 0 0 2px rgba(22,59,255,.10);
 }
 .mw-center{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  transform: translate(-50%, -50%);
+  position:absolute;
+  left:50%; top:50%;
+  width:7px; height:7px;
+  transform: translate(-50%,-50%);
   border-radius: 50%;
-  background: rgba(11,18,32,.80);
+  background: rgba(11,18,32,.82);
   box-shadow: 0 0 0 3px rgba(255,255,255,.95);
 }
 
-/* Nav aligned under clocks */
+/* NAV */
 .main-nav{
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 22px 14px;
 }
 .nav-list{
-  list-style: none;
-  margin: 0;
+  list-style:none;
+  margin:0;
   padding: 12px 0 0;
-  display: flex;
-  justify-content: center; /* aligns under timezone area visually */
+  display:flex;
+  justify-content: center;
   gap: 46px;
-  align-items: center;
+  align-items:center;
 }
-.nav-item{ position: relative; }
+.nav-item{ position:relative; }
 .nav-link{
   font-weight: 650;
   font-size: 20px;
   color: rgba(11,18,32,.85);
   padding: 10px 6px;
-  display: inline-flex;
-  align-items: center;
+  display:inline-flex;
+  align-items:center;
   gap: 10px;
 }
-.nav-link.is-active{
-  position: relative;
-}
+.nav-link.is-active{ position:relative; }
 .nav-link.is-active::after{
-  content: "";
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  bottom: 2px;
-  height: 3px;
-  border-radius: 999px;
+  content:"";
+  position:absolute;
+  left:6px; right:6px; bottom:2px;
+  height:3px; border-radius: 999px;
   background: var(--blue);
 }
-.chev{ font-size: 16px; color: rgba(11,18,32,.55); }
+.chev{ font-size:16px; color: rgba(11,18,32,.55); }
 
-/* Dropdown */
+/* Dropdown (must stay on top) */
 .has-dropdown:hover .dropdown,
 .has-dropdown:focus-within .dropdown{
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  opacity:1;
+  transform: translate(-50%, 0);
+  pointer-events:auto;
 }
 .dropdown{
-  position: absolute;
+  position:absolute;
   top: 44px;
   left: 50%;
-  transform: translate(-50%, 8px);
+  transform: translate(-50%, 10px);
   min-width: 220px;
-  background: rgba(255,255,255,.96);
+  background: rgba(255,255,255,.97);
   border: 1px solid rgba(11,18,32,.10);
   border-radius: 16px;
   box-shadow: 0 18px 50px rgba(11,18,32,.14);
   padding: 10px;
-  display: grid;
+  display:grid;
   gap: 6px;
-  z-index: 2000; /* must be above page content */
-  opacity: 0;
-  pointer-events: none;
+  z-index: 2000;
+  opacity:0;
+  pointer-events:none;
   transition: .18s ease;
 }
 .dd-link{
@@ -225,21 +204,16 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
   color: rgba(11,18,32,.82);
 }
 .dd-link:hover{
-  background: rgba(22,59,255,.10);
-  color: rgba(11,18,32,.92);
+  background: rgba(18,51,255,.10);
 }
 
-/* Page */
-.page{
-  width: 100%;
-}
+/* ================= PAGE ================= */
+.page{ width:100%; }
+
 .hero{
   max-width: var(--max);
   margin: 0 auto;
   padding: 56px 22px 24px;
-}
-.hero-inner{
-  padding: 28px 0;
 }
 .kicker{
   font-size: 13px;
@@ -262,10 +236,10 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
   line-height: 1.55;
 }
 .hero-cta{
-  display: inline-block;
+  display:inline-block;
   margin-top: 6px;
   color: var(--blueDeep);
-  font-weight: 700;
+  font-weight: 750;
   text-decoration: underline;
   text-underline-offset: 5px;
 }
@@ -277,7 +251,7 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
   padding: 30px 22px 64px;
 }
 .section-head{
-  display: flex;
+  display:flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 14px;
@@ -286,22 +260,24 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
 .section-title{
   margin: 0;
   font-size: 22px;
-  letter-spacing: -.01em;
 }
 .section-link{
   color: rgba(11,18,32,.70);
   font-weight: 650;
 }
-.section-link:hover{ color: rgba(11,18,32,.95); text-decoration: underline; text-underline-offset: 4px; }
+.section-link:hover{ text-decoration: underline; text-underline-offset: 4px; }
 
 /* Cards */
 .cards{
-  display: grid;
+  display:grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
 }
+
+/* card with category badge TOP RIGHT */
 .card{
-  background: rgba(255,255,255,.88);
+  position: relative;
+  background: rgba(255,255,255,.90);
   border: 1px solid rgba(11,18,32,.08);
   border-radius: 26px;
   box-shadow: 0 22px 70px rgba(11,18,32,.10);
@@ -313,18 +289,26 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
   transform: translateY(-2px);
   box-shadow: 0 26px 80px rgba(11,18,32,.14);
 }
+
+/* This is the small category box (TOP RIGHT) */
 .tag{
-  font-size: 12px;
-  letter-spacing: .26em;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(11,18,32,.10);
+  background: rgba(255,255,255,.92);
+  font-size: 11px;
+  letter-spacing: .22em;
   font-weight: 900;
   color: var(--blueDeep);
-  margin-bottom: 18px;
 }
+
 .card-title{
-  margin: 0 0 14px;
+  margin: 30px 0 14px; /* push down because tag is top-right */
   font-size: 24px;
   line-height: 1.18;
-  letter-spacing: -.01em;
 }
 .card-excerpt{
   margin: 0;
@@ -334,9 +318,6 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
 }
 
 /* About */
-.about{
-  padding-top: 0;
-}
 .about-text{
   margin: 12px 0 0;
   max-width: 80ch;
@@ -354,7 +335,7 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
   max-width: var(--max);
   margin: 0 auto;
   padding: 18px 22px;
-  display: flex;
+  display:flex;
   justify-content: space-between;
   gap: 14px;
   color: rgba(11,18,32,.68);
@@ -364,17 +345,15 @@ a:focus{ outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 8px
 @media (max-width: 980px){
   .header-inner{
     grid-template-columns: 1fr;
-    gap: 14px;
   }
   .world-clocks{
-    justify-items: start;
-    grid-template-columns: repeat(2, 1fr);
+    justify-self: start;
+    flex-wrap: wrap;
+    gap: 18px;
   }
   .nav-list{
-    justify-content: flex-start;
     gap: 26px;
     flex-wrap: wrap;
   }
   .cards{ grid-template-columns: 1fr; }
-  .tz-card{ width: auto; text-align: left; }
 }
