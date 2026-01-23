@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Article — BEZERU</title>
+  <meta name="description" content="BEZERU article." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-top">
+      <a class="brand" href="index.html" aria-label="BEZERU home">
+        <span class="brand-mark">BEZERU</span>
+        <span class="brand-kana">ベゼル</span>
+      </a>
+
+      <div class="worldtime" aria-label="World time">
+        <div class="tz-card" data-tz="America/New_York">
+          <div class="tz-label">NEW YORK</div>
+          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+        <div class="tz-card" data-tz="Europe/London">
+          <div class="tz-label">LONDON</div>
+          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+        <div class="tz-card" data-tz="Europe/Zurich">
+          <div class="tz-label">GENEVA</div>
+          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+        <div class="tz-card" data-tz="Asia/Tokyo">
+          <div class="tz-label">TOKYO</div>
+          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container header-nav">
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+
+        <div class="nav-dropdown">
+          <a class="nav-link" href="articles.html">Articles <span class="chev">▾</span></a>
+          <div class="dropdown-panel" role="menu">
+            <a href="articles.html?cat=latest" role="menuitem">Latest</a>
+            <a href="articles.html?cat=gulf" role="menuitem">Gulf Editions</a>
+            <a href="articles.html?cat=vintage" role="menuitem">Vintage</a>
+            <a href="articles.html?cat=design" role="menuitem">Design Breakdowns</a>
+            <a href="articles.html?cat=guide" role="menuitem">Buying Guides</a>
+            <a href="articles.html?cat=underdogs" role="menuitem">Underdogs</a>
+          </div>
+        </div>
+
+        <div class="nav-dropdown">
+          <a class="nav-link" href="articles.html?view=types">Watch Types <span class="chev">▾</span></a>
+          <div class="dropdown-panel" role="menu">
+            <a href="articles.html?type=dress" role="menuitem">Dress</a>
+            <a href="articles.html?type=diver" role="menuitem">Diver</a>
+            <a href="articles.html?type=chrono" role="menuitem">Chronograph</a>
+            <a href="articles.html?type=gmt" role="menuitem">GMT / Travel</a>
+            <a href="articles.html?type=complications" role="menuitem">Complications</a>
+          </div>
+        </div>
+
+        <a class="nav-link" href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="article">
+      <div class="container article-wrap">
+        <div class="article-top">
+          <a class="back" href="articles.html">← Back to Articles</a>
+          <div class="tag" id="a-tag">ARTICLE</div>
+          <h1 id="a-title">Loading…</h1>
+          <p class="dek" id="a-dek"></p>
+
+          <div class="meta-row">
+            <span class="meta" id="a-date"></span>
+            <span class="dot">•</span>
+            <span class="meta" id="a-read"></span>
+            <span class="dot">•</span>
+            <span class="meta" id="a-by"></span>
+          </div>
+        </div>
+
+        <div class="article-body" id="a-body"></div>
+
+        <div class="article-bottom">
+          <div class="divider"></div>
+          <h3>More from BEZERU</h3>
+          <div class="cards" id="more-cards"></div>
+        </div>
+      </div>
+    </article>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
+        </div>
+        <div class="footer-links">
+          <a href="articles.html">Articles</a>
+          <a href="about.html">About</a>
+          <a href="articles.html?cat=gulf">Gulf Editions</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
