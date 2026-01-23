@@ -2,67 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — About</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — BEZERU</title>
+  <meta name="description" content="BEZERU is a watch editorial: modern + vintage, with Gulf/Middle East influence, and design-first critique without hype." />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .aboutwrap{max-width:860px;margin:0 auto;padding:26px 16px 70px}
-    .panel{margin-top:18px;background:rgba(255,255,255,.92);border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px}
-    .aboutwrap h1{margin:0 0 10px;font-size:clamp(28px,4vw,44px);line-height:1.05}
-    .aboutwrap p{color:rgba(11,18,32,.78);font-size:16px;line-height:1.8}
-  </style>
 </head>
 
 <body>
-  <div class="worldtime">
-    <span><strong>NEW YORK</strong> <em id="tz-ny">--:--</em></span>
-    <span><strong>LONDON</strong> <em id="tz-lon">--:--</em></span>
-    <span><strong>GENEVA</strong> <em id="tz-gva">--:--</em></span>
-    <span><strong>TOKYO</strong> <em id="tz-tyo">--:--</em></span>
-  </div>
+  <header class="site-header">
+    <div class="container header-top">
+      <a class="brand" href="index.html" aria-label="BEZERU home">
+        <span class="brand-mark">BEZERU</span>
+        <span class="brand-kana">ベゼル</span>
+      </a>
 
-  <header class="mainbar">
-    <a class="logo" href="index.html">BEZERU <small>ベゼル</small></a>
-    <nav class="mainnav">
-      <a href="index.html">Home</a>
-      <a href="index.html#latest">Articles</a>
-      <a href="index.html#latest">Brands</a>
-      <a href="index.html#latest">Watch Types</a>
-      <a class="active" href="about.html">About</a>
-    </nav>
-  </header>
-
-  <main class="aboutwrap">
-    <h1>About BEZERU</h1>
-    <p>
-      BEZERU is a modern + vintage watch publication focused on what actually changes on-wrist:
-      proportion, ergonomics, design decisions, and movement choices. We connect new releases to
-      the vintage references that shaped them—without hype.
-    </p>
-
-    <div class="panel">
-      <h2 style="margin:0 0 8px;font-size:14px;letter-spacing:.18em;text-transform:uppercase">Our niche</h2>
-      <p style="margin:0">
-        We explain watches through design. If it wears better, reads cleaner, or is engineered more honestly,
-        we’ll tell you. If it’s marketing noise, we’ll tell you that too.
-      </p>
-    </div>
-  </main>
-
-  <script>
-    function setTZ(id, tz) {
-      const el = document.getElementById(id);
-      const fmt = new Intl.DateTimeFormat([], { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false });
-      el.textContent = fmt.format(new Date());
-    }
-    function updateTimezones(){
-      setTZ("tz-ny", "America/New_York");
-      setTZ("tz-lon", "Europe/London");
-      setTZ("tz-gva", "Europe/Zurich");
-      setTZ("tz-tyo", "Asia/Tokyo");
-    }
-    updateTimezones();
-    setInterval(updateTimezones, 15000);
-  </script>
-</body>
-</html>
+      <div class="worldtime" aria-label="World time">
+        <div class="tz-card" data-tz
