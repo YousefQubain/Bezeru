@@ -413,3 +413,48 @@ time{color:rgba(11,18,32,.55);font-size:12px}
   .watch-card{padding:12px}
   .watch{max-width:280px}
 }
+/* --- place this near the end of style.css (after existing header / nav styles) --- */
+
+/* Desktop: put the timezone bar on its own row and the nav under it,
+   keeping the brand in the first column. Adjust breakpoint as needed. */
+@media (min-width: 1101px) {
+  .topbar {
+    /* allow wrapping and vertical stacking controlled by order */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand {
+    order: 1;
+    flex: 0 0 auto; /* keep brand at natural width on the left */
+    margin-right: 16px;
+  }
+
+  .tzbar {
+    order: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 6px 0; /* spacing between rows */
+    /* keep the visual appearance from the original .tzbar */
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: center;
+    padding-top: 4px;
+    /* if you want the nav visually closer/further from tzbar, adjust margin/padding */
+  }
+
+  /* optional: make each nav item a bit more compact when centered on its row */
+  .nav a {
+    padding: 8px 10px;
+  }
+}
