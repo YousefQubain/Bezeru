@@ -28,13 +28,28 @@ body{
   border-bottom:1px solid var(--line);
 }
 
-/* BRAND */
-.header-top{padding:22px 0 10px}
-.brand-title{font-weight:900;letter-spacing:.22em;font-size:34px}
-.brand-sub{font-size:14px;color:var(--muted);letter-spacing:.18em}
+/* BRAND (TIGHTER TOP SPACE) */
+.header-top{
+  padding:10px 0 4px;   /* was 22px 0 10px */
+}
+.brand-title{
+  font-weight:900;
+  letter-spacing:.22em;
+  font-size:34px;
+  line-height:1;        /* reduce vertical height */
+  margin:0;
+}
+.brand-sub{
+  font-size:14px;
+  color:var(--muted);
+  letter-spacing:.18em;
+  margin-top:6px;       /* keep small breathing room */
+}
 
-/* WORLD WATCHES */
-.worldwatch-row{padding:6px 0 6px}
+/* WORLD WATCHES (TIGHTER) */
+.worldwatch-row{
+  padding:2px 0 4px;    /* was 6px 0 6px */
+}
 .worldwatches{
   display:flex;
   justify-content:center;
@@ -46,37 +61,53 @@ body{
 .time{margin-top:6px;font-weight:800}
 
 .small-watch{
-  margin:10px auto 0;
+  margin:8px auto 0;    /* was 10px */
   width:46px;height:46px;border-radius:999px;
   position:relative;background:#fff;
   box-shadow:0 10px 22px rgba(11,18,32,.12);
   border:4px solid var(--blue);
 }
 
-.hand{position:absolute;left:50%;top:50%;transform-origin:50% 100%;
-  transform:translate(-50%,-100%) rotate(0deg);background:rgba(11,18,32,.85);border-radius:999px}
+.hand{
+  position:absolute;left:50%;top:50%;
+  transform-origin:50% 100%;
+  transform:translate(-50%,-100%) rotate(0deg);
+  background:rgba(11,18,32,.85);
+  border-radius:999px
+}
 .hand.hour{width:4px;height:14px}
 .hand.min{width:3px;height:18px;background:rgba(11,18,32,.7)}
 .hand.sec{width:2px;height:20px;background:var(--blue2)}
 
-.pivot{position:absolute;left:50%;top:50%;width:6px;height:6px;
-  transform:translate(-50%,-50%);background:#111;border-radius:999px}
+.pivot{
+  position:absolute;left:50%;top:50%;
+  width:6px;height:6px;
+  transform:translate(-50%,-50%);
+  background:#111;border-radius:999px
+}
 
 /* NAV */
 .site-nav{border-top:1px solid rgba(11,18,32,.08)}
 .nav-inner{
   display:flex;justify-content:center;gap:44px;
-  padding:14px 0;position:relative;z-index:50
+  padding:10px 0;       /* was 14px */
+  position:relative;z-index:50
 }
 
 .nav-link{
-  font-size:18px;font-weight:800;color:#000;
-  position:relative;background:none;border:0;cursor:pointer
+  font-size:18px;
+  font-weight:800;
+  color:#000;
+  position:relative;
+  background:none;border:0;
+  cursor:pointer
 }
 
 .nav-link.active::after{
-  content:"";position:absolute;left:0;right:0;bottom:-8px;
-  height:3px;background:var(--blue);border-radius:999px
+  content:"";
+  position:absolute;left:0;right:0;bottom:-8px;
+  height:3px;background:var(--blue);
+  border-radius:999px
 }
 
 .nav-dd{position:relative}
@@ -87,19 +118,29 @@ body{
   background:rgba(255,255,255,.95);
   border:1px solid rgba(11,18,32,.12);
   border-radius:14px;min-width:240px;
-  box-shadow:var(--shadow);padding:10px;display:none;z-index:999
+  box-shadow:var(--shadow);
+  padding:10px;
+  display:none;
+  z-index:999
 }
 
 .dd-item{
-  display:block;padding:10px 12px;border-radius:10px;
-  color:#000;font-weight:700
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  color:#000;
+  font-weight:700;
+  text-decoration:none;
 }
 
 .dd-item:hover{background:rgba(22,60,255,.1)}
 .nav-dd:hover .dd-menu{display:block}
 
 /* HERO */
-.hero{padding:50px 0 30px;border-bottom:1px solid var(--line)}
+.hero{
+  padding:42px 0 30px; /* was 50px */
+  border-bottom:1px solid var(--line)
+}
 .eyebrow{letter-spacing:.28em;font-size:12px;font-weight:800;color:var(--muted)}
 .hero-title{margin:18px 0 10px;font-size:clamp(40px,5vw,76px);line-height:1.02}
 .hero-sub{max-width:70ch;color:rgba(11,18,32,.72);font-size:18px}
@@ -110,13 +151,20 @@ body{
 .latest-head{display:flex;justify-content:space-between;align-items:center}
 .section-title{font-size:22px}
 .cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:18px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  margin-top:18px
 }
 
 .card{
-  background:#fff;border:1px solid rgba(11,18,32,.08);
-  border-radius:22px;box-shadow:0 16px 38px rgba(11,18,32,.1);
-  padding:22px;position:relative;min-height:220px
+  background:#fff;
+  border:1px solid rgba(11,18,32,.08);
+  border-radius:22px;
+  box-shadow:0 16px 38px rgba(11,18,32,.1);
+  padding:22px;
+  position:relative;
+  min-height:220px
 }
 
 .cat-pill{
