@@ -1,42 +1,32 @@
-// ===== Time zones (live) =====
-const fmt = (tz) => new Intl.DateTimeFormat('en-GB', {
-  timeZone: tz,
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: false
-}).format(new Date());
-
-function tickTZ(){
-  document.getElementById('tz-ny').textContent  = fmt('America/New_York');
-  document.getElementById('tz-lon').textContent = fmt('Europe/London');
-  document.getElementById('tz-gen').textContent = fmt('Europe/Zurich'); // Geneva uses Switzerland TZ
-  document.getElementById('tz-tok').textContent = fmt('Asia/Tokyo');
+function timeTZ(tz){
+  return new Intl.DateTimeFormat('en-GB',{
+    timeZone:tz,
+    hour:'2-digit',
+    minute:'2-digit',
+    hour12:false
+  }).format(new Date());
 }
-tickTZ();
-setInterval(tickTZ, 10000);
 
-// ===== Watch hands (smooth) =====
-function tickHands(){
-  const now = new Date();
-  const ms = now.getMilliseconds();
-  const s = now.getSeconds() + ms/1000;
-  const m = now.getMinutes() + s/60;
-  const h = (now.getHours()%12) + m/60;
-
-  const secDeg = s * 6;
-  const minDeg = m * 6;
-  const hourDeg = h * 30;
-
-  const sec = document.getElementById('secHand');
-  const min = document.getElementById('minHand');
-  const hr  = document.getElementById('hourHand');
-
-  if (sec && min && hr){
-    sec.setAttribute('transform', `rotate(${secDeg})`);
-    min.setAttribute('transform', `rotate(${minDeg})`);
-    hr.setAttribute('transform',  `rotate(${hourDeg})`);
-  }
-
-  requestAnimationFrame(tickHands);
+function updateTimes(){
+  document.getElementById("tz-ny").textContent = timeTZ("America/New_York");
+  document.getElementById("tz-lon").textContent = timeTZ("Europe/London");
+  document.getElementById("tz-gen").textContent = timeTZ("Europe/Zurich");
+  document.getElementById("tz-tok").textContent = timeTZ("Asia/Tokyo");
 }
-requestAnimationFrame(tickHands);
+
+function moveHands(){
+  const now=new Date();
+  const s=now.getSeconds();
+  const m=now.getMinutes()+s/60;
+  const h=(now.getHours()%12)+m/60;
+
+  document.getElementById("secHand").setAttribute("transform",`rotate(${s*6})`);
+  document.getElementById("minHand").setAttribute("transform",`rotate(${m*6})`);
+  document.getElementById("hourHand").setAttribute("transform",`rotate(${h*30})`);
+
+  requestAnimationFrame(moveHands);
+}
+
+updateTimes();
+setInterval(updateTimes,1000);
+moveHands();
