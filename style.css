@@ -217,6 +217,11 @@ time{color:rgba(11,18,32,.55);font-size:12px}
   font-size:13px;
 }
 
+/* Watch details */
+.bezel{
+  filter: drop-shadow(0 0 12px rgba(30,79,255,.20));
+}
+
 /* Hands */
 .hand{
   stroke: rgba(11,18,32,.72);
