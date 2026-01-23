@@ -6,115 +6,63 @@
   <title>BEZERU — About</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .about{max-width:860px;margin:0 auto;padding:26px 16px 70px}
-    .about h1{margin:0 0 10px;font-size:clamp(28px,4vw,44px);line-height:1.05}
-    .about p{color:rgba(11,18,32,.78);font-size:16px;margin:12px 0;line-height:1.7}
-    .panel{margin-top:18px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(11,18,32,.06)}
-    
-    @media (max-width:768px){
-      .about{padding:20px 12px 50px}
-      .about h1{font-size:clamp(24px,6vw,36px);line-height:1.1}
-      .about p{font-size:15px;margin:14px 0;line-height:1.75}
-      .panel{margin-top:16px;padding:14px;border-radius:14px}
-      .panel h2{font-size:13px!important}
-      .panel p{font-size:14px!important;margin:8px 0 0!important}
-    }
-    
-    @media (max-width:480px){
-      .about{padding:16px 10px 40px}
-      .about h1{font-size:22px}
-      .about p{font-size:14px}
-      .panel{padding:12px}
-    }
+    .aboutwrap{max-width:860px;margin:0 auto;padding:26px 16px 70px}
+    .panel{margin-top:18px;background:rgba(255,255,255,.92);border:1px solid rgba(0,0,0,.08);border-radius:18px;padding:18px}
+    .aboutwrap h1{margin:0 0 10px;font-size:clamp(28px,4vw,44px);line-height:1.05}
+    .aboutwrap p{color:rgba(11,18,32,.78);font-size:16px;line-height:1.8}
   </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html">BEZERU <small>ベゼル</small></a>
-    <nav class="nav">
+  <div class="worldtime">
+    <span><strong>NEW YORK</strong> <em id="tz-ny">--:--</em></span>
+    <span><strong>LONDON</strong> <em id="tz-lon">--:--</em></span>
+    <span><strong>GENEVA</strong> <em id="tz-gva">--:--</em></span>
+    <span><strong>TOKYO</strong> <em id="tz-tyo">--:--</em></span>
+  </div>
+
+  <header class="mainbar">
+    <a class="logo" href="index.html">BEZERU <small>ベゼル</small></a>
+    <nav class="mainnav">
       <a href="index.html">Home</a>
-      
-      <div class="dropdown">
-        <a href="#articles" class="dropdown-trigger">Articles <span class="arrow">▼</span></a>
-        <div class="dropdown-menu">
-          <a href="index.html#latest">Latest Posts</a>
-          <a href="index.html#feature-breakdown">Feature Breakdown</a>
-          <a href="index.html#release-radar">Release Radar</a>
-          <a href="index.html#vintage-spotlight">Vintage Spotlight</a>
-          <a href="index.html#design-critique">Design Critique</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="#brands" class="dropdown-trigger">Brands <span class="arrow">▼</span></a>
-        <div class="dropdown-menu">
-          <a href="index.html#rolex">Rolex</a>
-          <a href="index.html#omega">Omega</a>
-          <a href="index.html#patek">Patek Philippe</a>
-          <a href="index.html#seiko">Seiko</a>
-          <a href="index.html#grand-seiko">Grand Seiko</a>
-          <a href="index.html#tudor">Tudor</a>
-          <a href="index.html#cartier">Cartier</a>
-          <a href="index.html#microbrands">Microbrands</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="#watch-types" class="dropdown-trigger">Watch Types <span class="arrow">▼</span></a>
-        <div class="dropdown-menu">
-          <a href="index.html#dive">Dive Watches</a>
-          <a href="index.html#dress">Dress Watches</a>
-          <a href="index.html#sports">Sports Watches</a>
-          <a href="index.html#gmt">GMT Watches</a>
-          <a href="index.html#chronograph">Chronographs</a>
-          <a href="index.html#field">Field Watches</a>
-          <a href="index.html#pilot">Pilot Watches</a>
-        </div>
-      </div>
-
-      <a href="about.html" class="active">About</a>
+      <a href="index.html#latest">Articles</a>
+      <a href="index.html#latest">Brands</a>
+      <a href="index.html#latest">Watch Types</a>
+      <a class="active" href="about.html">About</a>
     </nav>
   </header>
 
-  <main class="about">
+  <main class="aboutwrap">
     <h1>About BEZERU</h1>
     <p>
       BEZERU is a modern + vintage watch publication focused on what actually changes on-wrist:
-      proportion, ergonomics, design decisions, and movement choices.
+      proportion, ergonomics, design decisions, and movement choices. We connect new releases to
+      the vintage references that shaped them—without hype.
     </p>
 
     <div class="panel">
       <h2 style="margin:0 0 8px;font-size:14px;letter-spacing:.18em;text-transform:uppercase">Our niche</h2>
       <p style="margin:0">
-        We translate releases through vintage reference points—so you can see what's genuinely new
-        versus what's recycled marketing. Calm design, clean language, and collector-level details.
+        We explain watches through design. If it wears better, reads cleaner, or is engineered more honestly,
+        we’ll tell you. If it’s marketing noise, we’ll tell you that too.
       </p>
     </div>
   </main>
 
   <script>
-    // ---------- DROPDOWN MOBILE TOGGLE ----------
-    if (window.innerWidth <= 768) {
-      document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-          e.preventDefault();
-          const dropdown = this.parentElement;
-          const isActive = dropdown.classList.contains('active');
-          
-          document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
-          
-          if (!isActive) {
-            dropdown.classList.add('active');
-          }
-        });
-      });
-      
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown')) {
-          document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
-        }
-      });
+    function setTZ(id, tz) {
+      const el = document.getElementById(id);
+      const fmt = new Intl.DateTimeFormat([], { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false });
+      el.textContent = fmt.format(new Date());
     }
+    function updateTimezones(){
+      setTZ("tz-ny", "America/New_York");
+      setTZ("tz-lon", "Europe/London");
+      setTZ("tz-gva", "Europe/Zurich");
+      setTZ("tz-tyo", "Asia/Tokyo");
+    }
+    updateTimezones();
+    setInterval(updateTimezones, 15000);
   </script>
 </body>
 </html>
