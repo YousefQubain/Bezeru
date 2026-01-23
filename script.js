@@ -1,62 +1,73 @@
-function pad2(n){ return String(n).padStart(2, "0"); }
+// WORLD TIME + MINI WATCHES
 
-function getTimePartsInTZ(date, timeZone){
-  // Use Intl to get time in specific timezone, then parse parts safely
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    timeZone,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
+function drawWatch(canvas, hours, minutes) {
+  const ctx = canvas.getContext("2d");
+  const r = canvas.width / 2;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-  const parts = fmt.formatToParts(date);
-  const obj = {};
-  for (const p of parts){
-    if (p.type === "hour" || p.type === "minute" || p.type === "second") obj[p.type] = Number(p.value);
+  ctx.translate(r,r);
+
+  // bezel
+  ctx.beginPath();
+  ctx.arc(0,0,r-2,0,Math.PI*2);
+  ctx.strokeStyle="#1d4ed8";
+  ctx.lineWidth=4;
+  ctx.stroke();
+
+  // hands
+  function hand(angle,len,width){
+    ctx.beginPath();
+    ctx.rotate(angle);
+    ctx.moveTo(0,0);
+    ctx.lineTo(0,-len);
+    ctx.lineWidth=width;
+    ctx.strokeStyle="#0b1220";
+    ctx.stroke();
+    ctx.rotate(-angle);
   }
-  return { h: obj.hour ?? 0, m: obj.minute ?? 0, s: obj.second ?? 0 };
+
+  hand((hours+minutes/60)*Math.PI/6, r*0.5,3);
+  hand(minutes*Math.PI/30, r*0.75,2);
+
+  ctx.translate(-r,-r);
 }
 
-function setHands(el, h, m, s){
-  const hourHand = el.querySelector(".mini-hand.hour");
-  const minHand  = el.querySelector(".mini-hand.min");
-  const secHand  = el.querySelector(".mini-hand.sec");
-
-  // analog math
-  const hourAngle = (h % 12) * 30 + m * 0.5;      // 360/12 = 30 deg per hour + minute offset
-  const minAngle  = m * 6 + s * 0.1;              // 360/60 = 6 deg per minute + second offset
-  const secAngle  = s * 6;
-
-  hourHand.style.transform = `translate(-50%, -100%) rotate(${hourAngle}deg)`;
-  minHand.style.transform  = `translate(-50%, -100%) rotate(${minAngle}deg)`;
-  secHand.style.transform  = `translate(-50%, -100%) rotate(${secAngle}deg)`;
-}
-
-function tick(){
-  const now = new Date();
-  document.querySelectorAll(".tz-watch").forEach(card => {
-    const tz = card.getAttribute("data-tz");
-    const { h, m, s } = getTimePartsInTZ(now, tz);
-
-    // set analog
-    setHands(card, h, m, s);
-
-    // optional small digital readout under the watch (still elegant)
-    const digital = card.querySelector("[data-digital]");
-    if (digital) digital.textContent = `${pad2(h)}:${pad2(m)}`;
-  });
-
-  requestAnimationFrame(() => {
-    // update ~once per second (smooth enough, stable)
+function updateTimes(){
+  document.querySelectorAll(".tz-card").forEach(card=>{
+    const tz = card.dataset.tz;
+    const d = new Date(new Date().toLocaleString("en-US",{timeZone:tz}));
+    const h=d.getHours(), m=d.getMinutes();
+    card.querySelector("[data-role=time]").textContent =
+      `${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}`;
+    drawWatch(card.querySelector("canvas"),h%12,m);
   });
 }
 
-function start(){
-  // run immediately
-  tick();
-  // then update every second (keeps seconds hand moving per second)
-  setInterval(tick, 1000);
-}
+setInterval(updateTimes,1000);
+updateTimes();
 
-start();
+
+// LOAD POSTS
+
+fetch("posts.json").then(r=>r.json()).then(posts=>{
+  const home = document.getElementById("home-cards");
+  const featured = posts[0];
+
+  if(document.getElementById("featured-title")){
+    document.getElementById("featured-title").textContent = featured.title;
+    document.getElementById("featured-dek").textContent = featured.dek;
+    document.getElementById("featured-link").href = `article.html?id=${featured.id}`;
+  }
+
+  if(home){
+    posts.slice(1,5).forEach(p=>{
+      home.innerHTML += `
+      <div class="card">
+        <div class="tag">${p.category.toUpperCase()}</div>
+        <h4>${p.title}</h4>
+        <p>${p.dek}</p>
+        <a class="card-link" href="article.html?id=${p.id}"></a>
+      </div>`;
+    });
+  }
+});
