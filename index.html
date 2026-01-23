@@ -4,199 +4,152 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BEZERU</title>
-
-  <!-- IMPORTANT: keep these names EXACTLY -->
   <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
 
 <header class="header">
   <div class="header-inner">
     <div class="top-row">
-      <div class="brand" aria-label="Bezeru brand">
+
+      <div class="brand">
         <div class="name">BEZERU</div>
         <div class="jp">ベゼル</div>
       </div>
 
-      <div class="tz-row" aria-label="Time zones">
+      <div class="tz-row">
         <div class="tz-pill"><span class="city">NEW YORK</span><span class="time" id="tz-ny">--:--</span></div>
         <div class="tz-pill"><span class="city">LONDON</span><span class="time" id="tz-lon">--:--</span></div>
         <div class="tz-pill"><span class="city">GENEVA</span><span class="time" id="tz-gen">--:--</span></div>
         <div class="tz-pill"><span class="city">TOKYO</span><span class="time" id="tz-tok">--:--</span></div>
       </div>
 
-      <div class="right-spacer" aria-hidden="true"></div>
+      <div class="right-spacer"></div>
+
     </div>
   </div>
 
-  <!-- Nav centered under time zones (Hodinkee-ish layout) -->
   <div class="nav-row">
-    <nav class="nav" aria-label="Primary">
-      <a class="active" href="#home">Home</a>
+    <nav class="nav">
+
+      <a class="active" href="#">Home</a>
 
       <div class="dd">
-        <button type="button">Articles <span class="caret" aria-hidden="true"></span></button>
-        <div class="menu" role="menu" aria-label="Articles menu">
-          <a href="#articles-latest">Latest <small>new</small></a>
-          <a href="#articles-reviews">Reviews <small>hands-on</small></a>
-          <a href="#articles-vintage">Vintage Deep Dives <small>history</small></a>
-          <a href="#articles-guides">Buying Guides <small>practical</small></a>
+        <button>Articles <span class="caret"></span></button>
+        <div class="menu">
+          <a href="#">Latest <small>new</small></a>
+          <a href="#">Reviews <small>hands-on</small></a>
+          <a href="#">Vintage <small>history</small></a>
+          <a href="#">Buying Guides <small>practical</small></a>
         </div>
       </div>
 
       <div class="dd">
-        <button type="button">Brands <span class="caret" aria-hidden="true"></span></button>
-        <div class="menu" role="menu" aria-label="Brands menu">
-          <a href="#brands-underdogs">Underdogs <small>up &amp; coming</small></a>
-          <a href="#brands-icons">Icons <small>heritage</small></a>
-          <a href="#brands-japan">Japan <small>neo-vintage</small></a>
-          <a href="#brands-indies">Independents <small>atelier</small></a>
+        <button>Brands <span class="caret"></span></button>
+        <div class="menu">
+          <a href="#">Underdogs <small>up & coming</small></a>
+          <a href="#">Icons <small>heritage</small></a>
+          <a href="#">Japan <small>neo-vintage</small></a>
+          <a href="#">Independents <small>atelier</small></a>
         </div>
       </div>
 
       <div class="dd">
-        <button type="button">Watch Types <span class="caret" aria-hidden="true"></span></button>
-        <div class="menu" role="menu" aria-label="Watch types menu">
-          <a href="#types-dress">Dress <small>thin &amp; clean</small></a>
-          <a href="#types-diver">Diver <small>tool</small></a>
-          <a href="#types-chrono">Chronograph <small>timers</small></a>
-          <a href="#types-gmt">GMT/World Time <small>travel</small></a>
+        <button>Watch Types <span class="caret"></span></button>
+        <div class="menu">
+          <a href="#">Dress <small>thin & clean</small></a>
+          <a href="#">Diver <small>tool</small></a>
+          <a href="#">Chronograph <small>timers</small></a>
+          <a href="#">GMT <small>travel</small></a>
         </div>
       </div>
 
-      <a href="#about">About</a>
+      <a href="#">About</a>
+
     </nav>
   </div>
 </header>
 
-<main class="wrap" id="home">
+<main class="wrap">
+
   <section class="hero">
+
     <div>
       <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
-      <h1 class="headline">Modern and vintage watches,<br/>explained without hype.</h1>
+      <h1 class="headline">Modern and vintage watches,<br>explained without hype.</h1>
       <p class="sub">
-        BEZERU publishes twice a week. We connect today’s releases to the vintage references that shaped them—focusing on design, ergonomics, and what matters on the wrist.
+        BEZERU publishes twice a week. We connect today’s releases to the vintage
+        references that shaped them — focusing on design, ergonomics, and what
+        matters on the wrist.
       </p>
     </div>
 
-    <div class="watch-card" aria-label="Hero watch illustration">
-      <svg class="watch" viewBox="0 0 600 600" role="img" aria-label="Bezeru watch">
+    <div class="watch-card">
+
+      <svg class="watch" viewBox="0 0 600 600">
+
         <defs>
           <radialGradient id="dialGrad" cx="50%" cy="40%" r="65%">
             <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="55%" stop-color="#f3f5f8"/>
-            <stop offset="100%" stop-color="#e8ecf3"/>
+            <stop offset="70%" stop-color="#eef1f6"/>
+            <stop offset="100%" stop-color="#e1e6ef"/>
           </radialGradient>
 
-          <radialGradient id="caseGrad" cx="45%" cy="35%" r="70%">
-            <stop offset="0%" stop-color="#ffffff"/>
-            <stop offset="60%" stop-color="#eef1f6"/>
-            <stop offset="100%" stop-color="#d9dee8"/>
-          </radialGradient>
-
-          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="rgba(11,18,32,.18)"/>
-          </filter>
-
-          <filter id="innerShadow">
-            <feOffset dx="0" dy="2"/>
-            <feGaussianBlur stdDeviation="6" result="blur"/>
-            <feComposite in2="SourceAlpha" operator="out" result="inverse"/>
-            <feFlood flood-color="rgba(11,18,32,.18)" result="color"/>
-            <feComposite in2="inverse" operator="in" result="shadow"/>
-            <feComposite in2="SourceGraphic" operator="over"/>
+          <filter id="shadow">
+            <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="rgba(0,0,0,.18)"/>
           </filter>
         </defs>
 
         <!-- Strap -->
-        <rect x="220" y="0" width="160" height="600" rx="60" fill="rgba(11,18,32,.06)"/>
-        <rect x="236" y="40" width="128" height="520" rx="50" fill="rgba(255,255,255,.55)"/>
+        <rect x="220" y="0" width="160" height="600" rx="70" fill="rgba(0,0,0,.06)"/>
 
         <!-- Case -->
-        <g filter="url(#softShadow)">
-          <circle cx="300" cy="300" r="230" fill="url(#caseGrad)" stroke="rgba(11,18,32,.12)" stroke-width="2"/>
-        </g>
+        <circle cx="300" cy="300" r="230" fill="#f2f4f8" filter="url(#shadow)"/>
 
         <!-- Bezel -->
-        <g>
-          <circle cx="300" cy="300" r="210" fill="none" stroke="rgba(31,75,255,.22)" stroke-width="34"/>
-          <circle cx="300" cy="300" r="210" fill="none" stroke="var(--blue)" stroke-width="28"/>
-          <g stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round">
-            <line x1="300" y1="66" x2="300" y2="90"/>
-            <line x1="300" y1="510" x2="300" y2="534"/>
-            <line x1="66" y1="300" x2="90" y2="300"/>
-            <line x1="510" y1="300" x2="534" y2="300"/>
-          </g>
-        </g>
-
-        <!-- Crown -->
-        <g>
-          <rect x="520" y="278" width="44" height="44" rx="10" fill="rgba(11,18,32,.08)" stroke="rgba(11,18,32,.18)"/>
-          <rect x="530" y="288" width="24" height="24" rx="7" fill="rgba(255,255,255,.55)"/>
-        </g>
-
-        <!-- Crystal ring -->
-        <circle cx="300" cy="300" r="182" fill="rgba(255,255,255,.35)" stroke="rgba(11,18,32,.10)" stroke-width="3"/>
+        <circle cx="300" cy="300" r="205" fill="none" stroke="#1f4bff" stroke-width="28"/>
 
         <!-- Dial -->
-        <g filter="url(#innerShadow)">
-          <circle cx="300" cy="300" r="168" fill="url(#dialGrad)" stroke="rgba(11,18,32,.10)" stroke-width="2"/>
-        </g>
+        <circle cx="300" cy="300" r="170" fill="url(#dialGrad)" stroke="#cfd5df" stroke-width="3"/>
 
         <!-- Indices -->
-        <g stroke="rgba(11,18,32,.55)" stroke-width="7" stroke-linecap="round">
-          <line x1="300" y1="150" x2="300" y2="176"/>
-          <line x1="300" y1="424" x2="300" y2="450"/>
-          <line x1="150" y1="300" x2="176" y2="300"/>
-          <line x1="424" y1="300" x2="450" y2="300"/>
+        <g stroke="#555" stroke-width="7" stroke-linecap="round">
+          <line x1="300" y1="145" x2="300" y2="170"/>
+          <line x1="300" y1="430" x2="300" y2="455"/>
+          <line x1="145" y1="300" x2="170" y2="300"/>
+          <line x1="430" y1="300" x2="455" y2="300"/>
         </g>
 
-        <!-- Minute markers -->
-        <g stroke="rgba(11,18,32,.20)" stroke-width="3" stroke-linecap="round">
-          <g id="minMark"><line x1="300" y1="132" x2="300" y2="144"/></g>
-          <use href="#minMark" transform="rotate(30 300 300)"/>
-          <use href="#minMark" transform="rotate(60 300 300)"/>
-          <use href="#minMark" transform="rotate(90 300 300)"/>
-          <use href="#minMark" transform="rotate(120 300 300)"/>
-          <use href="#minMark" transform="rotate(150 300 300)"/>
-          <use href="#minMark" transform="rotate(180 300 300)"/>
-          <use href="#minMark" transform="rotate(210 300 300)"/>
-          <use href="#minMark" transform="rotate(240 300 300)"/>
-          <use href="#minMark" transform="rotate(270 300 300)"/>
-          <use href="#minMark" transform="rotate(300 300 300)"/>
-          <use href="#minMark" transform="rotate(330 300 300)"/>
-        </g>
+        <!-- Brand text -->
+        <text x="300" y="405" text-anchor="middle"
+              font-size="22" font-weight="800"
+              letter-spacing=".35em" fill="#444">BEZERU</text>
 
-        <!-- Brand text ABOVE 6 o'clock marker -->
-        <text x="300" y="410" text-anchor="middle" font-size="22" font-weight="800"
-              letter-spacing=".35em" fill="rgba(11,18,32,.75)">BEZERU</text>
-
-        <!-- Hands (animated by JS) -->
+        <!-- Hands -->
         <g transform="translate(300 300)">
-          <g id="hourHand" transform="rotate(310)">
-            <line x1="0" y1="10" x2="0" y2="-70" stroke="rgba(11,18,32,.78)" stroke-width="10" stroke-linecap="round"/>
+          <g id="hourHand">
+            <line x1="0" y1="10" x2="0" y2="-70" stroke="#333" stroke-width="10" stroke-linecap="round"/>
           </g>
-          <g id="minHand" transform="rotate(20)">
-            <line x1="0" y1="14" x2="0" y2="-110" stroke="rgba(11,18,32,.72)" stroke-width="7" stroke-linecap="round"/>
+          <g id="minHand">
+            <line x1="0" y1="14" x2="0" y2="-110" stroke="#444" stroke-width="7" stroke-linecap="round"/>
           </g>
-          <g id="secHand" transform="rotate(0)">
-            <line x1="0" y1="22" x2="0" y2="-130" stroke="var(--blue)" stroke-width="3.5" stroke-linecap="round"/>
-            <circle cx="0" cy="-98" r="4.5" fill="var(--blue)"/>
+          <g id="secHand">
+            <line x1="0" y1="22" x2="0" y2="-130" stroke="#1f4bff" stroke-width="3"/>
           </g>
 
-          <circle cx="0" cy="0" r="10" fill="#0b1220" opacity=".25"/>
-          <circle cx="0" cy="0" r="6" fill="rgba(255,255,255,.9)"/>
+          <circle cx="0" cy="0" r="10" fill="#aaa"/>
+          <circle cx="0" cy="0" r="6" fill="#fff"/>
         </g>
+
       </svg>
+
     </div>
+
   </section>
 
-  <p class="note">
-    Hover <b>Articles</b>, <b>Brands</b>, or <b>Watch Types</b> to open dropdowns.
-  </p>
 </main>
 
-<!-- IMPORTANT: keep this name EXACTLY -->
 <script src="./script.js"></script>
 </body>
 </html>
