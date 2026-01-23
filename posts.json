@@ -1,37 +1,38 @@
 [
   {
-    "slug": "the-bezel-blueprint",
+    "slug": "bezeru-blueprint",
     "title": "The BEZERU Blueprint: How We Judge Watches",
     "date": "2026-01-23",
     "category": "Editorial",
-    "excerpt": "The lens we use to review modern and vintage watches—design, ergonomics, movement choices, and what actually matters on the wrist.",
+    "excerpt": "The lens we use to review modern and vintage watches—design, ergonomics, and what actually matters on the wrist.",
     "content": [
-      "Welcome to BEZERU. This is our editorial lens—simple, consistent, and obsessed with details that affect real wear.",
-      "We care about proportion first: dial-to-case balance, lug length, and how the watch reads from arm's length.",
-      "Then ergonomics: crown comfort, clasp design, strap taper, and the subtle stuff that makes a watch disappear on-wrist.",
+      "Welcome to BEZERU. This is the lens we use to judge watches: proportion, ergonomics, and honest design decisions.",
+      "We start with how the watch wears: lug-to-lug, thickness, crown comfort, and bracelet taper.",
+      "Then we look at design: dial typography, index proportions, and whether the watch has a coherent identity.",
       "Finally: movement decisions—because engineering choices always show up in the design."
     ]
   },
   {
-    "slug": "vintage-vs-modern-value",
-    "title": "Vintage vs Modern: Where the Value Really Is",
+    "slug": "vintage-lens-seiko-moonphase",
+    "title": "Vintage Lens: The Quiet Genius of Seiko Moonphase Dress Watches",
     "date": "2026-01-20",
     "category": "Vintage",
-    "excerpt": "A collector's guide to buying better: originality, service history, and the biggest mistakes new buyers make.",
+    "excerpt": "A calm complication done right: why Seiko moonphase dress pieces feel timeless—and how to buy them well.",
     "content": [
-      "Vintage value is rarely about hype—it's about condition, originality, and honest documentation.",
-      "Modern value is about execution: finishing, wearable design, and brand behavior over time."
+      "Moonphase watches have a reputation for being loud. Seiko proved the opposite: restrained case shapes, clean dials, and complications that feel like part of the design—not decoration.",
+      "When you hunt these, condition matters more than hype: look for sharp cases, clean printing, and honest service history.",
+      "The best examples feel like design objects—quiet, wearable, and surprisingly modern."
     ]
   },
   {
-    "slug": "weekly-release-radar-01",
+    "slug": "release-radar-week-01",
     "title": "Release Radar: 5 Watches Worth Your Time This Week",
     "date": "2026-01-18",
     "category": "Release Radar",
-    "excerpt": "A clean scan of releases—what changed, what's noise, and what's genuinely interesting.",
+    "excerpt": "A fast scan of what’s new—what changed, what’s marketing noise, and what’s genuinely interesting.",
     "content": [
-      "This week's radar focuses on small improvements that matter: bracelet taper, dial legibility, and thickness.",
-      "The best releases usually look boring in photos—until you understand the design decisions."
+      "This week’s releases prove a pattern: the biggest improvements are often the least photogenic—thinner cases, better taper, sharper dials.",
+      "We’re watching for real design progress: legibility, proportion, and the details you notice after three months of wear."
     ]
   }
 ]
