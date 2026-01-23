@@ -5,73 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BEZERU — Article</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .postwrap{max-width:860px;margin:0 auto;padding:26px 16px 70px}
-    .posthead{padding:18px 0;border-bottom:1px solid rgba(0,0,0,.08)}
-    .posthead h1{margin:10px 0 6px;line-height:1.1;font-size:clamp(26px,4vw,42px)}
-    .postmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:rgba(11,18,32,.65);font-size:13px}
-    .back{display:inline-block;margin-top:12px;color:rgba(30,79,255,.95);font-weight:900}
-    .article{padding:18px 0}
-    .article p{font-size:16px;color:rgba(11,18,32,.82);line-height:1.8}
-  </style>
 </head>
 
 <body>
+  <!-- Reuse the same header by linking back to home -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <span class="brand-word">BEZERU</span>
+          <span class="brand-jp">ベゼル</span>
+        </a>
+      </div>
 
-  <div class="worldtime">
-    <span><strong>NEW YORK</strong> <em id="tz-ny">--:--</em></span>
-    <span><strong>LONDON</strong> <em id="tz-lon">--:--</em></span>
-    <span><strong>GENEVA</strong> <em id="tz-gva">--:--</em></span>
-    <span><strong>TOKYO</strong> <em id="tz-tyo">--:--</em></span>
-  </div>
+      <div class="world-clocks">
+        <div class="tz-card" data-tz="America/New_York">
+          <div class="tz-label">NEW YORK</div>
+          <div class="mini-watch">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
 
-  <header class="mainbar">
-    <a class="logo" href="index.html">BEZERU <small>ベゼル</small></a>
-    <nav class="mainnav">
-      <a href="index.html">Home</a>
-      <a class="active" href="index.html#latest">Articles</a>
-      <a href="index.html#latest">Brands</a>
-      <a href="index.html#latest">Watch Types</a>
-      <a href="about.html">About</a>
+        <div class="tz-card" data-tz="Europe/London">
+          <div class="tz-label">LONDON</div>
+          <div class="mini-watch">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+
+        <div class="tz-card" data-tz="Europe/Zurich">
+          <div class="tz-label">GENEVA</div>
+          <div class="mini-watch">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+
+        <div class="tz-card" data-tz="Asia/Tokyo">
+          <div class="tz-label">TOKYO</div>
+          <div class="mini-watch">
+            <div class="mw-dial"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
+          </div>
+          <div class="tz-time" data-role="time">--:--</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <ul class="nav-list">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link is-active" href="post.html">Articles</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+      </ul>
     </nav>
   </header>
 
-  <main class="postwrap">
-    <div class="posthead">
-      <div class="postmeta">
-        <span class="pill" id="cat">Category</span>
-        <time id="date">—</time>
-      </div>
-      <h1 id="title">Loading…</h1>
-      <a class="back" href="index.html#latest">← Back to Latest</a>
-    </div>
+  <main class="page">
+    <section class="section" style="padding-top:38px;">
+      <div id="article"></div>
+    </section>
 
-    <article class="article" id="content"></article>
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div class="footer-note">Modern + vintage, with a Gulf lens.</div>
+      </div>
+    </footer>
   </main>
 
   <script>
-    function setTZ(id, tz) {
-      const el = document.getElementById(id);
-      const fmt = new Intl.DateTimeFormat([], { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false });
-      el.textContent = fmt.format(new Date());
-    }
-    function updateTimezones(){
-      setTZ("tz-ny", "America/New_York");
-      setTZ("tz-lon", "Europe/London");
-      setTZ("tz-gva", "Europe/Zurich");
-      setTZ("tz-tyo", "Asia/Tokyo");
-    }
-    updateTimezones();
-    setInterval(updateTimezones, 15000);
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    function qs(name){
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name);
+    // world clocks (same logic, minimal)
+    const tzCards = Array.from(document.querySelectorAll(".tz-card"));
+    function formatHHMM(date, timeZone) {
+      const parts = new Intl.DateTimeFormat("en-GB", { timeZone, hour:"2-digit", minute:"2-digit", hour12:false }).formatToParts(date);
+      const hh = parts.find(p=>p.type==="hour")?.value ?? "--";
+      const mm = parts.find(p=>p.type==="minute")?.value ?? "--";
+      return `${hh}:${mm}`;
     }
-    function formatDate(iso) {
-      const d = new Date(iso + "T00:00:00");
-      return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    function getTZParts(date, timeZone) {
+      const parts = new Intl.DateTimeFormat("en-GB", { timeZone, hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false }).formatToParts(date);
+      return {
+        hh: parseInt(parts.find(p=>p.type==="hour")?.value ?? "0", 10),
+        mm: parseInt(parts.find(p=>p.type==="minute")?.value ?? "0", 10),
+        ss: parseInt(parts.find(p=>p.type==="second")?.value ?? "0", 10)
+      };
     }
+    function setHand(el, deg){ el.style.transform = `translate(-50%, -100%) rotate(${deg}deg)`; }
+    function tickClocks(){
+      const now = new Date();
+      tzCards.forEach(card=>{
+        const tz = card.getAttribute("data-tz");
+        card.querySelector('[data-role="time"]').textContent = formatHHMM(now, tz);
+        const {hh,mm,ss} = getTZParts(now, tz);
+        setHand(card.querySelector(".mw-hour"), ((hh%12)+mm/60)*30);
+        setHand(card.querySelector(".mw-minute"), (mm+ss/60)*6);
+        setHand(card.querySelector(".mw-second"), ss*6);
+      });
+    }
+    tickClocks();
+    setInterval(tickClocks, 1000);
+
+    // Load article
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+
+    const articleEl = document.getElementById("article");
+
     function escapeHtml(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -81,24 +140,47 @@
         .replaceAll("'", "&#039;");
     }
 
-    async function load(){
-      const slug = qs("slug");
+    async function loadArticle(){
+      if(!id){
+        articleEl.innerHTML = `
+          <div class="tag">INFO</div>
+          <h1 class="hero-title" style="font-size:48px;">No article selected</h1>
+          <p class="hero-sub">Go back to the homepage and open a story.</p>
+          <a class="hero-cta" href="index.html#latest">Back to Latest stories</a>
+        `;
+        return;
+      }
+
       const res = await fetch("posts.json", { cache: "no-store" });
       const posts = await res.json();
-      const post = posts.find(p => p.slug === slug) || posts[0];
+      const post = posts.find(p => p.id === id);
+
+      if(!post){
+        articleEl.innerHTML = `
+          <div class="tag">ERROR</div>
+          <h1 class="hero-title" style="font-size:48px;">Article not found</h1>
+          <p class="hero-sub">That link doesn’t match any post in posts.json.</p>
+          <a class="hero-cta" href="index.html#latest">Back to Latest stories</a>
+        `;
+        return;
+      }
 
       document.title = `BEZERU — ${post.title}`;
-      document.getElementById("title").textContent = post.title;
-      document.getElementById("cat").textContent = post.category;
-      document.getElementById("date").textContent = formatDate(post.date);
 
-      const el = document.getElementById("content");
-      el.innerHTML = (post.content || []).map(par => `<p>${escapeHtml(par)}</p>`).join("");
+      const paragraphs = (post.content || []).map(p => `<p class="about-text" style="margin-top:14px;">${escapeHtml(p)}</p>`).join("");
+
+      articleEl.innerHTML = `
+        <div class="tag">${escapeHtml(post.category)}</div>
+        <h1 class="hero-title" style="font-size:56px;">${escapeHtml(post.title)}</h1>
+        <p class="hero-sub" style="margin-bottom:26px;">${escapeHtml(post.excerpt)}</p>
+        ${paragraphs}
+        <div style="margin-top:28px;">
+          <a class="hero-cta" href="index.html#latest">← Back to Latest stories</a>
+        </div>
+      `;
     }
 
-    load().catch(() => {
-      document.getElementById("title").textContent = "Could not load post.";
-    });
+    loadArticle();
   </script>
 </body>
 </html>
