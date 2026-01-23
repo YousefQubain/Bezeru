@@ -3,78 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Post</title>
+  <title>BEZERU — Article</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .postwrap{max-width:820px;margin:0 auto;padding:26px 16px 70px}
-    .posthead{padding:18px 0;border-bottom:1px solid var(--line)}
-    .posthead h1{margin:8px 0 6px;line-height:1.1;font-size:clamp(26px,4vw,40px)}
-    .postmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:13px}
-    .back{display:inline-block;margin-top:10px;color:rgba(30,79,255,.95);font-weight:800;padding:8px 12px;min-height:40px;display:inline-flex;align-items:center}
+    .postwrap{max-width:860px;margin:0 auto;padding:26px 16px 70px}
+    .posthead{padding:18px 0;border-bottom:1px solid rgba(0,0,0,.08)}
+    .posthead h1{margin:10px 0 6px;line-height:1.1;font-size:clamp(26px,4vw,42px)}
+    .postmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:rgba(11,18,32,.65);font-size:13px}
+    .back{display:inline-block;margin-top:12px;color:rgba(30,79,255,.95);font-weight:900}
     .article{padding:18px 0}
-    .article p{font-size:16px;color:rgba(11,18,32,.80);margin:12px 0;line-height:1.7}
-    
-    @media (max-width:768px){
-      .postwrap{padding:20px 12px 50px}
-      .posthead{padding:14px 0;border-bottom-width:1px}
-      .posthead h1{font-size:clamp(22px,6vw,32px);line-height:1.15;margin:6px 0}
-      .postmeta{font-size:12px;gap:8px}
-      .back{margin-top:8px;font-size:14px;padding:6px 10px}
-      .article{padding:14px 0}
-      .article p{font-size:15px;margin:14px 0;line-height:1.75}
-    }
-    
-    @media (max-width:480px){
-      .postwrap{padding:16px 10px 40px}
-      .posthead h1{font-size:20px}
-      .article p{font-size:14px}
-    }
+    .article p{font-size:16px;color:rgba(11,18,32,.82);line-height:1.8}
   </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html">BEZERU <small>ベゼル</small></a>
-    <nav class="nav">
+
+  <div class="worldtime">
+    <span><strong>NEW YORK</strong> <em id="tz-ny">--:--</em></span>
+    <span><strong>LONDON</strong> <em id="tz-lon">--:--</em></span>
+    <span><strong>GENEVA</strong> <em id="tz-gva">--:--</em></span>
+    <span><strong>TOKYO</strong> <em id="tz-tyo">--:--</em></span>
+  </div>
+
+  <header class="mainbar">
+    <a class="logo" href="index.html">BEZERU <small>ベゼル</small></a>
+    <nav class="mainnav">
       <a href="index.html">Home</a>
-      
-      <div class="dropdown">
-        <a href="#articles" class="dropdown-trigger">Articles <span class="arrow">▼</span></a>
-        <div class="dropdown-menu">
-          <a href="index.html#latest">Latest Posts</a>
-          <a href="index.html#feature-breakdown">Feature Breakdown</a>
-          <a href="index.html#release-radar">Release Radar</a>
-          <a href="index.html#vintage-spotlight">Vintage Spotlight</a>
-          <a href="index.html#design-critique">Design Critique</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="#brands" class="dropdown-trigger">Brands <span class="arrow">▼</span></a>
-        <div class="dropdown-menu">
-          <a href="index.html#rolex">Rolex</a>
-          <a href="index.html#omega">Omega</a>
-          <a href="index.html#patek">Patek Philippe</a>
-          <a href="index.html#seiko">Seiko</a>
-          <a href="index.html#grand-seiko">Grand Seiko</a>
-          <a href="index.html#tudor">Tudor</a>
-          <a href="index.html#cartier">Cartier</a>
-          <a href="index.html#microbrands">Microbrands</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="#watch-types" class="dropdown-trigger">Watch Types <span class="arrow">▼</span></a>
-        <div class="dropdown-menu">
-          <a href="index.html#dive">Dive Watches</a>
-          <a href="index.html#dress">Dress Watches</a>
-          <a href="index.html#sports">Sports Watches</a>
-          <a href="index.html#gmt">GMT Watches</a>
-          <a href="index.html#chronograph">Chronographs</a>
-          <a href="index.html#field">Field Watches</a>
-          <a href="index.html#pilot">Pilot Watches</a>
-        </div>
-      </div>
-
+      <a class="active" href="index.html#latest">Articles</a>
+      <a href="index.html#latest">Brands</a>
+      <a href="index.html#latest">Watch Types</a>
       <a href="about.html">About</a>
     </nav>
   </header>
@@ -93,6 +50,20 @@
   </main>
 
   <script>
+    function setTZ(id, tz) {
+      const el = document.getElementById(id);
+      const fmt = new Intl.DateTimeFormat([], { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false });
+      el.textContent = fmt.format(new Date());
+    }
+    function updateTimezones(){
+      setTZ("tz-ny", "America/New_York");
+      setTZ("tz-lon", "Europe/London");
+      setTZ("tz-gva", "Europe/Zurich");
+      setTZ("tz-tyo", "Asia/Tokyo");
+    }
+    updateTimezones();
+    setInterval(updateTimezones, 15000);
+
     function qs(name){
       const url = new URL(window.location.href);
       return url.searchParams.get(name);
@@ -128,29 +99,6 @@
     load().catch(() => {
       document.getElementById("title").textContent = "Could not load post.";
     });
-
-    // ---------- DROPDOWN MOBILE TOGGLE ----------
-    if (window.innerWidth <= 768) {
-      document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-          e.preventDefault();
-          const dropdown = this.parentElement;
-          const isActive = dropdown.classList.contains('active');
-          
-          document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
-          
-          if (!isActive) {
-            dropdown.classList.add('active');
-          }
-        });
-      });
-      
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown')) {
-          document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
-        }
-      });
-    }
   </script>
 </body>
 </html>
