@@ -33,8 +33,46 @@
     <a class="brand" href="index.html">BEZERU <small>ベゼル</small></a>
     <nav class="nav">
       <a href="index.html">Home</a>
+      
+      <div class="dropdown">
+        <a href="#articles" class="dropdown-trigger">Articles <span class="arrow">▼</span></a>
+        <div class="dropdown-menu">
+          <a href="index.html#latest">Latest Posts</a>
+          <a href="index.html#feature-breakdown">Feature Breakdown</a>
+          <a href="index.html#release-radar">Release Radar</a>
+          <a href="index.html#vintage-spotlight">Vintage Spotlight</a>
+          <a href="index.html#design-critique">Design Critique</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#brands" class="dropdown-trigger">Brands <span class="arrow">▼</span></a>
+        <div class="dropdown-menu">
+          <a href="index.html#rolex">Rolex</a>
+          <a href="index.html#omega">Omega</a>
+          <a href="index.html#patek">Patek Philippe</a>
+          <a href="index.html#seiko">Seiko</a>
+          <a href="index.html#grand-seiko">Grand Seiko</a>
+          <a href="index.html#tudor">Tudor</a>
+          <a href="index.html#cartier">Cartier</a>
+          <a href="index.html#microbrands">Microbrands</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#watch-types" class="dropdown-trigger">Watch Types <span class="arrow">▼</span></a>
+        <div class="dropdown-menu">
+          <a href="index.html#dive">Dive Watches</a>
+          <a href="index.html#dress">Dress Watches</a>
+          <a href="index.html#sports">Sports Watches</a>
+          <a href="index.html#gmt">GMT Watches</a>
+          <a href="index.html#chronograph">Chronographs</a>
+          <a href="index.html#field">Field Watches</a>
+          <a href="index.html#pilot">Pilot Watches</a>
+        </div>
+      </div>
+
       <a href="about.html" class="active">About</a>
-      <a href="index.html#latest">Latest</a>
     </nav>
   </header>
 
@@ -53,5 +91,30 @@
       </p>
     </div>
   </main>
+
+  <script>
+    // ---------- DROPDOWN MOBILE TOGGLE ----------
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('.dropdown-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          const dropdown = this.parentElement;
+          const isActive = dropdown.classList.contains('active');
+          
+          document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+          
+          if (!isActive) {
+            dropdown.classList.add('active');
+          }
+        });
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+          document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+        }
+      });
+    }
+  </script>
 </body>
 </html>
