@@ -8,8 +8,24 @@
   <style>
     .about{max-width:860px;margin:0 auto;padding:26px 16px 70px}
     .about h1{margin:0 0 10px;font-size:clamp(28px,4vw,44px);line-height:1.05}
-    .about p{color:rgba(11,18,32,.78);font-size:16px;margin:12px 0}
+    .about p{color:rgba(11,18,32,.78);font-size:16px;margin:12px 0;line-height:1.7}
     .panel{margin-top:18px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(11,18,32,.06)}
+    
+    @media (max-width:768px){
+      .about{padding:20px 12px 50px}
+      .about h1{font-size:clamp(24px,6vw,36px);line-height:1.1}
+      .about p{font-size:15px;margin:14px 0;line-height:1.75}
+      .panel{margin-top:16px;padding:14px;border-radius:14px}
+      .panel h2{font-size:13px!important}
+      .panel p{font-size:14px!important;margin:8px 0 0!important}
+    }
+    
+    @media (max-width:480px){
+      .about{padding:16px 10px 40px}
+      .about h1{font-size:22px}
+      .about p{font-size:14px}
+      .panel{padding:12px}
+    }
   </style>
 </head>
 <body>
