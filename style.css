@@ -20,11 +20,13 @@ body{
   color:var(--ink);
 }
 
-/* Header */
+/* ===== Header ===== */
 .header{
-  background: rgba(255,255,255,.75);
+  background: rgba(255,255,255,.78);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 50; /* IMPORTANT: header above everything */
 }
 .header-inner{
   max-width: var(--max);
@@ -55,6 +57,7 @@ body{
   color: var(--muted);
   letter-spacing: .14em;
 }
+
 .tz-row{
   flex:1;
   display:flex;
@@ -68,10 +71,10 @@ body{
   gap:10px;
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(255,255,255,.90);
+  background: rgba(255,255,255,.92);
   border: 1px solid var(--line);
   box-shadow: 0 10px 30px rgba(11,18,32,.06);
-  min-width: 160px;
+  min-width: 170px;
   justify-content:space-between;
 }
 .tz-pill span.city{
@@ -82,19 +85,22 @@ body{
 }
 .tz-pill span.time{
   font-size:14px;
-  font-weight:800;
+  font-weight:900;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
+
 .right-spacer{min-width: 240px}
 
-/* Nav row */
+/* ===== Nav ===== */
 .nav-row{
   max-width: var(--max);
   margin: 0 auto;
   padding: 0 22px 14px;
   display:flex;
   justify-content:center;
+  position: relative;
+  z-index: 60; /* nav above hero */
 }
 .nav{
   display:flex;
@@ -111,9 +117,10 @@ body{
   padding: 10px 12px;
   border-radius: 12px;
   cursor:pointer;
-  font-weight:700;
+  font-weight:750;
   letter-spacing:.02em;
   text-decoration:none;
+  position: relative;
 }
 .nav > a.active{
   position:relative;
@@ -131,7 +138,7 @@ body{
   background: rgba(11,18,32,.04);
 }
 
-/* Dropdowns */
+/* ===== Dropdowns ===== */
 .dd{position:relative}
 .dd > button{
   display:flex;
@@ -147,11 +154,11 @@ body{
 }
 .menu{
   position:absolute;
-  top: 44px;
+  top: 46px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 240px;
-  background: rgba(255,255,255,.95);
+  transform: translateX(-50%) translateY(0);
+  width: 250px;
+  background: rgba(255,255,255,.97);
   border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: var(--shadow);
@@ -159,13 +166,13 @@ body{
   opacity:0;
   pointer-events:none;
   transition: opacity .14s ease, transform .14s ease;
-  z-index: 20;
+  z-index: 9999; /* IMPORTANT: always above watch */
 }
 .dd:hover .menu,
 .dd:focus-within .menu{
   opacity:1;
   pointer-events:auto;
-  transform: translateX(-50%) translateY(6px);
+  transform: translateX(-50%) translateY(8px);
 }
 .menu a{
   display:flex;
@@ -186,11 +193,13 @@ body{
   outline: 1px solid rgba(31,75,255,.18);
 }
 
-/* Hero */
+/* ===== Main / Hero ===== */
 .wrap{
   max-width: var(--max);
   margin: 0 auto;
   padding: 34px 22px 80px;
+  position: relative;
+  z-index: 1;
 }
 .hero{
   display:grid;
@@ -202,6 +211,7 @@ body{
   .brand,.right-spacer{min-width: 0}
   .hero{grid-template-columns:1fr}
 }
+
 .kicker{
   color: var(--muted);
   letter-spacing: .28em;
@@ -222,6 +232,7 @@ body{
   line-height: 1.7;
   margin: 0;
 }
+
 .watch-card{
   background: var(--card);
   border: 1px solid var(--line);
@@ -234,6 +245,7 @@ body{
   min-height: 520px;
   position:relative;
   overflow:hidden;
+  z-index: 0; /* IMPORTANT: lower than header/nav */
 }
 .watch-card::before{
   content:"";
@@ -245,7 +257,7 @@ body{
   pointer-events:none;
 }
 .watch{
-  width:min(420px, 92%);
+  width: min(360px, 88%); /* smaller watch */
   aspect-ratio: 1 / 1;
   position:relative;
   z-index:1;
