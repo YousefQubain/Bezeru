@@ -1,38 +1,26 @@
 [
   {
-    "slug": "bezeru-blueprint",
-    "title": "The BEZERU Blueprint: How We Judge Watches",
-    "date": "2026-01-23",
-    "category": "Editorial",
-    "excerpt": "The lens we use to review modern and vintage watches—design, ergonomics, and what actually matters on the wrist.",
-    "content": [
-      "Welcome to BEZERU. This is the lens we use to judge watches: proportion, ergonomics, and honest design decisions.",
-      "We start with how the watch wears: lug-to-lug, thickness, crown comfort, and bracelet taper.",
-      "Then we look at design: dial typography, index proportions, and whether the watch has a coherent identity.",
-      "Finally: movement decisions—because engineering choices always show up in the design."
-    ]
+    "id": 1,
+    "title": "Why Gulf Editions Are Reshaping Modern Watch Collecting",
+    "dek": "From Arabic dials to regional partnerships, Gulf-specific releases are no longer niche.",
+    "category": "gulf"
   },
   {
-    "slug": "vintage-lens-seiko-moonphase",
-    "title": "Vintage Lens: The Quiet Genius of Seiko Moonphase Dress Watches",
-    "date": "2026-01-20",
-    "category": "Vintage",
-    "excerpt": "A calm complication done right: why Seiko moonphase dress pieces feel timeless—and how to buy them well.",
-    "content": [
-      "Moonphase watches have a reputation for being loud. Seiko proved the opposite: restrained case shapes, clean dials, and complications that feel like part of the design—not decoration.",
-      "When you hunt these, condition matters more than hype: look for sharp cases, clean printing, and honest service history.",
-      "The best examples feel like design objects—quiet, wearable, and surprisingly modern."
-    ]
+    "id": 2,
+    "title": "The Quiet Return of Neo-Vintage Case Sizes",
+    "dek": "Why 36–38mm is winning back collectors tired of oversized sports watches.",
+    "category": "design"
   },
   {
-    "slug": "release-radar-week-01",
-    "title": "Release Radar: 5 Watches Worth Your Time This Week",
-    "date": "2026-01-18",
-    "category": "Release Radar",
-    "excerpt": "A fast scan of what’s new—what changed, what’s marketing noise, and what’s genuinely interesting.",
-    "content": [
-      "This week’s releases prove a pattern: the biggest improvements are often the least photogenic—thinner cases, better taper, sharper dials.",
-      "We’re watching for real design progress: legibility, proportion, and the details you notice after three months of wear."
-    ]
+    "id": 3,
+    "title": "Independent Brands to Watch in 2025",
+    "dek": "Five under-the-radar makers delivering serious horology without hype pricing.",
+    "category": "underdogs"
+  },
+  {
+    "id": 4,
+    "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
+    "dek": "From royal commissions to Arabic dials, the influence never left.",
+    "category": "gulf"
   }
 ]
