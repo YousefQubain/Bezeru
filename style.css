@@ -30,7 +30,7 @@ body{
 
 /* BRAND (TIGHTER TOP SPACE) */
 .header-top{
-  padding:10px 0 4px;   /* was 22px 0 10px */
+  padding:6px 0 2px;   /* was 22px 0 10px */
 }
 .brand-title{
   font-weight:900;
@@ -43,12 +43,12 @@ body{
   font-size:14px;
   color:var(--muted);
   letter-spacing:.18em;
-  margin-top:6px;       /* keep small breathing room */
+  margin-top:4px;       /* keep small breathing room */
 }
 
 /* WORLD WATCHES (TIGHTER) */
 .worldwatch-row{
-  padding:2px 0 4px;    /* was 6px 0 6px */
+  padding:0 0 2px;    /* was 6px 0 6px */
 }
 .worldwatches{
   display:flex;
