@@ -2,116 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About — BEZERU</title>
 
-  <!-- Use your existing site styles -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- IMPORTANT: the ./ makes the path reliable on GitHub Pages -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-  <!-- Header (keeps your site consistent) -->
-  <header class="topbar">
-    <div class="wrap topbar-inner">
+  <!-- Use the SAME header structure/classes as your homepage -->
+  <header class="site-header">
+    <div class="header-inner">
 
       <!-- Left: Logo -->
-      <a class="brand" href="index.html" aria-label="BEZERU Home">
-        <div class="brand-name">BEZERU</div>
-        <div class="brand-sub">ベゼル</div>
+      <a class="logo" href="./index.html">
+        <span class="logo-main">BEZERU</span>
+        <span class="logo-sub">ベゼル</span>
       </a>
 
-      <!-- Right: (Optional) keep same nav style -->
-      <nav class="nav" aria-label="Primary">
-        <a class="nav-link" href="index.html">Home</a>
-        <div class="nav-dropdown">
-          <button class="nav-link nav-btn" type="button">
+      <!-- Center/Right: Nav (same as your site) -->
+      <nav class="main-nav">
+        <a class="nav-item" href="./index.html">Home</a>
+
+        <div class="nav-item dropdown-wrap">
+          <button class="dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
             Articles <span class="caret">▼</span>
           </button>
           <div class="dropdown">
-            <a class="dropdown-link" href="articles.html?cat=latest">Latest</a>
-            <a class="dropdown-link" href="articles.html?cat=gulf">Gulf Editions</a>
-            <a class="dropdown-link" href="articles.html?cat=vintage">Vintage</a>
-            <a class="dropdown-link" href="articles.html?cat=design">Design Breakdowns</a>
-            <a class="dropdown-link" href="articles.html?cat=guides">Buying Guides</a>
-            <a class="dropdown-link" href="articles.html?cat=underdogs">Underdogs</a>
+            <a href="./articles.html?cat=latest">Latest</a>
+            <a href="./articles.html?cat=gulf">Gulf Editions</a>
+            <a href="./articles.html?cat=vintage">Vintage</a>
+            <a href="./articles.html?cat=design">Design Breakdowns</a>
+            <a href="./articles.html?cat=guides">Buying Guides</a>
+            <a href="./articles.html?cat=underdogs">Underdogs</a>
           </div>
         </div>
 
-        <div class="nav-dropdown">
-          <button class="nav-link nav-btn" type="button">
+        <div class="nav-item dropdown-wrap">
+          <button class="dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
             Watch Types <span class="caret">▼</span>
           </button>
           <div class="dropdown">
-            <a class="dropdown-link" href="articles.html?cat=dress">Dress</a>
-            <a class="dropdown-link" href="articles.html?cat=diver">Diver</a>
-            <a class="dropdown-link" href="articles.html?cat=chronograph">Chronograph</a>
-            <a class="dropdown-link" href="articles.html?cat=gmt">GMT / Travel</a>
-            <a class="dropdown-link" href="articles.html?cat=complications">Complications</a>
+            <a href="./articles.html?cat=dress">Dress</a>
+            <a href="./articles.html?cat=diver">Diver</a>
+            <a href="./articles.html?cat=chronograph">Chronograph</a>
+            <a href="./articles.html?cat=gmt">GMT / Travel</a>
+            <a href="./articles.html?cat=complications">Complications</a>
           </div>
         </div>
 
-        <a class="nav-link is-active" href="about.html">About</a>
+        <a class="nav-item active" href="./about.html">About</a>
       </nav>
     </div>
   </header>
 
-  <!-- Page content -->
-  <main class="wrap about-page">
-    <div class="about-card">
+  <main class="page about-page">
+    <section class="about-card">
       <div class="about-grid">
-        <!-- Photo -->
         <div class="about-photo">
-          <!-- Put your photo file in the repo root and name it: me.jpg -->
-          <!-- If you use a different name, change it here -->
-          <img src="me.jpg" alt="Portrait of Yousef, founder of BEZERU" />
+          <!-- IMPORTANT: upload your photo in the repo root and name it me.jpg -->
+          <img src="./me.jpg" alt="Portrait of Yousef, founder of BEZERU" />
         </div>
 
-        <!-- Text -->
-        <div class="about-copy">
-          <div class="kicker">ABOUT</div>
+        <div class="about-content">
+          <div class="about-kicker">ABOUT</div>
           <h1>Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
 
           <p>
-            I started BEZERU because I’ve always loved watches for what they really are:
-            design in motion. A dial can carry history, culture, and engineering in a space
-            smaller than your palm — and the best pieces reward you the more you look.
+            I started BEZERU because I’ve always loved watches for what they really are: design in motion.
+            A dial can carry history, culture, and engineering in a space smaller than your palm — and the
+            best pieces reward you the more you look.
           </p>
 
           <p>
-            I also wanted a place that treats Gulf and Middle Eastern watch culture seriously.
-            From Arabic dials and regional commissions to the collectors shaping modern taste,
-            the influence is real — and often under-covered. BEZERU connects modern releases to
-            their vintage roots, highlights underdogs, and keeps the focus on what matters on the wrist.
+            I also wanted a place that treats Gulf and Middle Eastern watch culture seriously. From Arabic dials
+            and regional commissions to the collectors shaping modern taste, the influence is real — and often
+            under-covered. BEZERU connects modern releases to their vintage roots, highlights underdogs, and keeps
+            the focus on what matters on the wrist.
           </p>
 
-          <div class="about-links">
-            <!-- Optional: replace with your links or delete these lines -->
-            <a class="btn" href="articles.html?cat=gulf">Read Gulf Editions</a>
+          <div class="about-actions">
+            <a class="btn" href="./articles.html?cat=gulf">Read Gulf Editions</a>
             <a class="btn btn-ghost" href="mailto:hello@bezeru.com">Contact</a>
+          </div>
+
+          <div class="about-footer">
+            © BEZERU — Modern + vintage, with a Gulf lens.
           </div>
         </div>
       </div>
-
-      <div class="about-footer">
-        © BEZERU — Modern + vintage, with a Gulf lens.
-      </div>
-    </div>
+    </section>
   </main>
 
-  <!-- Small script for dropdown hover/focus (works even if your main JS changes) -->
+  <!-- Dropdown behavior (works even if your main JS breaks) -->
   <script>
-    // Allow dropdowns to open on click for touch devices
-    document.querySelectorAll(".nav-dropdown .nav-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const dd = btn.parentElement;
-        dd.classList.toggle("open");
+    const dropdownWraps = document.querySelectorAll(".dropdown-wrap");
+    dropdownWraps.forEach(wrap => {
+      const btn = wrap.querySelector(".dropdown-btn");
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        dropdownWraps.forEach(other => {
+          if (other !== wrap) other.classList.remove("open");
+        });
+        wrap.classList.toggle("open");
       });
     });
 
-    // Close dropdown if clicking outside
     document.addEventListener("click", (e) => {
-      document.querySelectorAll(".nav-dropdown.open").forEach(dd => {
-        if (!dd.contains(e.target)) dd.classList.remove("open");
+      dropdownWraps.forEach(wrap => {
+        if (!wrap.contains(e.target)) wrap.classList.remove("open");
       });
     });
   </script>
