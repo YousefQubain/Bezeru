@@ -6,10 +6,6 @@
   --radius:18px;
   --max:1120px;
   --blue:#1e4fff;
-
-  --secDeg: 0deg;
-  --minDeg: 0deg;
-  --hrDeg: 0deg;
 }
 
 *{box-sizing:border-box}
@@ -27,254 +23,111 @@ body{
 }
 
 a{color:inherit;text-decoration:none}
-.wrap{max-width:var(--max);margin:0 auto;padding:20px 16px 70px}
 
-/* Mobile-first improvements */
-@media (max-width:768px){
-  .wrap{padding:16px 12px 50px}
+.wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:20px 16px 70px;
 }
 
-/* Header */
-.topbar{
-  position:sticky; top:0; z-index:50;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px;
+/* HODINKEE-STYLE WORLD TIME */
+.worldtime{
+  display:flex;
+  justify-content:center;
+  gap:14px;
   padding:12px 16px;
-  background:rgba(255,255,255,.78);
-  backdrop-filter: blur(12px);
-  border-bottom:1px solid var(--line);
-  flex-wrap:wrap;
+  background:#ffffff;
+  border-bottom:1px solid rgba(0,0,0,.08);
+  font-size:12px;
+  letter-spacing:.12em;
 }
 
-.brand{
-  white-space:nowrap;
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:.22em;
-  text-transform:uppercase;
+.worldtime span{
+  padding:8px 14px;
+  border-radius:999px;
+  background:#f5f7fb;
+  border:1px solid rgba(0,0,0,.08);
 }
-.brand small{
+
+.worldtime strong{
+  font-weight:800;
+  color:#666;
+}
+
+.worldtime em{
+  font-style:normal;
+  font-weight:900;
+  color:#111;
+  margin-left:6px;
+}
+
+/* MAIN HEADER BAR */
+.mainbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 32px;
+  border-bottom:1px solid rgba(0,0,0,.08);
+  background:white;
+}
+
+.logo{
+  font-weight:900;
+  letter-spacing:.3em;
+  font-size:20px;
+  white-space:nowrap;
+}
+
+.logo small{
   font-size:11px;
   letter-spacing:.18em;
-  color:var(--muted);
-  font-weight:800;
   margin-left:10px;
-}
-
-@media (max-width:768px){
-  .brand{font-size:18px;letter-spacing:.18em}
-  .brand small{font-size:10px;margin-left:6px}
-}
-
-/* --- TZ + NAV GRID (DESKTOP) --- */
-.tznav-grid{
-  display:none; /* shown on wide screens via media query below */
-  width:100%;
-  max-width:880px;
-  margin-left:auto;
-  margin-right:auto;
-  gap:24px;
-  align-items:start;
-  justify-items:center;
-}
-
-/* grid will create 4 equal columns to align each timezone above its nav */
-.tznav-grid{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(160px, 1fr));
-  align-items:start;
-  justify-items:center;
-}
-
-/* each column stacks timezone chip over its nav / dropdown */
-.tznav-grid .col{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-}
-
-/* small link under a column (About) */
-.tznav-grid .col-link a{
-  display:inline-block;
-  color:rgba(11,18,32,.70);
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid transparent;
-  font-size:13px;
-}
-.tznav-grid .col-link a:hover{
-  color:var(--text);
-  border-color:var(--line);
-  background:rgba(255,255,255,.70);
-}
-
-/* Timezones (reuse classes from original layout) */
-.tz{
-  display:flex;
-  align-items:baseline;
-  gap:8px;
-  padding:8px 12px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.70);
-  border-radius:999px;
-  box-shadow:0 6px 20px rgba(11,18,32,.06);
-}
-.tz-city{
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:rgba(11,18,32,.55);
+  color:#777;
   font-weight:800;
 }
-.tz-time{
-  font-variant-numeric: tabular-nums;
-  font-size:13px;
-  font-weight:900;
-  color:rgba(11,18,32,.85);
-}
 
-/* hide this grid and fall back to original .nav on narrow widths */
-@media (max-width:1100px){
-  .tznav-grid{display:none}
-}
-
-/* Nav (original) - used on mobile/fallback */
-.nav{display:flex; gap:14px; align-items:center; font-size:13px; white-space:nowrap}
-.nav a{
-  color:rgba(11,18,32,.70);
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid transparent;
-  min-height:36px;
+.mainnav{
   display:flex;
-  align-items:center;
+  gap:28px;
+}
+
+.mainnav a{
+  font-size:15px;
+  color:#222;
+  opacity:.75;
   position:relative;
-}
-.nav a:hover{
-  color:var(--text);
-  border-color:var(--line);
-  background:rgba(255,255,255,.70);
-}
-.nav a.active{
-  color:var(--text);
-  border-color:rgba(30,79,255,.22);
-  background:rgba(30,79,255,.08);
+  padding-bottom:2px;
 }
 
-/* Dropdown */
-.dropdown{
-  position:relative;
-}
-.dropdown-trigger{
-  cursor:pointer;
-}
-.dropdown-trigger .arrow{
-  font-size:9px;
-  margin-left:4px;
-  opacity:0.6;
-  transition:transform 0.2s ease;
-}
-.dropdown:hover .arrow{
-  transform:rotate(180deg);
-}
+.mainnav a:hover{opacity:1}
 
-.dropdown-menu{
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(12px);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:8px 0;
-  min-width:200px;
-  max-width:240px;
-  box-shadow:0 12px 40px rgba(11,18,32,.15);
-  opacity:0;
-  visibility:hidden;
-  transform:translateY(-8px);
-  transition:opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-  z-index:100;
-}
-
-.dropdown:hover .dropdown-menu{
+.mainnav a.active{
   opacity:1;
-  visibility:visible;
-  transform:translateY(0);
+  font-weight:700;
 }
 
-.dropdown-menu a{
-  display:block;
-  padding:10px 16px;
-  color:rgba(11,18,32,.75);
-  font-size:13px;
-  border-radius:0;
-  border:none;
-  min-height:auto;
-  text-align:left;
-  transition:background 0.15s ease, color 0.15s ease;
+.mainnav a.active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-8px;
+  height:2px;
+  background:var(--blue);
+  border-radius:2px;
 }
 
-.dropdown-menu a:hover{
-  background:rgba(30,79,255,.08);
-  color:var(--text);
-  border:none;
-}
-
-/* On wide screens we want the desktop grid and hide the single-row .nav */
-@media (min-width:1101px){
-  .nav{display:none}
-  .tznav-grid{display:grid}
-}
-
-/* Mobile-specific dropdown behavior and styles */
-@media (max-width:768px){
-  .nav{gap:8px;font-size:12px}
-  .nav a{padding:8px 10px;min-height:40px}
-  
-  /* Mobile: click to open dropdowns */
-  .dropdown-menu{
-    position:static;
-    display:none;
-    margin-top:8px;
-    opacity:1;
-    visibility:visible;
-    transform:none;
-    box-shadow:0 6px 20px rgba(11,18,32,.08);
-    border-radius:12px;
-    min-width:auto;
-    max-width:100%;
-    width:100%;
-  }
-  
-  .dropdown.active .dropdown-menu{
-    display:block;
-  }
-  
-  .dropdown-trigger .arrow{
-    transition:transform 0.2s ease;
-  }
-  
-  .dropdown.active .dropdown-trigger .arrow{
-    transform:rotate(180deg);
-  }
-  
-  .dropdown-menu a{
-    padding:12px 16px;
-    font-size:14px;
-  }
-}
-
-/* Hero */
+/* HERO */
 .hero{
-  padding:34px 0 18px;
-  border-bottom:1px solid var(--line);
   display:grid;
   grid-template-columns: 1.1fr .9fr;
-  gap:26px;
+  gap:40px;
+  padding:60px 0 40px;
   align-items:center;
 }
+
+.hero-text{max-width:60ch}
+
 .kicker{
   margin:0 0 10px;
   color:rgba(11,18,32,.60);
@@ -283,39 +136,60 @@ a{color:inherit;text-decoration:none}
   text-transform:uppercase;
   font-weight:800;
 }
+
 .hero h1{
   margin:0 0 12px;
   font-size:clamp(34px, 4.5vw, 54px);
   line-height:1.04;
 }
+
 .lede{
   margin:0;
   color:rgba(11,18,32,.76);
-  max-width:60ch;
   font-size:16px;
 }
 
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr;gap:20px;padding:24px 0 16px}
-  .hero h1{font-size:clamp(28px, 6vw, 42px);line-height:1.1}
-  .lede{font-size:15px;max-width:100%}
-  .kicker{font-size:11px}
+.hero-cta{
+  margin-top:18px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-/* Watch card */
-.watch-card{
+.btn{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(30,79,255,.22);
+  background:rgba(30,79,255,.10);
+  font-weight:900;
+  font-size:14px;
+}
+
+.btn.ghost{
+  border-color:rgba(0,0,0,.10);
+  background:rgba(255,255,255,.75);
+}
+
+/* WATCH */
+.hero-watch{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
   border:1px solid var(--line);
   border-radius:var(--radius);
   padding:18px;
   box-shadow:0 18px 60px rgba(11,18,32,.10);
 }
+
 .watch{
-  width: min(420px, 100%);
-  height: auto;
+  width:min(420px, 100%);
+  height:auto;
   display:block;
-  margin:0 auto;
 }
+
 .watch-caption{
   margin:10px 0 0;
   text-align:center;
@@ -323,20 +197,26 @@ a{color:inherit;text-decoration:none}
   font-size:13px;
 }
 
-@media (max-width:768px){
-  .watch-card{padding:14px}
-  .watch{width:100%;max-width:320px}
-  .watch-caption{font-size:12px;margin-top:8px}
+.hand{
+  stroke: rgba(11,18,32,.72);
+  stroke-linecap: round;
 }
 
-/* Latest */
+.hand.hour{ stroke-width: 6; }
+.hand.minute{ stroke-width: 4; }
+.hand.second{ stroke-width: 2; stroke: rgba(30,79,255,.85); }
+
+/* LATEST */
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
   gap:12px;
   padding:18px 0 8px;
+  border-top:1px solid rgba(0,0,0,.08);
+  margin-top:10px;
 }
+
 .section-head h2{
   margin:0;
   font-size:14px;
@@ -345,14 +225,14 @@ a{color:inherit;text-decoration:none}
 }
 .section-head p{margin:0; color:var(--muted); font-size:13px}
 
-@media (max-width:768px){
-  .section-head{flex-direction:column;align-items:flex-start;gap:6px;padding:14px 0 6px}
-  .section-head h2{font-size:13px}
-  .section-head p{font-size:12px}
+/* POSTS GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  padding-top:10px;
 }
 
-/* Grid */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-top:10px}
 .card{
   border:1px solid var(--line);
   border-radius:var(--radius);
@@ -360,13 +240,23 @@ a{color:inherit;text-decoration:none}
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   box-shadow:0 10px 30px rgba(11,18,32,.06);
 }
+
 .card:hover{
   transform: translateY(-3px);
   border-color:rgba(30,79,255,.20);
   box-shadow:0 16px 40px rgba(11,18,32,.10);
 }
+
 .post-link{display:block;padding:16px}
-.post-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+
+.post-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+
 .pill{
   font-size:11px;
   letter-spacing:.12em;
@@ -378,22 +268,14 @@ a{color:inherit;text-decoration:none}
   color:rgba(11,18,32,.80);
   font-weight:900;
 }
+
 time{color:rgba(11,18,32,.55);font-size:12px}
+
 .card h3{margin:0 0 8px;font-size:18px;line-height:1.25}
+
 .excerpt{margin:0;color:rgba(11,18,32,.68);font-size:14px}
 
-@media (max-width:768px){
-  .grid{grid-template-columns:1fr;gap:12px;padding-top:8px}
-  .card{border-radius:14px}
-  .post-link{padding:14px}
-  .post-meta{flex-wrap:wrap;gap:8px;margin-bottom:8px}
-  .card h3{font-size:16px;line-height:1.3}
-  .excerpt{font-size:13px}
-  .pill{font-size:10px;padding:5px 8px}
-  time{font-size:11px}
-}
-
-/* Footer */
+/* FOOTER */
 .footer{
   margin-top:34px;
   padding-top:18px;
@@ -406,53 +288,13 @@ time{color:rgba(11,18,32,.55);font-size:12px}
   font-size:13px;
 }
 
-@media (max-width:768px){
-  .footer{flex-direction:column;align-items:flex-start;gap:8px;margin-top:24px;padding-top:14px;font-size:12px}
+/* RESPONSIVE */
+@media (max-width:1100px){
+  .mainbar{padding:18px 16px}
+  .mainnav{gap:16px}
 }
-
-/* Watch details */
-.bezel{
-  filter: drop-shadow(0 0 12px rgba(30,79,255,.20));
-}
-
-/* Hands */
-.hand{
-  stroke: rgba(11,18,32,.72);
-  stroke-linecap: round;
-  transform-origin: 0px 0px;
-  transition: transform 0.05s linear;
-}
-.hand.hour{ stroke-width: 6; transform: rotate(var(--hrDeg)); }
-.hand.minute{ stroke-width: 4; transform: rotate(var(--minDeg)); }
-.hand.second{ stroke-width: 2; stroke: rgba(30,79,255,.85); transform: rotate(var(--secDeg)); }
-
-/* Responsive - Tablet */
 @media (max-width:980px){
-  .grid{grid-template-columns:repeat(2,1fr)}
-}
-
-/* Responsive - Mobile */
-@media (max-width:768px){
-  body{font-size:15px}
-  .topbar{padding:10px 12px;gap:8px}
-  
-  /* Improve touch targets */
-  .nav a, .card, .post-link{
-    -webkit-tap-highlight-color:rgba(30,79,255,.1);
-  }
-  
-  /* Better spacing */
-  .hero{padding:20px 0 14px}
-  .section-head{padding:12px 0 6px}
-}
-
-/* Small mobile */
-@media (max-width:480px){
-  .wrap{padding:12px 10px 40px}
-  .topbar{padding:10px}
-  .brand{font-size:16px;letter-spacing:.15em}
-  .hero h1{font-size:24px}
-  .lede{font-size:14px}
-  .watch-card{padding:12px}
-  .watch{max-width:280px}
+  .hero{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .worldtime{flex-wrap:wrap}
 }
