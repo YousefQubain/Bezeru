@@ -1,79 +1,37 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Post</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .postwrap{max-width:820px;margin:0 auto;padding:26px 16px 70px}
-    .posthead{padding:18px 0;border-bottom:1px solid var(--line)}
-    .posthead h1{margin:8px 0 6px;line-height:1.1;font-size:clamp(26px,4vw,40px)}
-    .postmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:13px}
-    .back{display:inline-block;margin-top:10px;color:rgba(30,79,255,.95);font-weight:800}
-    .article{padding:18px 0}
-    .article p{font-size:16px;color:rgba(11,18,32,.80);margin:12px 0}
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="index.html">BEZERU <small>ベゼル</small></a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="index.html#latest">Latest</a>
-    </nav>
-  </header>
-
-  <main class="postwrap">
-    <div class="posthead">
-      <div class="postmeta">
-        <span class="pill" id="cat">Category</span>
-        <time id="date">—</time>
-      </div>
-      <h1 id="title">Loading…</h1>
-      <a class="back" href="index.html#latest">← Back to Latest</a>
-    </div>
-
-    <article class="article" id="content"></article>
-  </main>
-
-  <script>
-    function qs(name){
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name);
-    }
-    function formatDate(iso) {
-      const d = new Date(iso + "T00:00:00");
-      return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-    }
-    function escapeHtml(str) {
-      return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    async function load(){
-      const slug = qs("slug");
-      const res = await fetch("posts.json", { cache: "no-store" });
-      const posts = await res.json();
-      const post = posts.find(p => p.slug === slug) || posts[0];
-
-      document.title = `BEZERU — ${post.title}`;
-      document.getElementById("title").textContent = post.title;
-      document.getElementById("cat").textContent = post.category;
-      document.getElementById("date").textContent = formatDate(post.date);
-
-      const el = document.getElementById("content");
-      el.innerHTML = (post.content || []).map(par => `<p>${escapeHtml(par)}</p>`).join("");
-    }
-
-    load().catch(() => {
-      document.getElementById("title").textContent = "Could not load post.";
-    });
-  </script>
-</body>
-</html>
+[
+  {
+    "slug": "the-bezel-blueprint",
+    "title": "The BEZERU Blueprint: How We Judge Watches",
+    "date": "2026-01-23",
+    "category": "Editorial",
+    "excerpt": "The lens we use to review modern and vintage watches—design, ergonomics, movement choices, and what actually matters on the wrist.",
+    "content": [
+      "Welcome to BEZERU. This is our editorial lens—simple, consistent, and obsessed with details that affect real wear.",
+      "We care about proportion first: dial-to-case balance, lug length, and how the watch reads from arm's length.",
+      "Then ergonomics: crown comfort, clasp design, strap taper, and the subtle stuff that makes a watch disappear on-wrist.",
+      "Finally: movement decisions—because engineering choices always show up in the design."
+    ]
+  },
+  {
+    "slug": "vintage-vs-modern-value",
+    "title": "Vintage vs Modern: Where the Value Really Is",
+    "date": "2026-01-20",
+    "category": "Vintage",
+    "excerpt": "A collector's guide to buying better: originality, service history, and the biggest mistakes new buyers make.",
+    "content": [
+      "Vintage value is rarely about hype—it's about condition, originality, and honest documentation.",
+      "Modern value is about execution: finishing, wearable design, and brand behavior over time."
+    ]
+  },
+  {
+    "slug": "weekly-release-radar-01",
+    "title": "Release Radar: 5 Watches Worth Your Time This Week",
+    "date": "2026-01-18",
+    "category": "Release Radar",
+    "excerpt": "A clean scan of releases—what changed, what's noise, and what's genuinely interesting.",
+    "content": [
+      "This week's radar focuses on small improvements that matter: bracelet taper, dial legibility, and thickness.",
+      "The best releases usually look boring in photos—until you understand the design decisions."
+    ]
+  }
+]
