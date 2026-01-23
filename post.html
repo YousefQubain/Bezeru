@@ -10,9 +10,25 @@
     .posthead{padding:18px 0;border-bottom:1px solid var(--line)}
     .posthead h1{margin:8px 0 6px;line-height:1.1;font-size:clamp(26px,4vw,40px)}
     .postmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:13px}
-    .back{display:inline-block;margin-top:10px;color:rgba(30,79,255,.95);font-weight:800}
+    .back{display:inline-block;margin-top:10px;color:rgba(30,79,255,.95);font-weight:800;padding:8px 12px;min-height:40px;display:inline-flex;align-items:center}
     .article{padding:18px 0}
-    .article p{font-size:16px;color:rgba(11,18,32,.80);margin:12px 0}
+    .article p{font-size:16px;color:rgba(11,18,32,.80);margin:12px 0;line-height:1.7}
+    
+    @media (max-width:768px){
+      .postwrap{padding:20px 12px 50px}
+      .posthead{padding:14px 0;border-bottom-width:1px}
+      .posthead h1{font-size:clamp(22px,6vw,32px);line-height:1.15;margin:6px 0}
+      .postmeta{font-size:12px;gap:8px}
+      .back{margin-top:8px;font-size:14px;padding:6px 10px}
+      .article{padding:14px 0}
+      .article p{font-size:15px;margin:14px 0;line-height:1.75}
+    }
+    
+    @media (max-width:480px){
+      .postwrap{padding:16px 10px 40px}
+      .posthead h1{font-size:20px}
+      .article p{font-size:14px}
+    }
   </style>
 </head>
 <body>
