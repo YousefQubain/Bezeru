@@ -1,4 +1,3 @@
-// ---------- World Watches (live) ----------
 const WATCHES = [
   { city: "NEW YORK", tz: "America/New_York" },
   { city: "LONDON", tz: "Europe/London" },
@@ -6,40 +5,22 @@ const WATCHES = [
   { city: "TOKYO", tz: "Asia/Tokyo" }
 ];
 
-function formatHHMM(date) {
-  const hh = String(date.getHours()).padStart(2, "0");
-  const mm = String(date.getMinutes()).padStart(2, "0");
-  return `${hh}:${mm}`;
-}
-
-function getTimeInTZ(tz) {
-  // Reliable way without external libraries: use Intl formatting then rebuild a Date
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: tz,
-    hour12: false,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
+function getTZTime(tz){
+  const parts = new Intl.DateTimeFormat("en-GB",{
+    timeZone:tz,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
   }).formatToParts(new Date());
-
-  const get = (type) => parts.find(p => p.type === type)?.value || "00";
-  const now = new Date();
-  const d = new Date(now);
-  d.setHours(parseInt(get("hour"), 10));
-  d.setMinutes(parseInt(get("minute"), 10));
-  d.setSeconds(parseInt(get("second"), 10));
-  d.setMilliseconds(0);
+  const g=t=>parts.find(p=>p.type===t)?.value||"00";
+  const d=new Date();
+  d.setHours(+g("hour"),+g("minute"),+g("second"),0);
   return d;
 }
 
-function renderWorldWatches() {
-  const host = document.getElementById("worldwatches");
-  if (!host) return;
-
-  host.innerHTML = WATCHES.map((w, idx) => `
-    <div class="worldwatch" data-idx="${idx}">
+function renderWatches(){
+  const host=document.getElementById("worldwatches");
+  host.innerHTML=WATCHES.map((w,i)=>`
+    <div class="worldwatch" data-i="${i}">
       <div class="city">${w.city}</div>
-      <div class="small-watch" aria-label="${w.city} watch">
+      <div class="small-watch">
         <div class="hand hour"></div>
         <div class="hand min"></div>
         <div class="hand sec"></div>
@@ -50,74 +31,43 @@ function renderWorldWatches() {
   `).join("");
 }
 
-function updateWorldWatches() {
-  const items = document.querySelectorAll(".worldwatch");
-  items.forEach((el, i) => {
-    const tz = WATCHES[i]?.tz;
-    if (!tz) return;
+function updateWatches(){
+  document.querySelectorAll(".worldwatch").forEach((el,i)=>{
+    const d=getTZTime(WATCHES[i].tz);
+    el.querySelector(".time").textContent=
+      String(d.getHours()).padStart(2,"0")+":"+
+      String(d.getMinutes()).padStart(2,"0");
 
-    const d = getTimeInTZ(tz);
-    const hh = d.getHours();
-    const mm = d.getMinutes();
-    const ss = d.getSeconds();
+    const h=((d.getHours()%12)*30)+(d.getMinutes()*0.5);
+    const m=(d.getMinutes()*6)+(d.getSeconds()*0.1);
+    const s=d.getSeconds()*6;
 
-    // Update digital
-    const timeEl = el.querySelector(".time");
-    if (timeEl) timeEl.textContent = formatHHMM(d);
-
-    // Analog angles
-    const hourAngle = ((hh % 12) * 30) + (mm * 0.5);   // 360/12 + minute offset
-    const minAngle = (mm * 6) + (ss * 0.1);           // 360/60 + second smoothing
-    const secAngle = ss * 6;
-
-    const h = el.querySelector(".hand.hour");
-    const m = el.querySelector(".hand.min");
-    const s = el.querySelector(".hand.sec");
-
-    if (h) h.style.transform = `translate(-50%,-100%) rotate(${hourAngle}deg)`;
-    if (m) m.style.transform = `translate(-50%,-100%) rotate(${minAngle}deg)`;
-    if (s) s.style.transform = `translate(-50%,-100%) rotate(${secAngle}deg)`;
+    el.querySelector(".hour").style.transform=`translate(-50%,-100%) rotate(${h}deg)`;
+    el.querySelector(".min").style.transform=`translate(-50%,-100%) rotate(${m}deg)`;
+    el.querySelector(".sec").style.transform=`translate(-50%,-100%) rotate(${s}deg)`;
   });
 }
 
-// ---------- Latest Stories (cards) ----------
-async function loadPosts() {
-  const cards = document.getElementById("cards");
-  if (!cards) return;
-
-  try {
-    const res = await fetch("./posts.json?v=1", { cache: "no-store" });
-    if (!res.ok) throw new Error("posts.json not found");
-    const posts = await res.json();
-
-    cards.innerHTML = posts.map(p => `
+async function loadPosts(){
+  const host=document.getElementById("cards");
+  try{
+    const res=await fetch("./posts.json",{cache:"no-store"});
+    const posts=await res.json();
+    host.innerHTML=posts.map(p=>`
       <article class="card">
         <div class="cat-pill">${p.category}</div>
         <h3>${p.title}</h3>
         <p>${p.excerpt}</p>
       </article>
     `).join("");
-
-  } catch (err) {
-    cards.innerHTML = `
-      <article class="card">
-        <div class="cat-pill">ERROR</div>
-        <h3>Posts didn’t load</h3>
-        <p>
-          Make sure <strong>posts.json</strong> is in the same folder as index.html
-          and that the filename is exactly <strong>posts.json</strong> (case-sensitive).
-        </p>
-      </article>
-    `;
-    console.error(err);
+  }catch(e){
+    host.innerHTML="<p>Posts failed to load.</p>";
   }
 }
 
-// ---------- Boot ----------
-document.addEventListener("DOMContentLoaded", () => {
-  renderWorldWatches();
-  updateWorldWatches();
-  setInterval(updateWorldWatches, 1000); // LIVE
-
+document.addEventListener("DOMContentLoaded",()=>{
+  renderWatches();
+  updateWatches();
+  setInterval(updateWatches,1000);
   loadPosts();
 });
