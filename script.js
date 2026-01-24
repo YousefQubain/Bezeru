@@ -1,18 +1,16 @@
-// ===== Dropdowns (click) + close on outside =====
+// Dropdown open/close
 document.querySelectorAll(".nav-dropdown").forEach(dd => {
   const btn = dd.querySelector(".dropdown-btn");
-  const panel = dd.querySelector(".dropdown-panel");
-  if (!btn || !panel) return;
+  if (!btn) return;
 
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const isOpen = dd.classList.contains("open");
-
-    document.querySelectorAll(".nav-dropdown.open").forEach(other => {
-      other.classList.remove("open");
-      const b = other.querySelector(".dropdown-btn");
+    document.querySelectorAll(".nav-dropdown.open").forEach(x => {
+      x.classList.remove("open");
+      const b = x.querySelector(".dropdown-btn");
       if (b) b.setAttribute("aria-expanded", "false");
     });
 
@@ -29,10 +27,10 @@ document.addEventListener("click", () => {
   });
 });
 
-// ===== World clocks (digital + analog) =====
-function pad2(n) { return String(n).padStart(2, "0"); }
+// Live times + analog hands
+function pad2(n){ return String(n).padStart(2,"0"); }
 
-function updateClocks() {
+function updateClocks(){
   const cards = document.querySelectorAll(".clock-card");
   const now = new Date();
 
@@ -54,15 +52,14 @@ function updateClocks() {
     const timeEl = card.querySelector(".clock-time");
     if (timeEl) timeEl.textContent = `${pad2(hh)}:${pad2(mm)}`;
 
-    // Analog hands: hour/minute/second
+    const sec = now.getSeconds();
+    const minuteAngle = (mm + sec / 60) * 6;
+    const hourAngle = ((hh % 12) + mm / 60) * 30;
+    const secondAngle = sec * 6;
+
     const hourHand = card.querySelector(".mini-hour");
     const minHand  = card.querySelector(".mini-minute");
     const secHand  = card.querySelector(".mini-second");
-
-    const seconds = now.getSeconds();
-    const minuteAngle = (mm + seconds / 60) * 6;          // 360/60
-    const hourAngle   = ((hh % 12) + mm / 60) * 30;       // 360/12
-    const secondAngle = seconds * 6;
 
     if (hourHand) hourHand.style.transform = `translate(-50%, -100%) rotate(${hourAngle}deg)`;
     if (minHand)  minHand.style.transform  = `translate(-50%, -100%) rotate(${minuteAngle}deg)`;
