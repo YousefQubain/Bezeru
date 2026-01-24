@@ -1,93 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Article — BEZERU</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:,">
   <script src="script.js" defer></script>
 </head>
-
 <body>
-  <header>
+
+  <header class="site-header">
     <div class="container">
       <div class="header-row">
-        <div class="brand">
-          <div class="word">BEZERU</div>
-          <div class="jp">ベゼル</div>
-        </div>
-
-        <div class="clocks" aria-label="World time">
-          <div class="clock">
-            <div class="city">NEW YORK</div>
-            <canvas id="ny" width="44" height="44"></canvas>
-            <div class="time" id="ny-time">--:--</div>
-          </div>
-          <div class="clock">
-            <div class="city">LONDON</div>
-            <canvas id="lon" width="44" height="44"></canvas>
-            <div class="time" id="lon-time">--:--</div>
-          </div>
-          <div class="clock">
-            <div class="city">GENEVA</div>
-            <canvas id="gen" width="44" height="44"></canvas>
-            <div class="time" id="gen-time">--:--</div>
-          </div>
-          <div class="clock">
-            <div class="city">TOKYO</div>
-            <canvas id="tok" width="44" height="44"></canvas>
-            <div class="time" id="tok-time">--:--</div>
-          </div>
+        <a class="brand" href="index.html"><div class="word">BEZERU</div><div class="jp">ベゼル</div></a>
+        <div class="clocks">
+          <div class="clock" data-tz="America/New_York"><div class="city">NEW YORK</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
+          <div class="clock" data-tz="Europe/London"><div class="city">LONDON</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
+          <div class="clock" data-tz="Europe/Zurich"><div class="city">GENEVA</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
+          <div class="clock" data-tz="Asia/Tokyo"><div class="city">TOKYO</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
         </div>
       </div>
     </div>
 
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <nav class="nav">
           <a class="nav-link" href="index.html">Home</a>
-
-          <div class="dropdown" data-dd="articles">
-            <button class="dd-btn" type="button">
-              Articles <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Articles">
-              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
-              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
-              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
-              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
-              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
-              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
-            </div>
-          </div>
-
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Watch Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Watch Types">
-              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
-              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
-            </div>
-          </div>
-
+          <a class="nav-link" href="articles.html">Articles</a>
+          <a class="nav-link" href="types.html">Watch Types</a>
           <a class="nav-link" href="about.html">About</a>
         </nav>
       </div>
     </div>
   </header>
 
-  <main class="article-wrap">
-    <div class="container" id="articleMount"></div>
+  <main class="page">
+    <div class="container">
+      <article class="article">
+        <div class="article-top">
+          <span class="badge" id="article-badge">Category</span>
+          <h1 id="article-title">Loading…</h1>
+          <p class="subhead" id="article-sub"> </p>
+        </div>
+        <div class="article-body" id="article-body">
+          <p>Loading article…</p>
+        </div>
+        <div class="article-back">
+          <a class="cta" href="articles.html">← Back to Articles</a>
+        </div>
+      </article>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">
-      © BEZERU — modern + vintage, plus Gulf influence.
-    </div>
+  <footer class="site-footer">
+    <div class="container">© BEZERU — Modern + vintage, with a Gulf lens.</div>
   </footer>
 </body>
 </html>
