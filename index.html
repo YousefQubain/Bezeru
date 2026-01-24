@@ -1,61 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BEZERU</title>
+
+  <!-- Optional: add images/favicon.ico to remove the browser 404 favicon warning -->
+  <link rel="icon" href="images/favicon.ico" />
+
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:,">
   <script src="script.js" defer></script>
 </head>
-<body>
 
-  <!-- HEADER (shared on every page) -->
-  <header class="site-header">
+<body data-page="home">
+  <header>
     <div class="container">
       <div class="header-row">
-        <a class="brand" href="index.html" aria-label="BEZERU home">
+        <div class="brand">
           <div class="word">BEZERU</div>
           <div class="jp">ベゼル</div>
-        </a>
+        </div>
 
         <div class="clocks" aria-label="World time">
-          <div class="clock" data-tz="America/New_York">
+          <div class="clock">
             <div class="city">NEW YORK</div>
-            <canvas width="64" height="64"></canvas>
-            <div class="time">--:--:--</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
           </div>
-
-          <div class="clock" data-tz="Europe/London">
+          <div class="clock">
             <div class="city">LONDON</div>
-            <canvas width="64" height="64"></canvas>
-            <div class="time">--:--:--</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
           </div>
-
-          <div class="clock" data-tz="Europe/Zurich">
+          <div class="clock">
             <div class="city">GENEVA</div>
-            <canvas width="64" height="64"></canvas>
-            <div class="time">--:--:--</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
           </div>
-
-          <div class="clock" data-tz="Asia/Tokyo">
+          <div class="clock">
             <div class="city">TOKYO</div>
-            <canvas width="64" height="64"></canvas>
-            <div class="time">--:--:--</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
           </div>
         </div>
+
+        <div class="header-spacer"></div>
       </div>
     </div>
 
-    <!-- NAV -->
     <div class="nav-wrap">
       <div class="container">
-        <nav class="nav">
+        <nav>
           <a class="nav-link active" href="index.html">Home</a>
 
-          <div class="dropdown">
+          <div class="dropdown" data-dd="articles">
             <button class="dd-btn" type="button">
-              Articles <span class="chev" aria-hidden="true"></span>
+              Articles <span class="chev"></span>
             </button>
             <div class="dd-menu" role="menu" aria-label="Articles">
               <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
@@ -67,9 +67,9 @@
             </div>
           </div>
 
-          <div class="dropdown">
+          <div class="dropdown" data-dd="types">
             <button class="dd-btn" type="button">
-              Watch Types <span class="chev" aria-hidden="true"></span>
+              Watch Types <span class="chev"></span>
             </button>
             <div class="dd-menu" role="menu" aria-label="Watch Types">
               <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
@@ -86,65 +86,49 @@
     </div>
   </header>
 
-  <!-- MAIN -->
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
-          <h1>Modern and vintage watches,<br>explained without hype.</h1>
-          <p class="lead">
-            BEZERU covers underdogs, new competition, and vintage references — with a Gulf / Middle East lens when it matters.
-            We focus on what changed, what didn’t, and what actually matters on the wrist.
-          </p>
-          <a class="cta" href="articles.html#gulf">Read the latest Gulf editions →</a>
-        </div>
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
+            <h1>Modern and vintage watches,<br/>explained without hype.</h1>
+            <p class="lead">
+              BEZERU publishes twice a week. We connect today’s releases to vintage references —
+              with a Gulf / Middle East lens when it matters, plus underdogs, buying guides, and design critique.
+            </p>
+            <a class="cta" href="articles.html">Explore all articles →</a>
+          </div>
 
-        <div class="hero-card">
-          <h3>WHAT YOU’LL FIND</h3>
-          <p>
-            Independent brands that deserve attention, practical buying guides, design breakdowns,
-            and watch history where Middle East taste and influence has quietly shaped modern releases.
-          </p>
+          <div class="hero-card">
+            <h3>WHAT YOU’LL FIND</h3>
+            <p>
+              Underdogs and new competition, vintage context, buying guides that focus on value,
+              and Gulf / Middle East editions (Arabic dials, regional commissions, and the design exchange between cultures).
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="latest">
+    <section class="section">
       <div class="container">
         <div class="section-head">
           <h2>Latest stories</h2>
           <a class="viewall" href="articles.html">View all</a>
         </div>
 
-        <!-- Cards can be static OR loaded from posts.json.
-             We keep 3 nice defaults + script can replace them if posts.json exists. -->
-        <div class="grid" id="home-grid">
-          <a class="card" href="article.html?id=case-sizes">
-            <span class="badge">Design</span>
-            <h3>The Quiet Return of Neo-Vintage Case Sizes</h3>
-            <p>Why 36–38mm is winning back collectors tired of oversized sports watches.</p>
-          </a>
-
-          <a class="card" href="article.html?id=independents-2025">
-            <span class="badge">Underdogs</span>
-            <h3>Independent Brands to Watch in 2025</h3>
-            <p>Five under-the-radar makers delivering serious horology without hype pricing.</p>
-          </a>
-
-          <a class="card" href="article.html?id=cartier-gulf">
-            <span class="badge">Gulf</span>
-            <h3>How Cartier’s Middle East History Still Shapes Modern Releases</h3>
-            <p>From commissions to Arabic dials — the influence never left.</p>
-          </a>
+        <div class="grid" id="home-latest">
+          <!-- filled by script.js from posts.json -->
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">© BEZERU — Modern + vintage, with a Gulf lens.</div>
+  <footer>
+    <div class="container">
+      © BEZERU — Modern + vintage, with a Gulf lens.
+    </div>
   </footer>
-
 </body>
 </html>
