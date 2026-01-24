@@ -1,12 +1,261 @@
-{
-  "posts": [
-    {
-      "id": "independents-replacing-hype-001",
-      "title": "Independents That Are Quietly Replacing Hype",
-      "category": "Underdogs",
-      "date": "2026-01-26",
-      "excerpt": "Four independent watchmakers collectors are increasingly turning to, not for status, but for design, intention, and long-term appeal.",
-      "content_html": "<p>The watch world has always had its \"hot\" pieces. The ones everyone wants at the same time, the ones that dominate conversation, the ones you see everywhere online.</p><p>But if you spend enough time around collectors, you start to notice something else happening in parallel. Once people move past the obvious stage, they begin looking for watches that feel more personal. Less familiar. Less predictable. Sometimes even deliberately quiet.</p><p>That is where independent watchmaking comes in.</p><p>Not because independents are automatically better, or because they are rare for the sake of being rare. But because many of them still offer something that is becoming harder to find in mainstream luxury. Watches that feel like they were made with a clear point of view. You can usually sense it in the finishing, the proportions, the design choices, and even the way the brand talks about itself.</p><p>Here are four independents that feel increasingly relevant right now. They are not exactly secret, but they remain outside the usual hype loop, and that is part of the appeal.</p><h2>Andersen Genève, world time done the traditional way</h2><p>Andersen Genève is a brand that tends to come up in conversations among collectors who have already explored the usual mainstream names.</p><p>Founded by Svend Andersen, the focus has always been clear. World time watches, often paired with artistic dial work and classical Geneva finishing. There is a strong sense of traditional watchmaking here, something that feels closer to craft than to modern product strategy.</p><p>What also keeps Andersen special is scale. Production is extremely small, often described as around fifty watches per year. That keeps the brand rare without relying on hype or artificial scarcity.</p><p>It is the kind of watch you notice when you are paying attention, and completely miss when you are not.</p><h2>Raúl Pagès, quiet confidence in independent form</h2><p>Raúl Pagès is a perfect example of why the word independent still carries meaning.</p><p>Nothing about his work feels rushed or designed for instant attention. The watches are clean but not empty. Understated but clearly the result of someone who cares deeply about how every surface looks and feels.</p><p>His RP2 gives a good snapshot of where he sits in the market. Very limited production, around fifty pieces over five years, and a price level that firmly places him in the serious independent tier.</p><p>What is interesting is how his reputation spreads. Not through aggressive marketing, but through collectors recommending him to other collectors, usually in that way that signals quiet respect.</p><h2>Krayon, real originality in complications</h2><p>Krayon is not an easy brand, and that is part of what makes it interesting.</p><p>Where many complicated watches fall back on familiar prestige signals, Krayon seems more interested in rethinking how time is displayed and understood. The brand builds mechanisms that feel genuinely different, not just technically impressive.</p><p>The Krayon Anywhere, often seen at prices around one hundred twenty nine thousand dollars, shows clearly the level at which the brand operates. This is not about competing with mainstream luxury. It is about doing something intellectually ambitious and letting the right collectors find it.</p><p>Krayon is a reminder that independent watchmaking can still surprise people, not with gimmicks, but with ideas.</p><h2>Kudoke, a smart entry point into independents</h2><p>Kudoke deserves more attention than it currently gets.</p><p>It offers real independent finishing and strong design personality, but without immediately jumping into extreme pricing. That makes it one of the easiest brands to recommend to collectors who want to move beyond mainstream Swiss names without going straight into the deep end.</p><p>The Kudoke 1 and Kudoke 2 often sit in the ten to thirteen thousand dollar range depending on configuration. Serious watches, but still within reach for many collectors who are ready to explore something more personal.</p><p>Once you handle one, the appeal becomes clear. The details feel considered, the design feels intentional, and the watch simply feels honest.</p><h2>Why independents are winning attention</h2><p>The independent space is not replacing hype because collectors suddenly dislike popular watches.</p><p>It is replacing hype because people eventually want something that feels theirs. A watch that does not need to be recognised from across the room. Something you choose because the story makes sense to you, the finishing holds up, and you actually enjoy wearing it even when no one notices.</p><p>Andersen Genève, Raúl Pagès, Krayon, and Kudoke all sit in different corners of the independent world, but they share one quality. They feel like watches made with intention.</p><p>And right now, that is becoming the real luxury.</p>"
-    }
-  ]
+/* =========================
+   DROPDOWNS (stable)
+========================= */
+function initDropdowns(){
+  const dropdowns = document.querySelectorAll(".dropdown");
+
+  function closeAll(){
+    dropdowns.forEach(dd => {
+      dd.classList.remove("dd-open");
+      const btn = dd.querySelector(".dd-btn");
+      if(btn) btn.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  dropdowns.forEach(dd=>{
+    const btn = dd.querySelector(".dd-btn");
+    const menu = dd.querySelector(".dd-menu");
+    if(!btn || !menu) return;
+
+    btn.setAttribute("aria-expanded", "false");
+
+    btn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = dd.classList.contains("dd-open");
+      closeAll();
+      if(!isOpen){
+        dd.classList.add("dd-open");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    // prevent clicks inside menu from closing instantly
+    menu.addEventListener("click", (e)=> e.stopPropagation());
+
+    // close after choosing a link
+    menu.querySelectorAll("a").forEach(a=>{
+      a.addEventListener("click", ()=> closeAll());
+    });
+  });
+
+  // close only if click is outside any dropdown
+  document.addEventListener("click", (e)=>{
+    const inside = e.target.closest(".dropdown");
+    if(!inside) closeAll();
+  });
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape") closeAll();
+  });
 }
+
+/* =========================
+   CLOCKS (HiDPI + markers + seconds)
+========================= */
+const TZ = {
+  ny:  { tz: "America/New_York", label: "NEW YORK" },
+  lon: { tz: "Europe/London",    label: "LONDON" },
+  gen: { tz: "Europe/Zurich",    label: "GENEVA" },
+  tok: { tz: "Asia/Tokyo",       label: "TOKYO" }
+};
+
+function formatTime(tz){
+  const fmt = new Intl.DateTimeFormat("en-GB", {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
+  const label = fmt.format(new Date()); // HH:MM:SS
+  const [hh, mm, ss] = label.split(":").map(Number);
+  return { hh, mm, ss, label };
+}
+
+function setupHiDPI(canvas){
+  const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+  const cssW = 38, cssH = 38;
+  canvas.style.width = cssW + "px";
+  canvas.style.height = cssH + "px";
+  canvas.width = cssW * dpr;
+  canvas.height = cssH * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr,0,0,dpr,0,0); // draw in CSS pixels
+  return { ctx, dpr, w: cssW, h: cssH };
+}
+
+function drawDial(canvas, hh, mm, ss){
+  if(!canvas) return;
+  const { ctx, w } = setupHiDPI(canvas);
+  const r = w/2;
+
+  ctx.clearRect(0,0,w,w);
+  ctx.save();
+  ctx.translate(r,r);
+
+  // outer ring
+  ctx.beginPath();
+  ctx.arc(0,0,r-1.5,0,Math.PI*2);
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || "#1d4ed8";
+  ctx.lineWidth = 3.2;
+  ctx.stroke();
+
+  // inner ring
+  ctx.beginPath();
+  ctx.arc(0,0,r-6.8,0,Math.PI*2);
+  ctx.strokeStyle = "rgba(15,23,42,0.14)";
+  ctx.lineWidth = 1.8;
+  ctx.stroke();
+
+  // minute/second ticks
+  for(let i=0;i<60;i++){
+    const ang = (Math.PI/30)*i - Math.PI/2;
+    const isHour = i % 5 === 0;
+    const len = isHour ? 6.5 : 3.8;
+    const lw  = isHour ? 1.7 : 1.1;
+
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(ang)*(r-7.5), Math.sin(ang)*(r-7.5));
+    ctx.lineTo(Math.cos(ang)*(r-7.5-len), Math.sin(ang)*(r-7.5-len));
+    ctx.strokeStyle = isHour ? "rgba(15,23,42,0.55)" : "rgba(15,23,42,0.28)";
+    ctx.lineWidth = lw;
+    ctx.lineCap = "round";
+    ctx.stroke();
+  }
+
+  // hands angles
+  const hour = (hh % 12) + mm/60 + ss/3600;
+  const min  = mm + ss/60;
+
+  const hourAng = (Math.PI/6) * hour - Math.PI/2;
+  const minAng  = (Math.PI/30) * min  - Math.PI/2;
+  const secAng  = (Math.PI/30) * ss   - Math.PI/2;
+
+  // hour hand
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(Math.cos(hourAng) * (r*0.42), Math.sin(hourAng) * (r*0.42));
+  ctx.strokeStyle = "rgba(15,23,42,0.92)";
+  ctx.lineWidth = 3.2;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // minute hand
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(Math.cos(minAng) * (r*0.62), Math.sin(minAng) * (r*0.62));
+  ctx.strokeStyle = "rgba(15,23,42,0.92)";
+  ctx.lineWidth = 2.4;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // second hand (accent)
+  ctx.beginPath();
+  ctx.moveTo(Math.cos(secAng) * (r*0.10), Math.sin(secAng) * (r*0.10));
+  ctx.lineTo(Math.cos(secAng) * (r*0.70), Math.sin(secAng) * (r*0.70));
+  ctx.strokeStyle = "rgba(29,78,216,0.95)";
+  ctx.lineWidth = 1.4;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // center dot
+  ctx.beginPath();
+  ctx.arc(0,0,2.4,0,Math.PI*2);
+  ctx.fillStyle = "rgba(15,23,42,0.92)";
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function tickClocks(){
+  Object.keys(TZ).forEach(id=>{
+    const canvas = document.getElementById(id);
+    const tEl = document.getElementById(id + "-time");
+    if(!canvas || !tEl) return;
+
+    const parts = formatTime(TZ[id].tz);
+    tEl.textContent = parts.label;
+    drawDial(canvas, parts.hh, parts.mm, parts.ss);
+  });
+}
+
+function initClocks(){
+  tickClocks();
+  setInterval(tickClocks, 1000);
+}
+
+/* =========================
+   POSTS RENDERING
+========================= */
+async function loadPosts(){
+  const res = await fetch("posts.json", { cache: "no-store" });
+  if(!res.ok) throw new Error("Could not load posts.json");
+  const data = await res.json();
+  return data.posts || [];
+}
+
+function postCardHTML(post){
+  return `
+    <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
+      <span class="badge">${post.category}</span>
+      <h3>${post.title}</h3>
+      <p>${post.excerpt}</p>
+    </a>
+  `;
+}
+
+async function renderHomeLatest(){
+  const holder = document.getElementById("home-latest");
+  if(!holder) return;
+  const posts = await loadPosts();
+  holder.innerHTML = posts.slice(0,3).map(postCardHTML).join("");
+}
+
+async function renderArticlesGrid(){
+  const holder = document.getElementById("articles-grid");
+  if(!holder) return;
+  const posts = await loadPosts();
+  holder.innerHTML = posts.map(postCardHTML).join("");
+}
+
+async function renderArticle(){
+  const titleEl = document.getElementById("article-title");
+  const badgeEl = document.getElementById("article-badge");
+  const dateEl  = document.getElementById("article-date");
+  const ledeEl  = document.getElementById("article-lede");
+  const bodyEl  = document.getElementById("article-body");
+
+  if(!titleEl || !badgeEl || !dateEl || !ledeEl || !bodyEl) return;
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+  const posts = await loadPosts();
+  const post = posts.find(p => p.id === id) || posts[0];
+
+  titleEl.textContent = post.title;
+  badgeEl.textContent = post.category;
+  dateEl.textContent  = post.date;
+  ledeEl.textContent  = post.excerpt;
+  bodyEl.innerHTML    = post.content_html;
+}
+
+document.addEventListener("DOMContentLoaded", async ()=>{
+  initDropdowns();
+  initClocks();
+
+  // footer year
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+
+  // page-specific rendering
+  const page = document.body.getAttribute("data-page");
+
+  try{
+    if(page === "home") await renderHomeLatest();
+    if(page === "articles") await renderArticlesGrid();
+    if(page === "article") await renderArticle();
+  }catch(err){
+    console.warn(err);
+  }
+});
