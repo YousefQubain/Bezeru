@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU</title>
+  <title>About — BEZERU</title>
+  <meta name="description" content="BEZERU is a watch editorial: modern + vintage, with Gulf/Middle East influence, and design-first critique without hype." />
   <link rel="stylesheet" href="./style.css?v=2" />
   <script src="./script.js?v=2" defer></script>
 </head>
@@ -14,12 +15,10 @@
 
   <!-- TOP ROW -->
   <div class="wrap header-top">
-
     <div class="brand">
       <div class="brand-title">BEZERU</div>
       <div class="brand-sub">ベゼル</div>
     </div>
-
   </div>
 
   <!-- WATCHES CENTERED ABOVE NAV -->
@@ -30,20 +29,19 @@
   <!-- NAV ROW -->
   <nav class="site-nav">
     <div class="wrap nav-inner">
-
-      <a class="nav-link active" href="./index.html">Home</a>
+      <a class="nav-link" href="./index.html">Home</a>
 
       <div class="nav-dd">
         <button class="nav-link nav-btn" type="button">
           Articles <span class="chev">▾</span>
         </button>
         <div class="dd-menu">
-          <a href="#" class="dd-item">Latest</a>
-          <a href="#" class="dd-item">Gulf Editions</a>
-          <a href="#" class="dd-item">Vintage</a>
-          <a href="#" class="dd-item">Design Breakdowns</a>
-          <a href="#" class="dd-item">Buying Guides</a>
-          <a href="#" class="dd-item">Underdogs</a>
+          <a href="./articles.html?cat=latest" class="dd-item">Latest</a>
+          <a href="./articles.html?cat=gulf" class="dd-item">Gulf Editions</a>
+          <a href="./articles.html?cat=vintage" class="dd-item">Vintage</a>
+          <a href="./articles.html?cat=design" class="dd-item">Design Breakdowns</a>
+          <a href="./articles.html?cat=guide" class="dd-item">Buying Guides</a>
+          <a href="./articles.html?cat=underdogs" class="dd-item">Underdogs</a>
         </div>
       </div>
 
@@ -52,16 +50,15 @@
           Watch Types <span class="chev">▾</span>
         </button>
         <div class="dd-menu">
-          <a href="#" class="dd-item">Dress</a>
-          <a href="#" class="dd-item">Diver</a>
-          <a href="#" class="dd-item">Chronograph</a>
-          <a href="#" class="dd-item">GMT / Travel</a>
-          <a href="#" class="dd-item">Complications</a>
+          <a href="./articles.html?type=dress" class="dd-item">Dress</a>
+          <a href="./articles.html?type=diver" class="dd-item">Diver</a>
+          <a href="./articles.html?type=chrono" class="dd-item">Chronograph</a>
+          <a href="./articles.html?type=gmt" class="dd-item">GMT / Travel</a>
+          <a href="./articles.html?type=complications" class="dd-item">Complications</a>
         </div>
       </div>
 
-      <a class="nav-link" href="about.html">About</a>
-
+      <a class="nav-link active" href="./about.html">About</a>
     </div>
   </nav>
 
@@ -69,46 +66,31 @@
 
 <main>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <div class="eyebrow">CONTEMPORARY WATCH EDITORIAL</div>
-      <h1 class="hero-title">
-        Modern and vintage watches,<br>
-        explained without hype.
-      </h1>
-      <p class="hero-sub">
-        BEZERU publishes twice a week. We connect today’s releases to vintage references —
-        with a Gulf/Middle East lens when it matters, and design-first critique always.
-      </p>
-      <a class="hero-link" href="#latest">Read the latest Gulf editions</a>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">ABOUT BEZERU</div>
+        <h1 class="hero-title">A watch notebook built on clarity.</h1>
+        <p class="hero-sub">
+          BEZERU focuses on what changed, what didn’t, and what matters on the wrist. We map modern releases to
+          their vintage references, highlight Gulf and Middle East editions, and keep the critique grounded in
+          design over hype.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="latest" id="latest">
-  <div class="wrap latest-head">
-    <h2 class="section-title">Latest stories</h2>
-    <a class="view-all" href="#">View all</a>
-  </div>
-
-  <div class="wrap">
-    <div class="cards" id="cards"></div>
-  </div>
-</section>
-
-<section class="about" id="about">
-  <div class="wrap">
-    <h2 class="section-title">About BEZERU</h2>
-    <p class="about-text">
-      BEZERU is a watch publication focused on clarity: what changed, what didn’t,
-      and what matters on the wrist. We cover global releases — and spotlight Gulf
-      and Middle East editions, Arabic dials, regional makers, and design language
-      that travels between cultures.
-    </p>
-    <div class="footerline">© BEZERU — Modern + vintage, with a Gulf lens.</div>
-  </div>
-</section>
+  <section class="about" id="about">
+    <div class="wrap">
+      <h2 class="section-title">Our point of view</h2>
+      <p class="about-text">
+        Watches carry history, culture, and engineering in a space smaller than your palm. BEZERU is where
+        contemporary drops meet their vintage roots, where Arabic dials and regional makers are treated with the
+        seriousness they deserve, and where the focus stays on what you actually wear.
+      </p>
+      <div class="footerline">© BEZERU — Modern + vintage, with a Gulf lens.</div>
+    </div>
+  </section>
 
 </main>
 
