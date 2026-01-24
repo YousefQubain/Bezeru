@@ -2,71 +2,302 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BEZERU</title>
-  <link rel="stylesheet" href="./style.css?v=9" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#0f172a;
+      background: radial-gradient(circle at top, #eef2ff, #f8fafc);
+    }
+    a{ color: inherit; }
+
+    /* HEADER */
+    .top-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      padding: 14px 56px 8px;
+    }
+    .logo{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width: 160px;
+    }
+    .logo strong{
+      font-size: 24px;
+      letter-spacing: 6px;
+      font-weight: 800;
+      color:#0b1220;
+      line-height:1;
+    }
+    .logo span{
+      font-size: 12px;
+      color:#64748b;
+      letter-spacing: 1px;
+    }
+
+    .world-clocks{
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      gap: 42px;
+      flex: 1;
+    }
+    .clock-box{
+      text-align:center;
+      min-width: 92px;
+    }
+    .city{
+      font-size: 11px;
+      letter-spacing: 3px;
+      color:#64748b;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .time{
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 6px;
+      color:#0f172a;
+    }
+    canvas{
+      display:block;
+      margin: 0 auto;
+    }
+
+    /* NAV */
+    .main-nav{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap: 56px;
+      padding: 10px 0 12px;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      background: rgba(248,250,252,0.35);
+      backdrop-filter: blur(6px);
+    }
+    .main-nav a{
+      text-decoration:none;
+      font-size: 14px;
+      font-weight: 600;
+      color:#0f172a;
+      padding: 6px 0;
+      opacity: 0.9;
+    }
+    .main-nav a:hover{ opacity:1; }
+    .main-nav a.active{
+      opacity:1;
+      border-bottom: 3px solid #1d4ed8;
+    }
+
+    /* HERO */
+    .hero{
+      max-width: 980px;
+      margin: 72px auto 80px;
+      padding: 0 24px;
+    }
+    .section-label{
+      font-size: 12px;
+      letter-spacing: 4px;
+      color:#64748b;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    h1{
+      font-size: 52px;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+    .hero-text{
+      font-size: 16px;
+      color:#334155;
+      line-height: 1.7;
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
+    .hero-link{
+      color:#1d4ed8;
+      font-weight: 700;
+      text-decoration:none;
+    }
+    .hero-link:hover{ text-decoration: underline; }
+
+    /* RESPONSIVE (so it doesn't “break”) */
+    @media (max-width: 980px){
+      .top-bar{
+        flex-direction: column;
+        align-items:flex-start;
+        padding: 14px 18px 8px;
+      }
+      .world-clocks{
+        width:100%;
+        justify-content:flex-start;
+        gap: 22px;
+        overflow-x:auto;
+        padding-bottom: 8px;
+      }
+      .main-nav{
+        gap: 22px;
+        padding: 10px 14px 12px;
+        justify-content:flex-start;
+        overflow-x:auto;
+      }
+      h1{ font-size: 40px; }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="top-bar">
-  <div class="logo">
-    <strong>BEZERU</strong>
-    <span>ベゼル</span>
-  </div>
-
-  <div class="world-clocks">
-
-    <div class="clock-box">
-      <div class="city">NEW YORK</div>
-      <canvas id="ny" width="42" height="42"></canvas>
-      <div class="time" id="ny-time"></div>
+  <header class="top-bar">
+    <div class="logo">
+      <strong>BEZERU</strong>
+      <span>ベゼル</span>
     </div>
 
-    <div class="clock-box">
-      <div class="city">LONDON</div>
-      <canvas id="lon" width="42" height="42"></canvas>
-      <div class="time" id="lon-time"></div>
+    <div class="world-clocks">
+      <div class="clock-box">
+        <div class="city">NEW YORK</div>
+        <canvas id="ny" width="44" height="44"></canvas>
+        <div class="time" id="ny-time">--:--</div>
+      </div>
+
+      <div class="clock-box">
+        <div class="city">LONDON</div>
+        <canvas id="lon" width="44" height="44"></canvas>
+        <div class="time" id="lon-time">--:--</div>
+      </div>
+
+      <div class="clock-box">
+        <div class="city">GENEVA</div>
+        <canvas id="gen" width="44" height="44"></canvas>
+        <div class="time" id="gen-time">--:--</div>
+      </div>
+
+      <div class="clock-box">
+        <div class="city">TOKYO</div>
+        <canvas id="tok" width="44" height="44"></canvas>
+        <div class="time" id="tok-time">--:--</div>
+      </div>
     </div>
+  </header>
 
-    <div class="clock-box">
-      <div class="city">GENEVA</div>
-      <canvas id="gen" width="42" height="42"></canvas>
-      <div class="time" id="gen-time"></div>
-    </div>
+  <nav class="main-nav">
+    <a class="active" href="index.html">Home</a>
+    <a href="articles.html">Articles ▾</a>
+    <a href="types.html">Watch Types ▾</a>
+    <a href="about.html">About</a>
+  </nav>
 
-    <div class="clock-box">
-      <div class="city">TOKYO</div>
-      <canvas id="tok" width="42" height="42"></canvas>
-      <div class="time" id="tok-time"></div>
-    </div>
+  <section class="hero">
+    <p class="section-label">CONTEMPORARY WATCH EDITORIAL</p>
 
-  </div>
-</header>
+    <h1>Modern and vintage watches,<br>explained without hype.</h1>
 
-<nav class="main-nav">
-  <a class="active" href="index.html">Home</a>
-  <a href="#">Articles ▾</a>
-  <a href="#">Watch Types ▾</a>
-  <a href="about.html">About</a>
-</nav>
+    <p class="hero-text">
+      BEZERU publishes twice a week. We connect today’s releases to vintage references —
+      with a Gulf / Middle East lens when it matters, and design-first critique always.
+    </p>
 
-<section class="hero">
-  <p class="section-label">CONTEMPORARY WATCH EDITORIAL</p>
+    <a class="hero-link" href="articles.html">Read the latest Gulf editions</a>
+  </section>
 
-  <h1>
-    Modern and vintage watches,<br>
-    explained without hype.
-  </h1>
+  <script>
+    // Robust timezone time (handles DST correctly)
+    const TZ = {
+      ny: "America/New_York",
+      lon: "Europe/London",
+      gen: "Europe/Zurich",
+      tok: "Asia/Tokyo"
+    };
 
-  <p class="hero-text">
-    BEZERU publishes twice a week. We connect today’s releases to vintage
-    references — with a Gulf / Middle East lens when it matters, and
-    design-first critique always.
-  </p>
+    function getTimeParts(tz){
+      const fmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false
+      });
+      const s = fmt.format(new Date()); // "HH:MM"
+      const [hh, mm] = s.split(":").map(Number);
+      return { hh, mm, label: s };
+    }
 
-  <a class="hero-link" href="#">Read the latest Gulf editions</a>
-</section>
+    function drawAnalog(canvas, hh, mm){
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width, h = canvas.height;
+      const r = w/2;
 
-<script src="./script.js?v=9"></script>
+      // reset transform each frame (prevents weird drifting)
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.clearRect(0,0,w,h);
+
+      // face
+      ctx.translate(r,r);
+      ctx.beginPath();
+      ctx.arc(0,0,r-2,0,Math.PI*2);
+      ctx.strokeStyle = "#1d4ed8";
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      // inner ring
+      ctx.beginPath();
+      ctx.arc(0,0,r-9,0,Math.PI*2);
+      ctx.strokeStyle = "rgba(15,23,42,0.12)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // hands
+      const hour = (hh % 12) + mm/60;
+      const hourAng = (Math.PI/6) * hour - Math.PI/2;
+      const minAng  = (Math.PI/30) * mm - Math.PI/2;
+
+      // hour hand
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.lineTo(Math.cos(hourAng) * (r*0.45), Math.sin(hourAng) * (r*0.45));
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 4;
+      ctx.lineCap = "round";
+      ctx.stroke();
+
+      // minute hand
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.lineTo(Math.cos(minAng) * (r*0.7), Math.sin(minAng) * (r*0.7));
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      ctx.stroke();
+
+      // center dot
+      ctx.beginPath();
+      ctx.arc(0,0,3,0,Math.PI*2);
+      ctx.fillStyle = "#0f172a";
+      ctx.fill();
+
+      // restore
+      ctx.setTransform(1,0,0,1,0,0);
+    }
+
+    function tick(){
+      Object.keys(TZ).forEach(id=>{
+        const parts = getTimeParts(TZ[id]);
+        const canvas = document.getElementById(id);
+        const label = document.getElementById(id + "-time");
+        if(!canvas || !label) return;
+        label.textContent = parts.label;
+        drawAnalog(canvas, parts.hh, parts.mm);
+      });
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
 </body>
 </html>
