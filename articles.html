@@ -1,34 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Articles — BEZERU</title>
-  <style>
-    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin:0; background:#f8fafc; color:#0f172a; }
-    .wrap{ max-width: 900px; margin: 70px auto; padding: 0 22px; }
-    h1{ font-size: 34px; margin-bottom: 10px; }
-    p{ color: rgba(15,23,42,0.75); line-height: 1.7; }
-    a{ color:#1d4ed8; font-weight: 800; text-decoration:none; }
-    a:hover{ text-decoration: underline; }
-    .sec{ margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
-    .top{ margin-bottom: 18px; }
-  </style>
+  <meta name="description" content="All BEZERU articles: Gulf editions, vintage deep dives, design breakdowns, buying guides, and underdogs." />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="top">
-      <a href="index.html">← Back to Home</a>
-      <h1>Articles</h1>
-      <p>This is a placeholder page so your dropdown links work. Next step: we can build a real article list + article pages.</p>
+  <header class="site-header">
+    <div class="wrap header-top">
+      <div class="brand">
+        <div class="brand-title">BEZERU</div>
+        <div class="brand-sub">ベゼル</div>
+      </div>
     </div>
 
-    <div class="sec" id="latest"><h2>Latest</h2><p>Coming soon.</p></div>
-    <div class="sec" id="gulf"><h2>Gulf Editions</h2><p>Coming soon.</p></div>
-    <div class="sec" id="vintage"><h2>Vintage</h2><p>Coming soon.</p></div>
-    <div class="sec" id="design"><h2>Design Breakdowns</h2><p>Coming soon.</p></div>
-    <div class="sec" id="guides"><h2>Buying Guides</h2><p>Coming soon.</p></div>
-    <div class="sec" id="underdogs"><h2>Underdogs</h2><p>Coming soon.</p></div>
-  </div>
+    <div class="wrap worldwatch-row">
+      <div class="worldwatches" id="worldwatches"></div>
+    </div>
+
+    <nav class="site-nav">
+      <div class="wrap nav-inner">
+        <a class="nav-link" href="./index.html">Home</a>
+
+        <div class="nav-dd">
+          <button class="nav-link nav-btn active" type="button">
+            Articles <span class="chev">▾</span>
+          </button>
+          <div class="dd-menu">
+            <a href="./articles.html?cat=latest" class="dd-item">Latest</a>
+            <a href="./articles.html?cat=gulf" class="dd-item">Gulf Editions</a>
+            <a href="./articles.html?cat=vintage" class="dd-item">Vintage</a>
+            <a href="./articles.html?cat=design" class="dd-item">Design Breakdowns</a>
+            <a href="./articles.html?cat=guide" class="dd-item">Buying Guides</a>
+            <a href="./articles.html?cat=underdogs" class="dd-item">Underdogs</a>
+          </div>
+        </div>
+
+        <div class="nav-dd">
+          <button class="nav-link nav-btn" type="button">
+            Watch Types <span class="chev">▾</span>
+          </button>
+          <div class="dd-menu">
+            <a href="./articles.html?type=dress" class="dd-item">Dress</a>
+            <a href="./articles.html?type=diver" class="dd-item">Diver</a>
+            <a href="./articles.html?type=chrono" class="dd-item">Chronograph</a>
+            <a href="./articles.html?type=gmt" class="dd-item">GMT / Travel</a>
+            <a href="./articles.html?type=complications" class="dd-item">Complications</a>
+          </div>
+        </div>
+
+        <a class="nav-link" href="./about.html">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap page-head-grid">
+        <div>
+          <div class="eyebrow">BEZERU LIBRARY</div>
+          <h1>Articles</h1>
+          <p class="muted">Filter by category or watch type. Click any story to open the full article.</p>
+        </div>
+
+        <div class="filters">
+          <input id="q" type="search" placeholder="Search titles, brands, regions…" />
+          <select id="cat">
+            <option value="">All categories</option>
+            <option value="latest">Latest</option>
+            <option value="gulf">Gulf Editions</option>
+            <option value="vintage">Vintage</option>
+            <option value="design">Design</option>
+            <option value="guide">Guides</option>
+            <option value="underdogs">Underdogs</option>
+          </select>
+          <select id="type">
+            <option value="">All watch types</option>
+            <option value="dress">Dress</option>
+            <option value="diver">Diver</option>
+            <option value="chrono">Chronograph</option>
+            <option value="gmt">GMT / Travel</option>
+            <option value="complications">Complications</option>
+          </select>
+          <button class="btn ghost" id="clear" type="button">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="cards" id="cards" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="footer-brand">BEZERU</div>
+        <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
+      </div>
+      <div class="footer-links">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./articles.html?cat=gulf">Gulf Editions</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
