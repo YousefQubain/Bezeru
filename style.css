@@ -401,3 +401,10 @@ footer{
   .about-grid{ grid-template-columns: 1fr; }
   .about-card{ grid-template-columns: 1fr; }
 }
+.about-photo{
+  width:100%;
+  max-width:360px;
+  border-radius:20px;
+  box-shadow:0 16px 40px rgba(11,18,32,.12);
+  object-fit:cover;
+}
