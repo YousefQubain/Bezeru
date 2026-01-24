@@ -1,130 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Articles — BEZERU</title>
-  <meta name="description" content="All BEZERU articles: Gulf editions, vintage deep dives, design breakdowns, buying guides, and underdogs." />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin:0; background:#f8fafc; color:#0f172a; }
+    .wrap{ max-width: 900px; margin: 70px auto; padding: 0 22px; }
+    h1{ font-size: 34px; margin-bottom: 10px; }
+    p{ color: rgba(15,23,42,0.75); line-height: 1.7; }
+    a{ color:#1d4ed8; font-weight: 800; text-decoration:none; }
+    a:hover{ text-decoration: underline; }
+    .sec{ margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+    .top{ margin-bottom: 18px; }
+  </style>
 </head>
-
 <body>
-  <header class="site-header">
-    <div class="container header-top">
-      <a class="brand" href="index.html" aria-label="BEZERU home">
-        <span class="brand-mark">BEZERU</span>
-        <span class="brand-kana">ベゼル</span>
-      </a>
-
-      <div class="worldtime" aria-label="World time">
-        <div class="tz-card" data-tz="America/New_York">
-          <div class="tz-label">NEW YORK</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
-          <div class="tz-time" data-role="time">--:--</div>
-        </div>
-        <div class="tz-card" data-tz="Europe/London">
-          <div class="tz-label">LONDON</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
-          <div class="tz-time" data-role="time">--:--</div>
-        </div>
-        <div class="tz-card" data-tz="Europe/Zurich">
-          <div class="tz-label">GENEVA</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
-          <div class="tz-time" data-role="time">--:--</div>
-        </div>
-        <div class="tz-card" data-tz="Asia/Tokyo">
-          <div class="tz-label">TOKYO</div>
-          <canvas class="tz-watch" width="54" height="54" aria-hidden="true"></canvas>
-          <div class="tz-time" data-role="time">--:--</div>
-        </div>
-      </div>
+  <div class="wrap">
+    <div class="top">
+      <a href="index.html">← Back to Home</a>
+      <h1>Articles</h1>
+      <p>This is a placeholder page so your dropdown links work. Next step: we can build a real article list + article pages.</p>
     </div>
 
-    <div class="container header-nav">
-      <nav class="nav" aria-label="Primary">
-        <a class="nav-link" href="index.html">Home</a>
-
-        <div class="nav-dropdown">
-          <a class="nav-link active" href="articles.html">Articles <span class="chev">▾</span></a>
-          <div class="dropdown-panel" role="menu">
-            <a href="articles.html?cat=latest" role="menuitem">Latest</a>
-            <a href="articles.html?cat=gulf" role="menuitem">Gulf Editions</a>
-            <a href="articles.html?cat=vintage" role="menuitem">Vintage</a>
-            <a href="articles.html?cat=design" role="menuitem">Design Breakdowns</a>
-            <a href="articles.html?cat=guide" role="menuitem">Buying Guides</a>
-            <a href="articles.html?cat=underdogs" role="menuitem">Underdogs</a>
-          </div>
-        </div>
-
-        <div class="nav-dropdown">
-          <a class="nav-link" href="articles.html?view=types">Watch Types <span class="chev">▾</span></a>
-          <div class="dropdown-panel" role="menu">
-            <a href="articles.html?type=dress" role="menuitem">Dress</a>
-            <a href="articles.html?type=diver" role="menuitem">Diver</a>
-            <a href="articles.html?type=chrono" role="menuitem">Chronograph</a>
-            <a href="articles.html?type=gmt" role="menuitem">GMT / Travel</a>
-            <a href="articles.html?type=complications" role="menuitem">Complications</a>
-          </div>
-        </div>
-
-        <a class="nav-link" href="about.html">About</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="page-head">
-      <div class="container page-head-grid">
-        <div>
-          <h1>Articles</h1>
-          <p class="muted">Filter by category or watch type. Click any story to open the full article.</p>
-        </div>
-
-        <div class="filters">
-          <input id="q" type="search" placeholder="Search titles, brands, regions…" />
-          <select id="cat">
-            <option value="">All categories</option>
-            <option value="latest">Latest</option>
-            <option value="gulf">Gulf Editions</option>
-            <option value="vintage">Vintage</option>
-            <option value="design">Design</option>
-            <option value="guide">Guides</option>
-            <option value="underdogs">Underdogs</option>
-          </select>
-          <select id="type">
-            <option value="">All watch types</option>
-            <option value="dress">Dress</option>
-            <option value="diver">Diver</option>
-            <option value="chrono">Chronograph</option>
-            <option value="gmt">GMT / Travel</option>
-            <option value="complications">Complications</option>
-          </select>
-          <button class="btn ghost" id="clear">Clear</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="cards" id="cards" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
-        </div>
-        <div class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="about.html">About</a>
-          <a href="articles.html?cat=gulf">Gulf Editions</a>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
+    <div class="sec" id="latest"><h2>Latest</h2><p>Coming soon.</p></div>
+    <div class="sec" id="gulf"><h2>Gulf Editions</h2><p>Coming soon.</p></div>
+    <div class="sec" id="vintage"><h2>Vintage</h2><p>Coming soon.</p></div>
+    <div class="sec" id="design"><h2>Design Breakdowns</h2><p>Coming soon.</p></div>
+    <div class="sec" id="guides"><h2>Buying Guides</h2><p>Coming soon.</p></div>
+    <div class="sec" id="underdogs"><h2>Underdogs</h2><p>Coming soon.</p></div>
+  </div>
 </body>
 </html>
