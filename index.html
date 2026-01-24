@@ -5,22 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BEZERU</title>
 
-  <!-- Optional: add images/favicon.ico to remove the browser 404 favicon warning -->
-  <link rel="icon" href="images/favicon.ico" />
-
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
 <body data-page="home">
+
+  <!-- ================= HEADER ================= -->
   <header>
     <div class="container">
       <div class="header-row">
+
         <div class="brand">
           <div class="word">BEZERU</div>
           <div class="jp">ベゼル</div>
         </div>
 
+        <!-- WORLD CLOCKS -->
         <div class="clocks" aria-label="World time">
           <div class="clock">
             <div class="city">NEW YORK</div>
@@ -48,34 +49,31 @@
       </div>
     </div>
 
+    <!-- NAV -->
     <div class="nav-wrap">
       <div class="container">
         <nav>
           <a class="nav-link active" href="index.html">Home</a>
 
-          <div class="dropdown" data-dd="articles">
-            <button class="dd-btn" type="button">
-              Articles <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Articles">
+          <div class="dropdown">
+            <button class="dd-btn">Articles <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
               <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
               <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
-              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
-              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
+              <a href="articles.html#design">Design <span class="tag">DESIGN</span></a>
+              <a href="articles.html#guides">Guides <span class="tag">GUIDE</span></a>
               <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
             </div>
           </div>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Watch Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Watch Types">
+          <div class="dropdown">
+            <button class="dd-btn">Watch Types <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
               <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
               <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
+              <a href="types.html#gmt">GMT <span class="tag">TRAVEL</span></a>
               <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
             </div>
           </div>
@@ -86,31 +84,37 @@
     </div>
   </header>
 
+  <!-- ================= MAIN ================= -->
   <main>
+
+    <!-- HERO -->
     <section class="hero">
       <div class="container">
         <div class="hero-grid">
           <div>
             <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
             <h1>Modern and vintage watches,<br/>explained without hype.</h1>
+
             <p class="lead">
-              BEZERU publishes twice a week. We connect today’s releases to vintage references —
-              with a Gulf / Middle East lens when it matters, plus underdogs, buying guides, and design critique.
+              BEZERU covers underdogs, vintage context, buying guides, and Gulf / Middle East
+              influences in modern watch design — focusing on proportion, culture, and long-term value.
             </p>
+
             <a class="cta" href="articles.html">Explore all articles →</a>
           </div>
 
           <div class="hero-card">
             <h3>WHAT YOU’LL FIND</h3>
             <p>
-              Underdogs and new competition, vintage context, buying guides that focus on value,
-              and Gulf / Middle East editions (Arabic dials, regional commissions, and the design exchange between cultures).
+              Independent brands, Arabic-dial history, regional commissions, and design-first
+              criticism — without chasing marketing cycles or hype pricing.
             </p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- LATEST STORIES -->
     <section class="section">
       <div class="container">
         <div class="section-head">
@@ -118,17 +122,69 @@
           <a class="viewall" href="articles.html">View all</a>
         </div>
 
-        <div class="grid" id="home-latest">
-          <!-- filled by script.js from posts.json -->
-        </div>
+        <div class="grid" id="home-latest"></div>
       </div>
     </section>
+
   </main>
 
-  <footer>
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-pro">
     <div class="container">
-      © BEZERU — Modern + vintage, with a Gulf lens.
+
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">
+            Modern + vintage watch editorial with a Gulf / Middle East lens — focused on design,
+            proportion, culture, and the underdogs shaping modern taste.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <div class="footer-links">
+            <a href="articles.html#latest">Latest</a>
+            <a href="articles.html#underdogs">Underdogs</a>
+            <a href="articles.html#vintage">Vintage</a>
+            <a href="articles.html#gulf">Gulf Editions</a>
+            <a href="articles.html#design">Design</a>
+            <a href="articles.html#guides">Buying Guides</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a class="footer-pill" href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">
+            <div>
+              <div class="title">Contact Yousef</div>
+              <div class="desc">Story ideas, feedback, collaborations.</div>
+            </div>
+            <div class="cta">Email →</div>
+          </a>
+
+          <div style="margin-top:10px; font-size:12.5px; color:rgba(15,23,42,0.60);">
+            Or email: <a href="mailto:yousef.qubain@gmail.com" style="text-decoration:underline;">yousef.qubain@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Follow</h4>
+          <div class="footer-links">
+            <span class="coming-soon">Instagram (coming soon)</span>
+            <span class="coming-soon">X (coming soon)</span>
+            <span class="coming-soon">LinkedIn (coming soon)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div>Design-first watch writing • Gulf/Middle East perspectives • Underdogs & vintage</div>
+      </div>
+
     </div>
   </footer>
+
 </body>
 </html>
