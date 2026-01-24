@@ -1,204 +1,276 @@
-const WATCHES = [
-  { city: "NEW YORK", tz: "America/New_York" },
-  { city: "LONDON", tz: "Europe/London" },
-  { city: "GENEVA", tz: "Europe/Zurich" },
-  { city: "TOKYO", tz: "Asia/Tokyo" }
-];
+/* =========================
+   DROPDOWNS (every page)
+========================= */
+(function(){
+  const dropdowns = document.querySelectorAll(".dropdown");
+  if(!dropdowns.length) return;
 
-function getTZTime(tz){
-  const parts = new Intl.DateTimeFormat("en-GB",{
-    timeZone:tz,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
-  }).formatToParts(new Date());
-  const g=t=>parts.find(p=>p.type===t)?.value||"00";
-  const d=new Date();
-  d.setHours(+g("hour"),+g("minute"),+g("second"),0);
-  return d;
+  function closeAll(){
+    dropdowns.forEach(dd => dd.classList.remove("dd-open"));
+  }
+
+  dropdowns.forEach(dd=>{
+    const btn = dd.querySelector(".dd-btn");
+    if(!btn) return;
+
+    btn.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      const isOpen = dd.classList.contains("dd-open");
+      closeAll();
+      if(!isOpen) dd.classList.add("dd-open");
+    });
+
+    dd.querySelectorAll(".dd-menu a").forEach(a=>{
+      a.addEventListener("click", ()=> closeAll());
+    });
+  });
+
+  document.addEventListener("click", closeAll);
+  document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeAll(); });
+})();
+
+/* =========================
+   ACTIVE NAV HIGHLIGHT
+========================= */
+(function(){
+  const path = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  document.querySelectorAll("nav a.nav-link").forEach(a=>{
+    const href = (a.getAttribute("href") || "").toLowerCase();
+    if(href === path) a.classList.add("active");
+    else a.classList.remove("active");
+  });
+})();
+
+/* =========================
+   CLOCKS (DST-safe timezones)
+   + HD markers + seconds hand
+========================= */
+const TZ = {
+  ny: "America/New_York",
+  lon: "Europe/London",
+  gen: "Europe/Zurich",
+  tok: "Asia/Tokyo"
+};
+
+function getHMS(tz){
+  // Use Intl to handle DST correctly
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(new Date()); // "HH:MM:SS"
+
+  const [hh, mm, ss] = parts.split(":").map(Number);
+  return { hh, mm, ss, label: parts.slice(0,5) }; // show HH:MM below (clean)
 }
 
-function renderWatches(){
-  const host=document.getElementById("worldwatches");
-  if(!host) return;
-  host.innerHTML=WATCHES.map((w,i)=>`
-    <div class="worldwatch" data-i="${i}">
-      <div class="city">${w.city}</div>
-      <div class="small-watch">
-        <div class="hand hour"></div>
-        <div class="hand min"></div>
-        <div class="hand sec"></div>
-        <div class="pivot"></div>
-      </div>
-      <div class="time">--:--</div>
-    </div>
-  `).join("");
+function drawAnalog(canvas, hh, mm, ss){
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width;
+  const r = w / 2;
+
+  // High-DPI crisp
+  const dpr = window.devicePixelRatio || 1;
+  if(canvas._dpr !== dpr){
+    canvas._dpr = dpr;
+    canvas.width = Math.round(44 * dpr);
+    canvas.height = Math.round(44 * dpr);
+    canvas.style.width = "44px";
+    canvas.style.height = "44px";
+  }
+
+  const cw = canvas.width;
+  const cr = cw/2;
+
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,cw,cw);
+  ctx.translate(cr, cr);
+
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || "#1d4ed8";
+
+  // Outer ring
+  ctx.beginPath();
+  ctx.arc(0,0,cr-2,0,Math.PI*2);
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = 4 * dpr;
+  ctx.stroke();
+
+  // Face
+  ctx.beginPath();
+  ctx.arc(0,0,cr-8*dpr,0,Math.PI*2);
+  ctx.strokeStyle = "rgba(15,23,42,0.12)";
+  ctx.lineWidth = 2 * dpr;
+  ctx.stroke();
+
+  // Minute ticks (60)
+  for(let i=0; i<60; i++){
+    const ang = (Math.PI/30)*i - Math.PI/2;
+    const isHour = i % 5 === 0;
+    const inner = cr - (isHour ? 12*dpr : 10*dpr);
+    const outer = cr - 6*dpr;
+
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(ang)*inner, Math.sin(ang)*inner);
+    ctx.lineTo(Math.cos(ang)*outer, Math.sin(ang)*outer);
+    ctx.strokeStyle = isHour ? "rgba(15,23,42,0.55)" : "rgba(15,23,42,0.25)";
+    ctx.lineWidth = (isHour ? 1.6 : 1.0) * dpr;
+    ctx.lineCap = "round";
+    ctx.stroke();
+  }
+
+  // Small 12/3/6/9 markers (tiny dots)
+  const dotR = 1.3 * dpr;
+  [0,3,6,9].forEach(n=>{
+    const ang = (Math.PI/6)*n - Math.PI/2;
+    const dist = cr - 14*dpr;
+    ctx.beginPath();
+    ctx.arc(Math.cos(ang)*dist, Math.sin(ang)*dist, dotR, 0, Math.PI*2);
+    ctx.fillStyle = "rgba(15,23,42,0.55)";
+    ctx.fill();
+  });
+
+  // Angles
+  const hour = (hh % 12) + mm/60 + ss/3600;
+  const hourAng = (Math.PI/6) * hour - Math.PI/2;
+  const minAng  = (Math.PI/30) * (mm + ss/60) - Math.PI/2;
+  const secAng  = (Math.PI/30) * ss - Math.PI/2;
+
+  // Hour hand
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(Math.cos(hourAng) * (cr*0.42), Math.sin(hourAng) * (cr*0.42));
+  ctx.strokeStyle = "rgba(15,23,42,0.92)";
+  ctx.lineWidth = 3.6 * dpr;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Minute hand
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(Math.cos(minAng) * (cr*0.62), Math.sin(minAng) * (cr*0.62));
+  ctx.strokeStyle = "rgba(15,23,42,0.92)";
+  ctx.lineWidth = 2.8 * dpr;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Second hand (accent)
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(Math.cos(secAng) * (cr*0.70), Math.sin(secAng) * (cr*0.70));
+  ctx.strokeStyle = accent;
+  ctx.lineWidth = 1.6 * dpr;
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  // Center
+  ctx.beginPath();
+  ctx.arc(0,0,2.7*dpr,0,Math.PI*2);
+  ctx.fillStyle = "rgba(15,23,42,0.92)";
+  ctx.fill();
+
+  ctx.setTransform(1,0,0,1,0,0);
 }
 
-function updateWatches(){
-  document.querySelectorAll(".worldwatch").forEach((el,i)=>{
-    const d=getTZTime(WATCHES[i].tz);
-    el.querySelector(".time").textContent=
-      String(d.getHours()).padStart(2,"0")+":"+
-      String(d.getMinutes()).padStart(2,"0");
+function tickClocks(){
+  Object.keys(TZ).forEach(id=>{
+    const canvas = document.getElementById(id);
+    const label = document.getElementById(id + "-time");
+    if(!canvas || !label) return;
 
-    const h=((d.getHours()%12)*30)+(d.getMinutes()*0.5);
-    const m=(d.getMinutes()*6)+(d.getSeconds()*0.1);
-    const s=d.getSeconds()*6;
-
-    el.querySelector(".hour").style.transform=`translate(-50%,-100%) rotate(${h}deg)`;
-    el.querySelector(".min").style.transform=`translate(-50%,-100%) rotate(${m}deg)`;
-    el.querySelector(".sec").style.transform=`translate(-50%,-100%) rotate(${s}deg)`;
+    const { hh, mm, ss, label: hhmm } = getHMS(TZ[id]);
+    label.textContent = hhmm;
+    drawAnalog(canvas, hh, mm, ss);
   });
 }
 
-async function fetchPosts(){
-  const res=await fetch("./posts.json",{cache:"no-store"});
-  if(!res.ok){
-    throw new Error("Failed to load posts");
-  }
-  return res.json();
+// Run on every page that has clocks
+tickClocks();
+setInterval(tickClocks, 250);
+
+/* =========================
+   POSTS RENDERING
+   - Home: shows Latest grid
+   - Articles page: renders all sections
+   - Article page: renders single article by ?id=
+========================= */
+async function loadPosts(){
+  const res = await fetch("posts.json", { cache: "no-store" });
+  if(!res.ok) throw new Error("Could not load posts.json");
+  return await res.json();
 }
 
-function renderCards(container, posts){
-  if(!container) return;
-  if(!posts.length){
-    container.innerHTML="<p class=\"muted\">No stories match those filters yet.</p>";
-    return;
-  }
-
-  container.innerHTML=posts.map(p=>`
-    <article class="card" data-category="${p.category}" data-type="${p.type}">
-      <div class="cat-pill">${p.category}</div>
-      <h3>${p.title}</h3>
-      <p>${p.excerpt}</p>
-      <a class="card-link" href="./article.html?id=${p.id}">Read story →</a>
-    </article>
-  `).join("");
+function postCard(post){
+  const safeCat = (post.category || "Latest").toUpperCase();
+  return `
+    <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
+      <span class="badge">${post.category}</span>
+      <h3>${post.title}</h3>
+      <p>${post.excerpt}</p>
+    </a>
+  `;
 }
 
-function matchesQuery(post, query){
-  if(!query) return true;
-  const haystack=[post.title,post.excerpt,post.author,...(post.tags||[])].join(" ").toLowerCase();
-  return haystack.includes(query);
-}
-
-function applyFilters(posts){
-  const qInput=document.getElementById("q");
-  const catSelect=document.getElementById("cat");
-  const typeSelect=document.getElementById("type");
-  const query=qInput?.value.trim().toLowerCase();
-  const category=catSelect?.value || "";
-  const type=typeSelect?.value || "";
-
-  return posts.filter(post=>{
-    const postCategory=post.category.toLowerCase();
-    const postType=post.type?.toLowerCase();
-    const categoryMatch=category ? postCategory === category : true;
-    const typeMatch=type ? postType === type : true;
-    return matchesQuery(post, query) && categoryMatch && typeMatch;
-  });
-}
-
-function setFilterDefaults(){
-  const params=new URLSearchParams(window.location.search);
-  const cat=params.get("cat");
-  const type=params.get("type");
-  if(cat){
-    const catSelect=document.getElementById("cat");
-    if(catSelect){
-      catSelect.value=cat;
-    }
-  }
-  if(type){
-    const typeSelect=document.getElementById("type");
-    if(typeSelect){
-      typeSelect.value=type;
-    }
-  }
-}
-
-function bindFilters(posts){
-  const qInput=document.getElementById("q");
-  const catSelect=document.getElementById("cat");
-  const typeSelect=document.getElementById("type");
-  const clearButton=document.getElementById("clear");
-  const cards=document.getElementById("cards");
-
-  if(!qInput || !catSelect || !typeSelect || !cards){
-    return;
-  }
-
-  const render=()=>renderCards(cards, applyFilters(posts));
-  qInput.addEventListener("input", render);
-  catSelect.addEventListener("change", render);
-  typeSelect.addEventListener("change", render);
-  clearButton?.addEventListener("click", ()=>{
-    qInput.value="";
-    catSelect.value="";
-    typeSelect.value="";
-    render();
-  });
-  render();
-}
-
-function renderArticle(post, posts){
-  const title=document.getElementById("a-title");
-  if(!title) return;
-
-  document.getElementById("a-tag").textContent=post.category.toUpperCase();
-  title.textContent=post.title;
-  document.getElementById("a-dek").textContent=post.excerpt;
-  document.getElementById("a-date").textContent=post.date;
-  document.getElementById("a-read").textContent=post.readTime;
-  document.getElementById("a-by").textContent=`By ${post.author}`;
-
-  const body=document.getElementById("a-body");
-  body.innerHTML=post.sections.map(section=>`
-    <div>
-      <h2>${section.heading}</h2>
-      ${section.paragraphs.map(p=>`<p>${p}</p>`).join("")}
-    </div>
-  `).join("");
-
-  const moreCards=document.getElementById("more-cards");
-  if(moreCards){
-    const more=posts.filter(item=>item.id!==post.id).slice(0,2);
-    renderCards(moreCards, more);
-  }
-}
-
-document.addEventListener("DOMContentLoaded",async ()=>{
-  renderWatches();
-  updateWatches();
-  setInterval(updateWatches,1000);
-
-  let posts=[];
+(async function(){
+  let posts = [];
   try{
-    posts=await fetchPosts();
+    posts = await loadPosts();
   }catch(e){
-    const cards=document.getElementById("cards");
-    if(cards){
-      cards.innerHTML="<p class=\"muted\">Posts failed to load.</p>";
-    }
+    // If posts.json missing, silently do nothing
     return;
   }
 
-  const cards=document.getElementById("cards");
-  const articleTitle=document.getElementById("a-title");
-
-  if(articleTitle){
-    const params=new URLSearchParams(window.location.search);
-    const id=params.get("id") || posts[0]?.id;
-    const post=posts.find(item=>item.id===id) || posts[0];
-    renderArticle(post, posts);
-    return;
+  // HOME: fill latest grid
+  const homeGrid = document.getElementById("latestGrid");
+  if(homeGrid){
+    const latest = [...posts]
+      .sort((a,b)=> (b.date||"").localeCompare(a.date||""))
+      .slice(0,6);
+    homeGrid.innerHTML = latest.map(postCard).join("");
   }
 
-  if(cards){
-    const hasFilters=document.getElementById("q");
-    if(hasFilters){
-      setFilterDefaults();
-      bindFilters(posts);
-    }else{
-      renderCards(cards, posts.slice(0,3));
+  // ARTICLES PAGE: fill sections
+  const sections = document.querySelectorAll("[data-section]");
+  if(sections.length){
+    sections.forEach(sec=>{
+      const key = sec.getAttribute("data-section");
+      const holder = sec.querySelector(".grid");
+      if(!holder) return;
+
+      let filtered = posts;
+      if(key !== "all"){
+        filtered = posts.filter(p => (p.section || "").toLowerCase() === key.toLowerCase());
+      }
+      filtered = filtered.sort((a,b)=> (b.date||"").localeCompare(a.date||""));
+
+      holder.innerHTML = filtered.map(postCard).join("") || `<div style="color:rgba(15,23,42,0.65);font-weight:700;">No posts yet.</div>`;
+    });
+  }
+
+  // ARTICLE PAGE: render single
+  const articleMount = document.getElementById("articleMount");
+  if(articleMount){
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    const post = posts.find(p => p.id === id) || posts[0];
+
+    if(!post){
+      articleMount.innerHTML = `<div class="article-card">No post found.</div>`;
+      return;
     }
+
+    articleMount.innerHTML = `
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="badge">${post.category || "Latest"}</span>
+          <div class="article-date">${post.date || ""}</div>
+        </div>
+        <div class="article-title">${post.title}</div>
+        <div class="article-content">
+          ${post.content || `<p>${post.excerpt || ""}</p>`}
+        </div>
+      </div>
+    `;
   }
-});
+})();
