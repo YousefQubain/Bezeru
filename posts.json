@@ -2,19 +2,82 @@
   {
     "id": "neo-vintage",
     "category": "Design",
+    "type": "dress",
     "title": "The Quiet Return of Neo-Vintage Case Sizes",
-    "excerpt": "Why 36–38mm is winning back collectors tired of oversized sports watches."
+    "excerpt": "Why 36–38mm is winning back collectors tired of oversized sports watches.",
+    "date": "Mar 04, 2025",
+    "readTime": "6 min read",
+    "author": "Yousef Al Noor",
+    "tags": ["Case Size", "Design", "Vintage"],
+    "sections": [
+      {
+        "heading": "Why the dial feels calmer",
+        "paragraphs": [
+          "Smaller cases change the relationship between dial and bezel. The result is a calmer composition and a clearer read, especially on time-only references.",
+          "Neo-vintage sizes give modern movements room without forcing a wider stance — the watch reads intentional instead of inflated."
+        ]
+      },
+      {
+        "heading": "The collector signal",
+        "paragraphs": [
+          "Collectors are increasingly looking for watches that disappear under a cuff. A 37mm case signals confidence, not compromise.",
+          "This trend also pulls brands toward thinner profiles and more refined lug shapes — the small details that make a watch feel bespoke."
+        ]
+      }
+    ]
   },
   {
     "id": "underdogs-2025",
     "category": "Underdogs",
+    "type": "chrono",
     "title": "Independent Brands to Watch in 2025",
-    "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing."
+    "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing.",
+    "date": "Feb 21, 2025",
+    "readTime": "7 min read",
+    "author": "Noor Al Said",
+    "tags": ["Independent", "Underdogs"],
+    "sections": [
+      {
+        "heading": "Why the independents matter",
+        "paragraphs": [
+          "Independent brands are often the ones taking the most risks — new escapements, bold cases, and unfiltered design language.",
+          "The collectors’ reward is originality without compromise, and usually a more personal purchase journey."
+        ]
+      },
+      {
+        "heading": "What to look for",
+        "paragraphs": [
+          "Prioritize finishing, movement architecture, and serviceability. In the independent world, transparency is the best signal of a healthy brand.",
+          "We favor makers with strong service networks and a clear design direction over social hype."
+        ]
+      }
+    ]
   },
   {
     "id": "cartier-gulf",
     "category": "Gulf",
+    "type": "gmt",
     "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
-    "excerpt": "From royal commissions to Arabic dials, the influence never left."
+    "excerpt": "From royal commissions to Arabic dials, the influence never left.",
+    "date": "Jan 28, 2025",
+    "readTime": "5 min read",
+    "author": "Salim Haddad",
+    "tags": ["Gulf", "Heritage"],
+    "sections": [
+      {
+        "heading": "Royal commissions and regional scripts",
+        "paragraphs": [
+          "Cartier’s Gulf commissions set a precedent for Arabic dials that feel native, not decorative.",
+          "That regional history now informs modern releases, from typography to gold alloy choices."
+        ]
+      },
+      {
+        "heading": "Modern echoes",
+        "paragraphs": [
+          "The most compelling releases nod to that heritage without imitation. Look for dial layouts that honor spacing and legibility first.",
+          "The Gulf lens is about context, not a badge — and the best watches get the balance right."
+        ]
+      }
+    ]
   }
 ]
