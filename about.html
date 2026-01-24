@@ -1,158 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
   <title>About — BEZERU</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./style.css?v=9" />
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="./index.html" aria-label="BEZERU Home">
-        <div class="brand-name">BEZERU</div>
-        <div class="brand-jp">ベゼル</div>
-      </a>
 
-      <div class="world-clocks" aria-label="World time">
-        <div class="clock-card" data-tz="America/New_York">
-          <div class="clock-city">NEW YORK</div>
-          <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
-          </div>
-          <div class="clock-time">--:--</div>
-        </div>
+<header class="top-bar">
+  <div class="logo">
+    <strong>BEZERU</strong>
+    <span>ベゼル</span>
+  </div>
 
-        <div class="clock-card" data-tz="Europe/London">
-          <div class="clock-city">LONDON</div>
-          <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
-          </div>
-          <div class="clock-time">--:--</div>
-        </div>
+  <div class="world-clocks">
 
-        <div class="clock-card" data-tz="Europe/Zurich">
-          <div class="clock-city">GENEVA</div>
-          <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
-          </div>
-          <div class="clock-time">--:--</div>
-        </div>
-
-        <div class="clock-card" data-tz="Asia/Tokyo">
-          <div class="clock-city">TOKYO</div>
-          <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
-          </div>
-          <div class="clock-time">--:--</div>
-        </div>
-      </div>
+    <div class="clock-box">
+      <div class="city">NEW YORK</div>
+      <canvas id="ny" width="42" height="42"></canvas>
+      <div class="time" id="ny-time"></div>
     </div>
 
-    <nav class="main-nav" aria-label="Primary">
-      <div class="nav-inner">
-        <a class="nav-link" href="./index.html">Home</a>
+    <div class="clock-box">
+      <div class="city">LONDON</div>
+      <canvas id="lon" width="42" height="42"></canvas>
+      <div class="time" id="lon-time"></div>
+    </div>
 
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
-            Articles <span class="chev">▼</span>
-          </button>
-          <div class="dropdown-panel" role="menu">
-            <a role="menuitem" href="./articles.html?cat=latest">Latest</a>
-            <a role="menuitem" href="./articles.html?cat=gulf">Gulf Editions</a>
-            <a role="menuitem" href="./articles.html?cat=vintage">Vintage</a>
-            <a role="menuitem" href="./articles.html?cat=design">Design Breakdowns</a>
-            <a role="menuitem" href="./articles.html?cat=buying">Buying Guides</a>
-            <a role="menuitem" href="./articles.html?cat=underdogs">Underdogs</a>
-          </div>
-        </div>
+    <div class="clock-box">
+      <div class="city">GENEVA</div>
+      <canvas id="gen" width="42" height="42"></canvas>
+      <div class="time" id="gen-time"></div>
+    </div>
 
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
-            Watch Types <span class="chev">▼</span>
-          </button>
-          <div class="dropdown-panel" role="menu">
-            <a role="menuitem" href="./articles.html?type=dress">Dress</a>
-            <a role="menuitem" href="./articles.html?type=diver">Diver</a>
-            <a role="menuitem" href="./articles.html?type=chrono">Chronograph</a>
-            <a role="menuitem" href="./articles.html?type=gmt">GMT / Travel</a>
-            <a role="menuitem" href="./articles.html?type=complications">Complications</a>
-          </div>
-        </div>
+    <div class="clock-box">
+      <div class="city">TOKYO</div>
+      <canvas id="tok" width="42" height="42"></canvas>
+      <div class="time" id="tok-time"></div>
+    </div>
 
-        <a class="nav-link active" href="./about.html">About</a>
-      </div>
-    </nav>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section class="about">
-      <div class="about-inner">
-        <div class="about-kicker">ABOUT</div>
-        <h1 class="about-title">Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
+<nav class="main-nav">
+  <a href="index.html">Home</a>
+  <a href="#">Articles ▾</a>
+  <a href="#">Watch Types ▾</a>
+  <a class="active" href="about.html">About</a>
+</nav>
 
-        <div class="about-grid">
-          <div class="about-photo">
-            <!-- ✅ Your photo goes here -->
-            <img
-              src="./images/yousef.jpg"
-              alt="Yousef at Geneva Watch Days, founder of BEZERU"
-            />
-          </div>
+<section class="about-section">
 
-          <div class="about-text">
-            <p>
-              I started BEZERU because I’ve always loved watches for what they really are: design in motion.
-              A dial can carry history, culture, and engineering in a space smaller than your palm — and the best
-              pieces reward you the more you look.
-            </p>
-            <p>
-              I also wanted a place that treats Gulf and Middle Eastern watch culture seriously. From Arabic dials
-              and regional commissions to collectors shaping modern taste, the influence is real — and often
-              under-covered. BEZERU connects modern releases to their vintage roots, highlights underdogs, and keeps
-              the focus on what matters on the wrist.
-            </p>
+  <div class="about-grid">
 
-            <div class="about-actions">
-              <a class="btn" href="./articles.html?cat=gulf">Read Gulf Editions</a>
-              <a class="btn ghost" href="mailto:hello@bezeru.com">Contact</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <img src="./yousef.jpg" alt="Yousef at Geneva Watch Days" />
 
-    <footer class="site-footer">
-      <div>© BEZERU</div>
-      <div class="muted">Modern + vintage, with a Gulf lens.</div>
-    </footer>
-  </main>
+    <div class="about-text">
+      <h1>Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
 
-  <script src="./script.js" defer></script>
+      <p>
+        I started BEZERU because I’ve always loved watches for what they really are:
+        design in motion. A dial can carry history, culture, and engineering in a space
+        smaller than your palm — and the best pieces reward you the more you look.
+      </p>
+
+      <p>
+        I also wanted a place that treats Gulf and Middle Eastern watch culture seriously.
+        From Arabic dials and regional commissions to the collectors shaping modern taste,
+        the influence is real — and often under-covered. BEZERU connects modern releases
+        to their vintage roots and keeps the focus on what matters on the wrist.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<script src="./script.js?v=9"></script>
 </body>
 </html>
