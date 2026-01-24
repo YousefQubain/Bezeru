@@ -1,166 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BEZERU</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./script.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 
 <body>
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <div class="brand">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </div>
 
-<header class="site-header">
-  <div class="wrap header-top">
-    <div class="brand">
-      <div class="brand-title">BEZERU</div>
-      <div class="brand-sub">ベゼル</div>
-    </div>
-  </div>
-
-  <div class="wrap worldwatch-row">
-    <div class="worldwatches" id="worldwatches"></div>
-  </div>
-
-  <nav class="site-nav">
-    <div class="wrap nav-inner">
-      <a class="nav-link active" href="./index.html">Home</a>
-
-      <div class="nav-dd">
-        <button class="nav-link nav-btn" type="button">
-          Articles <span class="chev">▾</span>
-        </button>
-        <div class="dd-menu">
-          <a href="./articles.html?cat=latest" class="dd-item">Latest</a>
-          <a href="./articles.html?cat=gulf" class="dd-item">Gulf Editions</a>
-          <a href="./articles.html?cat=vintage" class="dd-item">Vintage</a>
-          <a href="./articles.html?cat=design" class="dd-item">Design Breakdowns</a>
-          <a href="./articles.html?cat=guide" class="dd-item">Buying Guides</a>
-          <a href="./articles.html?cat=underdogs" class="dd-item">Underdogs</a>
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny" width="44" height="44"></canvas>
+            <div class="time" id="ny-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon" width="44" height="44"></canvas>
+            <div class="time" id="lon-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen" width="44" height="44"></canvas>
+            <div class="time" id="gen-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok" width="44" height="44"></canvas>
+            <div class="time" id="tok-time">--:--</div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="nav-dd">
-        <button class="nav-link nav-btn" type="button">
-          Watch Types <span class="chev">▾</span>
-        </button>
-        <div class="dd-menu">
-          <a href="./articles.html?type=dress" class="dd-item">Dress</a>
-          <a href="./articles.html?type=diver" class="dd-item">Diver</a>
-          <a href="./articles.html?type=chrono" class="dd-item">Chronograph</a>
-          <a href="./articles.html?type=gmt" class="dd-item">GMT / Travel</a>
-          <a href="./articles.html?type=complications" class="dd-item">Complications</a>
+    <div class="nav-wrap">
+      <div class="container">
+        <nav>
+          <a class="nav-link" href="index.html">Home</a>
+
+          <div class="dropdown" data-dd="articles">
+            <button class="dd-btn" type="button">
+              Articles <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Articles">
+              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
+              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
+              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
+              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
+              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
+              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="types">
+            <button class="dd-btn" type="button">
+              Watch Types <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Watch Types">
+              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
+              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
+              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
+              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
+              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
+            </div>
+          </div>
+
+          <a class="nav-link" href="about.html">About</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
+            <h1>Modern and vintage watches,<br/>explained without hype.</h1>
+            <p class="lead">
+              BEZERU covers underdogs, vintage, new releases, and design decisions —
+              plus the Gulf / Middle East influence that quietly shapes modern watch culture.
+            </p>
+            <a class="cta" href="articles.html#gulf">Read Gulf + Middle East stories →</a>
+          </div>
+
+          <div class="hero-card">
+            <h3>WHAT YOU’LL FIND</h3>
+            <p>
+              Underdog independents, real buying advice, vintage context, and design breakdowns —
+              with serious coverage of Arabic dials, regional commissions, and cross-cultural influence.
+            </p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <a class="nav-link" href="./about.html">About</a>
-    </div>
-  </nav>
-</header>
-
-<main>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">CONTEMPORARY WATCH EDITORIAL</div>
-        <h1 class="hero-title">
-          Modern and vintage watches,<br>
-          explained without hype.
-        </h1>
-        <p class="hero-sub">
-          BEZERU publishes twice a week. We connect today’s releases to vintage references —
-          with a Gulf/Middle East lens when it matters, and design-first critique always.
-        </p>
-        <div class="hero-actions">
-          <a class="btn primary" href="./articles.html?cat=latest">Read the latest</a>
-          <a class="btn ghost" href="./about.html">Why BEZERU exists</a>
+    <section class="section" id="latest">
+      <div class="container">
+        <div class="section-head">
+          <h2>Latest stories</h2>
+          <a class="viewall" href="articles.html">View all</a>
         </div>
+
+        <!-- Filled by script.js from posts.json -->
+        <div class="grid" id="latestGrid"></div>
       </div>
+    </section>
+  </main>
 
-      <aside class="hero-card">
-        <h3>Edition of the week</h3>
-        <p class="muted">Gulf Editions · 8 min read</p>
-        <ul>
-          <li>Arabic dials with actual provenance.</li>
-          <li>Modern releases mapped to vintage roots.</li>
-          <li>Design breakdowns you can feel on-wrist.</li>
-        </ul>
-        <a class="card-link" href="./articles.html?cat=gulf">Explore the Gulf lens →</a>
-      </aside>
+  <footer>
+    <div class="container">
+      © BEZERU — modern + vintage, plus Gulf influence.
     </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap section-head">
-      <h2 class="section-title">Latest stories</h2>
-      <a class="view-all" href="./articles.html">View all</a>
-    </div>
-
-    <div class="wrap">
-      <div class="cards" id="cards"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap section-head">
-      <h2 class="section-title">Our editorial pillars</h2>
-    </div>
-    <div class="wrap pillars">
-      <div class="pillar">
-        <h4>Context over hype</h4>
-        <p>We trace modern releases back to the models that inspired them.</p>
-      </div>
-      <div class="pillar">
-        <h4>Gulf &amp; Middle East focus</h4>
-        <p>Regional editions, Arabic dials, and collectors who shape culture.</p>
-      </div>
-      <div class="pillar">
-        <h4>Design-first critique</h4>
-        <p>Every watch is judged by the wrist, not the marketing deck.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap newsletter">
-      <div>
-        <h3>Subscribe to the BEZERU briefing</h3>
-        <p class="muted">A short note on new releases, twice a week.</p>
-      </div>
-      <form>
-        <input type="email" placeholder="you@example.com" aria-label="Email address" />
-        <button class="btn primary" type="button">Notify me</button>
-      </form>
-    </div>
-  </section>
-
-  <section class="about" id="about">
-    <div class="wrap">
-      <h2 class="section-title">About BEZERU</h2>
-      <p class="about-text">
-        BEZERU is a watch publication focused on clarity: what changed, what didn’t,
-        and what matters on the wrist. We cover global releases — and spotlight Gulf
-        and Middle East editions, Arabic dials, regional makers, and design language
-        that travels between cultures.
-      </p>
-      <div class="footerline">© BEZERU — Modern + vintage, with a Gulf lens.</div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="wrap footer-grid">
-    <div>
-      <div class="footer-brand">BEZERU</div>
-      <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
-    </div>
-    <div class="footer-links">
-      <a href="./articles.html">Articles</a>
-      <a href="./about.html">About</a>
-      <a href="./articles.html?cat=gulf">Gulf Editions</a>
-    </div>
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
