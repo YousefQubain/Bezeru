@@ -4,27 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Watch Types — BEZERU</title>
-  <style>
-    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin:0; background:#f8fafc; color:#0f172a; }
-    .wrap{ max-width: 900px; margin: 70px auto; padding: 0 22px; }
-    h1{ font-size: 34px; margin-bottom: 10px; }
-    p{ color: rgba(15,23,42,0.75); line-height: 1.7; }
-    a{ color:#1d4ed8; font-weight: 800; text-decoration:none; }
-    a:hover{ text-decoration: underline; }
-    .sec{ margin-top: 28px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
-<body>
-  <div class="wrap">
-    <a href="index.html">← Back to Home</a>
-    <h1>Watch Types</h1>
-    <p>This is a placeholder page so your dropdown links work.</p>
 
-    <div class="sec" id="dress"><h2>Dress</h2><p>Coming soon.</p></div>
-    <div class="sec" id="diver"><h2>Diver</h2><p>Coming soon.</p></div>
-    <div class="sec" id="chrono"><h2>Chronograph</h2><p>Coming soon.</p></div>
-    <div class="sec" id="gmt"><h2>GMT / Travel</h2><p>Coming soon.</p></div>
-    <div class="sec" id="comp"><h2>Complications</h2><p>Coming soon.</p></div>
-  </div>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <div class="brand">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </div>
+
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny" width="44" height="44"></canvas>
+            <div class="time" id="ny-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon" width="44" height="44"></canvas>
+            <div class="time" id="lon-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen" width="44" height="44"></canvas>
+            <div class="time" id="gen-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok" width="44" height="44"></canvas>
+            <div class="time" id="tok-time">--:--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container">
+        <nav>
+          <a class="nav-link" href="index.html">Home</a>
+
+          <div class="dropdown" data-dd="articles">
+            <button class="dd-btn" type="button">
+              Articles <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Articles">
+              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
+              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
+              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
+              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
+              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
+              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="types">
+            <button class="dd-btn" type="button">
+              Watch Types <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Watch Types">
+              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
+              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
+              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
+              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
+              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
+            </div>
+          </div>
+
+          <a class="nav-link" href="about.html">About</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="kicker">WATCH TYPES</div>
+        <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.6px;margin-top:10px;">A simple map of watch categories.</h1>
+        <p class="lead" style="margin-top:10px;">
+          We’ll cover types through the lens of wear, proportion, and culture — not just specs.
+        </p>
+
+        <div class="grid" style="margin-top:18px;">
+          <a class="card" id="dress" href="articles.html#guides">
+            <span class="badge">Dress</span>
+            <h3>Dress Watches</h3>
+            <p>Thin profiles, clean dials, and proportion-first design — understated, not boring.</p>
+          </a>
+
+          <a class="card" id="diver" href="articles.html#design">
+            <span class="badge">Diver</span>
+            <h3>Divers</h3>
+            <p>Tool heritage with daily wear reality: bezel usability, lume, and case thickness.</p>
+          </a>
+
+          <a class="card" id="chrono" href="articles.html#guides">
+            <span class="badge">Chrono</span>
+            <h3>Chronographs</h3>
+            <p>Pushers, legibility, and movement choices — what matters beyond the racing story.</p>
+          </a>
+
+          <a class="card" id="gmt" href="articles.html#vintage">
+            <span class="badge">GMT</span>
+            <h3>GMT / Travel</h3>
+            <p>True travel utility, vintage context, and how regional markets shaped releases.</p>
+          </a>
+
+          <a class="card" id="comp" href="articles.html#underdogs">
+            <span class="badge">High</span>
+            <h3>Complications</h3>
+            <p>When complexity is meaningful — and when it’s just noise.</p>
+          </a>
+
+          <a class="card" href="articles.html#gulf">
+            <span class="badge">Gulf</span>
+            <h3>Middle East Influence</h3>
+            <p>Arabic dials, commissions, collector taste — and how it flows back into global design.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © BEZERU — modern + vintage, plus Gulf influence.
+    </div>
+  </footer>
 </body>
 </html>
