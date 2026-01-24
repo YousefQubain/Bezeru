@@ -1,71 +1,59 @@
-// Dropdown open/close
-document.querySelectorAll(".nav-dropdown").forEach(dd => {
-  const btn = dd.querySelector(".dropdown-btn");
-  if (!btn) return;
+function drawClock(canvas, time) {
+  const ctx = canvas.getContext("2d");
+  const r = canvas.width / 2;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  ctx.translate(r, r);
 
-    const isOpen = dd.classList.contains("open");
-    document.querySelectorAll(".nav-dropdown.open").forEach(x => {
-      x.classList.remove("open");
-      const b = x.querySelector(".dropdown-btn");
-      if (b) b.setAttribute("aria-expanded", "false");
-    });
+  ctx.beginPath();
+  ctx.arc(0, 0, r - 2, 0, Math.PI * 2);
+  ctx.strokeStyle = "#1d4ed8";
+  ctx.lineWidth = 4;
+  ctx.stroke();
 
-    dd.classList.toggle("open", !isOpen);
-    btn.setAttribute("aria-expanded", String(!isOpen));
-  });
-});
+  const hour = time.getHours() % 12;
+  const min = time.getMinutes();
 
-document.addEventListener("click", () => {
-  document.querySelectorAll(".nav-dropdown.open").forEach(dd => {
-    dd.classList.remove("open");
-    const b = dd.querySelector(".dropdown-btn");
-    if (b) b.setAttribute("aria-expanded", "false");
-  });
-});
+  ctx.rotate((Math.PI / 6) * hour + (Math.PI / 360) * min);
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, -r * 0.5);
+  ctx.stroke();
+  ctx.rotate(-(Math.PI / 6) * hour - (Math.PI / 360) * min);
 
-// Live times + analog hands
-function pad2(n){ return String(n).padStart(2,"0"); }
+  ctx.rotate((Math.PI / 30) * min);
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, -r * 0.75);
+  ctx.stroke();
+  ctx.rotate(-(Math.PI / 30) * min);
 
-function updateClocks(){
-  const cards = document.querySelectorAll(".clock-card");
+  ctx.translate(-r, -r);
+}
+
+function updateClocks() {
   const now = new Date();
 
-  cards.forEach(card => {
-    const tz = card.getAttribute("data-tz");
-    if (!tz) return;
+  const zones = {
+    ny: -5,
+    lon: 0,
+    gen: 1,
+    tok: 9
+  };
 
-    const fmt = new Intl.DateTimeFormat("en-GB", {
-      timeZone: tz,
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false
-    });
+  Object.keys(zones).forEach(id => {
+    const local = new Date(now.getTime() + zones[id] * 3600000);
+    const canvas = document.getElementById(id);
+    const label = document.getElementById(id + "-time");
 
-    const parts = fmt.formatToParts(now);
-    const hh = Number(parts.find(p => p.type === "hour")?.value || "0");
-    const mm = Number(parts.find(p => p.type === "minute")?.value || "0");
-
-    const timeEl = card.querySelector(".clock-time");
-    if (timeEl) timeEl.textContent = `${pad2(hh)}:${pad2(mm)}`;
-
-    const sec = now.getSeconds();
-    const minuteAngle = (mm + sec / 60) * 6;
-    const hourAngle = ((hh % 12) + mm / 60) * 30;
-    const secondAngle = sec * 6;
-
-    const hourHand = card.querySelector(".mini-hour");
-    const minHand  = card.querySelector(".mini-minute");
-    const secHand  = card.querySelector(".mini-second");
-
-    if (hourHand) hourHand.style.transform = `translate(-50%, -100%) rotate(${hourAngle}deg)`;
-    if (minHand)  minHand.style.transform  = `translate(-50%, -100%) rotate(${minuteAngle}deg)`;
-    if (secHand)  secHand.style.transform  = `translate(-50%, -100%) rotate(${secondAngle}deg)`;
+    if (canvas && label) {
+      drawClock(canvas, local);
+      label.innerText = local.toTimeString().slice(0,5);
+    }
   });
 }
 
-updateClocks();
 setInterval(updateClocks, 1000);
+updateClocks();
