@@ -1,114 +1,154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Articles — BEZERU</title>
-  <meta name="description" content="All BEZERU articles: Gulf editions, vintage deep dives, design breakdowns, buying guides, and underdogs." />
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./script.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="wrap header-top">
-      <div class="brand">
-        <div class="brand-title">BEZERU</div>
-        <div class="brand-sub">ベゼル</div>
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <div class="brand">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </div>
+
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny" width="44" height="44"></canvas>
+            <div class="time" id="ny-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon" width="44" height="44"></canvas>
+            <div class="time" id="lon-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen" width="44" height="44"></canvas>
+            <div class="time" id="gen-time">--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok" width="44" height="44"></canvas>
+            <div class="time" id="tok-time">--:--</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="wrap worldwatch-row">
-      <div class="worldwatches" id="worldwatches"></div>
-    </div>
+    <div class="nav-wrap">
+      <div class="container">
+        <nav>
+          <a class="nav-link" href="index.html">Home</a>
 
-    <nav class="site-nav">
-      <div class="wrap nav-inner">
-        <a class="nav-link" href="./index.html">Home</a>
-
-        <div class="nav-dd">
-          <button class="nav-link nav-btn active" type="button">
-            Articles <span class="chev">▾</span>
-          </button>
-          <div class="dd-menu">
-            <a href="./articles.html?cat=latest" class="dd-item">Latest</a>
-            <a href="./articles.html?cat=gulf" class="dd-item">Gulf Editions</a>
-            <a href="./articles.html?cat=vintage" class="dd-item">Vintage</a>
-            <a href="./articles.html?cat=design" class="dd-item">Design Breakdowns</a>
-            <a href="./articles.html?cat=guide" class="dd-item">Buying Guides</a>
-            <a href="./articles.html?cat=underdogs" class="dd-item">Underdogs</a>
+          <div class="dropdown" data-dd="articles">
+            <button class="dd-btn" type="button">
+              Articles <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Articles">
+              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
+              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
+              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
+              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
+              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
+              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+            </div>
           </div>
-        </div>
 
-        <div class="nav-dd">
-          <button class="nav-link nav-btn" type="button">
-            Watch Types <span class="chev">▾</span>
-          </button>
-          <div class="dd-menu">
-            <a href="./articles.html?type=dress" class="dd-item">Dress</a>
-            <a href="./articles.html?type=diver" class="dd-item">Diver</a>
-            <a href="./articles.html?type=chrono" class="dd-item">Chronograph</a>
-            <a href="./articles.html?type=gmt" class="dd-item">GMT / Travel</a>
-            <a href="./articles.html?type=complications" class="dd-item">Complications</a>
+          <div class="dropdown" data-dd="types">
+            <button class="dd-btn" type="button">
+              Watch Types <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Watch Types">
+              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
+              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
+              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
+              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
+              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
+            </div>
           </div>
-        </div>
 
-        <a class="nav-link" href="./about.html">About</a>
+          <a class="nav-link" href="about.html">About</a>
+        </nav>
       </div>
-    </nav>
+    </div>
   </header>
 
   <main>
-    <section class="page-head">
-      <div class="wrap page-head-grid">
-        <div>
-          <div class="eyebrow">BEZERU LIBRARY</div>
-          <h1>Articles</h1>
-          <p class="muted">Filter by category or watch type. Click any story to open the full article.</p>
-        </div>
+    <section class="section">
+      <div class="container">
+        <div class="kicker">ARTICLES</div>
+        <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.6px;margin-top:10px;">A watch publication built on clarity.</h1>
+        <p class="lead" style="margin-top:10px;">
+          Underdogs, new competition, vintage context, and watch culture shaped by the Gulf / Middle East —
+          plus the design details that matter on the wrist.
+        </p>
 
-        <div class="filters">
-          <input id="q" type="search" placeholder="Search titles, brands, regions…" />
-          <select id="cat">
-            <option value="">All categories</option>
-            <option value="latest">Latest</option>
-            <option value="gulf">Gulf Editions</option>
-            <option value="vintage">Vintage</option>
-            <option value="design">Design</option>
-            <option value="guide">Guides</option>
-            <option value="underdogs">Underdogs</option>
-          </select>
-          <select id="type">
-            <option value="">All watch types</option>
-            <option value="dress">Dress</option>
-            <option value="diver">Diver</option>
-            <option value="chrono">Chronograph</option>
-            <option value="gmt">GMT / Travel</option>
-            <option value="complications">Complications</option>
-          </select>
-          <button class="btn ghost" id="clear" type="button">Clear</button>
+        <div class="pills">
+          <a class="pill" href="#latest">Latest</a>
+          <a class="pill" href="#gulf">Gulf Editions</a>
+          <a class="pill" href="#vintage">Vintage</a>
+          <a class="pill" href="#design">Design</a>
+          <a class="pill" href="#guides">Buying Guides</a>
+          <a class="pill" href="#underdogs">Underdogs</a>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="wrap">
-        <div class="cards" id="cards" aria-live="polite"></div>
+    <section class="section" id="latest" data-section="all">
+      <div class="container">
+        <div class="section-head">
+          <h2>All stories</h2>
+        </div>
+        <div class="grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="gulf" data-section="gulf">
+      <div class="container">
+        <div class="section-head"><h2>Gulf Editions</h2></div>
+        <div class="grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="vintage" data-section="vintage">
+      <div class="container">
+        <div class="section-head"><h2>Vintage</h2></div>
+        <div class="grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="design" data-section="design">
+      <div class="container">
+        <div class="section-head"><h2>Design Breakdowns</h2></div>
+        <div class="grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="guides" data-section="guides">
+      <div class="container">
+        <div class="section-head"><h2>Buying Guides</h2></div>
+        <div class="grid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="underdogs" data-section="underdogs">
+      <div class="container">
+        <div class="section-head"><h2>Underdogs</h2></div>
+        <div class="grid"></div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-grid">
-      <div>
-        <div class="footer-brand">BEZERU</div>
-        <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
-      </div>
-      <div class="footer-links">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./articles.html?cat=gulf">Gulf Editions</a>
-      </div>
+  <footer>
+    <div class="container">
+      © BEZERU — modern + vintage, plus Gulf influence.
     </div>
   </footer>
 </body>
