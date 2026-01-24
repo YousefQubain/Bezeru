@@ -1,23 +1,44 @@
-[
-  {
-    "id": "case-sizes",
-    "category": "Design",
-    "title": "The Quiet Return of Neo-Vintage Case Sizes",
-    "excerpt": "Why 36–38mm is winning back collectors tired of oversized sports watches.",
-    "body": "Case sizes are drifting back toward the proportions that made classic watches feel effortless.\nIt’s not nostalgia — it’s wearability. Smaller cases often look cleaner, sit better, and make the dial design do more of the talking."
-  },
-  {
-    "id": "independents-2025",
-    "category": "Underdogs",
-    "title": "Independent Brands to Watch in 2025",
-    "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing.",
-    "body": "The best independent brands are solving the same problem in different ways: honest finishing, strong design language, and value that makes sense.\nBEZERU is here for the brands doing real work — not just marketing."
-  },
-  {
-    "id": "cartier-gulf",
-    "category": "Gulf",
-    "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
-    "excerpt": "From commissions to Arabic dials — the influence never left.",
-    "body": "Collectors in the Gulf shaped taste early: precious metals, special dials, and commissions that became reference points.\nToday, that influence is visible in modern releases — but it’s often under-explained. That’s what we’ll document."
-  }
-]
+{
+  "posts": [
+    {
+      "id": "quiet-return-neo-vintage",
+      "title": "The Quiet Return of Neo-Vintage Case Sizes",
+      "category": "Design",
+      "date": "2026-01-25",
+      "excerpt": "Why 36–38mm is winning back collectors tired of oversized sports watches.",
+      "content_html": "<p>For years, the market moved toward bigger cases and louder silhouettes. But recently, the shift has been subtle: collectors are choosing proportion, comfort, and balance again.</p><h2>What changed?</h2><p>Modern manufacturing makes slim profiles and sharp finishing easier at smaller sizes — while vintage references are influencing today’s design language more than ever.</p><h2>What to look for</h2><p>Focus on lug-to-lug length, dial opening, and bezel thickness. A well-proportioned 37mm can wear more confidently than a bulky 41mm.</p>"
+    },
+    {
+      "id": "independent-brands-2025",
+      "title": "Independent Brands to Watch in 2025",
+      "category": "Underdogs",
+      "date": "2026-01-22",
+      "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing.",
+      "content_html": "<p>The independent space is where experimentation lives — case shapes, dial materials, and finishing choices that big brands can’t always risk.</p><h2>Why independents matter</h2><p>They move faster, take bolder design positions, and often deliver excellent value when you compare finishing per dollar.</p><h2>How to buy smart</h2><p>Check servicing options, delivery timelines, and whether the brand supports parts long-term. Great design is only half the story.</p>"
+    },
+    {
+      "id": "cartier-middle-east-history",
+      "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
+      "category": "Gulf",
+      "date": "2026-01-18",
+      "excerpt": "From commissions to Arabic dials — the influence never left.",
+      "content_html": "<p>The Gulf’s relationship with watchmaking isn’t new — it’s deeply intertwined with commissions, gifting culture, and design requests that shaped production.</p><h2>Arabic dials: more than aesthetics</h2><p>Arabic numerals and script variants became a design language of their own — blending identity, prestige, and readability.</p><h2>Today’s ripple effects</h2><p>Modern releases often echo that history through limited editions, regional dial treatments, and culturally specific storytelling.</p>"
+    },
+    {
+      "id": "gold-culture-and-watches",
+      "title": "Gold, Prestige, and the Middle East: A Watch Culture Story",
+      "category": "Gulf",
+      "date": "2026-01-12",
+      "excerpt": "Why gold remains a language of status — and how it shaped watch design and demand.",
+      "content_html": "<p>Gold in the Gulf and Middle East carries meaning beyond luxury — it signals heritage, celebration, and gifting traditions.</p><h2>Design influence</h2><p>Brands responded with warmer metals, special dial colors, and bold case treatments that felt right for the region.</p>"
+    },
+    {
+      "id": "buying-guide-first-gmt",
+      "title": "Buying Guide: Your First GMT Without Overpaying",
+      "category": "Guide",
+      "date": "2026-01-08",
+      "excerpt": "A practical shortlist of what matters: movement, bezel, and travel usability.",
+      "content_html": "<p>A GMT is most useful when it’s easy to set and easy to read. Don’t get distracted by marketing labels — focus on function.</p><h2>True GMT vs office GMT</h2><p>A “traveller” GMT lets you jump the local hour hand. An “office” GMT moves the 24-hour hand instead. Know what you’re buying.</p>"
+    }
+  ]
+}
