@@ -1,98 +1,199 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <title>BEZERU — Modern + Vintage Watches</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About — BEZERU</title>
-  <meta name="description" content="BEZERU is a watch editorial: modern + vintage, with Gulf/Middle East influence, and design-first critique without hype." />
-  <link rel="stylesheet" href="./style.css?v=2" />
-  <script src="./script.js?v=2" defer></script>
+
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="site-header">
+  <div class="header-inner">
 
-  <!-- TOP ROW -->
-  <div class="wrap header-top">
-    <div class="brand">
-      <div class="brand-title">BEZERU</div>
-      <div class="brand-sub">ベゼル</div>
+    <!-- LOGO -->
+    <a class="logo" href="./index.html">
+      <span class="logo-main">BEZERU</span>
+      <span class="logo-sub">ベゼル</span>
+    </a>
+
+    <!-- WORLD CLOCKS -->
+    <div class="world-clocks">
+
+      <div class="clock-box" data-tz="America/New_York">
+        <div class="clock-title">NEW YORK</div>
+        <div class="mini-watch">
+          <div class="hand hour"></div>
+          <div class="hand minute"></div>
+        </div>
+        <div class="digital"></div>
+      </div>
+
+      <div class="clock-box" data-tz="Europe/London">
+        <div class="clock-title">LONDON</div>
+        <div class="mini-watch">
+          <div class="hand hour"></div>
+          <div class="hand minute"></div>
+        </div>
+        <div class="digital"></div>
+      </div>
+
+      <div class="clock-box" data-tz="Europe/Zurich">
+        <div class="clock-title">GENEVA</div>
+        <div class="mini-watch">
+          <div class="hand hour"></div>
+          <div class="hand minute"></div>
+        </div>
+        <div class="digital"></div>
+      </div>
+
+      <div class="clock-box" data-tz="Asia/Tokyo">
+        <div class="clock-title">TOKYO</div>
+        <div class="mini-watch">
+          <div class="hand hour"></div>
+          <div class="hand minute"></div>
+        </div>
+        <div class="digital"></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- WATCHES CENTERED ABOVE NAV -->
-  <div class="wrap worldwatch-row">
-    <div class="worldwatches" id="worldwatches"></div>
-  </div>
+  <!-- NAV -->
+  <nav class="main-nav">
+    <a class="nav-item active" href="./index.html">Home</a>
 
-  <!-- NAV ROW -->
-  <nav class="site-nav">
-    <div class="wrap nav-inner">
-      <a class="nav-link" href="./index.html">Home</a>
-
-      <div class="nav-dd">
-        <button class="nav-link nav-btn" type="button">
-          Articles <span class="chev">▾</span>
-        </button>
-        <div class="dd-menu">
-          <a href="./articles.html?cat=latest" class="dd-item">Latest</a>
-          <a href="./articles.html?cat=gulf" class="dd-item">Gulf Editions</a>
-          <a href="./articles.html?cat=vintage" class="dd-item">Vintage</a>
-          <a href="./articles.html?cat=design" class="dd-item">Design Breakdowns</a>
-          <a href="./articles.html?cat=guide" class="dd-item">Buying Guides</a>
-          <a href="./articles.html?cat=underdogs" class="dd-item">Underdogs</a>
-        </div>
+    <div class="nav-item dropdown-wrap">
+      <button class="dropdown-btn">Articles ▾</button>
+      <div class="dropdown">
+        <a href="./articles.html?cat=latest">Latest</a>
+        <a href="./articles.html?cat=gulf">Gulf Editions</a>
+        <a href="./articles.html?cat=vintage">Vintage</a>
+        <a href="./articles.html?cat=design">Design Breakdowns</a>
+        <a href="./articles.html?cat=guides">Buying Guides</a>
+        <a href="./articles.html?cat=underdogs">Underdogs</a>
       </div>
-
-      <div class="nav-dd">
-        <button class="nav-link nav-btn" type="button">
-          Watch Types <span class="chev">▾</span>
-        </button>
-        <div class="dd-menu">
-          <a href="./articles.html?type=dress" class="dd-item">Dress</a>
-          <a href="./articles.html?type=diver" class="dd-item">Diver</a>
-          <a href="./articles.html?type=chrono" class="dd-item">Chronograph</a>
-          <a href="./articles.html?type=gmt" class="dd-item">GMT / Travel</a>
-          <a href="./articles.html?type=complications" class="dd-item">Complications</a>
-        </div>
-      </div>
-
-      <a class="nav-link active" href="./about.html">About</a>
     </div>
+
+    <div class="nav-item dropdown-wrap">
+      <button class="dropdown-btn">Watch Types ▾</button>
+      <div class="dropdown">
+        <a href="./articles.html?cat=dress">Dress</a>
+        <a href="./articles.html?cat=diver">Diver</a>
+        <a href="./articles.html?cat=chrono">Chronograph</a>
+        <a href="./articles.html?cat=gmt">GMT / Travel</a>
+        <a href="./articles.html?cat=complications">Complications</a>
+      </div>
+    </div>
+
+    <a class="nav-item" href="./about.html">About</a>
   </nav>
-
 </header>
 
-<main>
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-inner">
 
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">ABOUT BEZERU</div>
-        <h1 class="hero-title">A watch notebook built on clarity.</h1>
-        <p class="hero-sub">
-          BEZERU focuses on what changed, what didn’t, and what matters on the wrist. We map modern releases to
-          their vintage references, highlight Gulf and Middle East editions, and keep the critique grounded in
-          design over hype.
-        </p>
-      </div>
-    </div>
-  </section>
+    <div class="hero-kicker">CONTEMPORARY WATCH EDITORIAL</div>
 
-  <section class="about" id="about">
-    <div class="wrap">
-      <h2 class="section-title">Our point of view</h2>
-      <p class="about-text">
-        Watches carry history, culture, and engineering in a space smaller than your palm. BEZERU is where
-        contemporary drops meet their vintage roots, where Arabic dials and regional makers are treated with the
-        seriousness they deserve, and where the focus stays on what you actually wear.
-      </p>
-      <div class="footerline">© BEZERU — Modern + vintage, with a Gulf lens.</div>
-    </div>
-  </section>
+    <h1>
+      Modern and vintage watches,<br />
+      explained without hype.
+    </h1>
 
-</main>
+    <p class="hero-text">
+      BEZERU publishes twice a week. We connect today’s releases to vintage
+      references — with a Gulf / Middle East lens when it matters, and design-first
+      critique always.
+    </p>
+
+  </div>
+</section>
+
+<!-- ================= LATEST STORIES ================= -->
+<section class="latest">
+  <div class="latest-header">
+    <h2>Latest stories</h2>
+    <a href="./articles.html" class="view-all">View all</a>
+  </div>
+
+  <div class="card-grid">
+
+    <article class="story-card">
+      <span class="tag">DESIGN</span>
+      <h3>The Quiet Return of Neo-Vintage Case Sizes</h3>
+      <p>Why 36–38mm is winning back collectors tired of oversized sports watches.</p>
+    </article>
+
+    <article class="story-card">
+      <span class="tag">UNDERDOGS</span>
+      <h3>Independent Brands to Watch in 2025</h3>
+      <p>Five under-the-radar makers delivering serious horology without hype pricing.</p>
+    </article>
+
+    <article class="story-card">
+      <span class="tag">GULF</span>
+      <h3>How Cartier’s Middle East History Still Shapes Modern Releases</h3>
+      <p>From royal commissions to Arabic dials, the influence never left.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  © BEZERU — Modern + vintage, with a Gulf lens.
+</footer>
+
+<!-- ================= JS ================= -->
+<script>
+/* --------- DROPDOWNS --------- */
+const dropdowns = document.querySelectorAll(".dropdown-wrap");
+
+dropdowns.forEach(d => {
+  const btn = d.querySelector(".dropdown-btn");
+  btn.addEventListener("click", e => {
+    e.preventDefault();
+    dropdowns.forEach(o => o !== d && o.classList.remove("open"));
+    d.classList.toggle("open");
+  });
+});
+
+document.addEventListener("click", e => {
+  dropdowns.forEach(d => {
+    if (!d.contains(e.target)) d.classList.remove("open");
+  });
+});
+
+/* --------- WORLD CLOCKS --------- */
+function updateClocks(){
+  document.querySelectorAll(".clock-box").forEach(box=>{
+    const tz = box.dataset.tz;
+    const now = new Date().toLocaleString("en-US",{timeZone:tz});
+    const d = new Date(now);
+
+    const h = d.getHours()%12;
+    const m = d.getMinutes();
+
+    const hourDeg = (h + m/60)*30;
+    const minDeg = m*6;
+
+    box.querySelector(".hour").style.transform =
+      `translate(-50%,-100%) rotate(${hourDeg}deg)`;
+    box.querySelector(".minute").style.transform =
+      `translate(-50%,-100%) rotate(${minDeg}deg)`;
+
+    box.querySelector(".digital").textContent =
+      d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  });
+}
+
+updateClocks();
+setInterval(updateClocks, 10000);
+</script>
 
 </body>
 </html>
