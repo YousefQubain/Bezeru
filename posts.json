@@ -1,56 +1,23 @@
 [
   {
-    "id": "neo-vintage-case-sizes",
+    "id": "case-sizes",
+    "category": "Design",
     "title": "The Quiet Return of Neo-Vintage Case Sizes",
     "excerpt": "Why 36–38mm is winning back collectors tired of oversized sports watches.",
-    "category": "Design",
-    "section": "design",
-    "date": "2026-01-24",
-    "content": "<p>For years, the market chased bigger: thicker bezels, heavier bracelets, louder presence. But the counter-trend is real — and it’s not nostalgia.</p><p>Neo-vintage sizing works because it wears like intent. A 36–38mm case can still look modern when the dial opening, bezel geometry, and lug length are designed with precision. The best examples feel sharper, not smaller.</p><p>This is the design story behind the return — and how to spot proportions that will age well.</p>"
+    "body": "Case sizes are drifting back toward the proportions that made classic watches feel effortless.\nIt’s not nostalgia — it’s wearability. Smaller cases often look cleaner, sit better, and make the dial design do more of the talking."
   },
   {
-    "id": "independent-underdogs-2026",
-    "title": "Independent Underdogs Worth Watching Right Now",
-    "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing.",
+    "id": "independents-2025",
     "category": "Underdogs",
-    "section": "underdogs",
-    "date": "2026-01-23",
-    "content": "<p>Underdogs are where you find risk: unusual casework, uncompromising finishing, and brand stories that aren’t optimized for the algorithm.</p><p>We’re tracking makers who build with discipline — not just novelty. This list will evolve as the year goes on.</p>"
+    "title": "Independent Brands to Watch in 2025",
+    "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing.",
+    "body": "The best independent brands are solving the same problem in different ways: honest finishing, strong design language, and value that makes sense.\nBEZERU is here for the brands doing real work — not just marketing."
   },
   {
-    "id": "cartier-middle-east-influence",
-    "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
-    "excerpt": "From royal commissions to Arabic dials, the influence never left.",
+    "id": "cartier-gulf",
     "category": "Gulf",
-    "section": "gulf",
-    "date": "2026-01-22",
-    "content": "<p>Middle Eastern influence isn’t a recent marketing angle — it’s part of watch history. Arabic dials, regional commissions, and collector taste have shaped what brands choose to make (and remake).</p><p>The interesting part is how those references return today: sometimes subtle, sometimes direct. Here’s what to look for, and why it matters.</p>"
-  },
-  {
-    "id": "vintage-gmt-real-world",
-    "title": "Vintage GMTs That Still Make Sense Today",
-    "excerpt": "A practical look at travel watches that aged well — and how to avoid expensive mistakes.",
-    "category": "Vintage",
-    "section": "vintage",
-    "date": "2026-01-20",
-    "content": "<p>Vintage GMTs are not just about the logo on the dial. The right ones wear comfortably, have readable bezels, and movements that can still be serviced responsibly.</p><p>We break down the models and the traps: replacement hands, incorrect bezels, polished cases, and paperwork myths.</p>"
-  },
-  {
-    "id": "buying-guide-first-chrono",
-    "title": "Buying Guide: Your First Chronograph (Without Regret)",
-    "excerpt": "What actually matters: thickness, pushers, legibility, movement type, and service reality.",
-    "category": "Buying Guides",
-    "section": "guides",
-    "date": "2026-01-18",
-    "content": "<p>Chronographs are emotional watches — but you should buy them with a calm checklist. Thickness and pusher feel will matter more than a spec sheet.</p><p>Here’s a clear framework to choose your first one, and which compromises are worth making.</p>"
-  },
-  {
-    "id": "design-bezel-language",
-    "title": "Design Breakdown: Bezel Language and Why It Changes Everything",
-    "excerpt": "Small geometry decisions that change the entire personality of a watch.",
-    "category": "Design",
-    "section": "design",
-    "date": "2026-01-15",
-    "content": "<p>A bezel can make a watch feel soft, sharp, vintage, or futuristic — without changing the dial at all.</p><p>We map the shapes and proportions that create that effect, and why the best brands obsess over millimeters.</p>"
+    "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
+    "excerpt": "From commissions to Arabic dials — the influence never left.",
+    "body": "Collectors in the Gulf shaped taste early: precious metals, special dials, and commissions that became reference points.\nToday, that influence is visible in modern releases — but it’s often under-explained. That’s what we’ll document."
   }
 ]
