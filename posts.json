@@ -1,83 +1,443 @@
-[
-  {
-    "id": "neo-vintage",
-    "category": "Design",
-    "type": "dress",
-    "title": "The Quiet Return of Neo-Vintage Case Sizes",
-    "excerpt": "Why 36–38mm is winning back collectors tired of oversized sports watches.",
-    "date": "Mar 04, 2025",
-    "readTime": "6 min read",
-    "author": "Yousef Al Noor",
-    "tags": ["Case Size", "Design", "Vintage"],
-    "sections": [
-      {
-        "heading": "Why the dial feels calmer",
-        "paragraphs": [
-          "Smaller cases change the relationship between dial and bezel. The result is a calmer composition and a clearer read, especially on time-only references.",
-          "Neo-vintage sizes give modern movements room without forcing a wider stance — the watch reads intentional instead of inflated."
-        ]
-      },
-      {
-        "heading": "The collector signal",
-        "paragraphs": [
-          "Collectors are increasingly looking for watches that disappear under a cuff. A 37mm case signals confidence, not compromise.",
-          "This trend also pulls brands toward thinner profiles and more refined lug shapes — the small details that make a watch feel bespoke."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "underdogs-2025",
-    "category": "Underdogs",
-    "type": "chrono",
-    "title": "Independent Brands to Watch in 2025",
-    "excerpt": "Five under-the-radar makers delivering serious horology without hype pricing.",
-    "date": "Feb 21, 2025",
-    "readTime": "7 min read",
-    "author": "Noor Al Said",
-    "tags": ["Independent", "Underdogs"],
-    "sections": [
-      {
-        "heading": "Why the independents matter",
-        "paragraphs": [
-          "Independent brands are often the ones taking the most risks — new escapements, bold cases, and unfiltered design language.",
-          "The collectors’ reward is originality without compromise, and usually a more personal purchase journey."
-        ]
-      },
-      {
-        "heading": "What to look for",
-        "paragraphs": [
-          "Prioritize finishing, movement architecture, and serviceability. In the independent world, transparency is the best signal of a healthy brand.",
-          "We favor makers with strong service networks and a clear design direction over social hype."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cartier-gulf",
-    "category": "Gulf",
-    "type": "gmt",
-    "title": "How Cartier’s Middle East History Still Shapes Modern Releases",
-    "excerpt": "From royal commissions to Arabic dials, the influence never left.",
-    "date": "Jan 28, 2025",
-    "readTime": "5 min read",
-    "author": "Salim Haddad",
-    "tags": ["Gulf", "Heritage"],
-    "sections": [
-      {
-        "heading": "Royal commissions and regional scripts",
-        "paragraphs": [
-          "Cartier’s Gulf commissions set a precedent for Arabic dials that feel native, not decorative.",
-          "That regional history now informs modern releases, from typography to gold alloy choices."
-        ]
-      },
-      {
-        "heading": "Modern echoes",
-        "paragraphs": [
-          "The most compelling releases nod to that heritage without imitation. Look for dial layouts that honor spacing and legibility first.",
-          "The Gulf lens is about context, not a badge — and the best watches get the balance right."
-        ]
-      }
-    ]
+:root{
+  --bg1:#eef2ff;
+  --bg2:#f8fafc;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --line:#e2e8f0;
+  --accent:#1d4ed8;
+  --card:#ffffff;
+  --shadow: 0 18px 55px rgba(15,23,42,0.10);
+  --shadow2: 0 10px 26px rgba(15,23,42,0.10);
+  --radius:16px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html, body{ height:100%; }
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+}
+
+a{ color:inherit; text-decoration:none; }
+.container{ max-width:1160px; margin:0 auto; padding:0 22px; }
+
+header{ padding: 10px 0 0; }
+.header-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:24px;
+  padding-top: 2px;
+}
+
+.brand{
+  min-width:180px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.brand .word{
+  font-size: 24px;
+  font-weight: 850;
+  letter-spacing: 7px;
+  line-height:1;
+}
+.brand .jp{
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-left: 2px;
+}
+
+.clocks{
+  flex: 1;
+  display:flex;
+  justify-content:center;
+  gap:38px;
+  padding-top: 2px;
+}
+.clock{
+  width: 110px;
+  text-align:center;
+}
+.clock .city{
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  font-weight: 750;
+  margin-bottom: 8px;
+}
+.clock canvas{ display:block; margin:0 auto; }
+.clock .time{
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 850;
+  color: var(--ink);
+}
+
+.nav-wrap{
+  margin-top: 10px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background: rgba(248,250,252,0.42);
+  backdrop-filter: blur(6px);
+}
+nav{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
+  padding: 12px 0;
+}
+
+.nav-link, .dd-btn{
+  font-size: 14px;
+  font-weight: 750;
+  color: rgba(15,23,42,0.92);
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor:pointer;
+  line-height: 1;
+}
+.nav-link:hover, .dd-btn:hover{
+  background: rgba(15,23,42,0.04);
+  border-color: rgba(15,23,42,0.06);
+  color: rgba(15,23,42,1);
+}
+.active{
+  border-color: rgba(29,78,216,0.22);
+  background: rgba(29,78,216,0.06);
+}
+
+.dropdown{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.chev{
+  display:inline-block;
+  width:0;height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:6px solid rgba(15,23,42,0.55);
+  margin-left: 6px;
+  transform: translateY(1px);
+}
+
+.dd-menu{
+  position:absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  background: var(--card);
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: var(--shadow2);
+  border-radius: 14px;
+  padding: 8px;
+  display:none;
+  z-index: 50;
+}
+.dd-menu a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(15,23,42,0.92);
+}
+.dd-menu a:hover{
+  background: rgba(15,23,42,0.04);
+  color: rgba(15,23,42,1);
+}
+.tag{
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(15,23,42,0.55);
+  letter-spacing: 1px;
+}
+.dd-open .dd-menu{ display:block; }
+
+/* HERO */
+.hero{ padding: 58px 0 42px; }
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items:center;
+}
+.kicker{
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--muted);
+  font-weight: 850;
+  margin-bottom: 14px;
+}
+h1{
+  font-size: 54px;
+  line-height: 1.06;
+  letter-spacing: -0.7px;
+  margin-bottom: 14px;
+}
+.lead{
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: rgba(15,23,42,0.78);
+  max-width: 680px;
+  margin-bottom: 18px;
+}
+.cta{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size: 14px;
+  font-weight: 850;
+  color: var(--accent);
+}
+.cta:hover{ text-decoration: underline; }
+
+.hero-card{
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+.hero-card h3{
+  font-size: 14px;
+  color: rgba(15,23,42,0.75);
+  letter-spacing: 2px;
+  font-weight: 850;
+  margin-bottom: 10px;
+}
+.hero-card p{
+  font-size: 14px;
+  color: rgba(15,23,42,0.70);
+  line-height: 1.7;
+}
+
+/* SECTIONS */
+.section{ padding: 40px 0 80px; }
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom: 18px;
+}
+.section-head h2{
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+}
+.viewall{
+  font-size: 13px;
+  font-weight: 850;
+  color: rgba(15,23,42,0.70);
+}
+.viewall:hover{ text-decoration: underline; }
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.card{
+  position:relative;
+  background: var(--card);
+  border: 1px solid rgba(15,23,42,0.07);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+  padding: 18px;
+  min-height: 190px;
+  overflow:hidden;
+  transition: transform 180ms ease;
+}
+.card:hover{ transform: translateY(-2px); }
+.badge{
+  position:absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 2px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(29,78,216,0.10);
+  border: 1px solid rgba(29,78,216,0.20);
+  color: rgba(29,78,216,0.95);
+  text-transform: uppercase;
+}
+.card h3{
+  margin-top: 22px;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  margin-bottom: 10px;
+}
+.card p{
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(15,23,42,0.72);
+  max-width: 95%;
+}
+
+/* FILTER PILLS */
+.pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin: 12px 0 18px;
+}
+.pill{
+  font-size: 13px;
+  font-weight: 850;
+  color: rgba(15,23,42,0.75);
+  border: 1px solid rgba(15,23,42,0.10);
+  background: rgba(255,255,255,0.55);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+.pill:hover{ border-color: rgba(29,78,216,0.25); color: rgba(15,23,42,0.92); }
+
+/* ARTICLE PAGE */
+.article-wrap{ padding: 46px 0 90px; }
+.article-card{
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px;
+}
+.article-meta{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  margin-bottom: 10px;
+}
+.article-meta .badge{ position: static; }
+.article-title{
+  font-size: 38px;
+  line-height: 1.12;
+  letter-spacing: -0.6px;
+  margin: 10px 0 10px;
+}
+.article-date{
+  font-size: 13px;
+  color: rgba(15,23,42,0.62);
+  font-weight: 700;
+}
+.article-content{
+  margin-top: 14px;
+  font-size: 15.5px;
+  line-height: 1.9;
+  color: rgba(15,23,42,0.82);
+}
+.article-content p{ margin-bottom: 14px; }
+
+/* ABOUT PAGE */
+.about-wrap{ padding: 54px 0 90px; }
+.about-grid{
+  display:grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 26px;
+  align-items:start;
+}
+.about-title{
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -0.6px;
+  margin-bottom: 14px;
+}
+.about-lead{
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: rgba(15,23,42,0.78);
+  margin-bottom: 14px;
+  max-width: 720px;
+}
+.about-actions{
+  display:flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.about-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid rgba(29,78,216,0.25);
+}
+.about-btn:hover{ filter: brightness(0.98); }
+.about-btn.ghost{
+  background: rgba(255,255,255,0.65);
+  color: rgba(15,23,42,0.86);
+  border: 1px solid rgba(15,23,42,0.10);
+}
+
+.about-side{ display:flex; flex-direction:column; gap: 14px; }
+.portrait-card, .promise-card{
+  background: rgba(255,255,255,0.70);
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow2);
+  overflow:hidden;
+}
+.portrait{ width:100%; height: 380px; object-fit: cover; display:block; }
+.portrait-meta{ padding: 14px 16px 16px; }
+.portrait-name{ font-weight: 950; letter-spacing: -0.2px; }
+.portrait-sub{ font-size: 13px; color: rgba(15,23,42,0.65); margin-top: 2px; }
+
+.promise-card{ padding: 16px; }
+.promise-title{
+  font-weight: 950;
+  letter-spacing: 2px;
+  font-size: 12px;
+  color: rgba(15,23,42,0.70);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.promise-list{
+  margin-left: 18px;
+  color: rgba(15,23,42,0.78);
+  line-height: 1.85;
+  font-size: 14px;
+}
+
+/* FOOTER */
+footer{
+  padding: 26px 0 40px;
+  color: rgba(15,23,42,0.60);
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 980px){
+  .header-row{ flex-direction: column; align-items:flex-start; }
+  .clocks{
+    width:100%;
+    justify-content:flex-start;
+    overflow-x:auto;
+    padding-bottom: 8px;
   }
-]
+  nav{ justify-content:flex-start; overflow-x:auto; gap: 14px; }
+  .hero-grid{ grid-template-columns: 1fr; }
+  h1{ font-size: 40px; }
+  .grid{ grid-template-columns: 1fr; }
+  .dd-menu{ left: 0; transform: none; }
+  .about-grid{ grid-template-columns: 1fr; }
+  .about-title{ font-size: 36px; }
+  .portrait{ height: 330px; }
+  .article-title{ font-size: 30px; }
+}
