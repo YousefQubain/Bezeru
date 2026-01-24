@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BEZERU</title>
+  <title>About — BEZERU</title>
 
-  <!-- MUST be correct + case-sensitive on GitHub Pages -->
+  <!-- IMPORTANT: must match your file name exactly -->
   <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
+  <!-- Header (same structure as index) -->
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="./index.html" aria-label="BEZERU Home">
@@ -78,7 +79,7 @@
 
     <nav class="main-nav" aria-label="Primary">
       <div class="nav-inner">
-        <a class="nav-link active" href="./index.html">Home</a>
+        <a class="nav-link" href="./index.html">Home</a>
 
         <div class="nav-dropdown">
           <button class="nav-link dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
@@ -107,65 +108,57 @@
           </div>
         </div>
 
-        <a class="nav-link" href="./about.html">About</a>
+        <a class="nav-link active" href="./about.html">About</a>
       </div>
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-left">
-          <div class="kicker">CONTEMPORARY WATCH EDITORIAL</div>
-          <h1 class="hero-title">Modern and vintage watches, explained without hype.</h1>
-          <p class="hero-sub">
-            BEZERU publishes twice a week. We connect today’s releases to vintage references — with a Gulf/Middle East lens when it matters, and design-first critique always.
-          </p>
-          <a class="hero-link" href="./articles.html?cat=gulf">Read the latest Gulf editions</a>
+  <main class="about-page">
+    <section class="about-hero">
+      <div class="about-wrap">
+        <div class="about-card">
+          <div class="about-kicker">ABOUT</div>
+          <h1 class="about-h1">Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
+
+          <div class="about-grid">
+            <div class="about-photo">
+              <!-- Put your real photo at /images/yousef.jpg (or change path) -->
+              <img src="./images/yousef.jpg" alt="Portrait of Yousef, founder of BEZERU" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="photo-fallback" style="display:none;">
+                Add your photo: <span class="mono">/images/yousef.jpg</span>
+              </div>
+            </div>
+
+            <div class="about-copy">
+              <p>
+                I started BEZERU because I’ve always loved watches for what they really are: design in motion.
+                A dial can carry history, culture, and engineering in a space smaller than your palm — and the best
+                pieces reward you the more you look.
+              </p>
+
+              <p>
+                I also wanted a place that treats Gulf and Middle Eastern watch culture seriously. From Arabic dials
+                and regional commissions to collectors shaping modern taste, the influence is real — and often
+                under-covered. BEZERU connects modern releases to their vintage roots, highlights underdogs, and keeps
+                the focus on what matters on the wrist.
+              </p>
+
+              <div class="about-actions">
+                <a class="btn" href="./articles.html?cat=gulf">Read Gulf Editions</a>
+                <a class="btn btn-ghost" href="mailto:hello@bezeru.com">Contact</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-foot">
+            © BEZERU — <span class="muted">Modern + vintage, with a Gulf lens.</span>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="latest">
-      <div class="latest-head">
-        <h2 class="latest-title">Latest stories</h2>
-        <a class="view-all" href="./articles.html?cat=latest">View all</a>
-      </div>
-
-      <div class="cards">
-        <a class="card" href="./article.html?id=1">
-          <div class="card-tag">DESIGN</div>
-          <h3 class="card-title">The Quiet Return of Neo-Vintage Case Sizes</h3>
-          <p class="card-desc">Why 36–38mm is winning back collectors tired of oversized sports watches.</p>
-        </a>
-
-        <a class="card" href="./article.html?id=2">
-          <div class="card-tag">UNDERDOGS</div>
-          <h3 class="card-title">Independent Brands to Watch in 2025</h3>
-          <p class="card-desc">Five under-the-radar makers delivering serious horology without hype pricing.</p>
-        </a>
-
-        <a class="card" href="./article.html?id=3">
-          <div class="card-tag">GULF</div>
-          <h3 class="card-title">How Cartier’s Middle East History Still Shapes Modern Releases</h3>
-          <p class="card-desc">From royal commissions to Arabic dials, the influence never left.</p>
-        </a>
-      </div>
-    </section>
-
-    <section class="about-snippet">
-      <h2 class="about-title">About BEZERU</h2>
-      <p class="about-text">
-        BEZERU is a watch publication focused on clarity: what changed, what didn’t, and what matters on the wrist. We cover global releases — and we also spotlight Gulf and Middle East editions, Arabic dials, regional makers, and the design language that travels between cultures.
-      </p>
-      <div class="footerline">
-        © BEZERU<br />
-        <span class="muted">Modern + vintage, with a Gulf lens.</span>
       </div>
     </section>
   </main>
 
-  <!-- MUST be correct + case-sensitive -->
+  <!-- IMPORTANT: must match your filename exactly -->
   <script src="./script.js" defer></script>
 </body>
 </html>
