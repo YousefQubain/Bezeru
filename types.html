@@ -1,57 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Watch Types — BEZERU</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:,">
   <script src="script.js" defer></script>
 </head>
-
 <body>
-  <header>
+
+  <header class="site-header">
     <div class="container">
       <div class="header-row">
-        <div class="brand">
-          <div class="word">BEZERU</div>
-          <div class="jp">ベゼル</div>
-        </div>
-
-        <div class="clocks" aria-label="World time">
-          <div class="clock">
-            <div class="city">NEW YORK</div>
-            <canvas id="ny" width="44" height="44"></canvas>
-            <div class="time" id="ny-time">--:--</div>
-          </div>
-          <div class="clock">
-            <div class="city">LONDON</div>
-            <canvas id="lon" width="44" height="44"></canvas>
-            <div class="time" id="lon-time">--:--</div>
-          </div>
-          <div class="clock">
-            <div class="city">GENEVA</div>
-            <canvas id="gen" width="44" height="44"></canvas>
-            <div class="time" id="gen-time">--:--</div>
-          </div>
-          <div class="clock">
-            <div class="city">TOKYO</div>
-            <canvas id="tok" width="44" height="44"></canvas>
-            <div class="time" id="tok-time">--:--</div>
-          </div>
+        <a class="brand" href="index.html"><div class="word">BEZERU</div><div class="jp">ベゼル</div></a>
+        <div class="clocks">
+          <div class="clock" data-tz="America/New_York"><div class="city">NEW YORK</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
+          <div class="clock" data-tz="Europe/London"><div class="city">LONDON</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
+          <div class="clock" data-tz="Europe/Zurich"><div class="city">GENEVA</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
+          <div class="clock" data-tz="Asia/Tokyo"><div class="city">TOKYO</div><canvas width="64" height="64"></canvas><div class="time">--:--:--</div></div>
         </div>
       </div>
     </div>
 
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <nav class="nav">
           <a class="nav-link" href="index.html">Home</a>
 
-          <div class="dropdown" data-dd="articles">
-            <button class="dd-btn" type="button">
-              Articles <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Articles">
+          <div class="dropdown">
+            <button class="dd-btn" type="button">Articles <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
               <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
               <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
@@ -61,16 +40,14 @@
             </div>
           </div>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Watch Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Watch Types">
-              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
-              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
+          <div class="dropdown">
+            <button class="dd-btn" type="button">Watch Types <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="#dress">Dress <span class="tag">STYLE</span></a>
+              <a href="#diver">Diver <span class="tag">TOOL</span></a>
+              <a href="#chrono">Chronograph <span class="tag">RACING</span></a>
+              <a href="#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
+              <a href="#comp">Complications <span class="tag">HIGH</span></a>
             </div>
           </div>
 
@@ -80,60 +57,40 @@
     </div>
   </header>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="kicker">WATCH TYPES</div>
-        <h1 style="font-size:44px;line-height:1.1;letter-spacing:-0.6px;margin-top:10px;">A simple map of watch categories.</h1>
-        <p class="lead" style="margin-top:10px;">
-          We’ll cover types through the lens of wear, proportion, and culture — not just specs.
-        </p>
-
-        <div class="grid" style="margin-top:18px;">
-          <a class="card" id="dress" href="articles.html#guides">
-            <span class="badge">Dress</span>
-            <h3>Dress Watches</h3>
-            <p>Thin profiles, clean dials, and proportion-first design — understated, not boring.</p>
-          </a>
-
-          <a class="card" id="diver" href="articles.html#design">
-            <span class="badge">Diver</span>
-            <h3>Divers</h3>
-            <p>Tool heritage with daily wear reality: bezel usability, lume, and case thickness.</p>
-          </a>
-
-          <a class="card" id="chrono" href="articles.html#guides">
-            <span class="badge">Chrono</span>
-            <h3>Chronographs</h3>
-            <p>Pushers, legibility, and movement choices — what matters beyond the racing story.</p>
-          </a>
-
-          <a class="card" id="gmt" href="articles.html#vintage">
-            <span class="badge">GMT</span>
-            <h3>GMT / Travel</h3>
-            <p>True travel utility, vintage context, and how regional markets shaped releases.</p>
-          </a>
-
-          <a class="card" id="comp" href="articles.html#underdogs">
-            <span class="badge">High</span>
-            <h3>Complications</h3>
-            <p>When complexity is meaningful — and when it’s just noise.</p>
-          </a>
-
-          <a class="card" href="articles.html#gulf">
-            <span class="badge">Gulf</span>
-            <h3>Middle East Influence</h3>
-            <p>Arabic dials, commissions, collector taste — and how it flows back into global design.</p>
-          </a>
-        </div>
+  <main class="page">
+    <div class="container">
+      <div class="page-head">
+        <h1>Watch Types</h1>
+        <p class="subhead">Quick, clean primers — then we link you to the best reads.</p>
       </div>
-    </section>
+
+      <div class="type-grid">
+        <section class="type-card" id="dress">
+          <h3>Dress</h3>
+          <p>Thin cases, refined proportions, and dials that reward close inspection.</p>
+        </section>
+        <section class="type-card" id="diver">
+          <h3>Diver</h3>
+          <p>Legibility, durability, and the design codes that made the category iconic.</p>
+        </section>
+        <section class="type-card" id="chrono">
+          <h3>Chronograph</h3>
+          <p>From racing heritage to modern tool watches — the pushers tell the story.</p>
+        </section>
+        <section class="type-card" id="gmt">
+          <h3>GMT / Travel</h3>
+          <p>Practical complications, real-world use, and the best execution details.</p>
+        </section>
+        <section class="type-card" id="comp">
+          <h3>Complications</h3>
+          <p>Calendar, moonphase, tourbillon — explained simply, judged honestly.</p>
+        </section>
+      </div>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">
-      © BEZERU — modern + vintage, plus Gulf influence.
-    </div>
+  <footer class="site-footer">
+    <div class="container">© BEZERU — Modern + vintage, with a Gulf lens.</div>
   </footer>
 </body>
 </html>
