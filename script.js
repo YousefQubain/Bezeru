@@ -255,3 +255,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     console.warn(err);
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+});
