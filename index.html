@@ -8,155 +8,157 @@
 </head>
 
 <body>
+  <!-- Top header -->
   <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="./index.html" aria-label="BEZERU Home">
-        <div class="brand-name">BEZERU</div>
-        <div class="brand-jp">ベゼル</div>
+    <div class="container header-row">
+      <!-- Brand -->
+      <a class="brand" href="./index.html" aria-label="BEZERU home">
+        <span class="brand-word">BEZERU</span>
+        <span class="brand-jp">ベゼル</span>
       </a>
 
-      <div class="world-clocks" aria-label="World time">
-        <div class="clock-card" data-tz="America/New_York">
-          <div class="clock-city">NEW YORK</div>
+      <!-- Timezones -->
+      <div class="tz-row" aria-label="World times">
+        <div class="tz" data-tz="America/New_York">
+          <div class="tz-label">NEW YORK</div>
           <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
+            <div class="mw-face"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
           </div>
-          <div class="clock-time">--:--</div>
+          <div class="tz-time" data-time>--:--</div>
         </div>
 
-        <div class="clock-card" data-tz="Europe/London">
-          <div class="clock-city">LONDON</div>
+        <div class="tz" data-tz="Europe/London">
+          <div class="tz-label">LONDON</div>
           <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
+            <div class="mw-face"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
           </div>
-          <div class="clock-time">--:--</div>
+          <div class="tz-time" data-time>--:--</div>
         </div>
 
-        <div class="clock-card" data-tz="Europe/Zurich">
-          <div class="clock-city">GENEVA</div>
+        <div class="tz" data-tz="Europe/Zurich">
+          <div class="tz-label">GENEVA</div>
           <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
+            <div class="mw-face"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
           </div>
-          <div class="clock-time">--:--</div>
+          <div class="tz-time" data-time>--:--</div>
         </div>
 
-        <div class="clock-card" data-tz="Asia/Tokyo">
-          <div class="clock-city">TOKYO</div>
+        <div class="tz" data-tz="Asia/Tokyo">
+          <div class="tz-label">TOKYO</div>
           <div class="mini-watch" aria-hidden="true">
-            <div class="mini-bezel"></div>
-            <div class="mini-dial"></div>
-            <div class="mini-markers"></div>
-            <div class="mini-hand mini-hour"></div>
-            <div class="mini-hand mini-minute"></div>
-            <div class="mini-hand mini-second"></div>
-            <div class="mini-pin"></div>
+            <div class="mw-face"></div>
+            <div class="mw-hand mw-hour"></div>
+            <div class="mw-hand mw-minute"></div>
+            <div class="mw-hand mw-second"></div>
+            <div class="mw-center"></div>
           </div>
-          <div class="clock-time">--:--</div>
+          <div class="tz-time" data-time>--:--</div>
         </div>
       </div>
     </div>
 
-    <nav class="main-nav" aria-label="Primary">
-      <div class="nav-inner">
-        <a class="nav-link active" href="./index.html">Home</a>
+    <!-- Nav -->
+    <div class="nav-wrap">
+      <div class="container nav-row">
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-link is-active" href="./index.html">Home</a>
 
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
-            Articles <span class="chev">▼</span>
-          </button>
-          <div class="dropdown-panel" role="menu">
-            <a role="menuitem" href="./articles.html?cat=latest">Latest</a>
-            <a role="menuitem" href="./articles.html?cat=gulf">Gulf Editions</a>
-            <a role="menuitem" href="./articles.html?cat=vintage">Vintage</a>
-            <a role="menuitem" href="./articles.html?cat=design">Design Breakdowns</a>
-            <a role="menuitem" href="./articles.html?cat=buying">Buying Guides</a>
-            <a role="menuitem" href="./articles.html?cat=underdogs">Underdogs</a>
+          <div class="nav-dd">
+            <a class="nav-link" href="./articles.html" aria-haspopup="true">
+              Articles <span class="caret">▼</span>
+            </a>
+            <div class="dd-menu" role="menu" aria-label="Articles menu">
+              <a class="dd-item" href="./articles.html#latest">Latest</a>
+              <a class="dd-item" href="./articles.html#gulf">Gulf Editions</a>
+              <a class="dd-item" href="./articles.html#vintage">Vintage</a>
+              <a class="dd-item" href="./articles.html#design">Design Breakdowns</a>
+              <a class="dd-item" href="./articles.html#buying">Buying Guides</a>
+              <a class="dd-item" href="./articles.html#underdogs">Underdogs</a>
+            </div>
           </div>
-        </div>
 
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-btn" type="button" aria-haspopup="true" aria-expanded="false">
-            Watch Types <span class="chev">▼</span>
-          </button>
-          <div class="dropdown-panel" role="menu">
-            <a role="menuitem" href="./articles.html?type=dress">Dress</a>
-            <a role="menuitem" href="./articles.html?type=diver">Diver</a>
-            <a role="menuitem" href="./articles.html?type=chrono">Chronograph</a>
-            <a role="menuitem" href="./articles.html?type=gmt">GMT / Travel</a>
-            <a role="menuitem" href="./articles.html?type=complications">Complications</a>
+          <div class="nav-dd">
+            <a class="nav-link" href="./articles.html#watch-types" aria-haspopup="true">
+              Watch Types <span class="caret">▼</span>
+            </a>
+            <div class="dd-menu" role="menu" aria-label="Watch types menu">
+              <a class="dd-item" href="./articles.html#dress">Dress</a>
+              <a class="dd-item" href="./articles.html#diver">Diver</a>
+              <a class="dd-item" href="./articles.html#chrono">Chronograph</a>
+              <a class="dd-item" href="./articles.html#gmt">GMT / Travel</a>
+              <a class="dd-item" href="./articles.html#comp">Complications</a>
+            </div>
           </div>
-        </div>
 
-        <!-- IMPORTANT: goes to a NEW PAGE -->
-        <a class="nav-link" href="./about.html">About</a>
+          <a class="nav-link" href="./about.html">About</a>
+        </nav>
       </div>
-    </nav>
+    </div>
   </header>
 
+  <!-- Hero -->
   <main>
     <section class="hero">
-      <div class="hero-inner">
+      <div class="container hero-inner">
         <div class="hero-kicker">CONTEMPORARY WATCH EDITORIAL</div>
-        <h1 class="hero-title">Modern and vintage watches, explained without hype.</h1>
+        <h1 class="hero-title">Modern and vintage watches,<br/>explained without hype.</h1>
         <p class="hero-sub">
           BEZERU publishes twice a week. We connect today’s releases to vintage references —
           with a Gulf / Middle East lens when it matters, and design-first critique always.
         </p>
-        <a class="hero-link" href="./articles.html?cat=gulf">Read the latest Gulf editions</a>
+
+        <a class="hero-link" href="./articles.html#gulf">Read the latest Gulf editions</a>
       </div>
     </section>
 
-    <section class="latest">
-      <div class="section-head">
-        <h2>Latest stories</h2>
-        <a class="view-all" href="./articles.html?cat=latest">View all</a>
+    <!-- Latest stories -->
+    <section class="section">
+      <div class="container section-head">
+        <h2 class="section-title">Latest stories</h2>
+        <a class="section-link" href="./articles.html">View all</a>
       </div>
 
-      <div class="cards">
+      <div class="container cards">
         <a class="card" href="./post.html?id=neo-vintage">
-          <span class="tag">DESIGN</span>
-          <h3>The Quiet Return of Neo-Vintage Case Sizes</h3>
-          <p>Why 36–38mm is winning back collectors tired of oversized sports watches.</p>
+          <div class="card-tag">DESIGN</div>
+          <h3 class="card-title">The Quiet Return of Neo-Vintage Case Sizes</h3>
+          <p class="card-text">Why 36–38mm is winning back collectors tired of oversized sports watches.</p>
         </a>
 
         <a class="card" href="./post.html?id=underdogs-2025">
-          <span class="tag">UNDERDOGS</span>
-          <h3>Independent Brands to Watch in 2025</h3>
-          <p>Five under-the-radar makers delivering serious horology without hype pricing.</p>
+          <div class="card-tag">UNDERDOGS</div>
+          <h3 class="card-title">Independent Brands to Watch in 2025</h3>
+          <p class="card-text">Five under-the-radar makers delivering serious horology without hype pricing.</p>
         </a>
 
         <a class="card" href="./post.html?id=cartier-gulf">
-          <span class="tag">GULF</span>
-          <h3>How Cartier’s Middle East History Still Shapes Modern Releases</h3>
-          <p>From royal commissions to Arabic dials, the influence never left.</p>
+          <div class="card-tag">GULF</div>
+          <h3 class="card-title">How Cartier’s Middle East History Still Shapes Modern Releases</h3>
+          <p class="card-text">From royal commissions to Arabic dials, the influence never left.</p>
         </a>
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div>© BEZERU</div>
-      <div class="muted">Modern + vintage, with a Gulf lens.</div>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>© BEZERU</div>
+        <div class="footer-muted">Modern + vintage, with a Gulf lens.</div>
+      </div>
     </footer>
   </main>
 
-  <script src="./script.js" defer></script>
+  <script src="./script.js"></script>
 </body>
 </html>
