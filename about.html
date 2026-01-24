@@ -1,42 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — BEZERU</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:,">
   <script src="script.js" defer></script>
 </head>
-
 <body>
-  <header>
+
+  <header class="site-header">
     <div class="container">
       <div class="header-row">
-        <div class="brand">
+        <a class="brand" href="index.html" aria-label="BEZERU home">
           <div class="word">BEZERU</div>
           <div class="jp">ベゼル</div>
-        </div>
+        </a>
 
         <div class="clocks" aria-label="World time">
-          <div class="clock">
+          <div class="clock" data-tz="America/New_York">
             <div class="city">NEW YORK</div>
-            <canvas id="ny" width="44" height="44"></canvas>
-            <div class="time" id="ny-time">--:--</div>
+            <canvas width="64" height="64"></canvas>
+            <div class="time">--:--:--</div>
           </div>
-          <div class="clock">
+          <div class="clock" data-tz="Europe/London">
             <div class="city">LONDON</div>
-            <canvas id="lon" width="44" height="44"></canvas>
-            <div class="time" id="lon-time">--:--</div>
+            <canvas width="64" height="64"></canvas>
+            <div class="time">--:--:--</div>
           </div>
-          <div class="clock">
+          <div class="clock" data-tz="Europe/Zurich">
             <div class="city">GENEVA</div>
-            <canvas id="gen" width="44" height="44"></canvas>
-            <div class="time" id="gen-time">--:--</div>
+            <canvas width="64" height="64"></canvas>
+            <div class="time">--:--:--</div>
           </div>
-          <div class="clock">
+          <div class="clock" data-tz="Asia/Tokyo">
             <div class="city">TOKYO</div>
-            <canvas id="tok" width="44" height="44"></canvas>
-            <div class="time" id="tok-time">--:--</div>
+            <canvas width="64" height="64"></canvas>
+            <div class="time">--:--:--</div>
           </div>
         </div>
       </div>
@@ -44,13 +45,11 @@
 
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <nav class="nav">
           <a class="nav-link" href="index.html">Home</a>
 
-          <div class="dropdown" data-dd="articles">
-            <button class="dd-btn" type="button">
-              Articles <span class="chev"></span>
-            </button>
+          <div class="dropdown">
+            <button class="dd-btn" type="button">Articles <span class="chev" aria-hidden="true"></span></button>
             <div class="dd-menu" role="menu" aria-label="Articles">
               <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
               <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
@@ -61,10 +60,8 @@
             </div>
           </div>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Watch Types <span class="chev"></span>
-            </button>
+          <div class="dropdown">
+            <button class="dd-btn" type="button">Watch Types <span class="chev" aria-hidden="true"></span></button>
             <div class="dd-menu" role="menu" aria-label="Watch Types">
               <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
               <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
@@ -74,67 +71,49 @@
             </div>
           </div>
 
-          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link active" href="about.html">About</a>
         </nav>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="about-wrap">
-      <div class="container">
-        <div class="about-grid">
-          <div class="about-copy">
-            <div class="kicker">ABOUT</div>
-            <h1 class="about-title">Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
+  <main class="page">
+    <div class="container">
+      <div class="about-hero">
+        <div class="about-photo">
+          <!-- Put your image here: /images/yousef.jpg -->
+          <img src="images/yousef.jpg" alt="Yousef, founder of BEZERU at Geneva Watch Days" />
+        </div>
 
-            <p class="about-lead">
-              I started BEZERU because I’ve always loved watches for what they really are: design in motion.
-              A dial can carry history, culture, and engineering in a space smaller than your palm — and the best pieces
-              reward you the more you look.
-            </p>
+        <div class="about-copy">
+          <div class="kicker">ABOUT</div>
+          <h1>Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
 
-            <p class="about-lead">
-              BEZERU is about watches in general: underdogs, new competition, and vintage context — with real attention
-              to Gulf and Middle East influence. From Arabic dials and regional commissions to collectors shaping modern taste,
-              the influence is real — and often under-covered. My goal is simple: connect releases to roots, talk honestly
-              about design decisions, and keep the focus on what matters on the wrist.
-            </p>
+          <p class="lead">
+            I started BEZERU because I love watches for what they really are: design in motion.
+            A dial can carry culture, engineering, and history in a space smaller than your palm — and the best pieces reward you the more you look.
+          </p>
 
-            <div class="about-actions">
-              <a class="about-btn" href="articles.html">Browse Articles</a>
-              <a class="about-btn ghost" href="articles.html#gulf">Gulf + Middle East</a>
-            </div>
+          <p class="lead">
+            BEZERU is also a place to treat Middle East influence seriously — from Arabic dials and regional commissions to the collectors and tastes
+            shaping modern releases. Alongside underdogs and vintage references, I’ll cover the releases that matter and the stories that are usually under-covered.
+          </p>
+
+          <div class="about-chips">
+            <span class="chip">Underdogs</span>
+            <span class="chip">Vintage</span>
+            <span class="chip">Buying Guides</span>
+            <span class="chip">Gulf & Middle East</span>
           </div>
 
-          <aside class="about-side">
-            <div class="portrait-card">
-              <img class="portrait" src="images/yousef.jpg" alt="Yousef, founder of BEZERU" />
-              <div class="portrait-meta">
-                <div class="portrait-name">Yousef Qubain</div>
-                <div class="portrait-sub">Founder — BEZERU</div>
-              </div>
-            </div>
-
-            <div class="promise-card">
-              <div class="promise-title">What BEZERU stands for</div>
-              <ul class="promise-list">
-                <li>Underdogs and real competition — not hype cycles.</li>
-                <li>Vintage context that explains what changed (and what didn’t).</li>
-                <li>Design breakdowns you can actually use on wrist.</li>
-                <li>Middle East influence covered with respect and detail.</li>
-              </ul>
-            </div>
-          </aside>
+          <a class="cta" href="articles.html#latest">Start reading →</a>
         </div>
       </div>
-    </section>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">
-      © BEZERU — modern + vintage, plus Gulf influence.
-    </div>
+  <footer class="site-footer">
+    <div class="container">© BEZERU — Modern + vintage, with a Gulf lens.</div>
   </footer>
 </body>
 </html>
