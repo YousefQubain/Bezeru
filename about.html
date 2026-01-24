@@ -2,81 +2,241 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About — BEZERU</title>
-  <link rel="stylesheet" href="./style.css?v=9" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:#0f172a;
+      background: radial-gradient(circle at top, #eef2ff, #f8fafc);
+    }
+    a{ color: inherit; }
+
+    .top-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+      padding: 14px 56px 8px;
+    }
+    .logo{ display:flex; flex-direction:column; gap:4px; min-width:160px; }
+    .logo strong{ font-size:24px; letter-spacing:6px; font-weight:800; color:#0b1220; line-height:1; }
+    .logo span{ font-size:12px; color:#64748b; letter-spacing:1px; }
+
+    .world-clocks{ display:flex; align-items:flex-start; justify-content:center; gap:42px; flex:1; }
+    .clock-box{ text-align:center; min-width:92px; }
+    .city{ font-size:11px; letter-spacing:3px; color:#64748b; margin-bottom:8px; font-weight:600; }
+    .time{ font-size:14px; font-weight:700; margin-top:6px; color:#0f172a; }
+    canvas{ display:block; margin:0 auto; }
+
+    .main-nav{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:56px;
+      padding:10px 0 12px;
+      border-top:1px solid #e2e8f0;
+      border-bottom:1px solid #e2e8f0;
+      background: rgba(248,250,252,0.35);
+      backdrop-filter: blur(6px);
+    }
+    .main-nav a{
+      text-decoration:none;
+      font-size:14px;
+      font-weight:600;
+      color:#0f172a;
+      padding:6px 0;
+      opacity:0.9;
+    }
+    .main-nav a.active{ opacity:1; border-bottom:3px solid #1d4ed8; }
+
+    .about-wrap{
+      max-width: 1100px;
+      margin: 70px auto 90px;
+      padding: 0 24px;
+    }
+    .about-grid{
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap: 56px;
+      align-items:center;
+    }
+    .about-photo{
+      width:100%;
+      border-radius: 14px;
+      box-shadow: 0 18px 50px rgba(15,23,42,0.10);
+      display:block;
+    }
+    .about-title{
+      font-size: 40px;
+      line-height: 1.12;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .about-p{
+      font-size: 16px;
+      line-height: 1.75;
+      color:#334155;
+      margin-bottom: 14px;
+      max-width: 650px;
+    }
+
+    @media (max-width: 980px){
+      .top-bar{ flex-direction:column; align-items:flex-start; padding:14px 18px 8px; }
+      .world-clocks{ width:100%; justify-content:flex-start; gap:22px; overflow-x:auto; padding-bottom:8px; }
+      .main-nav{ gap:22px; padding:10px 14px 12px; justify-content:flex-start; overflow-x:auto; }
+      .about-grid{ grid-template-columns: 1fr; gap: 22px; }
+      .about-title{ font-size: 32px; }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="top-bar">
-  <div class="logo">
-    <strong>BEZERU</strong>
-    <span>ベゼル</span>
-  </div>
-
-  <div class="world-clocks">
-
-    <div class="clock-box">
-      <div class="city">NEW YORK</div>
-      <canvas id="ny" width="42" height="42"></canvas>
-      <div class="time" id="ny-time"></div>
+  <header class="top-bar">
+    <div class="logo">
+      <strong>BEZERU</strong>
+      <span>ベゼル</span>
     </div>
 
-    <div class="clock-box">
-      <div class="city">LONDON</div>
-      <canvas id="lon" width="42" height="42"></canvas>
-      <div class="time" id="lon-time"></div>
+    <div class="world-clocks">
+      <div class="clock-box">
+        <div class="city">NEW YORK</div>
+        <canvas id="ny" width="44" height="44"></canvas>
+        <div class="time" id="ny-time">--:--</div>
+      </div>
+      <div class="clock-box">
+        <div class="city">LONDON</div>
+        <canvas id="lon" width="44" height="44"></canvas>
+        <div class="time" id="lon-time">--:--</div>
+      </div>
+      <div class="clock-box">
+        <div class="city">GENEVA</div>
+        <canvas id="gen" width="44" height="44"></canvas>
+        <div class="time" id="gen-time">--:--</div>
+      </div>
+      <div class="clock-box">
+        <div class="city">TOKYO</div>
+        <canvas id="tok" width="44" height="44"></canvas>
+        <div class="time" id="tok-time">--:--</div>
+      </div>
     </div>
+  </header>
 
-    <div class="clock-box">
-      <div class="city">GENEVA</div>
-      <canvas id="gen" width="42" height="42"></canvas>
-      <div class="time" id="gen-time"></div>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="articles.html">Articles ▾</a>
+    <a href="types.html">Watch Types ▾</a>
+    <a class="active" href="about.html">About</a>
+  </nav>
+
+  <section class="about-wrap">
+    <div class="about-grid">
+      <!-- Put your photo in the SAME folder as about.html and name it: yousef.jpg -->
+      <img class="about-photo" src="yousef.jpg" alt="Yousef at Geneva Watch Days" />
+
+      <div>
+        <h1 class="about-title">Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
+
+        <p class="about-p">
+          I started BEZERU because I’ve always loved watches for what they really are: design in motion.
+          A dial can carry history, culture, and engineering in a space smaller than your palm —
+          and the best pieces reward you the more you look.
+        </p>
+
+        <p class="about-p">
+          I also wanted a place that treats Gulf and Middle Eastern watch culture seriously.
+          From Arabic dials and regional commissions to the collectors shaping modern taste,
+          the influence is real — and often under-covered. BEZERU connects modern releases to their vintage roots,
+          highlights underdogs, and keeps the focus on what matters on the wrist.
+        </p>
+      </div>
     </div>
+  </section>
 
-    <div class="clock-box">
-      <div class="city">TOKYO</div>
-      <canvas id="tok" width="42" height="42"></canvas>
-      <div class="time" id="tok-time"></div>
-    </div>
+  <script>
+    const TZ = {
+      ny: "America/New_York",
+      lon: "Europe/London",
+      gen: "Europe/Zurich",
+      tok: "Asia/Tokyo"
+    };
 
-  </div>
-</header>
+    function getTimeParts(tz){
+      const fmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false
+      });
+      const s = fmt.format(new Date());
+      const [hh, mm] = s.split(":").map(Number);
+      return { hh, mm, label: s };
+    }
 
-<nav class="main-nav">
-  <a href="index.html">Home</a>
-  <a href="#">Articles ▾</a>
-  <a href="#">Watch Types ▾</a>
-  <a class="active" href="about.html">About</a>
-</nav>
+    function drawAnalog(canvas, hh, mm){
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width, h = canvas.height;
+      const r = w/2;
 
-<section class="about-section">
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.clearRect(0,0,w,h);
 
-  <div class="about-grid">
+      ctx.translate(r,r);
 
-    <img src="./yousef.jpg" alt="Yousef at Geneva Watch Days" />
+      ctx.beginPath();
+      ctx.arc(0,0,r-2,0,Math.PI*2);
+      ctx.strokeStyle = "#1d4ed8";
+      ctx.lineWidth = 4;
+      ctx.stroke();
 
-    <div class="about-text">
-      <h1>Hi, I’m Yousef — and BEZERU is my watch notebook.</h1>
+      ctx.beginPath();
+      ctx.arc(0,0,r-9,0,Math.PI*2);
+      ctx.strokeStyle = "rgba(15,23,42,0.12)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
-      <p>
-        I started BEZERU because I’ve always loved watches for what they really are:
-        design in motion. A dial can carry history, culture, and engineering in a space
-        smaller than your palm — and the best pieces reward you the more you look.
-      </p>
+      const hour = (hh % 12) + mm/60;
+      const hourAng = (Math.PI/6) * hour - Math.PI/2;
+      const minAng  = (Math.PI/30) * mm - Math.PI/2;
 
-      <p>
-        I also wanted a place that treats Gulf and Middle Eastern watch culture seriously.
-        From Arabic dials and regional commissions to the collectors shaping modern taste,
-        the influence is real — and often under-covered. BEZERU connects modern releases
-        to their vintage roots and keeps the focus on what matters on the wrist.
-      </p>
-    </div>
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.lineTo(Math.cos(hourAng) * (r*0.45), Math.sin(hourAng) * (r*0.45));
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 4;
+      ctx.lineCap = "round";
+      ctx.stroke();
 
-  </div>
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.lineTo(Math.cos(minAng) * (r*0.7), Math.sin(minAng) * (r*0.7));
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      ctx.stroke();
 
-</section>
+      ctx.beginPath();
+      ctx.arc(0,0,3,0,Math.PI*2);
+      ctx.fillStyle = "#0f172a";
+      ctx.fill();
 
-<script src="./script.js?v=9"></script>
+      ctx.setTransform(1,0,0,1,0,0);
+    }
+
+    function tick(){
+      Object.keys(TZ).forEach(id=>{
+        const parts = getTimeParts(TZ[id]);
+        const canvas = document.getElementById(id);
+        const label = document.getElementById(id + "-time");
+        if(!canvas || !label) return;
+        label.textContent = parts.label;
+        drawAnalog(canvas, parts.hh, parts.mm);
+      });
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
 </body>
 </html>
