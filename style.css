@@ -1,410 +1,166 @@
-:root{
-  --bg1:#eef2ff;
-  --bg2:#f8fafc;
-  --ink:#0f172a;
-  --muted:#64748b;
-  --line:#e2e8f0;
-  --accent:#1d4ed8;
-  --card:#ffffff;
-  --shadow: 0 18px 55px rgba(15,23,42,0.10);
-  --shadow2: 0 10px 26px rgba(15,23,42,0.10);
-  --radius:16px;
-}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEZERU</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
+</head>
 
-*{ box-sizing:border-box; margin:0; padding:0; }
-html, body{ height:100%; }
-body{
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--ink);
-  background: radial-gradient(circle at top, var(--bg1), var(--bg2));
-}
+<body>
 
-a{ color:inherit; text-decoration:none; }
-.container{ max-width:1160px; margin:0 auto; padding:0 22px; }
+<header class="site-header">
+  <div class="wrap header-top">
+    <div class="brand">
+      <div class="brand-title">BEZERU</div>
+      <div class="brand-sub">ベゼル</div>
+    </div>
+  </div>
 
-/* HEADER */
-header{ padding: 12px 0 10px; }
-.header-row{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:24px;
-  padding-top: 4px;
-}
-.brand{
-  min-width:180px;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.brand .word{
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 7px;
-  line-height:1;
-}
-.brand .jp{
-  font-size: 12px;
-  color: var(--muted);
-  letter-spacing: 1px;
-  margin-left: 2px;
-}
+  <div class="wrap worldwatch-row">
+    <div class="worldwatches" id="worldwatches"></div>
+  </div>
 
-/* CLOCKS */
-.clocks{
-  flex: 1;
-  display:flex;
-  justify-content:center;
-  gap:38px;
-  padding-top: 4px;
-}
-.clock{
-  width: 110px;
-  text-align:center;
-}
-.clock .city{
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--muted);
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.clock canvas{
-  display:block;
-  margin:0 auto;
-  width:44px;      /* ensures it stays visible */
-  height:44px;
-}
-.clock .time{
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--ink);
-}
+  <nav class="site-nav">
+    <div class="wrap nav-inner">
+      <a class="nav-link active" href="./index.html">Home</a>
 
-/* NAV */
-.nav-wrap{
-  margin-top: 10px;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background: rgba(248,250,252,0.40);
-  backdrop-filter: blur(6px);
-}
-nav{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:40px;
-  padding: 12px 0;
-}
-.nav-link, .dd-btn{
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  opacity: 0.92;
-  padding: 7px 10px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor:pointer;
-  line-height: 1;
-}
-.nav-link:hover, .dd-btn:hover{
-  opacity:1;
-  background: rgba(15,23,42,0.04);
-  border-color: rgba(15,23,42,0.06);
-}
-.active{
-  opacity:1;
-  border-color: rgba(29,78,216,0.22);
-  background: rgba(29,78,216,0.06);
-}
+      <div class="nav-dd">
+        <button class="nav-link nav-btn" type="button">
+          Articles <span class="chev">▾</span>
+        </button>
+        <div class="dd-menu">
+          <a href="./articles.html?cat=latest" class="dd-item">Latest</a>
+          <a href="./articles.html?cat=gulf" class="dd-item">Gulf Editions</a>
+          <a href="./articles.html?cat=vintage" class="dd-item">Vintage</a>
+          <a href="./articles.html?cat=design" class="dd-item">Design Breakdowns</a>
+          <a href="./articles.html?cat=guide" class="dd-item">Buying Guides</a>
+          <a href="./articles.html?cat=underdogs" class="dd-item">Underdogs</a>
+        </div>
+      </div>
 
-.dropdown{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-.chev{
-  display:inline-block;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid rgba(15,23,42,0.55);
-  margin-left: 6px;
-  transform: translateY(1px);
-}
-.dd-menu{
-  position:absolute;
-  top: 44px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 240px;
-  background: var(--card);
-  border: 1px solid rgba(15,23,42,0.08);
-  box-shadow: var(--shadow2);
-  border-radius: 14px;
-  padding: 8px;
-  display:none;
-  z-index: 50;
-}
-.dd-menu a{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 10px 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 650;
-  color: var(--ink);
-  opacity: 0.92;
-}
-.dd-menu a:hover{
-  background: rgba(15,23,42,0.04);
-  opacity:1;
-}
-.tag{
-  font-size: 11px;
-  font-weight: 800;
-  color: rgba(15,23,42,0.55);
-  letter-spacing: 1px;
-}
-.dd-open .dd-menu{ display:block; }
+      <div class="nav-dd">
+        <button class="nav-link nav-btn" type="button">
+          Watch Types <span class="chev">▾</span>
+        </button>
+        <div class="dd-menu">
+          <a href="./articles.html?type=dress" class="dd-item">Dress</a>
+          <a href="./articles.html?type=diver" class="dd-item">Diver</a>
+          <a href="./articles.html?type=chrono" class="dd-item">Chronograph</a>
+          <a href="./articles.html?type=gmt" class="dd-item">GMT / Travel</a>
+          <a href="./articles.html?type=complications" class="dd-item">Complications</a>
+        </div>
+      </div>
 
-/* HERO */
-.hero{ padding: 58px 0 44px; }
-.hero-grid{
-  display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
-  align-items:center;
-}
-.kicker{
-  font-size: 12px;
-  letter-spacing: 4px;
-  color: var(--muted);
-  font-weight: 800;
-  margin-bottom: 14px;
-}
-h1{
-  font-size: 54px;
-  line-height: 1.06;
-  letter-spacing: -0.7px;
-  margin-bottom: 14px;
-}
-.lead{
-  font-size: 15.5px;
-  line-height: 1.75;
-  color: rgba(15,23,42,0.78);
-  max-width: 680px;
-  margin-bottom: 18px;
-}
-.cta{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--accent);
-}
-.cta:hover{ text-decoration: underline; }
+      <a class="nav-link" href="./about.html">About</a>
+    </div>
+  </nav>
+</header>
 
-.hero-card{
-  background: rgba(255,255,255,0.65);
-  border: 1px solid rgba(15,23,42,0.08);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 22px;
-}
-.hero-card h3{
-  font-size: 14px;
-  color: rgba(15,23,42,0.75);
-  letter-spacing: 2px;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-.hero-card p{
-  font-size: 14px;
-  color: rgba(15,23,42,0.70);
-  line-height: 1.7;
-}
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">CONTEMPORARY WATCH EDITORIAL</div>
+        <h1 class="hero-title">
+          Modern and vintage watches,<br>
+          explained without hype.
+        </h1>
+        <p class="hero-sub">
+          BEZERU publishes twice a week. We connect today’s releases to vintage references —
+          with a Gulf/Middle East lens when it matters, and design-first critique always.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="./articles.html?cat=latest">Read the latest</a>
+          <a class="btn ghost" href="./about.html">Why BEZERU exists</a>
+        </div>
+      </div>
 
-/* ARTICLES GRID */
-.section{ padding: 40px 0 80px; }
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom: 18px;
-}
-.section-head h2{
-  font-size: 18px;
-  font-weight: 850;
-  letter-spacing: -0.2px;
-}
-.viewall{
-  font-size: 13px;
-  font-weight: 800;
-  color: rgba(15,23,42,0.70);
-}
-.viewall:hover{ text-decoration: underline; }
+      <aside class="hero-card">
+        <h3>Edition of the week</h3>
+        <p class="muted">Gulf Editions · 8 min read</p>
+        <ul>
+          <li>Arabic dials with actual provenance.</li>
+          <li>Modern releases mapped to vintage roots.</li>
+          <li>Design breakdowns you can feel on-wrist.</li>
+        </ul>
+        <a class="card-link" href="./articles.html?cat=gulf">Explore the Gulf lens →</a>
+      </aside>
+    </div>
+  </section>
 
-.grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-.card{
-  position:relative;
-  background: var(--card);
-  border: 1px solid rgba(15,23,42,0.07);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow2);
-  padding: 18px;
-  min-height: 190px;
-  overflow:hidden;
-}
-.badge{
-  position:absolute;
-  top: 14px;
-  right: 14px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(29,78,216,0.10);
-  border: 1px solid rgba(29,78,216,0.20);
-  color: rgba(29,78,216,0.95);
-  text-transform: uppercase;
-}
-.card h3{
-  margin-top: 22px;
-  font-size: 18px;
-  line-height: 1.25;
-  letter-spacing: -0.2px;
-  margin-bottom: 10px;
-}
-.card p{
-  font-size: 14px;
-  line-height: 1.7;
-  color: rgba(15,23,42,0.72);
-  max-width: 95%;
-}
-.card:hover{
-  transform: translateY(-2px);
-  transition: transform 180ms ease;
-}
+  <section class="section">
+    <div class="wrap section-head">
+      <h2 class="section-title">Latest stories</h2>
+      <a class="view-all" href="./articles.html">View all</a>
+    </div>
 
-/* ABOUT */
-.about{ padding: 56px 0 80px; }
-.about-grid{
-  display:grid;
-  grid-template-columns: 420px 1fr;
-  gap: 44px;
-  align-items:center;
-}
-.photo{
-  border-radius: 18px;
-  overflow:hidden;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(15,23,42,0.08);
-  background: rgba(255,255,255,0.65);
-}
-.photo img{ width:100%; display:block; height:auto; }
-.meta{
-  margin-top: 10px;
-  padding: 12px 14px 14px;
-  font-size: 12px;
-  color: rgba(15,23,42,0.65);
-  letter-spacing: 1px;
-  display:flex;
-  justify-content:space-between;
-  gap: 10px;
-}
-.meta strong{
-  color: rgba(15,23,42,0.78);
-  letter-spacing: 2px;
-  font-weight: 900;
-}
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(29,78,216,0.08);
-  border: 1px solid rgba(29,78,216,0.18);
-  color: rgba(29,78,216,0.96);
-  font-weight: 900;
-  letter-spacing: 2px;
-  font-size: 11px;
-  margin-bottom: 14px;
-  text-transform: uppercase;
-}
-.about h1{
-  font-size: 40px;
-  line-height: 1.12;
-  letter-spacing: -0.6px;
-  margin-bottom: 14px;
-}
-.p{
-  font-size: 15.5px;
-  line-height: 1.8;
-  color: rgba(15,23,42,0.78);
-  margin-bottom: 14px;
-  max-width: 720px;
-}
-.about-card{
-  margin-top: 18px;
-  background: rgba(255,255,255,0.65);
-  border: 1px solid rgba(15,23,42,0.08);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow2);
-  padding: 18px;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.about-card h3{
-  font-size: 13px;
-  letter-spacing: 2px;
-  color: rgba(15,23,42,0.70);
-  font-weight: 900;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-}
-.about-card p{
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: rgba(15,23,42,0.72);
-}
+    <div class="wrap">
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
 
-/* FOOTER */
-footer{
-  padding: 26px 0 40px;
-  color: rgba(15,23,42,0.60);
-  font-size: 13px;
-}
+  <section class="section">
+    <div class="wrap section-head">
+      <h2 class="section-title">Our editorial pillars</h2>
+    </div>
+    <div class="wrap pillars">
+      <div class="pillar">
+        <h4>Context over hype</h4>
+        <p>We trace modern releases back to the models that inspired them.</p>
+      </div>
+      <div class="pillar">
+        <h4>Gulf &amp; Middle East focus</h4>
+        <p>Regional editions, Arabic dials, and collectors who shape culture.</p>
+      </div>
+      <div class="pillar">
+        <h4>Design-first critique</h4>
+        <p>Every watch is judged by the wrist, not the marketing deck.</p>
+      </div>
+    </div>
+  </section>
 
-/* RESPONSIVE */
-@media (max-width: 980px){
-  .header-row{ flex-direction: column; align-items:flex-start; }
-  .clocks{ width:100%; justify-content:flex-start; overflow-x:auto; padding-bottom: 8px; }
-  nav{ justify-content:flex-start; overflow-x:auto; gap: 14px; }
-  .hero-grid{ grid-template-columns: 1fr; }
-  h1{ font-size: 40px; }
-  .grid{ grid-template-columns: 1fr; }
-  .dd-menu{ left: 0; transform: none; }
-  .about-grid{ grid-template-columns: 1fr; }
-  .about-card{ grid-template-columns: 1fr; }
-}
-.about-photo{
-  width:100%;
-  max-width:360px;
-  border-radius:20px;
-  box-shadow:0 16px 40px rgba(11,18,32,.12);
-  object-fit:cover;
-}
+  <section class="section">
+    <div class="wrap newsletter">
+      <div>
+        <h3>Subscribe to the BEZERU briefing</h3>
+        <p class="muted">A short note on new releases, twice a week.</p>
+      </div>
+      <form>
+        <input type="email" placeholder="you@example.com" aria-label="Email address" />
+        <button class="btn primary" type="button">Notify me</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <h2 class="section-title">About BEZERU</h2>
+      <p class="about-text">
+        BEZERU is a watch publication focused on clarity: what changed, what didn’t,
+        and what matters on the wrist. We cover global releases — and spotlight Gulf
+        and Middle East editions, Arabic dials, regional makers, and design language
+        that travels between cultures.
+      </p>
+      <div class="footerline">© BEZERU — Modern + vintage, with a Gulf lens.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-brand">BEZERU</div>
+      <p class="muted">Modern + vintage, with a Gulf/Middle East lens when it matters.</p>
+    </div>
+    <div class="footer-links">
+      <a href="./articles.html">Articles</a>
+      <a href="./about.html">About</a>
+      <a href="./articles.html?cat=gulf">Gulf Editions</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
