@@ -1,117 +1,71 @@
-/* ---------- FOOTER PRO (NO SUBSCRIPTION) ---------- */
-.footer-pro{
-  border-top: 1px solid var(--line);
-  background: rgba(248,250,252,0.55);
-  backdrop-filter: blur(6px);
-  padding: 34px 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEZERU — Article</title>
 
-.footer-grid{
-  display:grid;
-  grid-template-columns: 1.1fr 0.9fr 0.9fr 0.8fr;
-  gap: 22px;
-  align-items:start;
-}
+  <!-- IMPORTANT: This must be a <link>, not <a> -->
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-.footer-brand{
-  font-weight: 900;
-  letter-spacing: 3px;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
+<body>
+  <!-- Header gets injected from script.js so watches/nav stay consistent -->
+  <div id="site-header"></div>
 
-.footer-text{
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: rgba(15,23,42,0.72);
-  max-width: 340px;
-}
+  <main class="page">
+    <div class="container">
+      <a class="back-link" href="index.html">← Back to Home</a>
 
-.footer-col h4{
-  font-size: 12px;
-  letter-spacing: 2px;
-  font-weight: 900;
-  color: rgba(15,23,42,0.70);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
+      <article class="article-shell">
+        <div class="article-meta">
+          <span class="article-badge" id="postCategory">Category</span>
+          <span class="article-date" id="postDate"></span>
+        </div>
 
-.footer-links{
-  display:flex;
-  flex-direction:column;
-  gap: 8px;
-}
+        <h1 class="article-title" id="postTitle">Loading…</h1>
+        <p class="article-excerpt" id="postExcerpt"></p>
 
-.footer-links a{
-  font-size: 13.5px;
-  color: rgba(15,23,42,0.78);
-  opacity: 0.95;
-}
+        <div class="article-body" id="postBody"></div>
+      </article>
+    </div>
+  </main>
 
-.footer-links a:hover{
-  text-decoration: underline;
-}
+  <div id="site-footer"></div>
 
-.footer-pill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(15,23,42,0.08);
-  background: rgba(255,255,255,0.70);
-  box-shadow: var(--shadow2);
-  max-width: 320px;
-}
+  <script src="script.js"></script>
+  <script>
+    // Read ?id=... from URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-.footer-pill .title{
-  font-size: 13px;
-  font-weight: 800;
-  color: rgba(15,23,42,0.82);
-}
-.footer-pill .desc{
-  font-size: 12.5px;
-  color: rgba(15,23,42,0.65);
-  margin-top: 3px;
-  line-height: 1.5;
-}
+    async function loadPost() {
+      try {
+        const res = await fetch("posts.json", { cache: "no-store" });
+        const data = await res.json();
+        const post = (data.posts || []).find(p => p.id === id);
 
-.footer-pill .cta{
-  font-size: 13px;
-  font-weight: 900;
-  color: rgba(29,78,216,0.95);
-  white-space: nowrap;
-}
+        if (!post) {
+          document.getElementById("postTitle").textContent = "Article not found";
+          document.getElementById("postExcerpt").textContent =
+            "The link may be wrong, or the post id is missing from posts.json.";
+          return;
+        }
 
-.footer-pill:hover{
-  border-color: rgba(29,78,216,0.22);
-  background: rgba(29,78,216,0.06);
-}
+        document.title = `BEZERU — ${post.title}`;
+        document.getElementById("postCategory").textContent = post.category || "Article";
+        document.getElementById("postDate").textContent = post.date || "";
+        document.getElementById("postTitle").textContent = post.title || "";
+        document.getElementById("postExcerpt").textContent = post.excerpt || "";
+        document.getElementById("postBody").innerHTML = post.content_html || "";
+      } catch (e) {
+        document.getElementById("postTitle").textContent = "Couldn’t load article";
+        document.getElementById("postExcerpt").textContent =
+          "Check that posts.json is valid JSON and is in the same folder.";
+      }
+    }
 
-.coming-soon{
-  font-size: 13.5px;
-  color: rgba(15,23,42,0.55);
-  opacity: 0.95;
-  cursor: default;
-}
-
-.footer-bottom{
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(15,23,42,0.08);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap: 14px;
-  font-size: 12.5px;
-  color: rgba(15,23,42,0.60);
-}
-
-@media (max-width: 980px){
-  .footer-grid{ grid-template-columns: 1fr; }
-  .footer-bottom{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-}
+    loadPost();
+  </script>
+</body>
+</html>
