@@ -23,7 +23,11 @@ a{ color:inherit; text-decoration:none; }
 .container{ max-width:1160px; margin:0 auto; padding:0 22px; }
 
 /* ---------- HEADER ---------- */
-header{ padding: 10px 0 0; }
+header{
+  padding: 10px 0 0;
+  position: relative;
+  z-index: 100;
+}
 
 .header-row{
   display:flex;
