@@ -126,6 +126,22 @@ nav{
   z-index: 1001;
 }
 
+.nav-toggle{
+  display:none;
+  align-items:center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid rgba(15,23,42,0.12);
+  background: rgba(255,255,255,0.7);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor:pointer;
+}
+
 .nav-link, .dd-btn{
   font-size: 14px;
   font-weight: 750;
@@ -218,8 +234,8 @@ nav{
 
 .hero-grid{
   display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
+  grid-template-columns: 1fr;
+  gap: 24px;
   align-items:center;
 }
 
@@ -299,6 +315,10 @@ h1{
   line-height: 1.7;
   color: rgba(15,23,42,0.72);
 }
+.feature-list-grid{
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px 24px;
+}
 .feature-list li{
   padding-left: 18px;
   position: relative;
@@ -312,6 +332,19 @@ h1{
 .feature-list strong{
   color: rgba(15,23,42,0.9);
   font-weight: 750;
+}
+
+.section-head-stack{
+  flex-direction: column;
+  align-items:flex-start;
+  gap: 8px;
+}
+
+.section-lede{
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(15,23,42,0.68);
+  max-width: 640px;
 }
 
 /* ---------- SECTIONS / CARDS ---------- */
@@ -584,6 +617,49 @@ footer{
   }
   .about-grid{
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px){
+  /* Mobile-first header: hide clocks + collapse nav for a clean hero. */
+  .clocks{ display:none; }
+  .nav-toggle{ display:inline-flex; }
+  nav{
+    display:none;
+    flex-direction: column;
+    align-items:flex-start;
+    gap: 10px;
+    padding: 12px 0 6px;
+  }
+  body.nav-open nav{ display:flex; }
+  .nav-link, .dd-btn{
+    width: 100%;
+    justify-content:space-between;
+  }
+  .dropdown{
+    width: 100%;
+  }
+  .dd-menu{
+    position: static;
+    transform: none;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: none;
+    border: 1px solid rgba(15,23,42,0.08);
+    margin-top: 6px;
+  }
+  .hero{
+    padding: 36px 0 28px;
+  }
+  .section-find{
+    padding-top: 20px;
+  }
+  .feature-list-grid{
+    grid-template-columns: 1fr;
+  }
+  .card{
+    padding: 16px;
+    min-height: auto;
   }
 }
 

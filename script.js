@@ -51,6 +51,27 @@ function initDropdowns(){
 }
 
 /* =========================
+   MOBILE NAV TOGGLE
+========================= */
+function initMobileNav(){
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.getElementById("primary-nav");
+  if(!toggle || !nav) return;
+
+  toggle.addEventListener("click", ()=>{
+    const isOpen = document.body.classList.toggle("nav-open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll("a").forEach(link=>{
+    link.addEventListener("click", ()=>{
+      document.body.classList.remove("nav-open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+/* =========================
    CLOCKS (HiDPI + markers + seconds)
 ========================= */
 const TZ = {
@@ -255,6 +276,7 @@ async function renderArticle(){
 document.addEventListener("DOMContentLoaded", async ()=>{
   initDropdowns();
   initClocks();
+  initMobileNav();
 
   // footer year
   const y = document.getElementById("year");

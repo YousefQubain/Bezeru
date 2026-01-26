@@ -48,33 +48,34 @@
 
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          Menu
+        </button>
+        <nav id="primary-nav">
           <a class="nav-link" href="index.html">Home</a>
 
           <div class="dropdown" data-dd="articles">
             <button class="dd-btn" type="button">
-              Articles <span class="chev"></span>
+              Read <span class="chev"></span>
             </button>
-            <div class="dd-menu" role="menu" aria-label="Articles">
-              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
-              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
-              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
-              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
-              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
-              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+            <div class="dd-menu" role="menu" aria-label="Read">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
             </div>
           </div>
 
           <div class="dropdown" data-dd="types">
             <button class="dd-btn active" type="button">
-              Watch Types <span class="chev"></span>
+              Types <span class="chev"></span>
             </button>
-            <div class="dd-menu" role="menu" aria-label="Watch Types">
-              <a href="#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
-              <a href="#comp">Complications <span class="tag">HIGH</span></a>
+            <div class="dd-menu" role="menu" aria-label="Types">
+              <a href="#dress">Dress</a>
+              <a href="#diver">Diver</a>
+              <a href="#chrono">Chronograph</a>
+              <a href="#gmt">Travel</a>
+              <a href="#comp">Complications</a>
             </div>
           </div>
 
@@ -83,6 +84,10 @@
               Brands <span class="chev"></span>
             </button>
             <div class="dd-menu" role="menu" aria-label="Brands">
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
               <a href="brands.html#rolex">Rolex <span class="tag">SWISS</span></a>
               <a href="brands.html#omega">Omega <span class="tag">SWISS</span></a>
               <a href="brands.html#patek">Patek Philippe <span class="tag">HAUTE</span></a>
