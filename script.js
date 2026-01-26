@@ -51,6 +51,27 @@ function initDropdowns(){
 }
 
 /* =========================
+   MOBILE NAV TOGGLE
+========================= */
+function initMobileNav(){
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.getElementById("primary-nav");
+  if(!toggle || !nav) return;
+
+  toggle.addEventListener("click", ()=>{
+    const isOpen = document.body.classList.toggle("nav-open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  nav.querySelectorAll("a").forEach(link=>{
+    link.addEventListener("click", ()=>{
+      document.body.classList.remove("nav-open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+/* =========================
    CLOCKS (HiDPI + markers + seconds)
 ========================= */
 const TZ = {
@@ -94,6 +115,12 @@ function drawDial(canvas, hh, mm, ss){
   ctx.save();
   ctx.translate(r,r);
 
+  // dial fill
+  ctx.beginPath();
+  ctx.arc(0,0,r-2.6,0,Math.PI*2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+
   // outer ring
   ctx.beginPath();
   ctx.arc(0,0,r-1.5,0,Math.PI*2);
@@ -104,7 +131,7 @@ function drawDial(canvas, hh, mm, ss){
   // inner ring
   ctx.beginPath();
   ctx.arc(0,0,r-6.8,0,Math.PI*2);
-  ctx.strokeStyle = "rgba(15,23,42,0.14)";
+  ctx.strokeStyle = "rgba(15,23,42,0.08)";
   ctx.lineWidth = 1.8;
   ctx.stroke();
 
@@ -243,6 +270,13 @@ async function renderArticle(){
 document.addEventListener("DOMContentLoaded", async ()=>{
   initDropdowns();
   initClocks();
+  initMobileNav();
+
+  // Ensure the hero CTA appears only once if duplicate markup gets served.
+  const heroCtas = document.querySelectorAll(".hero .cta");
+  heroCtas.forEach((cta, index)=>{
+    if(index > 0) cta.remove();
+  });
 
   // footer year
   const y = document.getElementById("year");
