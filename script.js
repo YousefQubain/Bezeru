@@ -94,6 +94,12 @@ function drawDial(canvas, hh, mm, ss){
   ctx.save();
   ctx.translate(r,r);
 
+  // dial fill
+  ctx.beginPath();
+  ctx.arc(0,0,r-3.4,0,Math.PI*2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+
   // outer ring
   ctx.beginPath();
   ctx.arc(0,0,r-1.5,0,Math.PI*2);
