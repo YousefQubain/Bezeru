@@ -52,41 +52,40 @@
     <!-- NAV -->
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          Menu
+        </button>
+        <nav id="primary-nav">
           <a class="nav-link active" href="index.html">Home</a>
 
           <div class="dropdown">
-            <button class="dd-btn">Articles <span class="chev"></span></button>
+            <button class="dd-btn">Read <span class="chev"></span></button>
             <div class="dd-menu">
-              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
-              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
-              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
-              <a href="articles.html#design">Design <span class="tag">DESIGN</span></a>
-              <a href="articles.html#guides">Guides <span class="tag">GUIDE</span></a>
-              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
             </div>
           </div>
 
           <div class="dropdown">
-            <button class="dd-btn">Watch Types <span class="chev"></span></button>
+            <button class="dd-btn">Types <span class="chev"></span></button>
             <div class="dd-menu">
-              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="types.html#gmt">GMT <span class="tag">TRAVEL</span></a>
-              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
             </div>
           </div>
 
           <div class="dropdown">
             <button class="dd-btn">Brands <span class="chev"></span></button>
             <div class="dd-menu">
-              <a href="brands.html#rolex">Rolex <span class="tag">BRAND</span></a>
-              <a href="brands.html#iwc">IWC <span class="tag">BRAND</span></a>
-              <a href="brands.html#cartier">Cartier <span class="tag">BRAND</span></a>
-              <a href="brands.html#tag-heuer">TAG Heuer <span class="tag">BRAND</span></a>
-              <a href="brands.html#piaget">Piaget <span class="tag">BRAND</span></a>
-              <a href="brands.html#roger-dubuis">Roger Dubuis <span class="tag">BRAND</span></a>
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
             </div>
           </div>
 
@@ -117,8 +116,25 @@
             </p>
 
             <a class="cta" href="articles.html">Explore articles →</a>
+
+          <!-- LEFT SIDE -->
+          <div class="hero-left">
+            <h1>Watches, explained with clarity and care.</h1>
+
+            <p class="lead">
+              Stories and guides on modern releases and vintage context, with an eye for design, how a watch wears,
+              long term value, and the cultural details that give watches meaning.
+            </p>
+
+            <p class="lead">
+              BEZERU is a place to slow down and look closely. We care about the pieces people live with, the
+              details that reward time on the wrist, and the quiet stories that make a watch feel personal.
+            </p>
+
+            <a class="cta hero-cta" href="articles.html">Explore articles →</a>
           </div>
 
+          <!-- RIGHT SIDE -->
           <div class="hero-card">
             <h3>What you’ll find on BEZERU</h3>
             <p>
@@ -128,16 +144,17 @@
               watchmaking. Above all, it is a space for honest perspectives that go beyond marketing and hype.
             </p>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- LATEST STORIES -->
-    <section class="section">
+    <!-- FEATURED STORIES -->
+    <section class="section section-featured">
       <div class="container">
         <div class="section-head">
-          <h2>Latest stories</h2>
-          <a class="viewall" href="articles.html">View all</a>
+          <h2>Featured articles</h2>
+          <a class="viewall" href="articles.html">View all →</a>
         </div>
 
         <div class="grid" id="home-latest"></div>
@@ -190,3 +207,4 @@
 
 </body>
 </html>
+          <form class="footer-form" action="https://f
