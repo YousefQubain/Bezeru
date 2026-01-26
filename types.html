@@ -48,33 +48,34 @@
 
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          Menu
+        </button>
+        <nav id="primary-nav">
           <a class="nav-link" href="index.html">Home</a>
 
           <div class="dropdown" data-dd="articles">
             <button class="dd-btn" type="button">
-              Articles <span class="chev"></span>
+              Read <span class="chev"></span>
             </button>
-            <div class="dd-menu" role="menu" aria-label="Articles">
-              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
-              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
-              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
-              <a href="articles.html#design">Design Breakdowns <span class="tag">DESIGN</span></a>
-              <a href="articles.html#guides">Buying Guides <span class="tag">GUIDE</span></a>
-              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+            <div class="dd-menu" role="menu" aria-label="Read">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
             </div>
           </div>
 
           <div class="dropdown" data-dd="types">
             <button class="dd-btn active" type="button">
-              Watch Types <span class="chev"></span>
+              Types <span class="chev"></span>
             </button>
-            <div class="dd-menu" role="menu" aria-label="Watch Types">
-              <a href="#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
-              <a href="#comp">Complications <span class="tag">HIGH</span></a>
+            <div class="dd-menu" role="menu" aria-label="Types">
+              <a href="#dress">Dress</a>
+              <a href="#diver">Diver</a>
+              <a href="#chrono">Chronograph</a>
+              <a href="#gmt">Travel</a>
+              <a href="#comp">Complications</a>
             </div>
           </div>
 
@@ -83,12 +84,10 @@
               Brands <span class="chev"></span>
             </button>
             <div class="dd-menu" role="menu" aria-label="Brands">
-              <a href="brands.html#rolex">Rolex <span class="tag">BRAND</span></a>
-              <a href="brands.html#iwc">IWC <span class="tag">BRAND</span></a>
-              <a href="brands.html#cartier">Cartier <span class="tag">BRAND</span></a>
-              <a href="brands.html#tag-heuer">TAG Heuer <span class="tag">BRAND</span></a>
-              <a href="brands.html#piaget">Piaget <span class="tag">BRAND</span></a>
-              <a href="brands.html#roger-dubuis">Roger Dubuis <span class="tag">BRAND</span></a>
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
             </div>
           </div>
 
@@ -146,9 +145,42 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="footer-pro">
     <div class="container">
-      © BEZERU — Modern + vintage, with a Gulf lens.
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">
+            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
+            shaping modern taste.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Subscribe</h4>
+          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
+          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <!-- Replace the action URL with your email provider endpoint. -->
+            <label class="sr-only" for="footer-email-types">Email address</label>
+            <input class="footer-input" type="email" id="footer-email-types" name="email" placeholder="Email address" required />
+            <button class="footer-button" type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact me</h4>
+          <div class="footer-links">
+            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
+            <a href="#" aria-disabled="true">Instagram</a>
+            <span class="coming-soon">X (Coming soon)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+      </div>
     </div>
   </footer>
 </body>
