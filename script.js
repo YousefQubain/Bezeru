@@ -96,7 +96,7 @@ function drawDial(canvas, hh, mm, ss){
 
   // dial fill
   ctx.beginPath();
-  ctx.arc(0,0,r-3.4,0,Math.PI*2);
+  ctx.arc(0,0,r-2.6,0,Math.PI*2);
   ctx.fillStyle = "#ffffff";
   ctx.fill();
 
@@ -116,7 +116,7 @@ function drawDial(canvas, hh, mm, ss){
   // inner ring
   ctx.beginPath();
   ctx.arc(0,0,r-6.8,0,Math.PI*2);
-  ctx.strokeStyle = "rgba(15,23,42,0.14)";
+  ctx.strokeStyle = "rgba(15,23,42,0.08)";
   ctx.lineWidth = 1.8;
   ctx.stroke();
 
