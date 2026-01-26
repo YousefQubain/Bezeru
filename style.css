@@ -284,35 +284,15 @@ h1{
 .hero-card h3{
   font-size: 14px;
   color: rgba(15,23,42,0.75);
-  letter-spacing: 0.6px;
-  font-weight: 850;
+  letter-spacing: 0.5px;
+  font-weight: 800;
   margin-bottom: 10px;
 }
 
-/* What you'll find list */
-.feature-list{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 12px;
+.hero-card p{
   font-size: 14px;
+  color: rgba(15,23,42,0.70);
   line-height: 1.7;
-  color: rgba(15,23,42,0.72);
-}
-.feature-list li{
-  position: relative;
-  padding-left: 18px;
-}
-.feature-list li::before{
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: rgba(29,78,216,0.6);
-}
-.feature-list strong{
-  color: rgba(15,23,42,0.9);
-  font-weight: 750;
 }
 
 /* Warm intro paragraph for the homepage */
