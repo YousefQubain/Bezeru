@@ -52,41 +52,40 @@
     <!-- NAV -->
     <div class="nav-wrap">
       <div class="container">
-        <nav>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          Menu
+        </button>
+        <nav id="primary-nav">
           <a class="nav-link active" href="index.html">Home</a>
 
           <div class="dropdown">
-            <button class="dd-btn">Articles <span class="chev"></span></button>
+            <button class="dd-btn">Read <span class="chev"></span></button>
             <div class="dd-menu">
-              <a href="articles.html#latest">Latest <span class="tag">NEW</span></a>
-              <a href="articles.html#gulf">Gulf Editions <span class="tag">GULF</span></a>
-              <a href="articles.html#vintage">Vintage <span class="tag">ARCHIVE</span></a>
-              <a href="articles.html#design">Design <span class="tag">DESIGN</span></a>
-              <a href="articles.html#guides">Guides <span class="tag">GUIDE</span></a>
-              <a href="articles.html#underdogs">Underdogs <span class="tag">INDIE</span></a>
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
             </div>
           </div>
 
           <div class="dropdown">
-            <button class="dd-btn">Watch Types <span class="chev"></span></button>
+            <button class="dd-btn">Types <span class="chev"></span></button>
             <div class="dd-menu">
-              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="types.html#gmt">GMT <span class="tag">TRAVEL</span></a>
-              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
             </div>
           </div>
 
           <div class="dropdown">
             <button class="dd-btn">Brands <span class="chev"></span></button>
             <div class="dd-menu">
-              <a href="brands.html#rolex">Rolex <span class="tag">BRAND</span></a>
-              <a href="brands.html#iwc">IWC <span class="tag">BRAND</span></a>
-              <a href="brands.html#cartier">Cartier <span class="tag">BRAND</span></a>
-              <a href="brands.html#tag-heuer">TAG Heuer <span class="tag">BRAND</span></a>
-              <a href="brands.html#piaget">Piaget <span class="tag">BRAND</span></a>
-              <a href="brands.html#roger-dubuis">Roger Dubuis <span class="tag">BRAND</span></a>
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
             </div>
           </div>
 
@@ -119,7 +118,6 @@
 
             <a class="cta" href="articles.html">Explore articles →</a>
           </div>
-
           <div class="hero-card">
             <h3>What you’ll find here</h3>
             <ul class="feature-list">
@@ -134,12 +132,31 @@
       </div>
     </section>
 
-    <!-- LATEST STORIES -->
-    <section class="section">
+    <!-- WHAT YOU'LL FIND -->
+    <section class="section section-find">
+      <div class="container">
+        <div class="section-head section-head-stack">
+          <h2>What you’ll find here</h2>
+          <p class="section-lede">
+            Short, honest stories that make the design and the wearing experience easier to understand.
+          </p>
+        </div>
+        <ul class="feature-list feature-list-grid">
+          <li><strong>Design-led reviews</strong> that focus on proportion, dial balance, and everyday comfort.</li>
+          <li><strong>Long-term perspective</strong> on what holds up after the first week of excitement.</li>
+          <li><strong>Independent makers</strong> with real points of view and thoughtful execution.</li>
+          <li><strong>Modern meets vintage</strong> context that makes new releases easier to understand.</li>
+          <li><strong>Cultural influence</strong> as a subtle force in how watches are shaped and loved.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FEATURED STORIES -->
+    <section class="section section-featured">
       <div class="container">
         <div class="section-head">
-          <h2>Latest stories</h2>
-          <a class="viewall" href="articles.html">View all</a>
+          <h2>Featured articles</h2>
+          <a class="viewall" href="articles.html">View all →</a>
         </div>
 
         <div class="grid" id="home-latest"></div>
@@ -156,8 +173,8 @@
         <div>
           <div class="footer-brand">BEZERU</div>
           <div class="footer-text">
-            Modern + vintage watch editorial with a Gulf / Middle East lens — focused on design,
-            proportion, culture, and the underdogs shaping modern taste.
+            Modern + vintage watch editorial focused on design, proportion, culture, and the
+            independent voices shaping modern taste.
           </div>
         </div>
 
@@ -165,11 +182,10 @@
           <h4>Explore</h4>
           <div class="footer-links">
             <a href="articles.html#latest">Latest</a>
-            <a href="articles.html#underdogs">Underdogs</a>
-            <a href="articles.html#vintage">Vintage</a>
-            <a href="articles.html#gulf">Gulf Editions</a>
             <a href="articles.html#design">Design</a>
-            <a href="articles.html#guides">Buying Guides</a>
+            <a href="articles.html#guides">Guides</a>
+            <a href="articles.html#vintage">Vintage</a>
+            <a href="articles.html#underdogs">Independents</a>
           </div>
         </div>
 
@@ -188,19 +204,11 @@
           </div>
         </div>
 
-        <div class="footer-col">
-          <h4>Follow</h4>
-          <div class="footer-links">
-            <span class="coming-soon">Instagram (coming soon)</span>
-            <span class="coming-soon">X (coming soon)</span>
-            <span class="coming-soon">LinkedIn (coming soon)</span>
-          </div>
-        </div>
       </div>
 
       <div class="footer-bottom">
         <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Gulf/Middle East perspectives • Underdogs & vintage</div>
+        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
       </div>
 
     </div>
