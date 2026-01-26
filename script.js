@@ -278,6 +278,12 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initClocks();
   initMobileNav();
 
+  // Ensure the hero CTA appears only once if duplicate markup gets served.
+  const heroCtas = document.querySelectorAll(".hero .cta");
+  heroCtas.forEach((cta, index)=>{
+    if(index > 0) cta.remove();
+  });
+
   // footer year
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
