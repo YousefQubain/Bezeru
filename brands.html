@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Watch Types</title>
+  <title>BEZERU — Brands</title>
 
   <link rel="icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="types">
+<body data-page="brands">
   <header>
     <div class="container">
       <div class="header-row">
@@ -66,29 +66,29 @@
           </div>
 
           <div class="dropdown" data-dd="types">
-            <button class="dd-btn active" type="button">
+            <button class="dd-btn" type="button">
               Watch Types <span class="chev"></span>
             </button>
             <div class="dd-menu" role="menu" aria-label="Watch Types">
-              <a href="#dress">Dress <span class="tag">STYLE</span></a>
-              <a href="#diver">Diver <span class="tag">TOOL</span></a>
-              <a href="#chrono">Chronograph <span class="tag">RACING</span></a>
-              <a href="#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
-              <a href="#comp">Complications <span class="tag">HIGH</span></a>
+              <a href="types.html#dress">Dress <span class="tag">STYLE</span></a>
+              <a href="types.html#diver">Diver <span class="tag">TOOL</span></a>
+              <a href="types.html#chrono">Chronograph <span class="tag">RACING</span></a>
+              <a href="types.html#gmt">GMT / Travel <span class="tag">TRAVEL</span></a>
+              <a href="types.html#comp">Complications <span class="tag">HIGH</span></a>
             </div>
           </div>
 
-          <div class="dropdown" data-dd="brands">
-            <button class="dd-btn" type="button">
+          <div class="dropdown dd-open" data-dd="brands">
+            <button class="dd-btn active" type="button">
               Brands <span class="chev"></span>
             </button>
             <div class="dd-menu" role="menu" aria-label="Brands">
-              <a href="brands.html#rolex">Rolex <span class="tag">BRAND</span></a>
-              <a href="brands.html#iwc">IWC <span class="tag">BRAND</span></a>
-              <a href="brands.html#cartier">Cartier <span class="tag">BRAND</span></a>
-              <a href="brands.html#tag-heuer">TAG Heuer <span class="tag">BRAND</span></a>
-              <a href="brands.html#piaget">Piaget <span class="tag">BRAND</span></a>
-              <a href="brands.html#roger-dubuis">Roger Dubuis <span class="tag">BRAND</span></a>
+              <a href="#rolex">Rolex <span class="tag">BRAND</span></a>
+              <a href="#iwc">IWC <span class="tag">BRAND</span></a>
+              <a href="#cartier">Cartier <span class="tag">BRAND</span></a>
+              <a href="#tag-heuer">TAG Heuer <span class="tag">BRAND</span></a>
+              <a href="#piaget">Piaget <span class="tag">BRAND</span></a>
+              <a href="#roger-dubuis">Roger Dubuis <span class="tag">BRAND</span></a>
             </div>
           </div>
 
@@ -101,10 +101,10 @@
   <main>
     <section class="hero">
       <div class="container">
-        <div class="kicker">WATCH TYPES</div>
-        <h1>Watch Types</h1>
+        <div class="kicker">BRANDS</div>
+        <h1>Brands</h1>
         <p class="lead">
-          A simple, design-first guide to the major categories — and what actually matters on the wrist.
+          Reference pages for the brands we cover most often (and a place to collect future brand deep-dives).
         </p>
       </div>
     </section>
@@ -112,35 +112,41 @@
     <section class="section">
       <div class="container">
         <div class="grid">
-          <div class="card" id="dress">
-            <span class="badge">Dress</span>
-            <h3>Dress Watches</h3>
-            <p>Thin profiles, clean dials, and balanced proportions. The best ones feel effortless.</p>
-          </div>
+          <a class="card" id="rolex" href="articles.html">
+            <span class="badge">Rolex</span>
+            <h3>Rolex</h3>
+            <p>Iconic sports designs, case proportions, and the reality behind the hype.</p>
+          </a>
 
-          <div class="card" id="diver">
-            <span class="badge">Diver</span>
-            <h3>Diver Watches</h3>
-            <p>Tool-first design: legibility, bezel function, durability — and the best cases wear smaller than they look.</p>
-          </div>
+          <a class="card" id="iwc" href="articles.html">
+            <span class="badge">IWC</span>
+            <h3>IWC</h3>
+            <p>Pilot heritage, restrained dials, and why sizing matters more than spec sheets.</p>
+          </a>
 
-          <div class="card" id="chrono">
-            <span class="badge">Chronograph</span>
-            <h3>Chronographs</h3>
-            <p>Timing complication with dial complexity. Great design is all about spacing and hierarchy.</p>
-          </div>
+          <a class="card" id="cartier" href="articles.html">
+            <span class="badge">Cartier</span>
+            <h3>Cartier</h3>
+            <p>Design-first watchmaking: shapes, elegance, and modern takes that still feel classic.</p>
+          </a>
 
-          <div class="card" id="gmt">
-            <span class="badge">GMT</span>
-            <h3>GMT / Travel</h3>
-            <p>Two time zones done right: readability, quick-set functionality, and bezel clarity.</p>
-          </div>
+          <a class="card" id="tag-heuer" href="articles.html">
+            <span class="badge">TAG Heuer</span>
+            <h3>TAG Heuer</h3>
+            <p>Motorsport roots, chronographs, and the best references beyond the obvious.</p>
+          </a>
 
-          <div class="card" id="comp">
-            <span class="badge">Complications</span>
-            <h3>Complications</h3>
-            <p>Calendars, moonphases, and beyond — the art is in making complexity feel calm.</p>
-          </div>
+          <a class="card" id="piaget" href="articles.html">
+            <span class="badge">Piaget</span>
+            <h3>Piaget</h3>
+            <p>Ultra-thin watchmaking and the line between jewelry design and horology.</p>
+          </a>
+
+          <a class="card" id="roger-dubuis" href="articles.html">
+            <span class="badge">Roger Dubuis</span>
+            <h3>Roger Dubuis</h3>
+            <p>Maximal cases, loud details, and what makes (some) pieces genuinely interesting.</p>
+          </a>
         </div>
       </div>
     </section>
