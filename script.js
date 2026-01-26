@@ -128,6 +128,12 @@ function drawDial(canvas, hh, mm, ss){
   ctx.lineWidth = 3.2;
   ctx.stroke();
 
+  // white dial background (inside area)
+  ctx.beginPath();
+  ctx.arc(0,0,r-6.8,0,Math.PI*2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+
   // inner ring
   ctx.beginPath();
   ctx.arc(0,0,r-6.8,0,Math.PI*2);
@@ -272,11 +278,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initClocks();
   initMobileNav();
 
-  // Ensure the hero section and CTA appear only once if duplicate markup gets served.
-  const heroSections = document.querySelectorAll(".hero");
-  heroSections.forEach((hero, index)=>{
-    if(index > 0) hero.remove();
-  });
+  // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");
   heroCtas.forEach((cta, index)=>{
     if(index > 0) cta.remove();
