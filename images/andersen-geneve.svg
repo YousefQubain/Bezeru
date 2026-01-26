@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <defs>
+    <linearGradient id="ag-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8f0ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" rx="36" fill="url(#ag-bg)"/>
+  <circle cx="600" cy="360" r="210" fill="#ffffff" stroke="#c7d2fe" stroke-width="10"/>
+  <circle cx="600" cy="360" r="150" fill="#eef2ff"/>
+  <circle cx="600" cy="360" r="8" fill="#0f172a"/>
+  <line x1="600" y1="360" x2="600" y2="240" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="600" y1="360" x2="680" y2="410" stroke="#0f172a" stroke-width="6" stroke-linecap="round"/>
+  <text x="600" y="560" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="42" fill="#0f172a">Andersen Genève</text>
+  <text x="600" y="610" text-anchor="middle" font-family="'Inter', 'Segoe UI', sans-serif" font-size="20" fill="#475569" letter-spacing="2">WORLD TIME CRAFT</text>
+</svg>
