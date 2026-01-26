@@ -101,6 +101,12 @@ function drawDial(canvas, hh, mm, ss){
   ctx.lineWidth = 3.2;
   ctx.stroke();
 
+  // white dial background (inside area)
+  ctx.beginPath();
+  ctx.arc(0,0,r-6.8,0,Math.PI*2);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+
   // inner ring
   ctx.beginPath();
   ctx.arc(0,0,r-6.8,0,Math.PI*2);
