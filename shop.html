@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEZERU — Shop</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body data-page="shop">
+  <!-- HEADER (same everywhere) -->
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <div class="brand">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </div>
+
+        <div class="clocks">
+          <div class="clock"><div class="city">NEW YORK</div><canvas id="ny"></canvas><div class="time" id="ny-time"></div></div>
+          <div class="clock"><div class="city">LONDON</div><canvas id="lon"></canvas><div class="time" id="lon-time"></div></div>
+          <div class="clock"><div class="city">GENEVA</div><canvas id="gen"></canvas><div class="time" id="gen-time"></div></div>
+          <div class="clock"><div class="city">TOKYO</div><canvas id="tok"></canvas><div class="time" id="tok-time"></div></div>
+        </div>
+
+        <div class="header-spacer"></div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          Menu
+        </button>
+        <nav id="primary-nav">
+          <a class="nav-link" href="index.html">Home</a>
+
+          <div class="dropdown" data-dd="articles">
+            <button class="dd-btn" type="button">
+              Read <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Read">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="types">
+            <button class="dd-btn" type="button">
+              Types <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Types">
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="brands">
+            <button class="dd-btn" type="button">
+              Brands <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Brands">
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
+            </div>
+          </div>
+
+          <a class="nav-link active" href="shop.html">Shop</a>
+          <a class="nav-link" href="about.html">About</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-left">
+            <h1>Shop the community vault.</h1>
+            <p class="lead">
+              A curated marketplace where collectors can list watches for the BEZERU community to discover,
+              compare, and purchase. Think of it as the trusted, editorial-first alternative inspired by
+              Hodinkee, Watches of Switzerland, Chrono24, and Watchfinder.
+            </p>
+            <p class="lead">
+              Every listing is reviewed for clarity, condition, and provenance, so buyers know exactly what
+              they are getting and sellers earn confidence with every sale.
+            </p>
+            <a class="cta hero-cta" href="#list">List your watch →</a>
+          </div>
+
+          <div class="hero-card">
+            <h3>What we accept</h3>
+            <p>
+              Modern, vintage, and independent watches with clear ownership history, complete photos, and
+              fair market pricing. We celebrate honest descriptions and well-cared-for pieces.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>How the BEZERU shop works</h2>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Step 1</span>
+            <h3>Submit your watch</h3>
+            <p>
+              Share the reference, condition notes, service history, and a full photo set. We will help you
+              price the piece based on recent market data and comparable listings.
+            </p>
+          </div>
+          <div class="card">
+            <span class="badge">Step 2</span>
+            <h3>Editorial review</h3>
+            <p>
+              We verify details, tighten copy, and highlight what makes the watch special. Every listing is
+              presented with the same care as our editorial features.
+            </p>
+          </div>
+          <div class="card">
+            <span class="badge">Step 3</span>
+            <h3>Connect with buyers</h3>
+            <p>
+              Interested collectors can reach out through BEZERU for secure introductions. You stay in
+              control of final terms while we provide support through the process.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="list">
+      <div class="container">
+        <div class="section-head">
+          <h2>List a watch</h2>
+        </div>
+        <div class="card">
+          <h3>Start your listing</h3>
+          <p>
+            Email <strong>shop@bezeru.com</strong> with the model reference, asking price, your location, and
+            8-12 high resolution photos (dial, case, clasp, movement, and accessories). We will respond
+            within two business days with next steps.
+          </p>
+          <p>
+            By submitting, you confirm the watch is owned by you and that all information provided is accurate.
+          </p>
+          <a class="cta" href="mailto:shop@bezeru.com">Submit a watch →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-pro">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">
+            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
+            shaping modern taste.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Subscribe</h4>
+          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
+          <form class="footer-form">
+            <input type="email" placeholder="Email address" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p class="footer-note">Reach out for collaborations, editorial tips, or shop questions.</p>
+          <p class="footer-note">hello@bezeru.com</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">© 2024 BEZERU. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>
