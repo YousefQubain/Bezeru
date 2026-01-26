@@ -145,9 +145,42 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="footer-pro">
     <div class="container">
-      © BEZERU — Modern + vintage, with a Gulf lens.
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">
+            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
+            shaping modern taste.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Subscribe</h4>
+          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
+          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <!-- Replace the action URL with your email provider endpoint. -->
+            <label class="sr-only" for="footer-email-types">Email address</label>
+            <input class="footer-input" type="email" id="footer-email-types" name="email" placeholder="Email address" required />
+            <button class="footer-button" type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact me</h4>
+          <div class="footer-links">
+            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
+            <a href="#" aria-disabled="true">Instagram</a>
+            <span class="coming-soon">X (Coming soon)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+      </div>
     </div>
   </footer>
 </body>
