@@ -114,6 +114,31 @@
           <div class="article-divider"></div>
 
           <div class="article-body" id="postBody"></div>
+
+          <!-- Leave a comment section (static form placeholder). -->
+          <div class="comment-section" aria-labelledby="comment-title">
+            <h2 class="comment-title" id="comment-title">Leave a comment</h2>
+            <p class="comment-helper">
+              Have a thought or a correction? Leave a note. I read every message.
+            </p>
+            <form class="comment-form" action="https://formspree.io/f/your-form-id" method="POST">
+              <!-- Replace the action URL with your form provider endpoint. -->
+              <div class="comment-field">
+                <label for="comment-name">Name (optional)</label>
+                <input type="text" id="comment-name" name="name" autocomplete="name" />
+              </div>
+              <div class="comment-field">
+                <label for="comment-email">Email (optional)</label>
+                <p class="comment-note">Email will not be displayed.</p>
+                <input type="email" id="comment-email" name="email" autocomplete="email" />
+              </div>
+              <div class="comment-field">
+                <label for="comment-message">Message</label>
+                <textarea id="comment-message" name="message" rows="5" required></textarea>
+              </div>
+              <button class="comment-button" type="submit">Send</button>
+            </form>
+          </div>
         </article>
       </div>
     </section>
