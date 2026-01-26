@@ -256,6 +256,7 @@ h1{
 }
 .cta:hover{ text-decoration: underline; }
 
+/* Hero supporting card for editorial highlights */
 .hero-card{
   background: rgba(255,255,255,0.65);
   border: 1px solid rgba(15,23,42,0.08);
@@ -267,8 +268,8 @@ h1{
 .hero-card h3{
   font-size: 14px;
   color: rgba(15,23,42,0.75);
-  letter-spacing: 2px;
-  font-weight: 850;
+  letter-spacing: 0.5px;
+  font-weight: 800;
   margin-bottom: 10px;
 }
 
@@ -276,6 +277,41 @@ h1{
   font-size: 14px;
   color: rgba(15,23,42,0.70);
   line-height: 1.7;
+}
+
+/* Warm intro paragraph for the homepage */
+.welcome{
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: rgba(15,23,42,0.72);
+  max-width: 680px;
+  margin-bottom: 18px;
+}
+
+/* “What you’ll find here” list */
+.feature-list{
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(15,23,42,0.72);
+}
+.feature-list li{
+  padding-left: 18px;
+  position: relative;
+}
+.feature-list li::before{
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: rgba(29,78,216,0.6);
+}
+.feature-list strong{
+  color: rgba(15,23,42,0.9);
+  font-weight: 750;
 }
 
 /* ---------- SECTIONS / CARDS ---------- */
@@ -292,6 +328,11 @@ h1{
   font-size: 18px;
   font-weight: 900;
   letter-spacing: -0.2px;
+}
+
+/* Featured section spacing */
+.section-featured{
+  padding-top: 24px;
 }
 
 .viewall{
