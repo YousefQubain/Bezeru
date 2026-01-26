@@ -379,6 +379,14 @@ h1{
   color: rgba(15,23,42,0.72);
   max-width: 95%;
 }
+.card-author{
+  margin-top: 12px;
+  font-size: 14px;
+  font-family: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  font-style: italic;
+  letter-spacing: 0.4px;
+  color: rgba(15,23,42,0.7);
+}
 
 /* ---------- ARTICLE PAGE ---------- */
 .page{
@@ -459,6 +467,14 @@ h1{
   line-height: 1.8;
   color: rgba(15,23,42,0.75);
   max-width: 760px;
+}
+.article-author{
+  margin-top: 10px;
+  font-size: 15px;
+  font-family: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: rgba(15,23,42,0.6);
 }
 .article-divider{
   height: 1px;
