@@ -100,6 +100,8 @@ header{
   border-bottom:1px solid var(--line);
   background: rgba(248,250,252,0.40);
   backdrop-filter: blur(6px);
+  position: relative;
+  z-index: 1000;
 }
 
 nav{
@@ -108,6 +110,8 @@ nav{
   align-items:center;
   gap:34px;
   padding: 12px 0;
+  position: relative;
+  z-index: 1001;
 }
 
 .nav-link, .dd-btn{
@@ -140,6 +144,7 @@ nav{
   display:inline-flex;
   align-items:center;
   gap:6px;
+  z-index: 1002;
 }
 
 .chev{
@@ -165,7 +170,7 @@ nav{
   border-radius: 14px;
   padding: 8px;
   display:none;
-  z-index: 1000;
+  z-index: 1003;
 }
 
 .dd-menu a{
@@ -426,6 +431,7 @@ footer{
   nav{
     justify-content:flex-start;
     overflow-x:auto;
+    overflow-y: visible;
     gap: 14px;
   }
   .hero-grid{ grid-template-columns: 1fr; }
@@ -434,6 +440,10 @@ footer{
   .dd-menu{
     left: 0;
     transform: none;
+    z-index: 1003;
+  }
+  .nav-wrap{
+    overflow: visible;
   }
   .about-grid{
     grid-template-columns: 1fr;
