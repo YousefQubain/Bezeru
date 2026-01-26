@@ -7,33 +7,156 @@
 
   <!-- IMPORTANT: This must be a <link>, not <a> -->
   <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 
-<body>
-  <!-- Header gets injected from script.js so watches/nav stay consistent -->
-  <div id="site-header"></div>
-
-  <main class="page">
+<body data-page="article">
+  <header>
     <div class="container">
-      <a class="back-link" href="index.html">← Back to Home</a>
-
-      <article class="article-shell">
-        <div class="article-meta">
-          <span class="article-badge" id="postCategory">Category</span>
-          <span class="article-date" id="postDate"></span>
+      <div class="header-row">
+        <div class="brand">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
         </div>
 
-        <h1 class="article-title" id="postTitle">Loading…</h1>
-        <p class="article-excerpt" id="postExcerpt"></p>
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
+          </div>
+        </div>
 
-        <div class="article-body" id="postBody"></div>
-      </article>
+        <div class="header-spacer"></div>
+      </div>
     </div>
+
+    <div class="nav-wrap">
+      <div class="container">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+          Menu
+        </button>
+        <nav id="primary-nav">
+          <a class="nav-link" href="index.html">Home</a>
+
+          <div class="dropdown dd-open" data-dd="articles">
+            <button class="dd-btn active" type="button">
+              Read <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Read">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="types">
+            <button class="dd-btn" type="button">
+              Types <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Types">
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="brands">
+            <button class="dd-btn" type="button">
+              Brands <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Brands">
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
+            </div>
+          </div>
+
+          <a class="nav-link" href="about.html">About</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="page article-page">
+    <section class="article-hero">
+      <div class="container">
+        <a class="back-link" href="index.html">← Back to Home</a>
+
+        <article class="article-shell">
+          <div class="article-meta">
+            <span class="article-badge" id="postCategory">Category</span>
+            <span class="article-date" id="postDate"></span>
+          </div>
+
+          <h1 class="article-title" id="postTitle">Loading…</h1>
+          <p class="article-excerpt" id="postExcerpt"></p>
+
+          <div class="article-divider"></div>
+
+          <div class="article-body" id="postBody"></div>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <div id="site-footer"></div>
+  <footer class="footer-pro">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">
+            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
+            shaping modern taste.
+          </div>
+        </div>
 
-  <script src="script.js"></script>
+        <div class="footer-col">
+          <h4>Subscribe</h4>
+          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
+          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <!-- Replace the action URL with your email provider endpoint. -->
+            <label class="sr-only" for="footer-email-article">Email address</label>
+            <input class="footer-input" type="email" id="footer-email-article" name="email" placeholder="Email address" required />
+            <button class="footer-button" type="submit">Subscribe</button>
+          </form>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact me</h4>
+          <div class="footer-links">
+            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
+            <a href="#" aria-disabled="true">Instagram</a>
+            <span class="coming-soon">X (Coming soon)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+      </div>
+    </div>
+  </footer>
   <script>
     // Read ?id=... from URL
     const params = new URLSearchParams(window.location.search);
