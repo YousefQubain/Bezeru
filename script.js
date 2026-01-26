@@ -234,6 +234,7 @@ function postCardHTML(post){
       <span class="badge">${post.category}</span>
       <h3>${post.title}</h3>
       <p>${post.excerpt}</p>
+      <p class="card-author">Written by Yousef Qubain</p>
     </a>
   `;
 }
