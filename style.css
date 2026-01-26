@@ -297,58 +297,6 @@ h1{
   line-height: 1.75;
 }
 
-/* Warm intro paragraph for the homepage */
-.welcome{
-  font-size: 15.5px;
-  line-height: 1.8;
-  color: rgba(15,23,42,0.72);
-  max-width: 680px;
-  margin-bottom: 18px;
-}
-
-/* “What you’ll find here” list */
-.feature-list{
-  list-style: none;
-  display: grid;
-  gap: 12px;
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.7;
-  color: rgba(15,23,42,0.72);
-}
-.feature-list-grid{
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 14px 24px;
-}
-.feature-list li{
-  padding-left: 18px;
-  position: relative;
-}
-.feature-list li::before{
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: rgba(29,78,216,0.6);
-}
-.feature-list strong{
-  color: rgba(15,23,42,0.9);
-  font-weight: 750;
-}
-
-.section-head-stack{
-  flex-direction: column;
-  align-items:flex-start;
-  gap: 8px;
-}
-
-.section-lede{
-  font-size: 14.5px;
-  line-height: 1.7;
-  color: rgba(15,23,42,0.68);
-  max-width: 640px;
-}
-
 /* ---------- SECTIONS / CARDS ---------- */
 .section{ padding: 40px 0 80px; }
 
