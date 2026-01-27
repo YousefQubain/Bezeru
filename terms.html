@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Articles</title>
+  <title>Terms of Use | BEZERU</title>
 
-  <link rel="icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="articles">
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
-        <div class="brand">
+        <a class="brand" href="index.html">
           <div class="word">BEZERU</div>
           <div class="jp">ベゼル</div>
-        </div>
+        </a>
 
         <div class="clocks" aria-label="World time">
           <div class="clock">
@@ -60,23 +59,19 @@
           <div class="nav-panel">
           <a class="nav-link" href="index.html">Home</a>
 
-          <div class="dropdown dd-open" data-dd="articles">
-            <button class="dd-btn active" type="button">
-              Read <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Read">
-              <a href="#latest">Latest</a>
-              <a href="#design">Design</a>
-              <a href="#guides">Guides</a>
-              <a href="#vintage">Vintage</a>
+          <div class="dropdown">
+            <button class="dd-btn">Read <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
             </div>
           </div>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Types">
+          <div class="dropdown">
+            <button class="dd-btn">Types <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="types.html#dress">Dress</a>
               <a href="types.html#diver">Diver</a>
               <a href="types.html#chrono">Chronograph</a>
@@ -85,11 +80,9 @@
             </div>
           </div>
 
-          <div class="dropdown" data-dd="brands">
-            <button class="dd-btn" type="button">
-              Brands <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Brands">
+          <div class="dropdown">
+            <button class="dd-btn">Brands <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="brands.html#rolex">Rolex</a>
               <a href="brands.html#cartier">Cartier</a>
               <a href="brands.html#piaget">Piaget</a>
@@ -98,7 +91,6 @@
           </div>
 
           <a class="nav-link" href="shop.html">Shop</a>
-          <a class="nav-link" href="about.html">About</a>
           </div>
         </nav>
       </div>
@@ -106,28 +98,28 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="section">
       <div class="container">
-        <div>
-          <div class="kicker">ARTICLES</div>
-          <h1>Articles</h1>
-          <p class="lead">
-            Underdogs, vintage context, buying guides, design breakdowns, and Gulf/Middle East stories —
-            plus what’s new in watches, minus the hype.
-          </p>
-        </div>
-      </div>
-    </section>
+        <div class="policy-content">
+          <h1>Terms of Use</h1>
 
-    <section class="section" id="latest">
-      <div class="container">
-        <div class="section-head">
-          <h2>All stories</h2>
-          <a class="viewall" href="index.html">Back to Home</a>
-        </div>
-
-        <div class="grid" id="articles-grid">
-          <!-- filled by script.js -->
+          <p>By accessing and using Bezeru, you agree to the following terms.</p>
+          <h2>Content Ownership</h2>
+          <p>All original articles, text, and design on Bezeru are the property of Bezeru unless otherwise stated. You may not reproduce, republish, or distribute content without written permission.</p>
+          <h2>Personal Use Only</h2>
+          <p>Content is provided for personal, non-commercial use. You may share links to articles, but not copy or republish full content elsewhere.</p>
+          <h2>Accuracy of Information</h2>
+          <p>Bezeru provides content for general informational and editorial purposes only. We do not guarantee that all information is complete, accurate, or current.</p>
+          <h2>No Professional Advice</h2>
+          <p>Nothing on this website constitutes financial, legal, or professional advice. Any actions taken based on information from Bezeru are at your own risk.</p>
+          <h2>External Links</h2>
+          <p>Bezeru may link to third-party websites. We are not responsible for their content or practices.</p>
+          <h2>User Submissions</h2>
+          <p>If you submit comments or messages, you agree not to post unlawful, abusive, or harmful material. Bezeru reserves the right to remove content at its discretion.</p>
+          <h2>Limitation of Liability</h2>
+          <p>Bezeru shall not be liable for any damages arising from use of this website or reliance on its content.</p>
+          <h2>Changes to Terms</h2>
+          <p>These Terms may be updated at any time without notice. Continued use of the site constitutes acceptance of updated terms.</p>
         </div>
       </div>
     </section>
@@ -146,19 +138,15 @@
 
         <div class="footer-col">
           <h4>Subscribe</h4>
-          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
-          <form class="footer-form" action="https://formspree.io/f/xpqdlyag" method="POST">
-            <!-- Formspree endpoint for all BEZERU forms. -->
-            <input type="hidden" name="_subject" value="New message from BEZERU" />
-            <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
-          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
-            <!-- Replace the action URL with your email provider endpoint. -->
-            <label class="sr-only" for="footer-email-articles">Email address</label>
-            <input class="footer-input" type="email" id="footer-email-articles" name="email" placeholder="Email address" required />
-            <button class="footer-button" type="submit">Subscribe</button>
-          </form>
+          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
+          <iframe
+            src="https://bezeru.substack.com/embed"
+            style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
           <div class="footer-legal">
-            <a href="editorial-policy.html">Editorial Policy</a> · <a href="contributors-policy.html">Contributors</a> · <a href="affiliate-policy.html">Affiliate Disclosure</a> · <a href="disclaimer-policy.html">Disclaimer</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-policy.html">Terms</a>
+            <a href="about.html">About</a> · <a href="editorial.html">Editorial Policy</a> · <a href="contributors.html">Contributors</a> · <a href="affiliate.html">Affiliate Disclosure</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a>
           </div>
         </div>
 

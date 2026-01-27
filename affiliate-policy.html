@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Articles</title>
+  <title>Affiliate Disclosure | BEZERU</title>
 
-  <link rel="icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="articles">
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
-        <div class="brand">
+        <a class="brand" href="index.html">
           <div class="word">BEZERU</div>
           <div class="jp">ベゼル</div>
-        </div>
+        </a>
 
         <div class="clocks" aria-label="World time">
           <div class="clock">
@@ -60,23 +59,19 @@
           <div class="nav-panel">
           <a class="nav-link" href="index.html">Home</a>
 
-          <div class="dropdown dd-open" data-dd="articles">
-            <button class="dd-btn active" type="button">
-              Read <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Read">
-              <a href="#latest">Latest</a>
-              <a href="#design">Design</a>
-              <a href="#guides">Guides</a>
-              <a href="#vintage">Vintage</a>
+          <div class="dropdown">
+            <button class="dd-btn">Read <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
             </div>
           </div>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Types">
+          <div class="dropdown">
+            <button class="dd-btn">Types <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="types.html#dress">Dress</a>
               <a href="types.html#diver">Diver</a>
               <a href="types.html#chrono">Chronograph</a>
@@ -85,11 +80,9 @@
             </div>
           </div>
 
-          <div class="dropdown" data-dd="brands">
-            <button class="dd-btn" type="button">
-              Brands <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Brands">
+          <div class="dropdown">
+            <button class="dd-btn">Brands <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="brands.html#rolex">Rolex</a>
               <a href="brands.html#cartier">Cartier</a>
               <a href="brands.html#piaget">Piaget</a>
@@ -106,28 +99,15 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="section">
       <div class="container">
-        <div>
-          <div class="kicker">ARTICLES</div>
-          <h1>Articles</h1>
-          <p class="lead">
-            Underdogs, vintage context, buying guides, design breakdowns, and Gulf/Middle East stories —
-            plus what’s new in watches, minus the hype.
-          </p>
-        </div>
-      </div>
-    </section>
+        <div class="policy-content">
+          <h1>Affiliate Disclosure</h1>
 
-    <section class="section" id="latest">
-      <div class="container">
-        <div class="section-head">
-          <h2>All stories</h2>
-          <a class="viewall" href="index.html">Back to Home</a>
-        </div>
-
-        <div class="grid" id="articles-grid">
-          <!-- filled by script.js -->
+          <p>Bezeru may participate in affiliate programs in the future, meaning we may earn a small commission if you purchase products through certain links.</p>
+          <p>Affiliate relationships will never influence editorial opinions, reviews, or coverage decisions.</p>
+          <p>If affiliate links are used, they will be disclosed clearly within the relevant article.</p>
+          <p>Any revenue generated helps support the continued operation of Bezeru and the creation of independent editorial content.</p>
         </div>
       </div>
     </section>
@@ -151,10 +131,8 @@
             <!-- Formspree endpoint for all BEZERU forms. -->
             <input type="hidden" name="_subject" value="New message from BEZERU" />
             <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
-          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
-            <!-- Replace the action URL with your email provider endpoint. -->
-            <label class="sr-only" for="footer-email-articles">Email address</label>
-            <input class="footer-input" type="email" id="footer-email-articles" name="email" placeholder="Email address" required />
+            <label class="sr-only" for="footer-email-policy">Email address</label>
+            <input class="footer-input" type="email" id="footer-email-policy" name="email" placeholder="Email address" required />
             <button class="footer-button" type="submit">Subscribe</button>
           </form>
           <div class="footer-legal">
