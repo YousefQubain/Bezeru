@@ -1,15 +1,17 @@
 :root{
-  --bg:#fafaf8;
+  --bg:#f7f8fa;
   --ink:#111111;
-  --muted:#5b5b5b;
-  --line:#e6e6e1;
+  --muted:#4b5563;
+  --line:rgba(17,17,17,0.08);
   --ui:#111111;
   --ui-ink:#ffffff;
   --ui-ink-muted: rgba(255,255,255,0.7);
   --ui-line: rgba(255,255,255,0.12);
   --card:#ffffff;
-  --shadow: 0 18px 55px rgba(15,23,42,0.10);
-  --shadow2: 0 10px 26px rgba(15,23,42,0.10);
+  --card-hover:#f2f4f7;
+  --accent:#3a4a5a;
+  --shadow: 0 6px 18px rgba(17,17,17,0.06);
+  --shadow2: 0 6px 18px rgba(17,17,17,0.06);
   --radius:16px;
 }
 
@@ -292,7 +294,7 @@ h1{
 .lead{
   font-size: 15.5px;
   line-height: 1.75;
-  color: rgba(15,23,42,0.78);
+  color: var(--muted);
   max-width: 680px;
   margin-bottom: 18px;
 }
@@ -314,16 +316,16 @@ h1{
 
 /* Hero supporting card for editorial highlights */
 .hero-card{
-  background: rgba(255,255,255,0.65);
-  border: 1px solid rgba(15,23,42,0.08);
+  background: var(--card);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow2);
   padding: 22px;
 }
 
 .hero-card h3{
   font-size: 14px;
-  color: rgba(15,23,42,0.75);
+  color: var(--muted);
   letter-spacing: 0.6px;
   font-weight: 850;
   margin-bottom: 10px;
@@ -331,7 +333,7 @@ h1{
 
 .hero-card p{
   font-size: 14px;
-  color: rgba(15,23,42,0.72);
+  color: var(--muted);
   line-height: 1.75;
 }
 
@@ -359,7 +361,7 @@ h1{
 .viewall{
   font-size: 13px;
   font-weight: 850;
-  color: rgba(15,23,42,0.70);
+  color: var(--muted);
 }
 .viewall:hover{ text-decoration: underline; }
 
@@ -372,17 +374,79 @@ h1{
 .card{
   position:relative;
   background: var(--card);
-  border: 1px solid rgba(15,23,42,0.07);
-  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  border-radius: 12px;
   box-shadow: var(--shadow2);
-  padding: 18px;
+  padding: 20px 20px 18px;
   min-height: 190px;
   overflow:hidden;
   transform: translateY(0);
-  transition: transform 180ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.card:hover{ transform: translateY(-2px); }
+.card:hover{
+  transform: translateY(-2px);
+  background: var(--card-hover);
+  box-shadow: var(--shadow);
+  border-color: rgba(17,17,17,0.16);
+}
+
+.card-category{
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: #8a94a6;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(17,17,17,0.12);
+  margin-bottom: 14px;
+}
+
+.card-title{
+  margin: 0 0 10px;
+  font-size: 19px;
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+}
+
+.card:hover .card-title{
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--accent);
+}
+
+.card-excerpt{
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 95%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.card-author{
+  margin-top: 2px;
+  font-size: 13px;
+  font-family: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  font-style: italic;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+}
+.card-meta{
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8a94a6;
+}
 
 .badge{
   position:absolute;
@@ -397,29 +461,6 @@ h1{
   border: 1px solid rgba(29,78,216,0.20);
   color: rgba(29,78,216,0.95);
   text-transform: uppercase;
-}
-
-.card h3{
-  margin-top: 22px;
-  font-size: 18px;
-  line-height: 1.25;
-  letter-spacing: -0.2px;
-  margin-bottom: 10px;
-}
-
-.card p{
-  font-size: 14px;
-  line-height: 1.7;
-  color: rgba(15,23,42,0.72);
-  max-width: 95%;
-}
-.card-author{
-  margin-top: 12px;
-  font-size: 14px;
-  font-family: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
-  font-style: italic;
-  letter-spacing: 0.4px;
-  color: rgba(15,23,42,0.7);
 }
 
 /* ---------- ARTICLE PAGE ---------- */
@@ -550,7 +591,8 @@ h1{
   color: var(--accent);
 }
 .article-figure{
-  margin: 22px 0 26px;
+  margin: 22px auto 26px;
+  max-width: 620px;
 }
 .article-figure picture{
   display: block;
