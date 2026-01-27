@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — About</title>
+  <title>Terms of Use | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="about">
-  <!-- HEADER (same everywhere) -->
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
@@ -19,11 +18,27 @@
           <div class="jp">ベゼル</div>
         </a>
 
-        <div class="clocks">
-          <div class="clock"><div class="city">NEW YORK</div><canvas id="ny"></canvas><div class="time" id="ny-time"></div></div>
-          <div class="clock"><div class="city">LONDON</div><canvas id="lon"></canvas><div class="time" id="lon-time"></div></div>
-          <div class="clock"><div class="city">GENEVA</div><canvas id="gen"></canvas><div class="time" id="gen-time"></div></div>
-          <div class="clock"><div class="city">TOKYO</div><canvas id="tok"></canvas><div class="time" id="tok-time"></div></div>
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
+          </div>
         </div>
 
         <div class="header-spacer"></div>
@@ -82,56 +97,34 @@
     </div>
   </header>
 
-  <!-- ABOUT CONTENT -->
   <main>
     <section class="section">
       <div class="container">
-        <div class="about-grid">
-          <div class="about-photo">
-            <img src="images/yousef.jpg" alt="Yousef Qubain" />
-          </div>
+        <div class="policy-content">
+          <h1>Terms of Use</h1>
 
-          <div class="about-card">
-            <h2>About BEZERU</h2>
-            <p class="lead">
-              BEZERU began as a curiosity, and it grew into a safe space to talk about watches in a more
-              honest way. Not just specs or status, but the things collectors actually live with: design,
-              fit, culture, and long-term value.
-            </p>
-
-            <p class="lead">
-              My name is Yousef Qubain. My interests sit at the intersection of independent brands,
-              modern releases, and vintage context, especially the way culture can quietly influence
-              watch design and taste around the world. BEZERU exists to explore those connections,
-              highlight underdogs, and explain why certain watches matter beyond marketing.
-            </p>
-
-            <p class="lead">
-              My relationship with watches started early. My great-grandfather was a watch retailer
-              across the Middle East, and growing up in a culture that values tradition and history, I
-              heard about his journeys through Europe, especially Switzerland, where he would travel
-              to source exceptional pieces. I first heard these stories through my grandmother, and
-              the passion he had for watches stayed with me. Over time, that became my own curiosity
-              and ambition.
-            </p>
-
-            <p class="lead">
-              Later, I interned at Richemont, home to some of the most respected watch maisons in the
-              world. Seeing the industry from the inside made everything feel more real. It reminded
-              me that behind every watch is a chain of people, decisions, and details, and that the
-              best pieces carry more than branding. They carry intention, craft, and a kind of meaning
-              you only notice when you slow down.
-            </p>
-
-            <p class="lead">That is the spirit behind BEZERU.</p>
-          </div>
+          <p>By accessing and using Bezeru, you agree to the following terms.</p>
+          <h2>Content Ownership</h2>
+          <p>All original articles, text, and design on Bezeru are the property of Bezeru unless otherwise stated. You may not reproduce, republish, or distribute content without written permission.</p>
+          <h2>Personal Use Only</h2>
+          <p>Content is provided for personal, non-commercial use. You may share links to articles, but not copy or republish full content elsewhere.</p>
+          <h2>Accuracy of Information</h2>
+          <p>Bezeru provides content for general informational and editorial purposes only. We do not guarantee that all information is complete, accurate, or current.</p>
+          <h2>No Professional Advice</h2>
+          <p>Nothing on this website constitutes financial, legal, or professional advice. Any actions taken based on information from Bezeru are at your own risk.</p>
+          <h2>External Links</h2>
+          <p>Bezeru may link to third-party websites. We are not responsible for their content or practices.</p>
+          <h2>User Submissions</h2>
+          <p>If you submit comments or messages, you agree not to post unlawful, abusive, or harmful material. Bezeru reserves the right to remove content at its discretion.</p>
+          <h2>Limitation of Liability</h2>
+          <p>Bezeru shall not be liable for any damages arising from use of this website or reliance on its content.</p>
+          <h2>Changes to Terms</h2>
+          <p>These Terms may be updated at any time without notice. Continued use of the site constitutes acceptance of updated terms.</p>
         </div>
       </div>
     </section>
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="footer-pro">
     <div class="container">
       <div class="footer-grid">
@@ -146,7 +139,7 @@
         <div class="footer-col">
           <h4>Subscribe</h4>
           <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <iframe 
+          <iframe
             src="https://bezeru.substack.com/embed"
             style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
             frameborder="0"

@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-312HY6RE8D');
+  </script>
   <title>BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
@@ -15,11 +22,10 @@
   <header>
     <div class="container">
       <div class="header-row">
-
-        <div class="brand">
+        <a class="brand" href="index.html">
           <div class="word">BEZERU</div>
           <div class="jp">ベゼル</div>
-        </div>
+        </a>
 
         <!-- WORLD CLOCKS -->
         <div class="clocks" aria-label="World time">
@@ -96,7 +102,6 @@
           </div>
 
           <a class="nav-link" href="shop.html">Shop</a>
-          <a class="nav-link" href="about.html">About</a>
           </div>
         </nav>
       </div>
@@ -170,15 +175,16 @@
 
         <div class="footer-col">
           <h4>Subscribe</h4>
-          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
-          <form class="footer-form" action="https://formspree.io/f/xpqdlyag" method="POST">
-            <!-- Formspree endpoint for all BEZERU forms. -->
-            <input type="hidden" name="_subject" value="New message from BEZERU" />
-            <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
-            <label class="sr-only" for="footer-email-home">Email address</label>
-            <input class="footer-input" type="email" id="footer-email-home" name="email" placeholder="Email address" required />
-            <button class="footer-button" type="submit">Subscribe</button>
-          </form>
+          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
+          <iframe 
+            src="https://bezeru.substack.com/embed"
+            style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
+          <div class="footer-legal">
+            <a href="about.html">About</a> · <a href="editorial.html">Editorial Policy</a> · <a href="contributors.html">Contributors</a> · <a href="affiliate.html">Affiliate Disclosure</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a>
+          </div>
         </div>
 
         <div class="footer-col">
@@ -200,4 +206,3 @@
 
 </body>
 </html>
-          <form class="footer-form" action="https://f
