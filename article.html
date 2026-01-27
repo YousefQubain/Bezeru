@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-312HY6RE8D');
+  </script>
   <title>BEZERU — Article</title>
 
   <!-- IMPORTANT: This must be a <link>, not <a> -->
@@ -118,7 +125,6 @@
 
           <h1 class="article-title" id="postTitle">Loading…</h1>
           <p class="article-excerpt" id="postExcerpt"></p>
-          <p class="article-author">Written by Yousef Qubain</p>
 
           <div class="article-divider"></div>
 
@@ -171,17 +177,13 @@
 
         <div class="footer-col">
           <h4>Subscribe</h4>
-          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
-          <form class="footer-form" action="https://formspree.io/f/xpqdlyag" method="POST">
-            <!-- Formspree endpoint for all BEZERU forms. -->
-            <input type="hidden" name="_subject" value="New message from BEZERU" />
-            <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
-          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
-            <!-- Replace the action URL with your email provider endpoint. -->
-            <label class="sr-only" for="footer-email-article">Email address</label>
-            <input class="footer-input" type="email" id="footer-email-article" name="email" placeholder="Email address" required />
-            <button class="footer-button" type="submit">Subscribe</button>
-          </form>
+          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
+          <iframe 
+            src="https://bezeru.substack.com/embed"
+            style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
         </div>
 
         <div class="footer-col">
