@@ -550,7 +550,8 @@ h1{
   color: var(--accent);
 }
 .article-figure{
-  margin: 22px 0 26px;
+  margin: 22px auto 26px;
+  max-width: 620px;
 }
 .article-figure picture{
   display: block;
