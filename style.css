@@ -1008,6 +1008,12 @@ h1{
   box-shadow: var(--shadow);
   padding: 22px;
 }
+.about-card p{
+  margin: 0;
+}
+.about-card p + p{
+  margin-top: 14px;
+}
 
 /* ---------- FOOTER ---------- */
 footer{
