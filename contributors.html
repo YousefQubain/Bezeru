@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Watch Types</title>
+  <title>Contributors | BEZERU</title>
 
-  <link rel="icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="types">
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
@@ -60,11 +59,9 @@
           <div class="nav-panel">
           <a class="nav-link" href="index.html">Home</a>
 
-          <div class="dropdown" data-dd="articles">
-            <button class="dd-btn" type="button">
-              Read <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Read">
+          <div class="dropdown">
+            <button class="dd-btn">Read <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="articles.html#latest">Latest</a>
               <a href="articles.html#design">Design</a>
               <a href="articles.html#guides">Guides</a>
@@ -72,24 +69,20 @@
             </div>
           </div>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn active" type="button">
-              Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Types">
-              <a href="#dress">Dress</a>
-              <a href="#diver">Diver</a>
-              <a href="#chrono">Chronograph</a>
-              <a href="#gmt">Travel</a>
-              <a href="#comp">Complications</a>
+          <div class="dropdown">
+            <button class="dd-btn">Types <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
             </div>
           </div>
 
-          <div class="dropdown" data-dd="brands">
-            <button class="dd-btn" type="button">
-              Brands <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Brands">
+          <div class="dropdown">
+            <button class="dd-btn">Brands <span class="chev"></span></button>
+            <div class="dd-menu">
               <a href="brands.html#rolex">Rolex</a>
               <a href="brands.html#cartier">Cartier</a>
               <a href="brands.html#piaget">Piaget</a>
@@ -105,48 +98,34 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <div class="kicker">WATCH TYPES</div>
-        <h1>Watch Types</h1>
-        <p class="lead">
-          A simple, design-first guide to the major categories — and what actually matters on the wrist.
-        </p>
-      </div>
-    </section>
-
     <section class="section">
       <div class="container">
-        <div class="grid">
-          <div class="card" id="dress">
-            <span class="badge">Dress</span>
-            <h3>Dress Watches</h3>
-            <p>Thin profiles, clean dials, and balanced proportions. The best ones feel effortless.</p>
-          </div>
+        <div class="policy-content">
+          <h1>Contributor Guidelines</h1>
 
-          <div class="card" id="diver">
-            <span class="badge">Diver</span>
-            <h3>Diver Watches</h3>
-            <p>Tool-first design: legibility, bezel function, durability — and the best cases wear smaller than they look.</p>
-          </div>
-
-          <div class="card" id="chrono">
-            <span class="badge">Chronograph</span>
-            <h3>Chronographs</h3>
-            <p>Timing complication with dial complexity. Great design is all about spacing and hierarchy.</p>
-          </div>
-
-          <div class="card" id="gmt">
-            <span class="badge">GMT</span>
-            <h3>GMT / Travel</h3>
-            <p>Two time zones done right: readability, quick-set functionality, and bezel clarity.</p>
-          </div>
-
-          <div class="card" id="comp">
-            <span class="badge">Complications</span>
-            <h3>Complications</h3>
-            <p>Calendars, moonphases, and beyond — the art is in making complexity feel calm.</p>
-          </div>
+          <p>Bezeru welcomes contributors who share an interest in watch design, engineering, history, and culture.</p>
+          <h2>What We Publish</h2>
+          <p>We are interested in:</p>
+          <ul>
+            <li>Brand histories and design analysis</li>
+            <li>Independent and emerging watchmakers</li>
+            <li>Technical explanations written clearly</li>
+            <li>Industry trends and cultural commentary</li>
+          </ul>
+          <h2>Style &amp; Tone</h2>
+          <p>Writing should be clear, analytical, and respectful. Promotional language should be avoided.</p>
+          <h2>Original Work</h2>
+          <p>All submissions must be original and not published elsewhere.</p>
+          <h2>Rights</h2>
+          <p>By submitting content, contributors grant Bezeru the right to publish and edit submissions for clarity and length.</p>
+          <h2>How to Pitch</h2>
+          <p>Please send:</p>
+          <ul>
+            <li>A short bio</li>
+            <li>Article idea or outline</li>
+            <li>Writing samples if available</li>
+          </ul>
+          <p>Send pitches to: hello@bezeru.com</p>
         </div>
       </div>
     </section>
@@ -166,16 +145,15 @@
         <div class="footer-col">
           <h4>Subscribe</h4>
           <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <form class="footer-form" action="https://formspree.io/f/xpqdlyag" method="POST">
-            <!-- Formspree endpoint for all BEZERU forms. -->
-            <input type="hidden" name="_subject" value="New message from BEZERU" />
-            <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
-          <form class="footer-form" action="https://formspree.io/f/your-form-id" method="POST">
-            <!-- Replace the action URL with your email provider endpoint. -->
-            <label class="sr-only" for="footer-email-types">Email address</label>
-            <input class="footer-input" type="email" id="footer-email-types" name="email" placeholder="Email address" required />
-            <button class="footer-button" type="submit">Subscribe</button>
-          </form>
+          <iframe
+            src="https://bezeru.substack.com/embed"
+            style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
+          <div class="footer-legal">
+            <a href="about.html">About</a> · <a href="editorial.html">Editorial Policy</a> · <a href="contributors.html">Contributors</a> · <a href="affiliate.html">Affiliate Disclosure</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a>
+          </div>
         </div>
 
         <div class="footer-col">

@@ -374,6 +374,40 @@ h1{
 /* ---------- SECTIONS / CARDS ---------- */
 .section{ padding: 40px 0 80px; }
 
+.policy-content{
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.policy-content h1{
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.policy-content h2{
+  font-size: 15px;
+  font-weight: 800;
+  margin: 22px 0 8px;
+  color: var(--text);
+}
+
+.policy-content p{
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+
+.policy-content ul{
+  margin: 0 0 16px 20px;
+  color: var(--text-2);
+  line-height: 1.8;
+  font-size: 15.5px;
+}
+
 .section-head{
   display:flex;
   justify-content:space-between;
@@ -1340,6 +1374,21 @@ footer{
   color: var(--ui-ink-muted);
   line-height: 1.6;
   margin-bottom: 12px;
+}
+
+.footer-legal{
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--ui-ink-muted);
+  line-height: 1.6;
+}
+
+.footer-legal a{
+  color: inherit;
+}
+
+.footer-legal a:hover{
+  text-decoration: underline;
 }
 
 .footer-form{
