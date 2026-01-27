@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About | BEZERU</title>
+  <title>Privacy Policy | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="about">
-  <!-- HEADER (same everywhere) -->
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
@@ -19,11 +18,27 @@
           <div class="jp">ベゼル</div>
         </a>
 
-        <div class="clocks">
-          <div class="clock"><div class="city">NEW YORK</div><canvas id="ny"></canvas><div class="time" id="ny-time"></div></div>
-          <div class="clock"><div class="city">LONDON</div><canvas id="lon"></canvas><div class="time" id="lon-time"></div></div>
-          <div class="clock"><div class="city">GENEVA</div><canvas id="gen"></canvas><div class="time" id="gen-time"></div></div>
-          <div class="clock"><div class="city">TOKYO</div><canvas id="tok"></canvas><div class="time" id="tok-time"></div></div>
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
+          </div>
         </div>
 
         <div class="header-spacer"></div>
@@ -82,25 +97,49 @@
     </div>
   </header>
 
-  <!-- ABOUT CONTENT -->
-  
   <main>
     <section class="section">
       <div class="container">
         <div class="policy-content">
-          <h1>About Bezeru</h1>
-          <p>Bezeru is an independent watch journal focused on design, engineering, and the culture surrounding mechanical timekeeping.</p>
-          <p>The platform was created to explore watches beyond hype cycles and short-term trends, highlighting thoughtful design, strong craftsmanship, and brands that contribute meaningfully to the industry.</p>
-          <p>Bezeru approaches watch journalism with an editorial mindset rather than a commercial one. Articles are written to inform, analyze, and appreciate, not to sell.</p>
-          <p>Our goal is to provide readers with clear, honest, and well-researched perspectives — whether covering heritage maisons, independent watchmakers, or emerging brands shaping the future of watchmaking.</p>
-          <p>Bezeru is built for enthusiasts who value substance, context, and design integrity over marketing noise.</p>
+          <h1>Privacy Policy</h1>
+
+          <p>Bezeru respects your privacy and is committed to protecting any personal information you choose to share with us.</p>
+          <h2>Information We Collect</h2>
+          <p>We may collect limited personal information when you voluntarily provide it, such as:</p>
+          <ul>
+            <li>Email addresses when subscribing to updates</li>
+            <li>Names or usernames when submitting comments or messages</li>
+            <li>Any information you choose to include in contact forms</li>
+          </ul>
+          <p>We do not knowingly collect personal data from children.</p>
+          <h2>How We Use Your Information</h2>
+          <p>Your information may be used to:</p>
+          <ul>
+            <li>Send you new articles or updates (if you subscribe)</li>
+            <li>Respond to messages or inquiries</li>
+            <li>Improve website content and user experience</li>
+          </ul>
+          <p>We do not sell, rent, or trade your personal data to third parties.</p>
+          <h2>Third-Party Services</h2>
+          <p>Bezeru may use third-party services to manage email subscriptions, comments, or website analytics. These services may process data according to their own privacy policies.</p>
+          <p>We are not responsible for the privacy practices of third-party websites linked from Bezeru.</p>
+          <h2>Cookies</h2>
+          <p>Bezeru may use basic cookies or similar technologies to improve site functionality and understand general traffic patterns. These do not personally identify you.</p>
+          <p>You can choose to disable cookies through your browser settings.</p>
+          <h2>Data Security</h2>
+          <p>We take reasonable measures to protect your information but cannot guarantee absolute security of data transmitted over the internet.</p>
+          <h2>Your Rights</h2>
+          <p>You may request to access, correct, or delete your data, or unsubscribe from communications at any time.</p>
+          <p>To make a request, please contact us using the email below.</p>
+          <h2>Changes to This Policy</h2>
+          <p>This Privacy Policy may be updated from time to time. Any changes will be posted on this page.</p>
+          <h2>Contact</h2>
+          <p>Email: hello@bezeru.com</p>
         </div>
       </div>
     </section>
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="footer-pro">
     <div class="container">
       <div class="footer-grid">
@@ -115,7 +154,7 @@
         <div class="footer-col">
           <h4>Subscribe</h4>
           <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <iframe 
+          <iframe
             src="https://bezeru.substack.com/embed"
             style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
             frameborder="0"

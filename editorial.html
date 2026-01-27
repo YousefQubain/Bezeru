@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About | BEZERU</title>
+  <title>Editorial Policy | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="about">
-  <!-- HEADER (same everywhere) -->
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
@@ -19,11 +18,27 @@
           <div class="jp">ベゼル</div>
         </a>
 
-        <div class="clocks">
-          <div class="clock"><div class="city">NEW YORK</div><canvas id="ny"></canvas><div class="time" id="ny-time"></div></div>
-          <div class="clock"><div class="city">LONDON</div><canvas id="lon"></canvas><div class="time" id="lon-time"></div></div>
-          <div class="clock"><div class="city">GENEVA</div><canvas id="gen"></canvas><div class="time" id="gen-time"></div></div>
-          <div class="clock"><div class="city">TOKYO</div><canvas id="tok"></canvas><div class="time" id="tok-time"></div></div>
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
+          </div>
         </div>
 
         <div class="header-spacer"></div>
@@ -82,25 +97,28 @@
     </div>
   </header>
 
-  <!-- ABOUT CONTENT -->
-  
   <main>
     <section class="section">
       <div class="container">
         <div class="policy-content">
-          <h1>About Bezeru</h1>
-          <p>Bezeru is an independent watch journal focused on design, engineering, and the culture surrounding mechanical timekeeping.</p>
-          <p>The platform was created to explore watches beyond hype cycles and short-term trends, highlighting thoughtful design, strong craftsmanship, and brands that contribute meaningfully to the industry.</p>
-          <p>Bezeru approaches watch journalism with an editorial mindset rather than a commercial one. Articles are written to inform, analyze, and appreciate, not to sell.</p>
-          <p>Our goal is to provide readers with clear, honest, and well-researched perspectives — whether covering heritage maisons, independent watchmakers, or emerging brands shaping the future of watchmaking.</p>
-          <p>Bezeru is built for enthusiasts who value substance, context, and design integrity over marketing noise.</p>
+          <h1>Editorial Policy</h1>
+
+          <p>Bezeru is committed to independent and transparent watch journalism.</p>
+          <h2>Independence</h2>
+          <p>All editorial content is created without influence from brands, manufacturers, or retailers unless explicitly stated. Brand relationships do not determine coverage.</p>
+          <h2>Product Access</h2>
+          <p>If watches are loaned for review or events are attended at the invitation of brands, this does not guarantee coverage nor influence editorial opinion.</p>
+          <h2>Accuracy</h2>
+          <p>We strive to ensure technical and historical accuracy. When errors are identified, corrections will be made transparently.</p>
+          <h2>No Pay-to-Play</h2>
+          <p>Bezeru does not accept payment in exchange for editorial coverage.</p>
+          <h2>Clear Separation of Editorial and Commercial Content</h2>
+          <p>If sponsored or paid content is ever published, it will be clearly labeled as such.</p>
         </div>
       </div>
     </section>
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="footer-pro">
     <div class="container">
       <div class="footer-grid">
@@ -115,7 +133,7 @@
         <div class="footer-col">
           <h4>Subscribe</h4>
           <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <iframe 
+          <iframe
             src="https://bezeru.substack.com/embed"
             style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
             frameborder="0"
