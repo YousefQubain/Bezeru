@@ -343,6 +343,7 @@ h1{
 /* ✅ SMALL IMPROVEMENT: CTA spacing */
 .hero-cta{
   margin-top: 6px;
+  color: var(--text);
 }
 
 /* Hero supporting card for editorial highlights */
