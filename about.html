@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — About</title>
+  <title>About | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
@@ -83,48 +83,17 @@
   </header>
 
   <!-- ABOUT CONTENT -->
+  
   <main>
     <section class="section">
       <div class="container">
-        <div class="about-grid">
-          <div class="about-photo">
-            <img src="images/yousef.jpg" alt="Yousef Qubain" />
-          </div>
-
-          <div class="about-card">
-            <h2>About BEZERU</h2>
-            <p class="lead">
-              BEZERU began as a curiosity, and it grew into a safe space to talk about watches in a more
-              honest way. Not just specs or status, but the things collectors actually live with: design,
-              fit, culture, and long-term value.
-            </p>
-
-            <p class="lead">
-              My name is Yousef Qubain. My interests sit at the intersection of independent brands,
-              modern releases, and vintage context, especially the way culture can quietly influence
-              watch design and taste around the world. BEZERU exists to explore those connections,
-              highlight underdogs, and explain why certain watches matter beyond marketing.
-            </p>
-
-            <p class="lead">
-              My relationship with watches started early. My great-grandfather was a watch retailer
-              across the Middle East, and growing up in a culture that values tradition and history, I
-              heard about his journeys through Europe, especially Switzerland, where he would travel
-              to source exceptional pieces. I first heard these stories through my grandmother, and
-              the passion he had for watches stayed with me. Over time, that became my own curiosity
-              and ambition.
-            </p>
-
-            <p class="lead">
-              Later, I interned at Richemont, home to some of the most respected watch maisons in the
-              world. Seeing the industry from the inside made everything feel more real. It reminded
-              me that behind every watch is a chain of people, decisions, and details, and that the
-              best pieces carry more than branding. They carry intention, craft, and a kind of meaning
-              you only notice when you slow down.
-            </p>
-
-            <p class="lead">That is the spirit behind BEZERU.</p>
-          </div>
+        <div class="policy-content">
+          <h1>About Bezeru</h1>
+          <p>Bezeru is an independent watch journal focused on design, engineering, and the culture surrounding mechanical timekeeping.</p>
+          <p>The platform was created to explore watches beyond hype cycles and short-term trends, highlighting thoughtful design, strong craftsmanship, and brands that contribute meaningfully to the industry.</p>
+          <p>Bezeru approaches watch journalism with an editorial mindset rather than a commercial one. Articles are written to inform, analyze, and appreciate, not to sell.</p>
+          <p>Our goal is to provide readers with clear, honest, and well-researched perspectives — whether covering heritage maisons, independent watchmakers, or emerging brands shaping the future of watchmaking.</p>
+          <p>Bezeru is built for enthusiasts who value substance, context, and design integrity over marketing noise.</p>
         </div>
       </div>
     </section>
@@ -146,15 +115,14 @@
         <div class="footer-col">
           <h4>Subscribe</h4>
           <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <iframe 
-            src="https://bezeru.substack.com/embed"
-            style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
-            frameborder="0"
-            scrolling="no">
-          </iframe>
-          <div class="footer-legal">
-            <a href="about.html">About</a> · <a href="editorial.html">Editorial Policy</a> · <a href="contributors.html">Contributors</a> · <a href="affiliate.html">Affiliate Disclosure</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms</a>
-          </div>
+          <form class="footer-form" action="https://formspree.io/f/xpqdlyag" method="POST">
+            <!-- Formspree endpoint for all BEZERU forms. -->
+            <input type="hidden" name="_subject" value="New message from BEZERU" />
+            <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
+            <label class="sr-only" for="footer-email-about">Email address</label>
+            <input class="footer-input" type="email" id="footer-email-about" name="email" placeholder="Email address" required />
+            <button class="footer-button" type="submit">Subscribe</button>
+          </form>
         </div>
 
         <div class="footer-col">
