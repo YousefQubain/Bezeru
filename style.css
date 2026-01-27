@@ -1,15 +1,17 @@
 :root{
-  --bg:#fafaf8;
+  --bg:#f6f2ec;
   --ink:#111111;
-  --muted:#5b5b5b;
-  --line:#e6e6e1;
+  --muted:#4b433b;
+  --line:#e1d6c9;
   --ui:#111111;
   --ui-ink:#ffffff;
   --ui-ink-muted: rgba(255,255,255,0.7);
   --ui-line: rgba(255,255,255,0.12);
-  --card:#ffffff;
-  --shadow: 0 18px 55px rgba(15,23,42,0.10);
-  --shadow2: 0 10px 26px rgba(15,23,42,0.10);
+  --card:#e8dfd3;
+  --card-hover:#e2d6c7;
+  --accent:#5e6b5b;
+  --shadow: 0 18px 55px rgba(0,0,0,0.08);
+  --shadow2: 0 10px 26px rgba(0,0,0,0.08);
   --radius:16px;
 }
 
@@ -292,7 +294,7 @@ h1{
 .lead{
   font-size: 15.5px;
   line-height: 1.75;
-  color: rgba(15,23,42,0.78);
+  color: #4b433b;
   max-width: 680px;
   margin-bottom: 18px;
 }
@@ -314,8 +316,8 @@ h1{
 
 /* Hero supporting card for editorial highlights */
 .hero-card{
-  background: rgba(255,255,255,0.65);
-  border: 1px solid rgba(15,23,42,0.08);
+  background: #efe7dc;
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 22px;
@@ -323,7 +325,7 @@ h1{
 
 .hero-card h3{
   font-size: 14px;
-  color: rgba(15,23,42,0.75);
+  color: #4b433b;
   letter-spacing: 0.6px;
   font-weight: 850;
   margin-bottom: 10px;
