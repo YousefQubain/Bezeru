@@ -264,7 +264,7 @@ async function renderHomeLatest(){
     const meta = getCardMeta(post);
     return `
       <a class="card post-card post-link" href="article.html?id=${encodeURIComponent(post.id)}">
-        <img class="post-thumb" src="assets/images/Article-1.jpg" alt="Andersen Genève Celestial Voyager world time watches" loading="lazy" />
+        <img class="post-thumb" src="/images/Article-1.jpg" alt="Andersen Genève Celestial Voyager world time watches" loading="lazy" />
         <h3 class="card-title">${post.title}</h3>
         <p class="card-excerpt">${post.excerpt}</p>
         <span class="card-meta">${meta}</span>
