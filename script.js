@@ -237,6 +237,7 @@ function postCardHTML(post){
       <p class="card-excerpt">${post.excerpt}</p>
       <p class="card-author">Written by Yousef Qubain</p>
       <span class="card-meta">${meta}</span>
+      <span class="card-meta">Category: ${post.category}</span>
     </a>
   `;
 }
