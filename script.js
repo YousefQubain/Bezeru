@@ -233,7 +233,6 @@ function postCardHTML(post){
   return `
     <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
       <h3 class="card-title">${post.title}</h3>
-      <p class="card-excerpt">${post.excerpt}</p>
       <span class="card-meta">${meta}</span>
       <span class="card-meta">Category: ${post.category}</span>
     </a>
@@ -255,23 +254,40 @@ function getCardMeta(post){
   return tagsByCategory[category] || "INDEPENDENTS • DESIGN • COLLECTORS";
 }
 
-async function renderHomeLatest(){
+async function renderHomeLatest(posts){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
-  const posts = await loadPosts();
-  holder.innerHTML = posts.slice(0,3).map((post, index)=>{
+  const data = posts || await loadPosts();
+  holder.innerHTML = data.slice(0,3).map((post, index)=>{
     if(index !== 0) return postCardHTML(post);
     const meta = getCardMeta(post);
     return `
       <a class="card post-card post-link" href="article.html?id=${encodeURIComponent(post.id)}">
         <img class="post-thumb" src="/images/Article-1.jpg" alt="Andersen Genève Celestial Voyager world time watches" loading="lazy" />
         <h3 class="card-title">${post.title}</h3>
-        <p class="card-excerpt">${post.excerpt}</p>
         <span class="card-meta">${meta}</span>
         <span class="card-meta">Category: ${post.category}</span>
       </a>
     `;
   }).join("");
+}
+
+async function renderHeroFeature(posts){
+  const holder = document.getElementById("hero-feature");
+  if(!holder) return;
+  const data = posts || await loadPosts();
+  const post = data[0];
+  if(!post) return;
+
+  const titleEl = holder.querySelector(".hero-feature-title");
+  const excerptEl = holder.querySelector(".hero-feature-excerpt");
+  const metaEl = holder.querySelector(".hero-feature-meta");
+  const linkEl = holder.querySelector(".hero-feature-link");
+
+  if(titleEl) titleEl.textContent = post.title;
+  if(excerptEl) excerptEl.textContent = post.excerpt || "";
+  if(metaEl) metaEl.textContent = `${post.category} • ${post.date}`;
+  if(linkEl) linkEl.href = `article.html?id=${encodeURIComponent(post.id)}`;
 }
 
 async function renderArticlesGrid(){
@@ -321,7 +337,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const page = document.body.getAttribute("data-page");
 
   try{
-    if(page === "home") await renderHomeLatest();
+    if(page === "home") {
+      const posts = await loadPosts();
+      await renderHeroFeature(posts);
+      await renderHomeLatest(posts);
+    }
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
   }catch(err){
