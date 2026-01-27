@@ -343,6 +343,7 @@ h1{
 /* ✅ SMALL IMPROVEMENT: CTA spacing */
 .hero-cta{
   margin-top: 6px;
+  color: var(--text);
 }
 
 /* Hero supporting card for editorial highlights */
@@ -1432,6 +1433,19 @@ footer{
   display:flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.footer-substack{
+  margin-top: 12px;
+}
+
+.footer-substack iframe{
+  display: block;
+  width: 100% !important;
+  max-width: 360px !important;
+  height: 260px !important;
+  border: 1px solid #eee;
+  background: #fff;
 }
 
 .footer-form input{
