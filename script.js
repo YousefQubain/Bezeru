@@ -229,14 +229,31 @@ async function loadPosts(){
 }
 
 function postCardHTML(post){
+  const meta = getCardMeta(post);
   return `
     <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
-      <span class="badge">${post.category}</span>
-      <h3>${post.title}</h3>
-      <p>${post.excerpt}</p>
+      <span class="card-category">${post.category}</span>
+      <h3 class="card-title">${post.title}</h3>
+      <p class="card-excerpt">${post.excerpt}</p>
       <p class="card-author">Written by Yousef Qubain</p>
+      <span class="card-meta">${meta}</span>
     </a>
   `;
+}
+
+function getCardMeta(post){
+  if(Array.isArray(post.tags) && post.tags.length){
+    return post.tags.join(" • ").toUpperCase();
+  }
+  const category = (post.category || "").toLowerCase();
+  const tagsByCategory = {
+    underdogs: "INDEPENDENTS • UNDER-THE-RADAR • WEARABILITY",
+    independents: "INDEPENDENTS • DESIGN • COLLECTORS",
+    design: "DESIGN • PROPORTION • DETAILS",
+    history: "MODERN • VINTAGE CONTEXT • COLLECTORS",
+    "middle east": "REGIONAL • CULTURE • COLLECTORS"
+  };
+  return tagsByCategory[category] || "INDEPENDENTS • DESIGN • COLLECTORS";
 }
 
 async function renderHomeLatest(){
