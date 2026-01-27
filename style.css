@@ -347,9 +347,7 @@ h1{
 
 /* Hero supporting card for editorial highlights */
 .hero-card{
-  background: var(--card);
-  border: 1px solid var(--line);
-  background: #efe7dc;
+  background: var(--surface);
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: var(--radius);
   box-shadow: var(--shadow2);
