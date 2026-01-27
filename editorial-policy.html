@@ -3,22 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-312HY6RE8D');
-  </script>
-  <title>BEZERU</title>
+  <title>Editorial Policy | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
-<body data-page="home">
-
-  <!-- ================= HEADER ================= -->
+<body data-page="policy">
   <header>
     <div class="container">
       <div class="header-row">
@@ -27,7 +18,6 @@
           <div class="jp">ベゼル</div>
         </a>
 
-        <!-- WORLD CLOCKS -->
         <div class="clocks" aria-label="World time">
           <div class="clock">
             <div class="city">NEW YORK</div>
@@ -55,7 +45,6 @@
       </div>
     </div>
 
-    <!-- NAV -->
     <div class="nav-wrap">
       <div class="container">
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
@@ -68,7 +57,7 @@
         </button>
         <nav id="primary-nav">
           <div class="nav-panel">
-          <a class="nav-link active" href="index.html">Home</a>
+          <a class="nav-link" href="index.html">Home</a>
 
           <div class="dropdown">
             <button class="dd-btn">Read <span class="chev"></span></button>
@@ -102,66 +91,35 @@
           </div>
 
           <a class="nav-link" href="shop.html">Shop</a>
+          <a class="nav-link" href="about.html">About</a>
           </div>
         </nav>
       </div>
     </div>
   </header>
 
-  <!-- ================= MAIN ================= -->
   <main>
-
-    <!-- HERO -->
-    <section class="hero">
+    <section class="section">
       <div class="container">
-        <div class="hero-grid">
-          <!-- LEFT SIDE -->
-          <div class="hero-left">
-            <h1>Watches, explained with clarity and care.</h1>
+        <div class="policy-content">
+          <h1>Editorial Policy</h1>
 
-            <p class="lead">
-              Stories and guides on modern releases and vintage context, with an eye for design, how a watch wears,
-              long term value, and the cultural details that give watches meaning.
-            </p>
-
-            <p class="lead">
-              BEZERU is a place to slow down and look closely. We care about the pieces people live with, the
-              details that reward time on the wrist, and the quiet stories that make a watch feel personal.
-            </p>
-
-            <a class="cta hero-cta" href="articles.html">Explore articles →</a>
-          </div>
-
-          <!-- RIGHT SIDE -->
-          <div class="hero-card">
-            <h3>What you’ll find on BEZERU</h3>
-            <p>
-              On BEZERU, you’ll find thoughtful watch stories shaped by design, wearability, and long term value.
-              Expect a focus on independent and under the radar brands, modern releases placed in vintage and
-              historical context, and the quiet ways culture, especially in the Middle East, continues to influence
-              watchmaking. Above all, it is a space for honest perspectives that go beyond marketing and hype.
-            </p>
-          </div>
-
+          <p>Bezeru is committed to independent and transparent watch journalism.</p>
+          <h2>Independence</h2>
+          <p>All editorial content is created without influence from brands, manufacturers, or retailers unless explicitly stated. Brand relationships do not determine coverage.</p>
+          <h2>Product Access</h2>
+          <p>If watches are loaned for review or events are attended at the invitation of brands, this does not guarantee coverage nor influence editorial opinion.</p>
+          <h2>Accuracy</h2>
+          <p>We strive to ensure technical and historical accuracy. When errors are identified, corrections will be made transparently.</p>
+          <h2>No Pay-to-Play</h2>
+          <p>Bezeru does not accept payment in exchange for editorial coverage.</p>
+          <h2>Clear Separation of Editorial and Commercial Content</h2>
+          <p>If sponsored or paid content is ever published, it will be clearly labeled as such.</p>
         </div>
       </div>
     </section>
-
-    <!-- FEATURED STORIES -->
-    <section class="section section-featured">
-      <div class="container">
-        <div class="section-head">
-          <h2>Featured articles</h2>
-          <a class="viewall" href="articles.html">View all →</a>
-        </div>
-
-        <div class="grid" id="home-latest"></div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- ================= FOOTER ================= -->
   <footer class="footer-pro">
     <div class="container">
       <div class="footer-grid">
@@ -175,13 +133,13 @@
 
         <div class="footer-col">
           <h4>Subscribe</h4>
-          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
+          <p class="footer-note">Subscribe to receive new articles every two weeks. No spam, just watch stories.</p>
           <form class="footer-form" action="https://formspree.io/f/xpqdlyag" method="POST">
             <!-- Formspree endpoint for all BEZERU forms. -->
             <input type="hidden" name="_subject" value="New message from BEZERU" />
             <input type="hidden" name="_next" value="https://bezeru.com/thanks.html" />
-            <label class="sr-only" for="footer-email-home">Email address</label>
-            <input class="footer-input" type="email" id="footer-email-home" name="email" placeholder="Email address" required />
+            <label class="sr-only" for="footer-email-policy">Email address</label>
+            <input class="footer-input" type="email" id="footer-email-policy" name="email" placeholder="Email address" required />
             <button class="footer-button" type="submit">Subscribe</button>
           </form>
           <div class="footer-legal">
@@ -205,6 +163,5 @@
       </div>
     </div>
   </footer>
-
 </body>
 </html>
