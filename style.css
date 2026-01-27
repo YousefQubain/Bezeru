@@ -130,6 +130,10 @@ nav{
   z-index: 1001;
 }
 
+body.nav-open{
+  overflow: hidden;
+}
+
 .nav-toggle{
   display:none;
   align-items:center;
@@ -144,6 +148,25 @@ nav{
   padding: 8px 12px;
   border-radius: 999px;
   cursor:pointer;
+}
+.nav-toggle-bars{
+  display:inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 20px;
+}
+.nav-toggle-bars .bar{
+  display:block;
+  height: 2px;
+  width: 100%;
+  background: var(--ui-ink);
+  border-radius: 999px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle-label{
+  display:inline-block;
+  line-height: 1;
 }
 
 .nav-link, .dd-btn{
@@ -889,18 +912,53 @@ footer{
 @media (max-width: 768px){
   /* Mobile-first header: hide clocks + collapse nav for a clean hero. */
   .clocks{ display:none; }
-  .nav-toggle{ display:inline-flex; }
+  .nav-wrap{
+    border-top: 1px solid var(--ui-line);
+    border-bottom: 1px solid var(--ui-line);
+  }
+  .nav-toggle{
+    display:inline-flex;
+    position: relative;
+    z-index: 1201;
+  }
   nav{
     display:none;
     flex-direction: column;
     align-items:flex-start;
-    gap: 10px;
-    padding: 12px 0 6px;
+    gap: 18px;
+    padding: 90px 22px 30px;
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-y: auto;
+    z-index: 1200;
   }
   body.nav-open nav{ display:flex; }
+  body.nav-open .nav-wrap{
+    background: var(--bg);
+  }
+  body.nav-open .nav-toggle{
+    border-color: rgba(15,23,42,0.12);
+    color: var(--ink);
+  }
+  body.nav-open .nav-toggle-bars .bar{
+    background: var(--ink);
+  }
+  body.nav-open .nav-toggle-bars .bar:nth-child(1){
+    transform: translateY(6px) rotate(45deg);
+  }
+  body.nav-open .nav-toggle-bars .bar:nth-child(2){
+    opacity: 0;
+  }
+  body.nav-open .nav-toggle-bars .bar:nth-child(3){
+    transform: translateY(-6px) rotate(-45deg);
+  }
   .nav-link, .dd-btn{
     width: 100%;
     justify-content:space-between;
+    color: var(--ink);
+    opacity: 0.9;
   }
   .dropdown{
     width: 100%;
@@ -913,6 +971,9 @@ footer{
     box-shadow: none;
     border: 1px solid rgba(15,23,42,0.08);
     margin-top: 6px;
+  }
+  .chev{
+    border-top-color: var(--muted);
   }
   .hero{
     padding: 36px 0 28px;
