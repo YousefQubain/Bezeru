@@ -231,10 +231,11 @@ async function loadPosts(){
 function postCardHTML(post){
   return `
     <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
-      <span class="badge">${post.category}</span>
-      <h3>${post.title}</h3>
-      <p>${post.excerpt}</p>
+      <span class="card-category">${post.category}</span>
+      <h3 class="card-title">${post.title}</h3>
+      <p class="card-excerpt">${post.excerpt}</p>
       <p class="card-author">Written by Yousef Qubain</p>
+      <span class="card-meta">Category: ${post.category}</span>
     </a>
   `;
 }
