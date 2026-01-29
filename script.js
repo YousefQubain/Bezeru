@@ -221,6 +221,8 @@ function initClocks(){
 /* =========================
    POSTS RENDERING
 ========================= */
+const FEATURED_POST_ID = "independents-replacing-hype-001";
+
 async function loadPosts(){
   const res = await fetch("posts.json", { cache: "no-store" });
   if(!res.ok) throw new Error("Could not load posts.json");
@@ -232,10 +234,9 @@ function postCardHTML(post){
   const meta = getCardMeta(post);
   const image = post.image || post.thumbnail || "/images/Article-1.jpg";
   const dateLabel = formatDate(post.date);
-  const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
   return `
     <article class="card">
-      <a class="card-media" href="${href}">
+      <a class="card-media" href="article.html?id=${encodeURIComponent(post.id)}">
         <img src="${image}" alt="${post.title}" loading="lazy" />
       </a>
       <div class="card-body">
@@ -244,7 +245,7 @@ function postCardHTML(post){
           <time datetime="${post.date || ""}">${dateLabel}</time>
         </div>
         <h3 class="card-title">
-          <a href="${href}">${post.title}</a>
+          <a href="article.html?id=${encodeURIComponent(post.id)}">${post.title}</a>
         </h3>
         <p class="card-excerpt">${post.excerpt || ""}</p>
       </div>
@@ -274,21 +275,11 @@ function formatDate(dateString){
   return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 
-function getReadingTime(content){
-  if(!content) return 1;
-  const text = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-  const words = text ? text.split(" ").length : 0;
-  return Math.max(1, Math.ceil(words / 200));
-}
-
-function getHeroImage(post){
-  if(post.image) return post.image;
-  if(post.thumbnail) return post.thumbnail;
-  if(post.content_html){
-    const match = post.content_html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    if(match && match[1]) return match[1];
-  }
-  return "/images/Article-1.jpg";
+async function renderHomeLatest(posts){
+  const holder = document.getElementById("home-latest");
+  if(!holder) return;
+  const data = posts || await loadPosts();
+  holder.innerHTML = data.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
 async function renderHomeLatest(posts){
@@ -296,12 +287,12 @@ async function renderHomeLatest(posts){
   if(!holder) return;
   if(holder.children.length > 0) return;
   const data = posts || await loadPosts();
-  const sortedPosts = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
-  if(sortedPosts.length === 0){
+  const latestPosts = data.filter(post => post.id !== FEATURED_POST_ID);
+  if(latestPosts.length === 0){
     holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
     return;
   }
-  holder.innerHTML = sortedPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
+  holder.innerHTML = latestPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
 async function renderArticlesGrid(){
