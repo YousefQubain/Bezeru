@@ -221,6 +221,8 @@ function initClocks(){
 /* =========================
    POSTS RENDERING
 ========================= */
+const FEATURED_POST_ID = "independents-replacing-hype-001";
+
 async function loadPosts(){
   const res = await fetch("posts.json", { cache: "no-store" });
   if(!res.ok) throw new Error("Could not load posts.json");
@@ -230,12 +232,24 @@ async function loadPosts(){
 
 function postCardHTML(post){
   const meta = getCardMeta(post);
+  const image = post.image || post.thumbnail || "/images/Article-1.jpg";
+  const dateLabel = formatDate(post.date);
   return `
-    <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
-      <h3 class="card-title">${post.title}</h3>
-      <span class="card-meta">${meta}</span>
-      <span class="card-meta">Category: ${post.category}</span>
-    </a>
+    <article class="card">
+      <a class="card-media" href="article.html?id=${encodeURIComponent(post.id)}">
+        <img src="${image}" alt="${post.title}" loading="lazy" />
+      </a>
+      <div class="card-body">
+        <div class="meta">
+          <span class="tag">${post.category || "Latest"}</span>
+          <time datetime="${post.date || ""}">${dateLabel}</time>
+        </div>
+        <h3 class="card-title">
+          <a href="article.html?id=${encodeURIComponent(post.id)}">${post.title}</a>
+        </h3>
+        <p class="card-excerpt">${post.excerpt || ""}</p>
+      </div>
+    </article>
   `;
 }
 
@@ -254,40 +268,40 @@ function getCardMeta(post){
   return tagsByCategory[category] || "INDEPENDENTS • DESIGN • COLLECTORS";
 }
 
+function formatDate(dateString){
+  if(!dateString) return "";
+  const date = new Date(dateString);
+  if(Number.isNaN(date.getTime())) return dateString;
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+function getReadingTime(content){
+  if(!content) return 1;
+  const text = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const words = text ? text.split(" ").length : 0;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+function getHeroImage(post){
+  if(post.image) return post.image;
+  if(post.thumbnail) return post.thumbnail;
+  if(post.content_html){
+    const match = post.content_html.match(/<img[^>]+src=["']([^"']+)["']/i);
+    if(match && match[1]) return match[1];
+  }
+  return "/images/Article-1.jpg";
+}
+
 async function renderHomeLatest(posts){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
   const data = posts || await loadPosts();
-  holder.innerHTML = data.slice(0,3).map((post, index)=>{
-    if(index !== 0) return postCardHTML(post);
-    const meta = getCardMeta(post);
-    return `
-      <a class="card post-card post-link" href="article.html?id=${encodeURIComponent(post.id)}">
-        <img class="post-thumb" src="/images/Article-1.jpg" alt="Andersen Genève Celestial Voyager world time watches" loading="lazy" />
-        <h3 class="card-title">${post.title}</h3>
-        <span class="card-meta">${meta}</span>
-        <span class="card-meta">Category: ${post.category}</span>
-      </a>
-    `;
-  }).join("");
-}
-
-async function renderHeroFeature(posts){
-  const holder = document.getElementById("hero-feature");
-  if(!holder) return;
-  const data = posts || await loadPosts();
-  const post = data[0];
-  if(!post) return;
-
-  const titleEl = holder.querySelector(".hero-feature-title");
-  const excerptEl = holder.querySelector(".hero-feature-excerpt");
-  const metaEl = holder.querySelector(".hero-feature-meta");
-  const linkEl = holder.querySelector(".hero-feature-link");
-
-  if(titleEl) titleEl.textContent = post.title;
-  if(excerptEl) excerptEl.textContent = post.excerpt || "";
-  if(metaEl) metaEl.textContent = `${post.category} • ${post.date}`;
-  if(linkEl) linkEl.href = `article.html?id=${encodeURIComponent(post.id)}`;
+  const latestPosts = data.filter(post => post.id !== FEATURED_POST_ID);
+  if(latestPosts.length === 0){
+    holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+    return;
+  }
+  holder.innerHTML = latestPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
 async function renderArticlesGrid(){
@@ -299,12 +313,15 @@ async function renderArticlesGrid(){
 
 async function renderArticle(){
   const titleEl = document.getElementById("article-title");
-  const badgeEl = document.getElementById("article-badge");
+  const categoryEl = document.getElementById("article-category");
   const dateEl  = document.getElementById("article-date");
-  const ledeEl  = document.getElementById("article-lede");
+  const readTimeEl = document.getElementById("article-reading-time");
+  const ledeEl  = document.getElementById("article-excerpt");
   const bodyEl  = document.getElementById("article-body");
+  const heroImgEl = document.getElementById("article-hero-image");
+  const relatedEl = document.getElementById("related-stories");
 
-  if(!titleEl || !badgeEl || !dateEl || !ledeEl || !bodyEl) return;
+  if(!titleEl || !categoryEl || !dateEl || !readTimeEl || !ledeEl || !bodyEl) return;
 
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
@@ -312,10 +329,26 @@ async function renderArticle(){
   const post = posts.find(p => p.id === id) || posts[0];
 
   titleEl.textContent = post.title;
-  badgeEl.textContent = post.category;
-  dateEl.textContent  = post.date;
+  categoryEl.textContent = post.category || "Article";
+  dateEl.textContent  = formatDate(post.date);
+  readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
   ledeEl.textContent  = post.excerpt;
   bodyEl.innerHTML    = post.content_html;
+
+  if(heroImgEl){
+    const heroSrc = getHeroImage(post);
+    heroImgEl.src = heroSrc;
+    heroImgEl.alt = post.title || "Featured image";
+  }
+
+  if(relatedEl){
+    const relatedPosts = posts.filter(item => item.id !== post.id).slice(0, 3);
+    if(relatedPosts.length === 0){
+      relatedEl.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+    }else{
+      relatedEl.innerHTML = relatedPosts.map(postCardHTML).join("");
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
@@ -339,7 +372,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   try{
     if(page === "home") {
       const posts = await loadPosts();
-      await renderHeroFeature(posts);
       await renderHomeLatest(posts);
     }
     if(page === "articles") await renderArticlesGrid();
