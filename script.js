@@ -221,6 +221,8 @@ function initClocks(){
 /* =========================
    POSTS RENDERING
 ========================= */
+const FEATURED_POST_ID = "independents-replacing-hype-001";
+
 async function loadPosts(){
   const res = await fetch("posts.json", { cache: "no-store" });
   if(!res.ok) throw new Error("Could not load posts.json");
@@ -280,22 +282,16 @@ async function renderHomeLatest(posts){
   holder.innerHTML = data.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
-async function renderHeroFeature(posts){
-  const holder = document.getElementById("hero-feature");
+async function renderHomeLatest(posts){
+  const holder = document.getElementById("home-latest");
   if(!holder) return;
   const data = posts || await loadPosts();
-  const post = data[0];
-  if(!post) return;
-
-  const titleEl = holder.querySelector(".hero-feature-title");
-  const excerptEl = holder.querySelector(".hero-feature-excerpt");
-  const metaEl = holder.querySelector(".hero-feature-meta");
-  const linkEl = holder.querySelector(".hero-feature-link");
-
-  if(titleEl) titleEl.textContent = post.title;
-  if(excerptEl) excerptEl.textContent = post.excerpt || "";
-  if(metaEl) metaEl.textContent = `${post.category} • ${post.date}`;
-  if(linkEl) linkEl.href = `article.html?id=${encodeURIComponent(post.id)}`;
+  const latestPosts = data.filter(post => post.id !== FEATURED_POST_ID);
+  if(latestPosts.length === 0){
+    holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+    return;
+  }
+  holder.innerHTML = latestPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
 async function renderArticlesGrid(){
@@ -347,7 +343,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   try{
     if(page === "home") {
       const posts = await loadPosts();
-      await renderHeroFeature(posts);
       await renderHomeLatest(posts);
     }
     if(page === "articles") await renderArticlesGrid();

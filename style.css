@@ -414,6 +414,12 @@ h1{
   text-decoration: underline;
 }
 
+.editor-note{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* ---------- SECTIONS / CARDS ---------- */
 .section{ padding: 40px 0 80px; }
 
