@@ -285,6 +285,7 @@ async function renderHomeLatest(posts){
 async function renderHomeLatest(posts){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
+  if(holder.children.length > 0) return;
   const data = posts || await loadPosts();
   const latestPosts = data.filter(post => post.id !== FEATURED_POST_ID);
   if(latestPosts.length === 0){
