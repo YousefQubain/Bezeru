@@ -279,6 +279,13 @@ async function renderHomeLatest(posts){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
   const data = posts || await loadPosts();
+  holder.innerHTML = data.slice(0,3).map((post)=> postCardHTML(post)).join("");
+}
+
+async function renderHomeLatest(posts){
+  const holder = document.getElementById("home-latest");
+  if(!holder) return;
+  const data = posts || await loadPosts();
   const latestPosts = data.filter(post => post.id !== FEATURED_POST_ID);
   if(latestPosts.length === 0){
     holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
