@@ -230,12 +230,24 @@ async function loadPosts(){
 
 function postCardHTML(post){
   const meta = getCardMeta(post);
+  const image = post.image || post.thumbnail || "/images/Article-1.jpg";
+  const dateLabel = formatDate(post.date);
   return `
-    <a class="card" href="article.html?id=${encodeURIComponent(post.id)}">
-      <h3 class="card-title">${post.title}</h3>
-      <span class="card-meta">${meta}</span>
-      <span class="card-meta">Category: ${post.category}</span>
-    </a>
+    <article class="card">
+      <a class="card-media" href="article.html?id=${encodeURIComponent(post.id)}">
+        <img src="${image}" alt="${post.title}" loading="lazy" />
+      </a>
+      <div class="card-body">
+        <div class="meta">
+          <span class="tag">${post.category || "Latest"}</span>
+          <time datetime="${post.date || ""}">${dateLabel}</time>
+        </div>
+        <h3 class="card-title">
+          <a href="article.html?id=${encodeURIComponent(post.id)}">${post.title}</a>
+        </h3>
+        <p class="card-excerpt">${post.excerpt || ""}</p>
+      </div>
+    </article>
   `;
 }
 
@@ -254,22 +266,18 @@ function getCardMeta(post){
   return tagsByCategory[category] || "INDEPENDENTS • DESIGN • COLLECTORS";
 }
 
+function formatDate(dateString){
+  if(!dateString) return "";
+  const date = new Date(dateString);
+  if(Number.isNaN(date.getTime())) return dateString;
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
 async function renderHomeLatest(posts){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
   const data = posts || await loadPosts();
-  holder.innerHTML = data.slice(0,3).map((post, index)=>{
-    if(index !== 0) return postCardHTML(post);
-    const meta = getCardMeta(post);
-    return `
-      <a class="card post-card post-link" href="article.html?id=${encodeURIComponent(post.id)}">
-        <img class="post-thumb" src="/images/Article-1.jpg" alt="Andersen Genève Celestial Voyager world time watches" loading="lazy" />
-        <h3 class="card-title">${post.title}</h3>
-        <span class="card-meta">${meta}</span>
-        <span class="card-meta">Category: ${post.category}</span>
-      </a>
-    `;
-  }).join("");
+  holder.innerHTML = data.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
 async function renderHeroFeature(posts){
