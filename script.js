@@ -221,6 +221,8 @@ function initClocks(){
 /* =========================
    POSTS RENDERING
 ========================= */
+const FEATURED_POST_ID = "independents-replacing-hype-001";
+
 async function loadPosts(){
   const res = await fetch("posts.json", { cache: "no-store" });
   if(!res.ok) throw new Error("Could not load posts.json");
