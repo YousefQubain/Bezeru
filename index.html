@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,6 +14,21 @@
     gtag('config', 'G-312HY6RE8D');
   </script>
   <title>BEZERU</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500,650&display=swap" rel="stylesheet">
+
+  <!-- Social / sharing -->
+  <meta property="og:title" content="BEZERU — Watches, explained with clarity and care">
+  <meta property="og:description" content="Design-led watch writing. Guides, brands, vintage, and the independents worth watching.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bezeru.com/">
+  <meta property="og:image" content="https://bezeru.com/images/Article-1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BEZERU — Watches, explained with clarity and care">
+  <meta name="twitter:description" content="Design-led watch writing. Guides, brands, vintage, and the independents worth watching.">
+  <meta name="twitter:image" content="https://bezeru.com/images/Article-1.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 
@@ -18,7 +36,7 @@
 
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
   <script src="script.js" defer></script>
 </head>
 
@@ -118,6 +136,20 @@
 
   <!-- ================= MAIN ================= -->
   <main>
+    <section class="featured-hero container">
+      <div class="hero-left">
+        <div class="kicker">Featured</div>
+        <h1 class="hero-title">Independents That Are Quietly Replacing Hype</h1>
+        <p class="hero-sub">
+          Four names collectors are watching—often before anyone else catches on. A calm look at what’s rising, and why it matters.
+        </p>
+        <a class="btn" href="/articles/independents-that-are-quietly-replacing-hype.html">Read article</a>
+      </div>
+
+      <a class="hero-right" href="/articles/independents-that-are-quietly-replacing-hype.html" aria-label="Read featured article">
+        <img src="/images/Andersen.jpg" alt="Featured story">
+      </a>
+    </section>
 
     <!-- HERO -->
     <section class="hero">
@@ -141,12 +173,13 @@
           </div>
 
           <!-- RIGHT SIDE -->
-          <div class="hero-card" id="hero-feature" aria-live="polite">
-            <p class="hero-kicker">Latest article</p>
-            <h3 class="hero-feature-title"></h3>
-            <p class="hero-feature-excerpt"></p>
-            <div class="hero-feature-meta"></div>
-            <a class="hero-feature-link" href="articles.html">Read article →</a>
+          <div class="hero-card editor-note" aria-live="polite">
+            <p class="hero-kicker">Editor’s note</p>
+            <h3 class="hero-feature-title">Design-led watch writing, twice a week.</h3>
+            <p class="hero-feature-excerpt">
+              A calm edit of modern releases, vintage context, and independents worth knowing.
+            </p>
+            <a class="hero-feature-link" href="articles.html">Explore the archive →</a>
           </div>
 
         </div>
@@ -154,13 +187,46 @@
     </section>
 
     <!-- FEATURED STORIES -->
-    <section class="section section-featured">
+    <section class="section section-featured latest">
       <div class="container">
         <div class="section-head">
-          <h2>Featured articles</h2>
+          <h2>Latest</h2>
+          <p>New writing, edited for clarity.</p>
         </div>
 
-        <div class="grid" id="home-latest"></div>
+        <div class="card-grid" id="home-latest">
+          <article class="card">
+            <a class="card-media" href="/articles/independents-that-are-quietly-replacing-hype.html">
+              <img src="/images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" />
+            </a>
+            <div class="card-body">
+              <div class="meta">
+                <span class="tag">Underdogs</span>
+                <time datetime="2026-01-27">Jan 2026</time>
+              </div>
+              <h3 class="card-title">
+                <a href="/articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a>
+              </h3>
+              <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="card-media" href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">
+              <img src="/images/article-ap-vacheron-middle-east.jpg" alt="Timeless Stories in Timepieces" loading="lazy" onerror="this.onerror=null;this.src='/images/thumb-default.jpg';" />
+            </a>
+            <div class="card-body">
+              <div class="meta">
+                <span class="tag">Brands / Culture</span>
+                <time datetime="2026-01-29">Jan 2026</time>
+              </div>
+              <h3 class="card-title">
+                <a href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</a>
+              </h3>
+              <p class="card-excerpt">How two maisons are treating Middle Eastern influence not as a trend, but as a treasure.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
