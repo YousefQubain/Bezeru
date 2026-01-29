@@ -303,12 +303,15 @@ async function renderArticlesGrid(){
 
 async function renderArticle(){
   const titleEl = document.getElementById("article-title");
-  const badgeEl = document.getElementById("article-badge");
+  const categoryEl = document.getElementById("article-category");
   const dateEl  = document.getElementById("article-date");
-  const ledeEl  = document.getElementById("article-lede");
+  const readTimeEl = document.getElementById("article-reading-time");
+  const ledeEl  = document.getElementById("article-excerpt");
   const bodyEl  = document.getElementById("article-body");
+  const heroImgEl = document.getElementById("article-hero-image");
+  const relatedEl = document.getElementById("related-stories");
 
-  if(!titleEl || !badgeEl || !dateEl || !ledeEl || !bodyEl) return;
+  if(!titleEl || !categoryEl || !dateEl || !readTimeEl || !ledeEl || !bodyEl) return;
 
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
@@ -316,10 +319,26 @@ async function renderArticle(){
   const post = posts.find(p => p.id === id) || posts[0];
 
   titleEl.textContent = post.title;
-  badgeEl.textContent = post.category;
-  dateEl.textContent  = post.date;
+  categoryEl.textContent = post.category || "Article";
+  dateEl.textContent  = formatDate(post.date);
+  readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
   ledeEl.textContent  = post.excerpt;
   bodyEl.innerHTML    = post.content_html;
+
+  if(heroImgEl){
+    const heroSrc = getHeroImage(post);
+    heroImgEl.src = heroSrc;
+    heroImgEl.alt = post.title || "Featured image";
+  }
+
+  if(relatedEl){
+    const relatedPosts = posts.filter(item => item.id !== post.id).slice(0, 3);
+    if(relatedPosts.length === 0){
+      relatedEl.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+    }else{
+      relatedEl.innerHTML = relatedPosts.map(postCardHTML).join("");
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{

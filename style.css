@@ -681,7 +681,8 @@ h1{
   border-color: rgba(29,78,216,0.28);
 }
 .article-shell{
-  margin-top: 22px;
+  margin: 22px auto 0;
+  max-width: 920px;
   background: rgba(255,255,255,0.92);
   border: 1px solid rgba(15,23,42,0.08);
   border-radius: 22px;
@@ -696,17 +697,13 @@ h1{
   gap: 10px 14px;
   margin-bottom: 18px;
   color: rgba(15,23,42,0.62);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: 1.4px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
 }
-.article-badge{
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(29,78,216,0.12);
-  border: 1px solid rgba(29,78,216,0.25);
-  color: rgba(29,78,216,0.95);
+.article-meta-item{
+  color: rgba(15,23,42,0.75);
 }
 .article-date{
   letter-spacing: 2px;
@@ -721,9 +718,20 @@ h1{
 .article-excerpt{
   margin-top: 16px;
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.85;
   color: rgba(15,23,42,0.75);
-  max-width: 760px;
+  max-width: 720px;
+}
+.article-hero-media{
+  margin: 22px 0 10px;
+}
+.article-hero-media img{
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  border: 1px solid rgba(15,23,42,0.12);
+  box-shadow: var(--shadow);
+  background: #fff;
 }
 .article-author{
   margin-top: 10px;
@@ -741,19 +749,19 @@ h1{
 }
 .article-body{
   margin-top: 24px;
-  max-width: 820px;
-  font-size: 16px;
-  line-height: 1.95;
+  max-width: 720px;
+  font-size: 16.5px;
+  line-height: 1.9;
   color: rgba(15,23,42,0.84);
 }
-.article-body p{ margin: 0 0 18px; }
+.article-body p{ margin: 0 0 22px; }
 .article-body p:first-of-type{
-  font-size: 17px;
+  font-size: 17.5px;
   color: rgba(15,23,42,0.88);
 }
 .article-body h2{
-  margin: 32px 0 12px;
-  font-size: 19px;
+  margin: 38px 0 14px;
+  font-size: 21px;
   letter-spacing: -0.2px;
 }
 .article-body h2::before{
@@ -768,6 +776,7 @@ h1{
 .article-body a{
   color: rgba(29,78,216,0.9);
   font-weight: 600;
+  transition: color 160ms ease;
 }
 .article-body a:hover{
   color: var(--accent);
@@ -792,6 +801,35 @@ h1{
   font-size: 13px;
   color: rgba(15,23,42,0.65);
   letter-spacing: 0.4px;
+}
+
+.article-author-box{
+  margin-top: 30px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(15,23,42,0.08);
+  background: rgba(255,255,255,0.75);
+  max-width: 720px;
+}
+.article-author-title{
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(15,23,42,0.85);
+  margin-bottom: 6px;
+}
+.article-author-note{
+  margin: 0;
+  font-size: 14px;
+  color: rgba(15,23,42,0.65);
+  line-height: 1.6;
+}
+
+.related-stories{
+  margin-top: 34px;
+}
+.related-stories h2{
+  font-size: 20px;
+  margin: 0 0 16px 0;
 }
 
 /* ---------- COMMENTS ---------- */
