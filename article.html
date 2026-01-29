@@ -120,16 +120,33 @@
 
         <article class="article-shell">
           <div class="article-meta">
-            <span class="article-badge" id="postCategory">Category</span>
-            <span class="article-date" id="postDate"></span>
+            <span class="article-meta-item" id="article-category">Category</span>
+            <span aria-hidden="true">·</span>
+            <span class="article-meta-item article-date" id="article-date"></span>
+            <span aria-hidden="true">·</span>
+            <span class="article-meta-item" id="article-reading-time">Read time</span>
           </div>
 
-          <h1 class="article-title" id="postTitle">Loading…</h1>
-          <p class="article-excerpt" id="postExcerpt"></p>
+          <h1 class="article-title" id="article-title">Loading…</h1>
+          <p class="article-excerpt" id="article-excerpt"></p>
+
+          <div class="article-hero-media">
+            <img id="article-hero-image" src="/images/Article-1.jpg" alt="" loading="lazy" />
+          </div>
 
           <div class="article-divider"></div>
 
-          <div class="article-body" id="postBody"></div>
+          <div class="article-body" id="article-body"></div>
+
+          <div class="article-author-box">
+            <div class="article-author-title">Written by Yousef — Editor at BEZERU</div>
+            <p class="article-author-note">Design-led watch writing with a focus on form, proportion, and the stories behind the dial.</p>
+          </div>
+
+          <section class="related-stories">
+            <h2>Related stories</h2>
+            <div class="card-grid" id="related-stories"></div>
+          </section>
 
           <!-- Leave a comment section (static form placeholder). -->
           <div class="comment-section" aria-labelledby="comment-title">
@@ -210,38 +227,5 @@
       </div>
     </div>
   </footer>
-  <script>
-    // Read ?id=... from URL
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    async function loadPost() {
-      try {
-        const res = await fetch("posts.json", { cache: "no-store" });
-        const data = await res.json();
-        const post = (data.posts || []).find(p => p.id === id);
-
-        if (!post) {
-          document.getElementById("postTitle").textContent = "Article not found";
-          document.getElementById("postExcerpt").textContent =
-            "The link may be wrong, or the post id is missing from posts.json.";
-          return;
-        }
-
-        document.title = `BEZERU — ${post.title}`;
-        document.getElementById("postCategory").textContent = post.category || "Article";
-        document.getElementById("postDate").textContent = post.date || "";
-        document.getElementById("postTitle").textContent = post.title || "";
-        document.getElementById("postExcerpt").textContent = post.excerpt || "";
-        document.getElementById("postBody").innerHTML = post.content_html || "";
-      } catch (e) {
-        document.getElementById("postTitle").textContent = "Couldn’t load article";
-        document.getElementById("postExcerpt").textContent =
-          "Check that posts.json is valid JSON and is in the same folder.";
-      }
-    }
-
-    loadPost();
-  </script>
 </body>
 </html>
