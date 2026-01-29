@@ -275,21 +275,11 @@ function formatDate(dateString){
   return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 
-function getReadingTime(content){
-  if(!content) return 1;
-  const text = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-  const words = text ? text.split(" ").length : 0;
-  return Math.max(1, Math.ceil(words / 200));
-}
-
-function getHeroImage(post){
-  if(post.image) return post.image;
-  if(post.thumbnail) return post.thumbnail;
-  if(post.content_html){
-    const match = post.content_html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    if(match && match[1]) return match[1];
-  }
-  return "/images/Article-1.jpg";
+async function renderHomeLatest(posts){
+  const holder = document.getElementById("home-latest");
+  if(!holder) return;
+  const data = posts || await loadPosts();
+  holder.innerHTML = data.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
 async function renderHomeLatest(posts){
