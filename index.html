@@ -43,7 +43,7 @@
 <body data-page="home">
 
   <!-- ================= HEADER ================= -->
-  <header>
+  <header class="site-header">
     <div class="container">
       <div class="header-row">
         <a class="brand" href="index.html">
@@ -76,13 +76,8 @@
         </div>
 
         <div class="header-spacer"></div>
-      </div>
-    </div>
 
-    <!-- NAV -->
-    <div class="nav-wrap">
-      <div class="container">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
           <span class="nav-toggle-bars" aria-hidden="true">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -90,8 +85,15 @@
           </span>
           <span class="nav-toggle-label">Menu</span>
         </button>
-        <nav id="primary-nav">
-          <div class="nav-panel">
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="nav-wrap">
+      <div class="container">
+        <nav id="primary-nav" aria-label="Primary">
+          <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
+          <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
           <a class="nav-link active" href="index.html">Home</a>
 
           <a class="nav-link" href="about.html">About</a>
@@ -147,7 +149,7 @@
       </div>
 
       <a class="hero-right" href="/articles/independents-that-are-quietly-replacing-hype.html" aria-label="Read featured article">
-        <img src="/images/Andersen.jpg" alt="Featured story">
+        <img class="hero-image" src="/images/Andersen.jpg" alt="Featured story" decoding="async">
       </a>
     </section>
 
@@ -197,7 +199,7 @@
         <div class="card-grid" id="home-latest">
           <article class="card">
             <a class="card-media" href="/articles/independents-that-are-quietly-replacing-hype.html">
-              <img src="/images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" />
+              <img class="card-image" src="/images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" decoding="async" />
             </a>
             <div class="card-body">
               <div class="meta">
@@ -244,7 +246,7 @@
           </div>
         </div>
 
-        <div class="footer-col">
+        <div class="footer-col" id="subscribe">
           <h4>Subscribe</h4>
           <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
           <iframe
@@ -253,6 +255,7 @@
   frameborder="0"
   scrolling="no">
 </iframe>
+          <div class="form-status" role="status" aria-live="polite"></div>
         </div>
 
         <div class="footer-col">
@@ -278,6 +281,12 @@
       </div>
     </div>
   </footer>
+
+  <div class="mobile-cta" data-cta-bar aria-hidden="true">
+    <span class="mobile-cta-text">Get new articles by email.</span>
+    <button class="mobile-cta-button" type="button" data-cta-action>Subscribe</button>
+    <button class="mobile-cta-close" type="button" data-cta-close aria-label="Dismiss subscribe prompt">×</button>
+  </div>
 
 </body>
 </html>
