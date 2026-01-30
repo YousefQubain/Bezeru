@@ -527,8 +527,22 @@ async function renderArticle(){
 
   if(heroImgEl){
     const heroSrc = getHeroImage(post);
-    heroImgEl.src = heroSrc;
-    heroImgEl.alt = post.title || "Featured image";
+    const heroWrap = heroImgEl.closest(".article-hero-media");
+    if(post.id === "independents-replacing-hype-001"){
+      if(heroWrap){
+        heroWrap.hidden = true;
+        heroWrap.setAttribute("aria-hidden", "true");
+      }
+      heroImgEl.removeAttribute("src");
+      heroImgEl.removeAttribute("alt");
+    }else{
+      if(heroWrap){
+        heroWrap.hidden = false;
+        heroWrap.removeAttribute("aria-hidden");
+      }
+      heroImgEl.src = heroSrc;
+      heroImgEl.alt = post.title || "Featured image";
+    }
   }
 
   if(relatedEl){
