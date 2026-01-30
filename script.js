@@ -329,6 +329,84 @@ function initClocks(){
 }
 
 /* =========================
+   MOBILE SUBSCRIBE CTA
+========================= */
+function initMobileCta(){
+  const cta = document.querySelector("[data-cta-bar]");
+  const action = document.querySelector("[data-cta-action]");
+  const close = document.querySelector("[data-cta-close]");
+  const subscribeSection = document.getElementById("subscribe");
+  if(!cta || !action || !close || !subscribeSection) return;
+
+  const storageKey = "bezeru-cta-dismissed";
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let isInSubscribe = false;
+
+  function isDismissed(){
+    try{
+      const stored = localStorage.getItem(storageKey);
+      if(!stored) return false;
+      const parsed = JSON.parse(stored);
+      if(parsed.expires && Date.now() < parsed.expires) return true;
+      localStorage.removeItem(storageKey);
+      return false;
+    }catch(err){
+      return false;
+    }
+  }
+
+  function setDismissed(){
+    try{
+      const expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
+      localStorage.setItem(storageKey, JSON.stringify({ expires }));
+    }catch(err){
+      // ignore storage errors
+    }
+  }
+
+  function setVisible(visible){
+    cta.setAttribute("aria-hidden", visible ? "false" : "true");
+    document.body.classList.toggle("cta-visible", visible);
+  }
+
+  function updateVisibility(){
+    if(window.innerWidth > 768){
+      setVisible(false);
+      return;
+    }
+    if(isDismissed() || isInSubscribe){
+      setVisible(false);
+      return;
+    }
+    setVisible(true);
+  }
+
+  action.addEventListener("click", ()=>{
+    subscribeSection.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start"
+    });
+  });
+
+  close.addEventListener("click", ()=>{
+    setDismissed();
+    updateVisibility();
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      isInSubscribe = entry.isIntersecting;
+      updateVisibility();
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(subscribeSection);
+
+  updateVisibility();
+  window.addEventListener("resize", updateVisibility);
+}
+
+/* =========================
    POSTS RENDERING
 ========================= */
 const FEATURED_POST_ID = "independents-replacing-hype-001";
@@ -482,6 +560,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initClocks();
   initMobileNav();
   initStickyHeader();
+  initMobileCta();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");
