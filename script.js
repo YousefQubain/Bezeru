@@ -56,19 +56,129 @@ function initDropdowns(){
 function initMobileNav(){
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("primary-nav");
-  if(!toggle || !nav) return;
+  const panel = document.getElementById("primary-nav-panel");
+  const overlay = nav ? nav.querySelector("[data-nav-overlay]") : null;
+  if(!toggle || !nav || !panel) return;
+
+  const focusableSelector = [
+    "a[href]",
+    "button:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])"
+  ].join(",");
+
+  let lastFocused = null;
+  panel.setAttribute("aria-hidden", "true");
+
+  function trapFocus(e){
+    if(e.key !== "Tab") return;
+    const focusables = panel.querySelectorAll(focusableSelector);
+    if(!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if(e.shiftKey && document.activeElement === first){
+      e.preventDefault();
+      last.focus();
+    }else if(!e.shiftKey && document.activeElement === last){
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function openNav(){
+    lastFocused = document.activeElement;
+    document.body.classList.add("nav-open");
+    panel.setAttribute("aria-hidden", "false");
+    toggle.setAttribute("aria-expanded", "true");
+    overlay?.classList.add("is-visible");
+    const focusTarget = panel.querySelector(focusableSelector);
+    if(focusTarget) focusTarget.focus();
+  }
+
+  function closeNav(){
+    document.body.classList.remove("nav-open");
+    panel.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+    overlay?.classList.remove("is-visible");
+    if(lastFocused && lastFocused.focus){
+      lastFocused.focus();
+    }else{
+      toggle.focus();
+    }
+  }
 
   toggle.addEventListener("click", ()=>{
-    const isOpen = document.body.classList.toggle("nav-open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
+    const isOpen = document.body.classList.contains("nav-open");
+    if(isOpen){
+      closeNav();
+    }else{
+      openNav();
+    }
   });
 
   nav.querySelectorAll("a").forEach(link=>{
     link.addEventListener("click", ()=>{
-      document.body.classList.remove("nav-open");
-      toggle.setAttribute("aria-expanded", "false");
+      if(document.body.classList.contains("nav-open")){
+        closeNav();
+      }
     });
   });
+
+  overlay?.addEventListener("click", closeNav);
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && document.body.classList.contains("nav-open")){
+      closeNav();
+    }
+  });
+
+  panel.addEventListener("keydown", trapFocus);
+
+  window.addEventListener("resize", ()=>{
+    if(window.innerWidth > 768 && document.body.classList.contains("nav-open")){
+      closeNav();
+    }
+  });
+}
+
+/* =========================
+   STICKY HEADER (MOBILE)
+========================= */
+function initStickyHeader(){
+  const header = document.querySelector("header");
+  if(!header) return;
+  let lastScroll = window.scrollY;
+  let ticking = false;
+
+  function update(){
+    const isMobile = window.innerWidth <= 768;
+    if(!isMobile){
+      header.classList.remove("header-hidden");
+      return;
+    }
+    const currentScroll = window.scrollY;
+    const delta = currentScroll - lastScroll;
+    if(currentScroll < 12){
+      header.classList.remove("header-hidden");
+    }else if(delta > 6){
+      header.classList.add("header-hidden");
+    }else if(delta < -6){
+      header.classList.remove("header-hidden");
+    }
+    lastScroll = currentScroll;
+  }
+
+  function onScroll(){
+    if(!ticking){
+      window.requestAnimationFrame(()=>{
+        update();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", update);
 }
 
 /* =========================
@@ -219,6 +329,84 @@ function initClocks(){
 }
 
 /* =========================
+   MOBILE SUBSCRIBE CTA
+========================= */
+function initMobileCta(){
+  const cta = document.querySelector("[data-cta-bar]");
+  const action = document.querySelector("[data-cta-action]");
+  const close = document.querySelector("[data-cta-close]");
+  const subscribeSection = document.getElementById("subscribe");
+  if(!cta || !action || !close || !subscribeSection) return;
+
+  const storageKey = "bezeru-cta-dismissed";
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let isInSubscribe = false;
+
+  function isDismissed(){
+    try{
+      const stored = localStorage.getItem(storageKey);
+      if(!stored) return false;
+      const parsed = JSON.parse(stored);
+      if(parsed.expires && Date.now() < parsed.expires) return true;
+      localStorage.removeItem(storageKey);
+      return false;
+    }catch(err){
+      return false;
+    }
+  }
+
+  function setDismissed(){
+    try{
+      const expires = Date.now() + 7 * 24 * 60 * 60 * 1000;
+      localStorage.setItem(storageKey, JSON.stringify({ expires }));
+    }catch(err){
+      // ignore storage errors
+    }
+  }
+
+  function setVisible(visible){
+    cta.setAttribute("aria-hidden", visible ? "false" : "true");
+    document.body.classList.toggle("cta-visible", visible);
+  }
+
+  function updateVisibility(){
+    if(window.innerWidth > 768){
+      setVisible(false);
+      return;
+    }
+    if(isDismissed() || isInSubscribe){
+      setVisible(false);
+      return;
+    }
+    setVisible(true);
+  }
+
+  action.addEventListener("click", ()=>{
+    subscribeSection.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start"
+    });
+  });
+
+  close.addEventListener("click", ()=>{
+    setDismissed();
+    updateVisibility();
+  });
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      isInSubscribe = entry.isIntersecting;
+      updateVisibility();
+    });
+  }, { threshold: 0.2 });
+
+  observer.observe(subscribeSection);
+
+  updateVisibility();
+  window.addEventListener("resize", updateVisibility);
+}
+
+/* =========================
    POSTS RENDERING
 ========================= */
 const FEATURED_POST_ID = "independents-replacing-hype-001";
@@ -238,7 +426,7 @@ function postCardHTML(post){
   return `
     <article class="card">
       <a class="card-media" href="${href}">
-        <img src="${image}" alt="${post.title}" loading="lazy" />
+        <img class="card-image" src="${image}" alt="${post.title}" loading="lazy" decoding="async" />
       </a>
       <div class="card-body">
         <div class="meta">
@@ -339,8 +527,22 @@ async function renderArticle(){
 
   if(heroImgEl){
     const heroSrc = getHeroImage(post);
-    heroImgEl.src = heroSrc;
-    heroImgEl.alt = post.title || "Featured image";
+    const heroWrap = heroImgEl.closest(".article-hero-media");
+    if(post.id === "independents-replacing-hype-001"){
+      if(heroWrap){
+        heroWrap.hidden = true;
+        heroWrap.setAttribute("aria-hidden", "true");
+      }
+      heroImgEl.removeAttribute("src");
+      heroImgEl.removeAttribute("alt");
+    }else{
+      if(heroWrap){
+        heroWrap.hidden = false;
+        heroWrap.removeAttribute("aria-hidden");
+      }
+      heroImgEl.src = heroSrc;
+      heroImgEl.alt = post.title || "Featured image";
+    }
   }
 
   if(relatedEl){
@@ -357,6 +559,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initDropdowns();
   initClocks();
   initMobileNav();
+  initStickyHeader();
+  initMobileCta();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");
