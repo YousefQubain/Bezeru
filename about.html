@@ -5,36 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About | BEZERU</title>
 
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 
 <body data-page="about">
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="index.html">
-        <span class="word">BEZERU</span>
-        <span class="jp">ベゼル</span>
-      </a>
+  <!-- HEADER (same everywhere) -->
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <a class="brand" href="index.html">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-        <span class="nav-toggle-bars" aria-hidden="true">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </span>
-        <span class="nav-toggle-label">Menu</span>
-      </button>
-
-      <nav id="primary-nav" class="site-nav" aria-label="Primary">
-        <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
-        <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
-          <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link" href="archive.html">Archive</a>
-          <a class="nav-link active" href="about.html">About</a>
-          <a class="nav-link" href="subscribe.html">Subscribe</a>
+        <div class="clocks">
+          <div class="clock"><div class="city">NEW YORK</div><canvas id="ny"></canvas><div class="time" id="ny-time"></div></div>
+          <div class="clock"><div class="city">LONDON</div><canvas id="lon"></canvas><div class="time" id="lon-time"></div></div>
+          <div class="clock"><div class="city">GENEVA</div><canvas id="gen"></canvas><div class="time" id="gen-time"></div></div>
+          <div class="clock"><div class="city">TOKYO</div><canvas id="tok"></canvas><div class="time" id="tok-time"></div></div>
         </div>
-      </nav>
+
+        <div class="header-spacer"></div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+          <span class="nav-toggle-bars" aria-hidden="true">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+        <nav id="primary-nav">
+          <div class="nav-panel">
+          <a class="nav-link" href="index.html">Home</a>
+
+          <a class="nav-link active" href="about.html">About</a>
+
+          <div class="dropdown">
+            <button class="dd-btn">Read <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dd-btn">Types <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dd-btn">Brands <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
+            </div>
+          </div>
+
+          <a class="nav-link" href="shop.html">Shop</a>
+          </div>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -45,7 +91,7 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-photo">
-            <img src="images/yousef.jpg" alt="Yousef Qubain portrait" />
+            <img src="images/yousef.jpg" alt="Yousef Qubain portrait" loading="lazy" decoding="async" width="800" height="1000" />
           </div>
           <div class="about-card">
             <h1>About BEZERU</h1>
