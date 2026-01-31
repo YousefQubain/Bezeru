@@ -11,70 +11,140 @@
     gtag('config', 'G-312HY6RE8D');
   </script>
   <title>BEZERU — Timeless Stories in Timepieces</title>
-  <link rel="stylesheet" href="../style.css?v=3" />
+  <link rel="stylesheet" href="../style.css" />
   <script src="../script.js" defer></script>
 </head>
 
 <body data-page="static-article">
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="../index.html">
-        <span class="word">BEZERU</span>
-        <span class="jp">ベゼル</span>
-      </a>
+  <header>
+    <div class="container">
+      <div class="header-row">
+        <a class="brand" href="../index.html">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-        <span class="nav-toggle-bars" aria-hidden="true">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </span>
-        <span class="nav-toggle-label">Menu</span>
-      </button>
-
-      <nav id="primary-nav" class="site-nav" aria-label="Primary">
-        <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
-        <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
-          <a class="nav-link" href="../index.html">Home</a>
-          <a class="nav-link" href="../archive.html">Archive</a>
-          <a class="nav-link" href="../about.html">About</a>
-          <a class="nav-link" href="../subscribe.html">Subscribe</a>
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
+          </div>
         </div>
-      </nav>
+
+        <div class="header-spacer"></div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+          <span class="nav-toggle-bars" aria-hidden="true">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+        <nav id="primary-nav">
+          <div class="nav-panel">
+          <a class="nav-link" href="../index.html">Home</a>
+
+          <a class="nav-link" href="../about.html">About</a>
+
+          <div class="dropdown dd-open" data-dd="articles">
+            <button class="dd-btn active" type="button">
+              Read <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Read">
+              <a href="../articles.html#latest">Latest</a>
+              <a href="../articles.html#design">Design</a>
+              <a href="../articles.html#guides">Guides</a>
+              <a href="../articles.html#vintage">Vintage</a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="types">
+            <button class="dd-btn" type="button">
+              Types <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Types">
+              <a href="../types.html#dress">Dress</a>
+              <a href="../types.html#diver">Diver</a>
+              <a href="../types.html#chrono">Chronograph</a>
+              <a href="../types.html#gmt">Travel</a>
+              <a href="../types.html#comp">Complications</a>
+            </div>
+          </div>
+
+          <div class="dropdown" data-dd="brands">
+            <button class="dd-btn" type="button">
+              Brands <span class="chev"></span>
+            </button>
+            <div class="dd-menu" role="menu" aria-label="Brands">
+              <a href="../brands.html#rolex">Rolex</a>
+              <a href="../brands.html#cartier">Cartier</a>
+              <a href="../brands.html#piaget">Piaget</a>
+              <a href="../brands.html#iwc">IWC</a>
+            </div>
+          </div>
+
+          <a class="nav-link" href="../shop.html">Shop</a>
+          </div>
+        </nav>
+      </div>
     </div>
   </header>
 
   <main class="page article-page">
     <section class="article-hero">
       <div class="container">
-        <a class="back-link" href="../archive.html">Back to Archive</a>
+        <a class="back-link" href="../index.html">← Back to Home</a>
 
         <article class="article-shell">
-          <header class="article-header">
-            <div class="article-kicker">Brands / Culture</div>
-            <h1 class="article-title">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</h1>
-            <div class="article-meta">
-              <span class="article-meta-item article-date">Jan 2026</span>
-              <span aria-hidden="true">·</span>
-              <span class="article-meta-item">5 min read</span>
-            </div>
-          </header>
+          <div class="article-meta">
+            <span class="article-meta-item">Brands / Culture</span>
+            <span aria-hidden="true">·</span>
+            <span class="article-meta-item article-date">Jan 2026</span>
+            <span aria-hidden="true">·</span>
+            <span class="article-meta-item">5 min read</span>
+          </div>
+
+          <h1 class="article-title">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</h1>
+          <p class="article-excerpt">
+            How two maisons are treating Middle Eastern influence not as a trend, but as a treasure.
+          </p>
 
           <div class="article-hero-media">
-            <img src="../images/AP.jpg" alt="Audemars Piguet and Vacheron Constantin watches" loading="lazy" />
+            <img src="../images/AP.jpg" alt="Audemars Piguet and Vacheron Constantin watches" loading="lazy" onerror="this.onerror=null;this.src='../images/thumb-default.jpg';" />
           </div>
 
           <div class="article-divider"></div>
 
           <div class="article-body">
-            <p><strong>Intro: Where Craft Meets Culture</strong> There’s something magical that happens when timekeeping becomes storytelling. In the world of high-end watches, few brands have managed to capture this magic quite like Audemars Piguet and Vacheron Constantin. Their recent creations don’t just measure time, they honor heritage, language, and the soul of the Middle East. From intricate mosque inspired engraving to dials graced with Eastern Arabic numerals, these watches reflect more than luxury, they reflect us.</p>
+            <p><strong>Intro: Where Craft Meets Culture</strong><br>There’s something magical that happens when timekeeping becomes storytelling. In the world of high-end watches, few brands have managed to capture this magic quite like Audemars Piguet and Vacheron Constantin. Their recent creations don’t just measure time, they honor heritage, language, and the soul of the Middle East. From intricate mosque inspired engraving to dials graced with Eastern Arabic numerals, these watches reflect more than luxury, they reflect us.</p>
 
             <h2>Audemars Piguet: A Conversation, Not Just a Collaboration</h2>
-            <p>When AP launched its “Create the Extraordinary” project in the UAE, it wasn’t a marketing move, it was a dialogue. Teaming up with collectors and creatives from the region, AP co-designed pieces that felt personal, local, and full of heart. Think: a Royal Oak Ultra Thin with a platinum rotor etched in arabesque patterns, or sleek ceramic editions featuring beautifully curved Eastern Arabic numerals.</p>
+            <p>When AP launched its "Create the Extraordinary" project in the UAE, it wasn’t a marketing move, it was a dialogue. Teaming up with collectors and creatives from the region, AP co-designed pieces that felt personal, local, and full of heart. Think: a Royal Oak Ultra Thin with a platinum rotor etched in arabesque patterns, or sleek ceramic editions featuring beautifully curved Eastern Arabic numerals.</p>
             <p>These watches don’t just sit on the wrist, they speak. They tell stories of tradition, elegance, and community. And with production runs as small as 25 pieces, they’re made not for the masses but for the few who see time as something deeply personal.</p>
 
             <h2>Vacheron Constantin: Art, Memory, and Reverence</h2>
-            <p>Vacheron has long been in quiet conversation with the Middle East. From crafting for royalty in the 1800s to creating contemporary masterpieces inspired by sacred spaces, this maison knows how to listen. The Les Cabinotiers Minute Repeater Tourbillon “Tribute to Arabesque” is one such example. Every swirl of engraving echoes the Sheikh Zayed Grand Mosque. Every component whispers reverence.</p>
+            <p>Vacheron has long been in quiet conversation with the Middle East. From crafting for royalty in the 1800s to creating contemporary masterpieces inspired by sacred spaces, this maison knows how to listen. The Les Cabinotiers Minute Repeater Tourbillon "Tribute to Arabesque" is one such example. Every swirl of engraving echoes the Sheikh Zayed Grand Mosque. Every component whispers reverence.</p>
             <p>Even simpler pieces like the American 1921 have taken on new life with green dials and Eastern Arabic numerals, respectful nods to cultural and spiritual values. Nothing feels forced; everything feels intentional.</p>
 
             <h2>Why This Matters</h2>
@@ -90,32 +160,23 @@
             <p class="article-author-note">Design-led watch writing with a focus on form, proportion, and the stories behind the dial.</p>
           </div>
 
-          <nav class="article-end-nav" aria-label="Article navigation">
-            <a class="article-nav-link" href="../archive.html">Back to Archive</a>
-            <div class="article-pagination">
-              <a class="article-nav-link" href="independents-that-are-quietly-replacing-hype.html">Previous story</a>
-            </div>
-          </nav>
-
           <section class="related-stories">
             <h2>Related stories</h2>
             <div class="card-grid">
               <article class="card">
-                <a class="card-link" href="independents-that-are-quietly-replacing-hype.html">
-                  <div class="card-media">
-                    <img src="../images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" />
-                  </div>
-                  <div class="card-body">
-                    <div class="card-kicker">Independent</div>
-                    <h3 class="card-title">Independents That Are Quietly Replacing Hype</h3>
-                    <p class="card-excerpt">Four independent brands collectors are watching, not for hype, but for design, intention, and long-term appeal.</p>
-                    <div class="card-meta">
-                      <time datetime="2026-01-27">Jan 2026</time>
-                      <span aria-hidden="true">·</span>
-                      <span>6 min read</span>
-                    </div>
-                  </div>
+                <a class="card-media" href="independents-that-are-quietly-replacing-hype.html">
+                  <img src="../images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" />
                 </a>
+                <div class="card-body">
+                  <div class="meta">
+                    <span class="tag">Underdogs</span>
+                    <time datetime="2026-01-27">Jan 2026</time>
+                  </div>
+                  <h3 class="card-title">
+                    <a href="independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a>
+                  </h3>
+                  <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
+                </div>
               </article>
             </div>
           </section>
@@ -134,7 +195,7 @@
             shaping modern taste.
           </div>
         </div>
-        <div class="footer-col">
+<div class="footer-col">
           <h4>Contact me</h4>
           <div class="footer-links">
             <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
