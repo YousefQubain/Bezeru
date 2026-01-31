@@ -14,6 +14,10 @@
     gtag('config', 'G-312HY6RE8D');
   </script>
   <title>BEZERU</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500,650&display=swap" rel="stylesheet">
 
   <!-- Social / sharing -->
   <meta property="og:title" content="BEZERU — Watches, explained with clarity and care">
@@ -27,74 +31,210 @@
   <meta name="twitter:image" content="https://bezeru.com/images/Article-1.jpg">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=2" />
   <script src="script.js" defer></script>
 </head>
 
 <body data-page="home">
+
+  <!-- ================= HEADER ================= -->
   <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="index.html">
-        <span class="word">BEZERU</span>
-        <span class="jp">ベゼル</span>
-      </a>
+    <div class="container">
+      <div class="header-row">
+        <a class="brand" href="index.html">
+          <div class="word">BEZERU</div>
+          <div class="jp">ベゼル</div>
+        </a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-        <span class="nav-toggle-bars" aria-hidden="true">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </span>
-        <span class="nav-toggle-label">Menu</span>
-      </button>
-
-      <nav id="primary-nav" class="site-nav" aria-label="Primary">
-        <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
-        <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
-          <a class="nav-link active" href="index.html">Home</a>
-          <a class="nav-link" href="archive.html">Archive</a>
-          <a class="nav-link" href="about.html">About</a>
-          <a class="nav-link" href="subscribe.html">Subscribe</a>
+        <!-- WORLD CLOCKS -->
+        <div class="clocks" aria-label="World time">
+          <div class="clock">
+            <div class="city">NEW YORK</div>
+            <canvas id="ny"></canvas>
+            <div class="time" id="ny-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">LONDON</div>
+            <canvas id="lon"></canvas>
+            <div class="time" id="lon-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">GENEVA</div>
+            <canvas id="gen"></canvas>
+            <div class="time" id="gen-time">--:--:--</div>
+          </div>
+          <div class="clock">
+            <div class="city">TOKYO</div>
+            <canvas id="tok"></canvas>
+            <div class="time" id="tok-time">--:--:--</div>
+          </div>
         </div>
-      </nav>
+
+        <div class="header-spacer"></div>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
+          <span class="nav-toggle-bars" aria-hidden="true">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="nav-wrap">
+      <div class="container">
+        <nav id="primary-nav" aria-label="Primary">
+          <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
+          <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
+          <a class="nav-link active" href="index.html">Home</a>
+
+          <a class="nav-link" href="about.html">About</a>
+
+          <div class="dropdown">
+            <button class="dd-btn">Read <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="articles.html#latest">Latest</a>
+              <a href="articles.html#design">Design</a>
+              <a href="articles.html#guides">Guides</a>
+              <a href="articles.html#vintage">Vintage</a>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dd-btn">Types <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="types.html#dress">Dress</a>
+              <a href="types.html#diver">Diver</a>
+              <a href="types.html#chrono">Chronograph</a>
+              <a href="types.html#gmt">Travel</a>
+              <a href="types.html#comp">Complications</a>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button class="dd-btn">Brands <span class="chev"></span></button>
+            <div class="dd-menu">
+              <a href="brands.html#rolex">Rolex</a>
+              <a href="brands.html#cartier">Cartier</a>
+              <a href="brands.html#piaget">Piaget</a>
+              <a href="brands.html#iwc">IWC</a>
+            </div>
+          </div>
+
+          <a class="nav-link" href="shop.html">Shop</a>
+          </div>
+        </nav>
+      </div>
     </div>
   </header>
 
+  <!-- ================= MAIN ================= -->
   <main>
-    <section class="hero-intro">
-      <div class="container hero-layout">
-        <div class="hero-copy">
-          <p class="hero-kicker">Bezeru Journal</p>
-          <h1 class="hero-title">Independent watchmaking, cultural context, and the quiet design details that collectors actually live with.</h1>
-          <a class="btn" href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Read the latest</a>
+    <section class="featured-hero container">
+      <div class="hero-left">
+        <div class="kicker">Featured</div>
+        <h1 class="hero-title">Independents That Are Quietly Replacing Hype</h1>
+        <p class="hero-sub">
+          Four names collectors are watching—often before anyone else catches on. A calm look at what’s rising, and why it matters.
+        </p>
+        <a class="btn" href="/articles/independents-that-are-quietly-replacing-hype.html">Read article</a>
+      </div>
+
+      <a class="hero-right" href="/articles/independents-that-are-quietly-replacing-hype.html" aria-label="Read featured article">
+        <img class="hero-image" src="/images/Andersen.jpg" alt="Featured story" decoding="async" width="1200" height="675">
+      </a>
+    </section>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- LEFT SIDE -->
+          <div class="hero-left">
+            <h1>Watches, explained with clarity and care.</h1>
+
+            <p class="lead">
+              Stories and guides on modern releases and vintage context, with an eye for design, how a watch wears,
+              long term value, and the cultural details that give watches meaning.
+            </p>
+
+            <p class="lead">
+              BEZERU is a place to slow down and look closely. We care about the pieces people live with, the
+              details that reward time on the wrist, and the quiet stories that make a watch feel personal.
+            </p>
+
+            <a class="cta hero-cta" href="articles.html">Explore articles →</a>
+          </div>
+
+          <!-- RIGHT SIDE -->
+          <div class="hero-card editor-note" aria-live="polite">
+            <p class="hero-kicker">Editor’s note</p>
+            <h3 class="hero-feature-title">Design-led watch writing, twice a week.</h3>
+            <p class="hero-feature-excerpt">
+              A calm edit of modern releases, vintage context, and independents worth knowing.
+            </p>
+            <a class="hero-feature-link" href="articles.html">Explore the archive →</a>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <section class="section latest">
+    <!-- FEATURED STORIES -->
+    <section class="section section-featured latest">
       <div class="container">
         <div class="section-head">
           <h2>Latest</h2>
-          <p>New writing, edited for clarity and ease.</p>
+          <p>New writing, edited for clarity.</p>
         </div>
-        <div id="latest-feature" class="featured-grid"></div>
+
+        <div class="card-grid" id="home-latest">
+          <article class="card">
+            <a class="card-media" href="/articles/independents-that-are-quietly-replacing-hype.html">
+              <img class="card-image" src="/images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" decoding="async" width="1200" height="675" />
+            </a>
+            <div class="card-body">
+              <div class="meta">
+                <span class="tag">Underdogs</span>
+                <time datetime="2026-01-27">Jan 2026</time>
+              </div>
+              <h3 class="card-title">
+                <a href="/articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a>
+              </h3>
+              <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="card-media" href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">
+              <img src="/images/AP.jpg" alt="Timeless Stories in Timepieces" loading="lazy" decoding="async" width="1200" height="675" onerror="this.onerror=null;this.src='/images/thumb-default.jpg';" />
+            </a>
+            <div class="card-body">
+              <div class="meta">
+                <span class="tag">Brands / Culture</span>
+                <time datetime="2026-01-29">Jan 2026</time>
+              </div>
+              <h3 class="card-title">
+                <a href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</a>
+              </h3>
+              <p class="card-excerpt">How two maisons are treating Middle Eastern influence not as a trend, but as a treasure.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="section more">
-      <div class="container">
-        <div class="section-head">
-          <h2>More from Bezeru</h2>
-          <p>Two stories so far, with more in progress.</p>
-        </div>
-        <div id="more-grid" class="card-grid"></div>
-      </div>
-    </section>
   </main>
 
+  <!-- ================= FOOTER ================= -->
   <footer class="footer-pro">
     <div class="container">
       <div class="footer-grid">
@@ -105,6 +245,19 @@
             shaping modern taste.
           </div>
         </div>
+
+        <div class="footer-col" id="subscribe">
+          <h4>Subscribe</h4>
+          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
+          <iframe
+  src="https://bezeru.substack.com/embed"
+  style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
+  frameborder="0"
+  scrolling="no">
+</iframe>
+          <div class="form-status" role="status" aria-live="polite"></div>
+        </div>
+
         <div class="footer-col">
           <h4>Contact me</h4>
           <div class="footer-links">
@@ -134,5 +287,6 @@
     <button class="mobile-cta-button" type="button" data-cta-action>Subscribe</button>
     <button class="mobile-cta-close" type="button" data-cta-close aria-label="Dismiss subscribe prompt">×</button>
   </div>
+
 </body>
 </html>
