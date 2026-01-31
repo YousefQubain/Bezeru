@@ -418,8 +418,37 @@ async function loadPosts(){
   return data.posts || [];
 }
 
+async function loadArticles(){
+  const res = await fetch("/assets/data/articles.json", { cache: "no-store" });
+  if(!res.ok) throw new Error("Could not load articles.json");
+  return await res.json();
+}
+
+function articleCardHTML(article, variant = "standard"){
+  const dateLabel = formatDate(article.date);
+  const reading = article.readingTime ? `${article.readingTime} min read` : "";
+  const classes = variant === "featured" ? "card card-featured" : "card";
+  return `
+    <article class="${classes}">
+      <a class="card-link" href="${article.slug}">
+        <div class="card-media">
+          <img class="card-image" src="${article.cover}" alt="${article.title}" loading="lazy" decoding="async" />
+        </div>
+        <div class="card-body">
+          <div class="card-kicker">${article.category}</div>
+          <h3 class="card-title">${article.title}</h3>
+          <p class="card-excerpt">${article.excerpt || ""}</p>
+          <div class="card-meta">
+            <time datetime="${article.date || ""}">${dateLabel}</time>
+            ${reading ? `<span aria-hidden=\"true\">·</span><span>${reading}</span>` : ""}
+          </div>
+        </div>
+      </a>
+    </article>
+  `;
+}
+
 function postCardHTML(post){
-  const meta = getCardMeta(post);
   const image = post.image || post.thumbnail || "/images/Article-1.jpg";
   const dateLabel = formatDate(post.date);
   const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
@@ -481,17 +510,27 @@ function getHeroImage(post){
   return "/images/Article-1.jpg";
 }
 
-async function renderHomeLatest(posts){
-  const holder = document.getElementById("home-latest");
-  if(!holder) return;
-  if(holder.children.length > 0) return;
-  const data = posts || await loadPosts();
-  const sortedPosts = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
-  if(sortedPosts.length === 0){
-    holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+async function renderHomeLatest(){
+  const featureHolder = document.getElementById("latest-feature");
+  const moreHolder = document.getElementById("more-grid");
+  if(!featureHolder || !moreHolder) return;
+  if(featureHolder.children.length > 0 || moreHolder.children.length > 0) return;
+  const articles = await loadArticles();
+  const sorted = [...articles].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
+  if(sorted.length === 0){
+    featureHolder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
     return;
   }
-  holder.innerHTML = sortedPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
+  featureHolder.innerHTML = articleCardHTML(sorted[0], "featured");
+  moreHolder.innerHTML = sorted.slice(1).map((article)=> articleCardHTML(article)).join("");
+}
+
+async function renderArchiveGrid(){
+  const holder = document.getElementById("archive-grid");
+  if(!holder) return;
+  const articles = await loadArticles();
+  const sorted = [...articles].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
+  holder.innerHTML = sorted.map((article)=> articleCardHTML(article)).join("");
 }
 
 async function renderArticlesGrid(){
@@ -576,10 +615,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const page = document.body.getAttribute("data-page");
 
   try{
-    if(page === "home") {
-      const posts = await loadPosts();
-      await renderHomeLatest(posts);
-    }
+    if(page === "home") await renderHomeLatest();
+    if(page === "archive") await renderArchiveGrid();
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
   }catch(err){
