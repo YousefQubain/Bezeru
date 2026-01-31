@@ -17,7 +17,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500,650&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Social / sharing -->
   <meta property="og:title" content="BEZERU — Watches, explained with clarity and care">
@@ -43,7 +43,7 @@
 <body data-page="home">
 
   <!-- ================= HEADER ================= -->
-  <header>
+  <header class="site-header">
     <div class="container">
       <div class="header-row">
         <a class="brand" href="index.html">
@@ -76,13 +76,8 @@
         </div>
 
         <div class="header-spacer"></div>
-      </div>
-    </div>
 
-    <!-- NAV -->
-    <div class="nav-wrap">
-      <div class="container">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
           <span class="nav-toggle-bars" aria-hidden="true">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -90,11 +85,19 @@
           </span>
           <span class="nav-toggle-label">Menu</span>
         </button>
-        <nav id="primary-nav">
-          <div class="nav-panel">
-          <a class="nav-link active" href="index.html">Home</a>
+      </div>
+    </div>
 
+    <!-- NAV -->
+    <div class="nav-wrap">
+      <div class="container">
+        <nav id="primary-nav" aria-label="Primary">
+          <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
+          <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
+          <a class="nav-link active" href="index.html">Home</a>
+          <a class="nav-link" href="archive.html">Archive</a>
           <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="subscribe.html">Subscribe</a>
 
           <div class="dropdown">
             <button class="dd-btn">Read <span class="chev"></span></button>
@@ -136,100 +139,45 @@
 
   <!-- ================= MAIN ================= -->
   <main>
-    <section class="featured-hero container">
-      <div class="hero-left">
-        <div class="kicker">Featured</div>
-        <h1 class="hero-title">Independents That Are Quietly Replacing Hype</h1>
-        <p class="hero-sub">
-          Four names collectors are watching—often before anyone else catches on. A calm look at what’s rising, and why it matters.
-        </p>
-        <a class="btn" href="/articles/independents-that-are-quietly-replacing-hype.html">Read article</a>
-      </div>
-
-      <a class="hero-right" href="/articles/independents-that-are-quietly-replacing-hype.html" aria-label="Read featured article">
-        <img src="/images/Andersen.jpg" alt="Featured story">
-      </a>
-    </section>
-
-    <!-- HERO -->
     <section class="hero">
       <div class="container">
         <div class="hero-grid">
-          <!-- LEFT SIDE -->
           <div class="hero-left">
-            <h1>Watches, explained with clarity and care.</h1>
-
-            <p class="lead">
-              Stories and guides on modern releases and vintage context, with an eye for design, how a watch wears,
-              long term value, and the cultural details that give watches meaning.
-            </p>
-
-            <p class="lead">
-              BEZERU is a place to slow down and look closely. We care about the pieces people live with, the
-              details that reward time on the wrist, and the quiet stories that make a watch feel personal.
-            </p>
-
-            <a class="cta hero-cta" href="articles.html">Explore articles →</a>
+            <h1>Quiet luxury watch writing, shaped by design and culture.</h1>
+            <p class="lead">A calm archive of modern releases, vintage context, and independent voices.</p>
+            <a class="btn" href="#latest">Read the latest</a>
           </div>
-
-          <!-- RIGHT SIDE -->
           <div class="hero-card editor-note" aria-live="polite">
             <p class="hero-kicker">Editor’s note</p>
             <h3 class="hero-feature-title">Design-led watch writing, twice a week.</h3>
             <p class="hero-feature-excerpt">
-              A calm edit of modern releases, vintage context, and independents worth knowing.
+              Thoughtful coverage for collectors who care about proportion, wearability, and culture.
             </p>
-            <a class="hero-feature-link" href="articles.html">Explore the archive →</a>
+            <a class="hero-feature-link" href="archive.html">Explore the archive →</a>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- FEATURED STORIES -->
-    <section class="section section-featured latest">
+    <section class="section section-featured latest" id="latest">
       <div class="container">
         <div class="section-head">
           <h2>Latest</h2>
           <p>New writing, edited for clarity.</p>
         </div>
-
-        <div class="card-grid" id="home-latest">
-          <article class="card">
-            <a class="card-media" href="/articles/independents-that-are-quietly-replacing-hype.html">
-              <img src="/images/Andersen.jpg" alt="Independents That Are Quietly Replacing Hype" loading="lazy" />
-            </a>
-            <div class="card-body">
-              <div class="meta">
-                <span class="tag">Underdogs</span>
-                <time datetime="2026-01-27">Jan 2026</time>
-              </div>
-              <h3 class="card-title">
-                <a href="/articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a>
-              </h3>
-              <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <a class="card-media" href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">
-              <img src="/images/article-ap-vacheron-middle-east.jpg" alt="Timeless Stories in Timepieces" loading="lazy" onerror="this.onerror=null;this.src='/images/thumb-default.jpg';" />
-            </a>
-            <div class="card-body">
-              <div class="meta">
-                <span class="tag">Brands / Culture</span>
-                <time datetime="2026-01-29">Jan 2026</time>
-              </div>
-              <h3 class="card-title">
-                <a href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</a>
-              </h3>
-              <p class="card-excerpt">How two maisons are treating Middle Eastern influence not as a trend, but as a treasure.</p>
-            </div>
-          </article>
-        </div>
+        <div id="latest-featured"></div>
       </div>
     </section>
 
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Archive preview</h2>
+          <p>Collected stories across design, history, and culture.</p>
+        </div>
+        <div class="card-grid" id="archive-preview"></div>
+      </div>
+    </section>
   </main>
 
   <!-- ================= FOOTER ================= -->
@@ -238,43 +186,34 @@
       <div class="footer-grid">
         <div>
           <div class="footer-brand">BEZERU</div>
-          <div class="footer-text">
-            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
-            shaping modern taste.
-          </div>
+          <div class="footer-text">Independent watch editorial.</div>
         </div>
 
         <div class="footer-col">
           <h4>Subscribe</h4>
-          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <iframe
-  src="https://bezeru.substack.com/embed"
-  style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
-  frameborder="0"
-  scrolling="no">
-</iframe>
+          <p class="footer-note">Occasional essays. New articles only. No spam.</p>
+          <form class="subscribe-form" data-endpoint="https://buttondown.email/api/emails/embed-subscribe/bezeru">
+            <label class="sr-only" for="footer-subscribe-email">Email address</label>
+            <input id="footer-subscribe-email" type="email" name="email" autocomplete="email" placeholder="Email address" required />
+            <input class="hp-field" type="text" name="email_address" tabindex="-1" autocomplete="off" />
+            <button type="submit">Subscribe</button>
+            <p class="form-status" aria-live="polite"></p>
+          </form>
         </div>
 
         <div class="footer-col">
-          <h4>Contact me</h4>
+          <h4>Links</h4>
           <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Policies</h4>
-          <div class="footer-legal">
-            <a href="editorial-policy.html">Editorial Policy</a> · <a href="contributors-policy.html">Contributors</a> · <a href="affiliate-policy.html">Affiliate Disclosure</a> · <a href="disclaimer-policy.html">Disclaimer</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-policy.html">Terms</a>
+            <a href="archive.html">Archive</a>
+            <a href="about.html">About</a>
+            <a href="subscribe.html">Subscribe</a>
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+        <div>Independent watch editorial.</div>
       </div>
     </div>
   </footer>

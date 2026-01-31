@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BEZERU — Brands</title>
-
-  <link rel="icon" href="images/favicon.ico" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-312HY6RE8D');
+  </script>
+  <title>BEZERU — Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body data-page="brands">
+<body data-page="archive">
   <header>
     <div class="container">
       <div class="header-row">
@@ -61,7 +68,7 @@
           <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
           <div class="nav-panel" id="primary-nav-panel" role="dialog" aria-label="Primary navigation" aria-modal="true" aria-hidden="true">
           <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link" href="archive.html">Archive</a>
+          <a class="nav-link active" href="archive.html">Archive</a>
           <a class="nav-link" href="about.html">About</a>
           <a class="nav-link" href="subscribe.html">Subscribe</a>
 
@@ -103,62 +110,28 @@
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="kicker">WATCH BRANDS</div>
-        <h1>Brands</h1>
-        <p class="lead">
-          The iconic houses worth knowing — from Swiss staples to Japan’s benchmark for value.
-        </p>
-      </div>
-    </section>
-
+  <main class="page">
     <section class="section">
       <div class="container">
-        <div class="grid">
-          <div class="card" id="rolex">
-            <span class="badge">Rolex</span>
-            <h3>Rolex</h3>
-            <p>Tool-first icons that became luxury signals: Submariner, GMT-Master, and Day-Date.</p>
-          </div>
+        <div class="section-head">
+          <h1>Archive</h1>
+          <p>Browse the full collection by theme or search.</p>
+        </div>
 
-          <div class="card" id="omega">
-            <span class="badge">Omega</span>
-            <h3>Omega</h3>
-            <p>Space history, diver credibility, and modern movements — Speedmaster and Seamaster lead.</p>
+        <div class="archive-controls">
+          <div class="archive-filters">
+            <button class="filter-pill is-active" type="button" data-filter="all">All</button>
+            <button class="filter-pill" type="button" data-filter="underdogs">Independent</button>
+            <button class="filter-pill" type="button" data-filter="brands">Brands</button>
+            <button class="filter-pill" type="button" data-filter="middle east">Middle East</button>
           </div>
-
-          <div class="card" id="patek">
-            <span class="badge">Patek</span>
-            <h3>Patek Philippe</h3>
-            <p>High-end complications with restrained design; a benchmark for heirloom watchmaking.</p>
-          </div>
-
-          <div class="card" id="audemars">
-            <span class="badge">A.P.</span>
-            <h3>Audemars Piguet</h3>
-            <p>Royal Oak design DNA and sporty-luxury cases that set the modern template.</p>
-          </div>
-
-          <div class="card" id="cartier">
-            <span class="badge">Cartier</span>
-            <h3>Cartier</h3>
-            <p>Shape-driven watchmaking with timeless silhouettes — Tank, Santos, and Ballon Bleu.</p>
-          </div>
-
-          <div class="card" id="seiko">
-            <span class="badge">Seiko</span>
-            <h3>Seiko</h3>
-            <p>From mechanical reliability to Grand Seiko polish, Japan’s cornerstone brand.</p>
-          </div>
-
-          <div class="card" id="tudor">
-            <span class="badge">Tudor</span>
-            <h3>Tudor</h3>
-            <p>Robust, vintage-informed sports watches with modern proportions and value.</p>
+          <div class="archive-search">
+            <label class="sr-only" for="archive-search">Search articles</label>
+            <input id="archive-search" type="search" placeholder="Search by title or excerpt" />
           </div>
         </div>
+
+        <div class="card-grid" id="archive-grid"></div>
       </div>
     </section>
   </main>

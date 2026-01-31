@@ -56,19 +56,129 @@ function initDropdowns(){
 function initMobileNav(){
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("primary-nav");
-  if(!toggle || !nav) return;
+  const panel = document.getElementById("primary-nav-panel");
+  const overlay = nav ? nav.querySelector("[data-nav-overlay]") : null;
+  if(!toggle || !nav || !panel) return;
+
+  const focusableSelector = [
+    "a[href]",
+    "button:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])"
+  ].join(",");
+
+  let lastFocused = null;
+  panel.setAttribute("aria-hidden", "true");
+
+  function trapFocus(e){
+    if(e.key !== "Tab") return;
+    const focusables = panel.querySelectorAll(focusableSelector);
+    if(!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if(e.shiftKey && document.activeElement === first){
+      e.preventDefault();
+      last.focus();
+    }else if(!e.shiftKey && document.activeElement === last){
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function openNav(){
+    lastFocused = document.activeElement;
+    document.body.classList.add("nav-open");
+    panel.setAttribute("aria-hidden", "false");
+    toggle.setAttribute("aria-expanded", "true");
+    overlay?.classList.add("is-visible");
+    const focusTarget = panel.querySelector(focusableSelector);
+    if(focusTarget) focusTarget.focus();
+  }
+
+  function closeNav(){
+    document.body.classList.remove("nav-open");
+    panel.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+    overlay?.classList.remove("is-visible");
+    if(lastFocused && lastFocused.focus){
+      lastFocused.focus();
+    }else{
+      toggle.focus();
+    }
+  }
 
   toggle.addEventListener("click", ()=>{
-    const isOpen = document.body.classList.toggle("nav-open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
+    const isOpen = document.body.classList.contains("nav-open");
+    if(isOpen){
+      closeNav();
+    }else{
+      openNav();
+    }
   });
 
   nav.querySelectorAll("a").forEach(link=>{
     link.addEventListener("click", ()=>{
-      document.body.classList.remove("nav-open");
-      toggle.setAttribute("aria-expanded", "false");
+      if(document.body.classList.contains("nav-open")){
+        closeNav();
+      }
     });
   });
+
+  overlay?.addEventListener("click", closeNav);
+
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && document.body.classList.contains("nav-open")){
+      closeNav();
+    }
+  });
+
+  panel.addEventListener("keydown", trapFocus);
+
+  window.addEventListener("resize", ()=>{
+    if(window.innerWidth > 768 && document.body.classList.contains("nav-open")){
+      closeNav();
+    }
+  });
+}
+
+/* =========================
+   STICKY HEADER (MOBILE)
+========================= */
+function initStickyHeader(){
+  const header = document.querySelector("header");
+  if(!header) return;
+  let lastScroll = window.scrollY;
+  let ticking = false;
+
+  function update(){
+    const isMobile = window.innerWidth <= 768;
+    if(!isMobile){
+      header.classList.remove("header-hidden");
+      return;
+    }
+    const currentScroll = window.scrollY;
+    const delta = currentScroll - lastScroll;
+    if(currentScroll < 12){
+      header.classList.remove("header-hidden");
+    }else if(delta > 6){
+      header.classList.add("header-hidden");
+    }else if(delta < -6){
+      header.classList.remove("header-hidden");
+    }
+    lastScroll = currentScroll;
+  }
+
+  function onScroll(){
+    if(!ticking){
+      window.requestAnimationFrame(()=>{
+        update();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", update);
 }
 
 /* =========================
@@ -223,32 +333,34 @@ function initClocks(){
 ========================= */
 const FEATURED_POST_ID = "independents-replacing-hype-001";
 
-async function loadPosts(){
-  const res = await fetch("posts.json", { cache: "no-store" });
-  if(!res.ok) throw new Error("Could not load posts.json");
+async function loadArticles(){
+  const res = await fetch("articles.json", { cache: "no-store" });
+  if(!res.ok) throw new Error("Could not load articles.json");
   const data = await res.json();
-  return data.posts || [];
+  return data.articles || [];
 }
 
-function postCardHTML(post){
-  const meta = getCardMeta(post);
+function postCardHTML(post, opts = {}){
   const image = post.image || post.thumbnail || "/images/Article-1.jpg";
   const dateLabel = formatDate(post.date);
+  const readTime = formatReadingTime(post);
   const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const isFeatured = opts.featured ? " card-featured" : "";
   return `
-    <article class="card">
+    <article class="card${isFeatured}" data-card-link="${href}" tabindex="0" role="link" aria-label="${post.title}">
       <a class="card-media" href="${href}">
-        <img src="${image}" alt="${post.title}" loading="lazy" />
+        <img class="card-image" src="${image}" alt="${post.title}" loading="lazy" decoding="async" />
       </a>
       <div class="card-body">
-        <div class="meta">
-          <span class="tag">${post.category || "Latest"}</span>
-          <time datetime="${post.date || ""}">${dateLabel}</time>
-        </div>
+        <div class="card-kicker">${post.category || "Latest"}</div>
         <h3 class="card-title">
           <a href="${href}">${post.title}</a>
         </h3>
         <p class="card-excerpt">${post.excerpt || ""}</p>
+        <div class="card-meta-row">
+          <time datetime="${post.date || ""}">${dateLabel}</time>
+          <span>${readTime}</span>
+        </div>
       </div>
     </article>
   `;
@@ -283,6 +395,27 @@ function getReadingTime(content){
   return Math.max(1, Math.ceil(words / 200));
 }
 
+function formatReadingTime(post){
+  const minutes = post.reading_time || getReadingTime(post.content_html);
+  return `${minutes} min read`;
+}
+
+function renderArticleNav(currentId, articles){
+  const navEl = document.getElementById("article-nav");
+  if(!navEl || !currentId) return;
+  const sorted = [...articles].sort((a, b)=> new Date(a.date || 0) - new Date(b.date || 0));
+  const index = sorted.findIndex(item => item.id === currentId);
+  if(index === -1) return;
+  const prev = sorted[index - 1];
+  const next = sorted[index + 1];
+  navEl.innerHTML = `
+    <div class="article-nav-links">
+      ${prev ? `<a class="article-nav-link" href="${prev.url}">← ${prev.title}</a>` : ""}
+      ${next ? `<a class="article-nav-link" href="${next.url}">${next.title} →</a>` : ""}
+    </div>
+  `;
+}
+
 function getHeroImage(post){
   if(post.image) return post.image;
   if(post.thumbnail) return post.thumbnail;
@@ -293,11 +426,11 @@ function getHeroImage(post){
   return "/images/Article-1.jpg";
 }
 
-async function renderHomeLatest(posts){
+async function renderHomeLatest(articles){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
   if(holder.children.length > 0) return;
-  const data = posts || await loadPosts();
+  const data = articles || await loadArticles();
   const sortedPosts = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
   if(sortedPosts.length === 0){
     holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
@@ -306,11 +439,59 @@ async function renderHomeLatest(posts){
   holder.innerHTML = sortedPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
 }
 
-async function renderArticlesGrid(){
-  const holder = document.getElementById("articles-grid");
+async function renderLatestFeatured(articles){
+  const holder = document.getElementById("latest-featured");
   if(!holder) return;
-  const posts = await loadPosts();
-  holder.innerHTML = posts.map(postCardHTML).join("");
+  const data = articles || await loadArticles();
+  const sorted = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
+  if(sorted.length === 0){
+    holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+    return;
+  }
+  holder.innerHTML = postCardHTML(sorted[0], { featured: true });
+}
+
+async function renderArchivePreview(articles){
+  const holder = document.getElementById("archive-preview");
+  if(!holder) return;
+  const data = articles || await loadArticles();
+  const sorted = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
+  holder.innerHTML = sorted.slice(0, 6).map(postCardHTML).join("");
+}
+
+async function renderArchivePage(){
+  const grid = document.getElementById("archive-grid");
+  const filters = document.querySelectorAll("[data-filter]");
+  const search = document.getElementById("archive-search");
+  if(!grid) return;
+  const articles = await loadArticles();
+  const sorted = [...articles].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
+  grid.innerHTML = sorted.map(postCardHTML).join("");
+
+  function applyFilter(){
+    const term = (search?.value || "").toLowerCase();
+    const active = document.querySelector("[data-filter].is-active")?.dataset.filter || "all";
+    const cards = grid.querySelectorAll(".card");
+    cards.forEach(card=>{
+      const title = card.querySelector(".card-title")?.textContent.toLowerCase() || "";
+      const excerpt = card.querySelector(".card-excerpt")?.textContent.toLowerCase() || "";
+      const kicker = card.querySelector(".card-kicker")?.textContent.toLowerCase() || "";
+      const matchesTerm = !term || title.includes(term) || excerpt.includes(term);
+      const matchesFilter = active === "all" || kicker.includes(active);
+      card.style.display = matchesTerm && matchesFilter ? "" : "none";
+    });
+  }
+
+  filters.forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      filters.forEach(item=> item.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      applyFilter();
+    });
+  });
+
+  search?.addEventListener("input", applyFilter);
+}
 }
 
 async function renderArticle(){
@@ -327,20 +508,34 @@ async function renderArticle(){
 
   const params = new URLSearchParams(location.search);
   const id = params.get("id");
-  const posts = await loadPosts();
+  const posts = await loadArticles();
   const post = posts.find(p => p.id === id) || posts[0];
 
   titleEl.textContent = post.title;
   categoryEl.textContent = post.category || "Article";
   dateEl.textContent  = formatDate(post.date);
-  readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
+  readTimeEl.textContent = formatReadingTime(post);
   ledeEl.textContent  = post.excerpt;
   bodyEl.innerHTML    = post.content_html;
 
   if(heroImgEl){
     const heroSrc = getHeroImage(post);
-    heroImgEl.src = heroSrc;
-    heroImgEl.alt = post.title || "Featured image";
+    const heroWrap = heroImgEl.closest(".article-hero-media");
+    if(post.id === "independents-replacing-hype-001"){
+      if(heroWrap){
+        heroWrap.hidden = true;
+        heroWrap.setAttribute("aria-hidden", "true");
+      }
+      heroImgEl.removeAttribute("src");
+      heroImgEl.removeAttribute("alt");
+    }else{
+      if(heroWrap){
+        heroWrap.hidden = false;
+        heroWrap.removeAttribute("aria-hidden");
+      }
+      heroImgEl.src = heroSrc;
+      heroImgEl.alt = post.title || "Featured image";
+    }
   }
 
   if(relatedEl){
@@ -351,12 +546,87 @@ async function renderArticle(){
       relatedEl.innerHTML = relatedPosts.map(postCardHTML).join("");
     }
   }
+
+  renderArticleNav(post.id, posts);
+}
+
+function initCardClick(){
+  document.querySelectorAll("[data-card-link]").forEach(card=>{
+    card.addEventListener("click", (event)=>{
+      if(event.target.closest("a")) return;
+      const href = card.getAttribute("data-card-link");
+      if(href) window.location.href = href;
+    });
+    card.addEventListener("keydown", (event)=>{
+      if(event.key === "Enter" || event.key === " "){
+        event.preventDefault();
+        const href = card.getAttribute("data-card-link");
+        if(href) window.location.href = href;
+      }
+    });
+  });
+}
+
+function initSubscribeForms(){
+  const forms = document.querySelectorAll(".subscribe-form");
+  if(!forms.length) return;
+
+  forms.forEach(form=>{
+    const status = form.querySelector(".form-status");
+    const endpoint = form.dataset.endpoint;
+    if(!endpoint) return;
+
+    form.addEventListener("submit", async (event)=>{
+      event.preventDefault();
+      const formData = new FormData(form);
+      if(formData.get("email_address")){
+        return;
+      }
+      if(status) status.textContent = "Submitting…";
+      try{
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: formData
+        });
+        if(res.ok){
+          form.reset();
+          if(status) status.textContent = "Thanks for subscribing.";
+        }else{
+          if(status) status.textContent = "Something went wrong. Please try again.";
+        }
+      }catch(err){
+        if(status) status.textContent = "Something went wrong. Please try again.";
+      }
+    });
+  });
+}
+
+async function initStaticArticleNav(){
+  const currentId = document.body.dataset.articleId;
+  if(!currentId) return;
+  const articles = await loadArticles();
+  renderArticleNav(currentId, articles);
+}
+
+function initComments(){
+  document.querySelectorAll("[data-load-comments]").forEach(button=>{
+    button.addEventListener("click", ()=>{
+      const placeholder = button.parentElement?.querySelector(".comment-placeholder");
+      if(placeholder){
+        placeholder.textContent = "Comments will appear here once the discussion space is enabled.";
+      }
+    });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
   initDropdowns();
   initClocks();
   initMobileNav();
+  initStickyHeader();
+  initSubscribeForms();
+  initComments();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");
@@ -373,12 +643,17 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
   try{
     if(page === "home") {
-      const posts = await loadPosts();
-      await renderHomeLatest(posts);
+      const articles = await loadArticles();
+      await renderLatestFeatured(articles);
+      await renderArchivePreview(articles);
+      await renderHomeLatest(articles);
     }
-    if(page === "articles") await renderArticlesGrid();
+    if(page === "archive") await renderArchivePage();
     if(page === "article") await renderArticle();
+    if(page === "static-article") await initStaticArticleNav();
   }catch(err){
     console.warn(err);
+  }finally{
+    initCardClick();
   }
 });
