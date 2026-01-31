@@ -1609,6 +1609,8 @@ body{
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16.5px;
+  line-height: 1.65;
 }
 
 .container{
@@ -1623,6 +1625,21 @@ main, .page, .content, body[data-page="home"] .container{
 h1, h2, h3{
   font-family: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
   letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+a{
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.nav-link,
+.dd-btn,
+.cta,
+.hero-feature-link,
+.card-title a,
+.footer-links a,
+.footer-legal a{
+  transition: color 160ms ease, opacity 160ms ease, text-decoration-color 160ms ease;
 }
 
 p{
@@ -1646,14 +1663,18 @@ p{
   transition: transform 160ms ease, opacity 160ms ease;
 }
 .btn:hover{ transform: translateY(-1px); opacity: 0.95; }
+.btn:focus-visible{
+  outline: 2px solid rgba(29,78,216,0.45);
+  outline-offset: 3px;
+}
 
 /* FEATURED HERO */
 .featured-hero{
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 18px;
-  margin-top: 18px;
-  margin-bottom: 26px;
+  margin-top: 20px;
+  margin-bottom: 28px;
   padding: 18px;
   background: var(--paper);
   border: 1px solid var(--line);
@@ -1697,11 +1718,11 @@ p{
   transform: scale(1.01);
   transition: transform 250ms ease;
 }
-.hero-right:hover img{ transform: scale(1.06); }
+.hero-right:hover img{ transform: scale(1.04); }
 
 /* LATEST */
 .latest{
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .latest .section-head{
@@ -1754,7 +1775,7 @@ p{
   transform: scale(1.01);
   transition: transform 250ms ease;
 }
-.card:hover .card-media img{ transform: scale(1.07); }
+.card:hover .card-media img{ transform: scale(1.04); }
 
 .card-body{
   padding: 14px 14px 16px 14px;
