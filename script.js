@@ -484,6 +484,7 @@ function getHeroImage(post){
 async function renderHomeLatest(posts){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
+  if(holder.children.length > 0) return;
   const data = posts || await loadPosts();
   const sortedPosts = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
   if(sortedPosts.length === 0){
