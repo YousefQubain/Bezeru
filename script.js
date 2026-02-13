@@ -576,8 +576,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
   try{
     if(page === "home") {
-      const posts = await loadPosts();
-      await renderHomeLatest(posts);
+      // Home latest cards are intentionally maintained in static markup.
     }
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
