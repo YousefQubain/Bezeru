@@ -777,33 +777,86 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   document.addEventListener("DOMContentLoaded", initPremiumAudioBar);
 })();
 
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("subscribe-form");
   const input = document.getElementById("subscribe-email");
-  if (!form) return;
+  const button = document.getElementById("subscribe-button");
+  const statusEl = document.getElementById("subscribe-status");
+  if (!form || !input || !button || !statusEl) return;
 
-  const eventParams = () => ({
+  // TODO: replace after deploying Worker
+  const WORKER_ENDPOINT = "YOUR_WORKER_URL"; // e.g. https://bezeru-subscribe.yourname.workers.dev/subscribe
+
+  const baseParams = () => ({
     location: form.dataset.location || "unknown",
     page_path: window.location.pathname
   });
 
-  // Track first intent (focus)
-  if (input) {
-    input.addEventListener(
-      "focus",
-      () => {
-        if (typeof window.gtag === "function") {
-          window.gtag("event", "subscribe_focus", eventParams());
-        }
-      },
-      { once: true }
-    );
+  function ga(eventName, extra = {}) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", eventName, { ...baseParams(), ...extra });
+    }
   }
 
-  // Track submit (conversion proxy)
-  form.addEventListener("submit", () => {
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "subscribe_submit", eventParams());
+  input.addEventListener(
+    "focus",
+    () => ga("subscribe_focus"),
+    { once: true }
+  );
+
+  function setStatus(kind, msg) {
+    statusEl.classList.remove("is-success", "is-error");
+    if (kind) statusEl.classList.add(kind === "success" ? "is-success" : "is-error");
+    statusEl.textContent = msg;
+  }
+
+  function setLoading(isLoading) {
+    button.classList.toggle("is-loading", isLoading);
+    button.disabled = isLoading;
+    button.textContent = isLoading ? "Subscribing…" : "Subscribe";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = String(input.value || "").trim().toLowerCase();
+    const hp = form.querySelector('input[name="hp"]')?.value || "";
+
+    ga("subscribe_submit");
+
+    if (!email) {
+      setStatus("error", "Please enter your email.");
+      ga("subscribe_error", { error_reason: "empty_email" });
+      return;
+    }
+
+    setLoading(true);
+    setStatus("", "");
+
+    try {
+      const res = await fetch(WORKER_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, hp })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data && data.ok) {
+        setStatus("success", "You’re in. Check your inbox to confirm.");
+        input.value = "";
+        ga("subscribe_success");
+      } else {
+        const reason = (data && data.error) ? String(data.error) : `http_${res.status}`;
+        setStatus("error", "Something went wrong. Please try again.");
+        ga("subscribe_error", { error_reason: reason.slice(0, 80) });
+      }
+    } catch (err) {
+      setStatus("error", "Network error. Please try again.");
+      ga("subscribe_error", { error_reason: "network_error" });
+    } finally {
+      setLoading(false);
     }
   });
 });

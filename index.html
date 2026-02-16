@@ -268,29 +268,32 @@
             New watch stories, twice a week. Clean, collectible, and worth your time.
           </p>
 
-          <form
-            id="subscribe-form"
-            class="subscribe-form"
-            data-location="footer"
-            action="https://bezeru.substack.com/subscribe"
-            method="GET"
-            target="_blank"
-            rel="noopener"
-          >
+          <form id="subscribe-form" class="subscribe-form" data-location="footer" novalidate>
             <label class="sr-only" for="subscribe-email">Email address</label>
             <input
               id="subscribe-email"
               class="subscribe-input"
               type="email"
-              name="email"
               placeholder="Your email"
               autocomplete="email"
               required
             />
-            <button class="subscribe-button" type="submit">Subscribe</button>
+
+            <input
+              type="text"
+              name="hp"
+              class="sr-only"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+
+            <button id="subscribe-button" class="subscribe-button" type="submit">
+              Subscribe
+            </button>
           </form>
 
-          <p class="subscribe-note">
+          <p id="subscribe-status" class="subscribe-note" aria-live="polite">
             No spam. Unsubscribe anytime.
           </p>
         </div>
