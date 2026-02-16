@@ -778,6 +778,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 })();
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("subscribe-form");
   const input = document.getElementById("subscribe-email");
@@ -785,8 +786,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusEl = document.getElementById("subscribe-status");
   if (!form || !input || !button || !statusEl) return;
 
-  // TODO: replace after deploying Worker
-  const WORKER_ENDPOINT = "YOUR_WORKER_URL"; // e.g. https://bezeru-subscribe.yourname.workers.dev/subscribe
+  const WORKER_ENDPOINT = "YOUR_WORKER_URL"; // e.g. https://bezeru-subscribe.x.workers.dev/subscribe
 
   const baseParams = () => ({
     location: form.dataset.location || "unknown",
@@ -799,15 +799,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  input.addEventListener(
-    "focus",
-    () => ga("subscribe_focus"),
-    { once: true }
-  );
+  input.addEventListener("focus", () => ga("subscribe_focus"), { once: true });
 
   function setStatus(kind, msg) {
     statusEl.classList.remove("is-success", "is-error");
-    if (kind) statusEl.classList.add(kind === "success" ? "is-success" : "is-error");
+    if (kind === "success") statusEl.classList.add("is-success");
+    if (kind === "error") statusEl.classList.add("is-error");
     statusEl.textContent = msg;
   }
 
@@ -843,16 +840,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await res.json().catch(() => ({}));
 
-      if (res.ok && data && data.ok) {
-        setStatus("success", "You’re in. Check your inbox to confirm.");
+      if (res.ok && data.ok) {
+        setStatus("success", "You’re in — check your inbox to confirm.");
         input.value = "";
         ga("subscribe_success");
       } else {
-        const reason = (data && data.error) ? String(data.error) : `http_${res.status}`;
+        const reason = data?.error ? String(data.error) : `http_${res.status}`;
         setStatus("error", "Something went wrong. Please try again.");
         ga("subscribe_error", { error_reason: reason.slice(0, 80) });
       }
-    } catch (err) {
+    } catch {
       setStatus("error", "Network error. Please try again.");
       ga("subscribe_error", { error_reason: "network_error" });
     } finally {
