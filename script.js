@@ -481,19 +481,6 @@ function getHeroImage(post){
   return "/images/Article-1.jpg";
 }
 
-async function renderHomeLatest(posts){
-  const holder = document.getElementById("home-latest");
-  if(!holder) return;
-  if(holder.children.length > 0) return;
-  const data = posts || await loadPosts();
-  const sortedPosts = [...data].sort((a, b)=> new Date(b.date || 0) - new Date(a.date || 0));
-  if(sortedPosts.length === 0){
-    holder.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
-    return;
-  }
-  holder.innerHTML = sortedPosts.slice(0,3).map((post)=> postCardHTML(post)).join("");
-}
-
 async function renderArticlesGrid(){
   const holder = document.getElementById("articles-grid");
   if(!holder) return;
@@ -576,10 +563,6 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const page = document.body.getAttribute("data-page");
 
   try{
-    if(page === "home") {
-      const posts = await loadPosts();
-      await renderHomeLatest(posts);
-    }
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
   }catch(err){
