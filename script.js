@@ -571,3 +571,208 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     console.warn(err);
   }
 });
+
+// Premium per-article audio player (injects on article pages when audioUrl exists)
+(function () {
+  const SPEEDS = [1, 1.25, 1.5, 1.75, 2];
+
+  function formatTime(seconds) {
+    if (!isFinite(seconds) || seconds < 0) return "0:00";
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+
+  function storageKey(slug) {
+    return `bezeru_audio_progress:${slug}`;
+  }
+
+  function getSlugFromUrl() {
+    const path = location.pathname.split("/").pop() || "";
+    return path.replace(".html", "");
+  }
+
+  async function loadPosts() {
+    const res = await fetch("/posts.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`Failed to load posts.json: ${res.status}`);
+    const data = await res.json();
+    return data.posts || [];
+  }
+
+  function findPostForCurrentPage(posts) {
+    const slug = getSlugFromUrl();
+    return posts.find(p => (p.url || "").includes(slug)) || null;
+  }
+
+  function buildPlayer({ title, category, dateLabel, audioUrl, slug }) {
+    const wrap = document.createElement("section");
+    wrap.className = "audio-bar";
+    wrap.innerHTML = `
+      <div class="audio-bar__left">
+        <button class="audio-bar__btn audio-bar__play" type="button" aria-label="Play">
+          <span class="audio-bar__icon" data-icon="play">▶</span>
+        </button>
+      </div>
+
+      <div class="audio-bar__mid">
+        <div class="audio-bar__meta">
+          <div class="audio-bar__kicker">Listen</div>
+          <div class="audio-bar__title"></div>
+          <div class="audio-bar__sub"></div>
+        </div>
+
+        <div class="audio-bar__timeline" role="slider" aria-label="Audio progress" tabindex="0">
+          <div class="audio-bar__track"></div>
+          <div class="audio-bar__fill"></div>
+          <div class="audio-bar__thumb"></div>
+        </div>
+
+        <div class="audio-bar__time">
+          <span class="audio-bar__current">0:00</span>
+          <span class="audio-bar__sep">/</span>
+          <span class="audio-bar__duration">0:00</span>
+        </div>
+      </div>
+
+      <div class="audio-bar__right">
+        <button class="audio-bar__btn audio-bar__speed" type="button" aria-label="Playback speed">1x</button>
+      </div>
+
+      <audio class="audio-bar__audio" preload="metadata"></audio>
+    `;
+
+    wrap.querySelector(".audio-bar__title").textContent = title || "Listen to this article";
+    wrap.querySelector(".audio-bar__sub").textContent = `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim();
+
+    const audio = wrap.querySelector(".audio-bar__audio");
+    audio.src = audioUrl;
+
+    const playBtn = wrap.querySelector(".audio-bar__play");
+    const icon = wrap.querySelector(".audio-bar__icon");
+    const currentEl = wrap.querySelector(".audio-bar__current");
+    const durationEl = wrap.querySelector(".audio-bar__duration");
+    const timeline = wrap.querySelector(".audio-bar__timeline");
+    const fill = wrap.querySelector(".audio-bar__fill");
+    const thumb = wrap.querySelector(".audio-bar__thumb");
+    const speedBtn = wrap.querySelector(".audio-bar__speed");
+
+    let speedIndex = 0;
+
+    // Resume progress
+    const saved = localStorage.getItem(storageKey(slug));
+    if (saved) {
+      const savedTime = Number(saved);
+      if (isFinite(savedTime) && savedTime > 0) audio.currentTime = savedTime;
+    }
+
+    function setPlayingUI(playing) {
+      icon.textContent = playing ? "❚❚" : "▶";
+      icon.setAttribute("data-icon", playing ? "pause" : "play");
+      playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+      wrap.classList.toggle("is-playing", playing);
+    }
+
+    function updateTimeline() {
+      const dur = audio.duration || 0;
+      const cur = audio.currentTime || 0;
+      const pct = dur ? Math.min(1, Math.max(0, cur / dur)) : 0;
+      fill.style.width = `${pct * 100}%`;
+      thumb.style.left = `${pct * 100}%`;
+      currentEl.textContent = formatTime(cur);
+      if (dur) durationEl.textContent = formatTime(dur);
+      localStorage.setItem(storageKey(slug), String(cur));
+    }
+
+    playBtn.addEventListener("click", async () => {
+      try {
+        if (audio.paused) {
+          await audio.play();
+          setPlayingUI(true);
+        } else {
+          audio.pause();
+          setPlayingUI(false);
+        }
+      } catch (_) {
+        // autoplay restrictions or load errors; fail silently
+      }
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      durationEl.textContent = formatTime(audio.duration);
+      updateTimeline();
+    });
+
+    audio.addEventListener("timeupdate", updateTimeline);
+    audio.addEventListener("pause", () => setPlayingUI(false));
+    audio.addEventListener("play", () => setPlayingUI(true));
+    audio.addEventListener("ended", () => setPlayingUI(false));
+
+    function seekTo(clientX) {
+      const rect = timeline.getBoundingClientRect();
+      const x = Math.min(rect.right, Math.max(rect.left, clientX));
+      const pct = (x - rect.left) / rect.width;
+      if (audio.duration) audio.currentTime = pct * audio.duration;
+      updateTimeline();
+    }
+
+    let dragging = false;
+
+    timeline.addEventListener("mousedown", (e) => {
+      dragging = true;
+      seekTo(e.clientX);
+    });
+    window.addEventListener("mousemove", (e) => {
+      if (dragging) seekTo(e.clientX);
+    });
+    window.addEventListener("mouseup", () => {
+      dragging = false;
+    });
+
+    timeline.addEventListener("keydown", (e) => {
+      if (!audio.duration) return;
+      const step = 5;
+      if (e.key === "ArrowRight") audio.currentTime = Math.min(audio.duration, audio.currentTime + step);
+      if (e.key === "ArrowLeft") audio.currentTime = Math.max(0, audio.currentTime - step);
+      updateTimeline();
+    });
+
+    speedBtn.addEventListener("click", () => {
+      speedIndex = (speedIndex + 1) % SPEEDS.length;
+      audio.playbackRate = SPEEDS[speedIndex];
+      speedBtn.textContent = `${SPEEDS[speedIndex]}x`;
+    });
+
+    return wrap;
+  }
+
+  async function initPremiumAudioBar() {
+    const isArticle = location.pathname.includes("/articles/");
+    if (!isArticle) return;
+
+    const article = document.querySelector("article") || document.querySelector("main");
+    if (!article) return;
+
+    let posts;
+    try {
+      posts = await loadPosts();
+    } catch (_) {
+      return;
+    }
+
+    const post = findPostForCurrentPage(posts);
+    if (!post || !post.audioUrl) return;
+
+    const slug = getSlugFromUrl();
+    const player = buildPlayer({
+      title: post.title,
+      category: post.category,
+      dateLabel: post.dateLabel || "",
+      audioUrl: post.audioUrl,
+      slug
+    });
+
+    article.insertBefore(player, article.firstElementChild);
+  }
+
+  document.addEventListener("DOMContentLoaded", initPremiumAudioBar);
+})();
