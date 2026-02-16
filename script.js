@@ -481,6 +481,47 @@ function getHeroImage(post){
   return "/images/Article-1.jpg";
 }
 
+
+function renderHomeFeaturedHero(post){
+  const hero = document.getElementById("home-featured-hero");
+  if(!hero || !post) return;
+  const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const image = getHeroImage(post);
+  hero.innerHTML = `
+    <div class="hero-left">
+      <div class="kicker">Featured</div>
+      <h1 class="hero-title">${post.title}</h1>
+      <p class="hero-sub">${post.excerpt || ""}</p>
+      <a class="btn" href="${href}">Read article</a>
+    </div>
+
+    <a class="hero-right" href="${href}" aria-label="Read featured article">
+      <img class="hero-image" src="${image}" alt="${post.title}" decoding="async" width="1200" height="675">
+    </a>
+  `;
+}
+
+async function renderHomeLatest(){
+  const holder = document.getElementById("home-latest");
+  if(!holder) return;
+
+  const posts = await loadPosts();
+  const sorted = [...posts].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  const featured = sorted[0];
+  renderHomeFeaturedHero(featured);
+
+  const requiredOrder = [
+    "independents-that-are-quietly-replacing-hype.html",
+    "timeless-stories-in-timepieces-ap-vacheron-middle-east.html",
+    "time-reimagined-watchmaking-innovations-2025-26.html"
+  ];
+
+  const selected = requiredOrder
+    .map(slug => sorted.find(post => (post.url || "").endsWith(slug)))
+    .filter((post, index, all) => post && all.findIndex(p => p.id === post.id) === index);
+
+  holder.innerHTML = selected.map(postCardHTML).join("");
+}
 async function renderArticlesGrid(){
   const holder = document.getElementById("articles-grid");
   if(!holder) return;
@@ -563,6 +604,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const page = document.body.getAttribute("data-page");
 
   try{
+    if(page === "home") await renderHomeLatest();
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
   }catch(err){
