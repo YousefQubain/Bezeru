@@ -481,6 +481,7 @@ function getHeroImage(post){
   return "/images/Article-1.jpg";
 }
 
+
 async function renderArticlesGrid(){
   const holder = document.getElementById("articles-grid");
   if(!holder) return;
