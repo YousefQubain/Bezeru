@@ -564,6 +564,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const page = document.body.getAttribute("data-page");
 
   try{
+    if(page === "home") await renderHomeLatest();
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
   }catch(err){
