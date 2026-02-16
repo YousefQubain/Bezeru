@@ -262,16 +262,37 @@
           </div>
         </div>
 
-        <div class="footer-col" id="subscribe">
-          <h4>Subscribe</h4>
-          <p class="footer-note">Subscribe to receive new articles twice a week. No spam, just watch stories.</p>
-          <iframe
-  src="https://bezeru.substack.com/embed"
-  style="width:100%; max-width:480px; height:320px; border:1px solid #EEE; background:white;"
-  frameborder="0"
-  scrolling="no">
-</iframe>
-          <div class="form-status" role="status" aria-live="polite"></div>
+        <div class="footer-col footer-subscribe" id="subscribe">
+          <h4 class="footer-title">Subscribe</h4>
+          <p class="footer-subtitle">
+            New watch stories, twice a week. Clean, collectible, and worth your time.
+          </p>
+
+          <form
+            id="subscribe-form"
+            class="subscribe-form"
+            data-location="footer"
+            action="https://bezeru.substack.com/subscribe"
+            method="GET"
+            target="_blank"
+            rel="noopener"
+          >
+            <label class="sr-only" for="subscribe-email">Email address</label>
+            <input
+              id="subscribe-email"
+              class="subscribe-input"
+              type="email"
+              name="email"
+              placeholder="Your email"
+              autocomplete="email"
+              required
+            />
+            <button class="subscribe-button" type="submit">Subscribe</button>
+          </form>
+
+          <p class="subscribe-note">
+            No spam. Unsubscribe anytime.
+          </p>
         </div>
 
         <div class="footer-col">

@@ -776,3 +776,34 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
   document.addEventListener("DOMContentLoaded", initPremiumAudioBar);
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("subscribe-form");
+  const input = document.getElementById("subscribe-email");
+  if (!form) return;
+
+  const eventParams = () => ({
+    location: form.dataset.location || "unknown",
+    page_path: window.location.pathname
+  });
+
+  // Track first intent (focus)
+  if (input) {
+    input.addEventListener(
+      "focus",
+      () => {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "subscribe_focus", eventParams());
+        }
+      },
+      { once: true }
+    );
+  }
+
+  // Track submit (conversion proxy)
+  form.addEventListener("submit", () => {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "subscribe_submit", eventParams());
+    }
+  });
+});
