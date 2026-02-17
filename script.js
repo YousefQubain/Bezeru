@@ -482,6 +482,28 @@ function getHeroImage(post){
 }
 
 
+
+async function renderHomeLatestFeed(){
+  const holder = document.getElementById("home-latest");
+  if(!holder) return;
+
+  const existingLinks = new Set(
+    Array.from(holder.querySelectorAll("a[href]"))
+      .map(a => (a.getAttribute("href") || "").replace(/^\//, ""))
+      .filter(Boolean)
+  );
+
+  const posts = await loadPosts();
+  const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const missing = sorted.filter(post => {
+    const href = (post.url || `article.html?id=${encodeURIComponent(post.id)}`).replace(/^\//, "");
+    return !existingLinks.has(href);
+  });
+
+  if(missing.length === 0) return;
+  holder.insertAdjacentHTML("beforeend", missing.map(postCardHTML).join(""));
+}
+
 async function renderArticlesGrid(){
   const holder = document.getElementById("articles-grid");
   if(!holder) return;
@@ -564,7 +586,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   const page = document.body.getAttribute("data-page");
 
   try{
-    if(page === "home") await renderHomeLatest();
+    if(page === "home") await renderHomeLatestFeed();
     if(page === "articles") await renderArticlesGrid();
     if(page === "article") await renderArticle();
   }catch(err){
