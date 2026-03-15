@@ -508,7 +508,27 @@ async function renderArticlesGrid(){
   const holder = document.getElementById("articles-grid");
   if(!holder) return;
   const posts = await loadPosts();
-  holder.innerHTML = posts.map(postCardHTML).join("");
+  const chips = Array.from(document.querySelectorAll(".filter-chip[data-filter]"));
+
+  function paint(filter){
+    const visible = filter === "all"
+      ? posts
+      : posts.filter(post => (post.category || "").toLowerCase() === filter.toLowerCase());
+
+    holder.innerHTML = visible.length
+      ? visible.map(postCardHTML).join("")
+      : '<p class="empty-state">No stories in this section yet.</p>';
+  }
+
+  paint("all");
+
+  chips.forEach(chip => {
+    chip.addEventListener("click", ()=>{
+      chips.forEach(item => item.classList.remove("is-active"));
+      chip.classList.add("is-active");
+      paint(chip.dataset.filter || "all");
+    });
+  });
 }
 
 async function renderArticle(){
