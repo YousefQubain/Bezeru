@@ -192,6 +192,7 @@ const TZ = {
 };
 
 function formatTime(tz){
+  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-GB";
   const fmt = new Intl.DateTimeFormat("en-GB", {
     timeZone: tz,
     hour: "2-digit",
@@ -199,9 +200,17 @@ function formatTime(tz){
     second: "2-digit",
     hour12: false
   });
+  const displayFmt = new Intl.DateTimeFormat(locale, {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
   const label = fmt.format(new Date()); // HH:MM:SS
+  const displayLabel = displayFmt.format(new Date());
   const [hh, mm, ss] = label.split(":").map(Number);
-  return { hh, mm, ss, label };
+  return { hh, mm, ss, label: displayLabel };
 }
 
 function setupHiDPI(canvas){
@@ -419,24 +428,22 @@ async function loadPosts(){
 }
 
 function postCardHTML(post){
-  const meta = getCardMeta(post);
-  const image = post.image || post.thumbnail || "/images/Article-1.jpg";
-  const dateLabel = formatDate(post.date);
-  const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
+  const meta = getCardMeta(localizedPost);
+  const dateLabel = formatDate(localizedPost.date);
+  const rawHref = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const href = window.BEZERU_I18N?.localizeHref ? window.BEZERU_I18N.localizeHref(rawHref) : rawHref;
   return `
     <article class="card">
-      <a class="card-media" href="${href}">
-        <img class="card-image" src="${image}" alt="${post.title}" loading="lazy" decoding="async" />
-      </a>
       <div class="card-body">
         <div class="meta">
-          <span class="tag">${post.category || "Latest"}</span>
-          <time datetime="${post.date || ""}">${dateLabel}</time>
+          <span class="tag">${localizedPost.category || "Latest"}</span>
+          <time datetime="${localizedPost.date || ""}">${dateLabel}</time>
         </div>
         <h3 class="card-title">
-          <a href="${href}">${post.title}</a>
+          <a href="${href}">${localizedPost.title}</a>
         </h3>
-        <p class="card-excerpt">${post.excerpt || ""}</p>
+        <p class="card-excerpt">${localizedPost.excerpt || ""}</p>
       </div>
     </article>
   `;
@@ -461,7 +468,8 @@ function formatDate(dateString){
   if(!dateString) return "";
   const date = new Date(dateString);
   if(Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-US";
+  return date.toLocaleDateString(locale, { month: "short", year: "numeric" });
 }
 
 function getReadingTime(content){
@@ -471,33 +479,43 @@ function getReadingTime(content){
   return Math.max(1, Math.ceil(words / 200));
 }
 
-function getHeroImage(post){
-  if(post.image) return post.image;
-  if(post.thumbnail) return post.thumbnail;
-  if(post.content_html){
-    const match = post.content_html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    if(match && match[1]) return match[1];
-  }
-  return "/images/Article-1.jpg";
-}
-
-
-
 async function renderHomeLatestFeed(){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
 
-  const existingLinks = new Set(
-    Array.from(holder.querySelectorAll("a[href]"))
-      .map(a => (a.getAttribute("href") || "").replace(/^\//, ""))
-      .filter(Boolean)
-  );
+  const normalizeSlug = (href)=>{
+    if(!href) return "";
+    const url = new URL(href, window.location.origin + window.location.pathname);
+    const segments = url.pathname.split("/").filter(Boolean);
+    return segments.length ? segments[segments.length - 1].toLowerCase() : "";
+  };
+
+  const usedHomeSlugs = new Set();
+  const featuredLinks = document.querySelectorAll("#featured-story a[href]");
+  const pathwayLinks = document.querySelectorAll(".section-pathways .pathway[href]");
+
+  [...featuredLinks, ...pathwayLinks].forEach((link)=>{
+    const slug = normalizeSlug(link.getAttribute("href") || "");
+    if(slug) usedHomeSlugs.add(slug);
+  });
+
+  const existingLinks = new Set();
+  holder.querySelectorAll(".card").forEach((card)=>{
+    const articleLink = card.querySelector(".card-title a[href]");
+    const slug = normalizeSlug(articleLink?.getAttribute("href") || "");
+    if(!slug) return;
+    if(usedHomeSlugs.has(slug) || existingLinks.has(slug)){
+      card.remove();
+      return;
+    }
+    existingLinks.add(slug);
+  });
 
   const posts = await loadPosts();
   const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
   const missing = sorted.filter(post => {
-    const href = (post.url || `article.html?id=${encodeURIComponent(post.id)}`).replace(/^\//, "");
-    return !existingLinks.has(href);
+    const slug = normalizeSlug(post.url || `article.html?id=${encodeURIComponent(post.id)}`);
+    return slug && !usedHomeSlugs.has(slug) && !existingLinks.has(slug);
   });
 
   if(missing.length === 0) return;
@@ -517,7 +535,7 @@ async function renderArticlesGrid(){
 
     holder.innerHTML = visible.length
       ? visible.map(postCardHTML).join("")
-      : '<p class="empty-state">No stories in this section yet.</p>';
+      : `<p class="empty-state">${window.BEZERU_I18N?.t("noStories") || "No stories in this section yet."}</p>`;
   }
 
   paint("all");
@@ -538,7 +556,6 @@ async function renderArticle(){
   const readTimeEl = document.getElementById("article-reading-time");
   const ledeEl  = document.getElementById("article-excerpt");
   const bodyEl  = document.getElementById("article-body");
-  const heroImgEl = document.getElementById("article-hero-image");
   const relatedEl = document.getElementById("related-stories");
 
   if(!titleEl || !categoryEl || !dateEl || !readTimeEl || !ledeEl || !bodyEl) return;
@@ -547,38 +564,25 @@ async function renderArticle(){
   const id = params.get("id");
   const posts = await loadPosts();
   const post = posts.find(p => p.id === id) || posts[0];
+  const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
 
-  titleEl.textContent = post.title;
-  categoryEl.textContent = post.category || "Article";
-  dateEl.textContent  = formatDate(post.date);
-  readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
-  ledeEl.textContent  = post.excerpt;
-  bodyEl.innerHTML    = post.content_html;
-
-  if(heroImgEl){
-    const heroSrc = getHeroImage(post);
-    const heroWrap = heroImgEl.closest(".article-hero-media");
-    if(post.id === "independents-replacing-hype-001"){
-      if(heroWrap){
-        heroWrap.hidden = true;
-        heroWrap.setAttribute("aria-hidden", "true");
-      }
-      heroImgEl.removeAttribute("src");
-      heroImgEl.removeAttribute("alt");
-    }else{
-      if(heroWrap){
-        heroWrap.hidden = false;
-        heroWrap.removeAttribute("aria-hidden");
-      }
-      heroImgEl.src = heroSrc;
-      heroImgEl.alt = post.title || "Featured image";
-    }
+  titleEl.textContent = localizedPost.title;
+  categoryEl.textContent = localizedPost.category || "Article";
+  dateEl.textContent  = formatDate(localizedPost.date);
+  if(window.BEZERU_I18N?.locale === "ar"){
+    readTimeEl.textContent = `${getReadingTime(post.content_html)} ${window.BEZERU_I18N.t("readTime")}`;
+  }else{
+    readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
   }
+  ledeEl.textContent  = localizedPost.excerpt;
+  bodyEl.innerHTML = (post.content_html || "")
+    .replace(/<figure[^>]*>[\s\S]*?<img[\s\S]*?<\/figure>/gi, "")
+    .replace(/<img\b[^>]*>/gi, "");
 
   if(relatedEl){
     const relatedPosts = posts.filter(item => item.id !== post.id).slice(0, 3);
     if(relatedPosts.length === 0){
-      relatedEl.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+      relatedEl.innerHTML = `<p class="empty-state">${window.BEZERU_I18N?.t("moreSoon") || "More coming soon."}</p>`;
     }else{
       relatedEl.innerHTML = relatedPosts.map(postCardHTML).join("");
     }
