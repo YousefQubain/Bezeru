@@ -192,6 +192,7 @@ const TZ = {
 };
 
 function formatTime(tz){
+  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-GB";
   const fmt = new Intl.DateTimeFormat("en-GB", {
     timeZone: tz,
     hour: "2-digit",
@@ -199,9 +200,17 @@ function formatTime(tz){
     second: "2-digit",
     hour12: false
   });
+  const displayFmt = new Intl.DateTimeFormat(locale, {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
   const label = fmt.format(new Date()); // HH:MM:SS
+  const displayLabel = displayFmt.format(new Date());
   const [hh, mm, ss] = label.split(":").map(Number);
-  return { hh, mm, ss, label };
+  return { hh, mm, ss, label: displayLabel };
 }
 
 function setupHiDPI(canvas){
@@ -419,24 +428,26 @@ async function loadPosts(){
 }
 
 function postCardHTML(post){
-  const meta = getCardMeta(post);
+  const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
+  const meta = getCardMeta(localizedPost);
   const image = post.image || post.thumbnail || "/images/Article-1.jpg";
-  const dateLabel = formatDate(post.date);
-  const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const dateLabel = formatDate(localizedPost.date);
+  const rawHref = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const href = window.BEZERU_I18N?.localizeHref ? window.BEZERU_I18N.localizeHref(rawHref) : rawHref;
   return `
     <article class="card">
       <a class="card-media" href="${href}">
-        <img class="card-image" src="${image}" alt="${post.title}" loading="lazy" decoding="async" />
+        <img class="card-image" src="${image}" alt="${localizedPost.title}" loading="lazy" decoding="async" />
       </a>
       <div class="card-body">
         <div class="meta">
-          <span class="tag">${post.category || "Latest"}</span>
-          <time datetime="${post.date || ""}">${dateLabel}</time>
+          <span class="tag">${localizedPost.category || "Latest"}</span>
+          <time datetime="${localizedPost.date || ""}">${dateLabel}</time>
         </div>
         <h3 class="card-title">
-          <a href="${href}">${post.title}</a>
+          <a href="${href}">${localizedPost.title}</a>
         </h3>
-        <p class="card-excerpt">${post.excerpt || ""}</p>
+        <p class="card-excerpt">${localizedPost.excerpt || ""}</p>
       </div>
     </article>
   `;
@@ -461,7 +472,8 @@ function formatDate(dateString){
   if(!dateString) return "";
   const date = new Date(dateString);
   if(Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-US";
+  return date.toLocaleDateString(locale, { month: "short", year: "numeric" });
 }
 
 function getReadingTime(content){
@@ -489,14 +501,19 @@ async function renderHomeLatestFeed(){
 
   const existingLinks = new Set(
     Array.from(holder.querySelectorAll("a[href]"))
-      .map(a => (a.getAttribute("href") || "").replace(/^\//, ""))
+      .map(a => {
+        const rawHref = a.getAttribute("href") || "";
+        if(!rawHref) return "";
+        const url = new URL(rawHref, window.location.origin + window.location.pathname);
+        return url.pathname.replace(/^\//, "");
+      })
       .filter(Boolean)
   );
 
   const posts = await loadPosts();
   const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
   const missing = sorted.filter(post => {
-    const href = (post.url || `article.html?id=${encodeURIComponent(post.id)}`).replace(/^\//, "");
+    const href = new URL(post.url || `article.html?id=${encodeURIComponent(post.id)}`, window.location.origin + window.location.pathname).pathname.replace(/^\//, "");
     return !existingLinks.has(href);
   });
 
@@ -517,7 +534,7 @@ async function renderArticlesGrid(){
 
     holder.innerHTML = visible.length
       ? visible.map(postCardHTML).join("")
-      : '<p class="empty-state">No stories in this section yet.</p>';
+      : `<p class="empty-state">${window.BEZERU_I18N?.t("noStories") || "No stories in this section yet."}</p>`;
   }
 
   paint("all");
@@ -547,12 +564,17 @@ async function renderArticle(){
   const id = params.get("id");
   const posts = await loadPosts();
   const post = posts.find(p => p.id === id) || posts[0];
+  const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
 
-  titleEl.textContent = post.title;
-  categoryEl.textContent = post.category || "Article";
-  dateEl.textContent  = formatDate(post.date);
-  readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
-  ledeEl.textContent  = post.excerpt;
+  titleEl.textContent = localizedPost.title;
+  categoryEl.textContent = localizedPost.category || "Article";
+  dateEl.textContent  = formatDate(localizedPost.date);
+  if(window.BEZERU_I18N?.locale === "ar"){
+    readTimeEl.textContent = `${getReadingTime(post.content_html)} ${window.BEZERU_I18N.t("readTime")}`;
+  }else{
+    readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
+  }
+  ledeEl.textContent  = localizedPost.excerpt;
   bodyEl.innerHTML    = post.content_html;
 
   if(heroImgEl){
@@ -571,14 +593,14 @@ async function renderArticle(){
         heroWrap.removeAttribute("aria-hidden");
       }
       heroImgEl.src = heroSrc;
-      heroImgEl.alt = post.title || "Featured image";
+      heroImgEl.alt = localizedPost.title || "Featured image";
     }
   }
 
   if(relatedEl){
     const relatedPosts = posts.filter(item => item.id !== post.id).slice(0, 3);
     if(relatedPosts.length === 0){
-      relatedEl.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+      relatedEl.innerHTML = `<p class="empty-state">${window.BEZERU_I18N?.t("moreSoon") || "More coming soon."}</p>`;
     }else{
       relatedEl.innerHTML = relatedPosts.map(postCardHTML).join("");
     }
