@@ -430,15 +430,11 @@ async function loadPosts(){
 function postCardHTML(post){
   const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
   const meta = getCardMeta(localizedPost);
-  const image = post.image || post.thumbnail || "/images/Article-1.jpg";
   const dateLabel = formatDate(localizedPost.date);
   const rawHref = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
   const href = window.BEZERU_I18N?.localizeHref ? window.BEZERU_I18N.localizeHref(rawHref) : rawHref;
   return `
     <article class="card">
-      <a class="card-media" href="${href}">
-        <img class="card-image" src="${image}" alt="${localizedPost.title}" loading="lazy" decoding="async" />
-      </a>
       <div class="card-body">
         <div class="meta">
           <span class="tag">${localizedPost.category || "Latest"}</span>
@@ -483,18 +479,6 @@ function getReadingTime(content){
   return Math.max(1, Math.ceil(words / 200));
 }
 
-function getHeroImage(post){
-  if(post.image) return post.image;
-  if(post.thumbnail) return post.thumbnail;
-  if(post.content_html){
-    const match = post.content_html.match(/<img[^>]+src=["']([^"']+)["']/i);
-    if(match && match[1]) return match[1];
-  }
-  return "/images/Article-1.jpg";
-}
-
-
-
 async function renderHomeLatestFeed(){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
@@ -517,7 +501,7 @@ async function renderHomeLatestFeed(){
 
   const existingLinks = new Set();
   holder.querySelectorAll(".card").forEach((card)=>{
-    const articleLink = card.querySelector(".card-title a[href], .card-media[href]");
+    const articleLink = card.querySelector(".card-title a[href]");
     const slug = normalizeSlug(articleLink?.getAttribute("href") || "");
     if(!slug) return;
     if(usedHomeSlugs.has(slug) || existingLinks.has(slug)){
@@ -572,7 +556,6 @@ async function renderArticle(){
   const readTimeEl = document.getElementById("article-reading-time");
   const ledeEl  = document.getElementById("article-excerpt");
   const bodyEl  = document.getElementById("article-body");
-  const heroImgEl = document.getElementById("article-hero-image");
   const relatedEl = document.getElementById("related-stories");
 
   if(!titleEl || !categoryEl || !dateEl || !readTimeEl || !ledeEl || !bodyEl) return;
@@ -592,27 +575,9 @@ async function renderArticle(){
     readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
   }
   ledeEl.textContent  = localizedPost.excerpt;
-  bodyEl.innerHTML    = post.content_html;
-
-  if(heroImgEl){
-    const heroSrc = getHeroImage(post);
-    const heroWrap = heroImgEl.closest(".article-hero-media");
-    if(post.id === "independents-replacing-hype-001"){
-      if(heroWrap){
-        heroWrap.hidden = true;
-        heroWrap.setAttribute("aria-hidden", "true");
-      }
-      heroImgEl.removeAttribute("src");
-      heroImgEl.removeAttribute("alt");
-    }else{
-      if(heroWrap){
-        heroWrap.hidden = false;
-        heroWrap.removeAttribute("aria-hidden");
-      }
-      heroImgEl.src = heroSrc;
-      heroImgEl.alt = localizedPost.title || "Featured image";
-    }
-  }
+  bodyEl.innerHTML = (post.content_html || "")
+    .replace(/<figure[^>]*>[\s\S]*?<img[\s\S]*?<\/figure>/gi, "")
+    .replace(/<img\b[^>]*>/gi, "");
 
   if(relatedEl){
     const relatedPosts = posts.filter(item => item.id !== post.id).slice(0, 3);
