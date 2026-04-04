@@ -499,22 +499,39 @@ async function renderHomeLatestFeed(){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
 
-  const existingLinks = new Set(
-    Array.from(holder.querySelectorAll("a[href]"))
-      .map(a => {
-        const rawHref = a.getAttribute("href") || "";
-        if(!rawHref) return "";
-        const url = new URL(rawHref, window.location.origin + window.location.pathname);
-        return url.pathname.replace(/^\//, "");
-      })
-      .filter(Boolean)
-  );
+  const normalizeSlug = (href)=>{
+    if(!href) return "";
+    const url = new URL(href, window.location.origin + window.location.pathname);
+    const segments = url.pathname.split("/").filter(Boolean);
+    return segments.length ? segments[segments.length - 1].toLowerCase() : "";
+  };
+
+  const usedHomeSlugs = new Set();
+  const featuredLinks = document.querySelectorAll("#featured-story a[href]");
+  const pathwayLinks = document.querySelectorAll(".section-pathways .pathway[href]");
+
+  [...featuredLinks, ...pathwayLinks].forEach((link)=>{
+    const slug = normalizeSlug(link.getAttribute("href") || "");
+    if(slug) usedHomeSlugs.add(slug);
+  });
+
+  const existingLinks = new Set();
+  holder.querySelectorAll(".card").forEach((card)=>{
+    const articleLink = card.querySelector(".card-title a[href], .card-media[href]");
+    const slug = normalizeSlug(articleLink?.getAttribute("href") || "");
+    if(!slug) return;
+    if(usedHomeSlugs.has(slug) || existingLinks.has(slug)){
+      card.remove();
+      return;
+    }
+    existingLinks.add(slug);
+  });
 
   const posts = await loadPosts();
   const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
   const missing = sorted.filter(post => {
-    const href = new URL(post.url || `article.html?id=${encodeURIComponent(post.id)}`, window.location.origin + window.location.pathname).pathname.replace(/^\//, "");
-    return !existingLinks.has(href);
+    const slug = normalizeSlug(post.url || `article.html?id=${encodeURIComponent(post.id)}`);
+    return slug && !usedHomeSlugs.has(slug) && !existingLinks.has(slug);
   });
 
   if(missing.length === 0) return;
