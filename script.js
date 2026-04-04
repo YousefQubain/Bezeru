@@ -192,6 +192,7 @@ const TZ = {
 };
 
 function formatTime(tz){
+  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-GB";
   const fmt = new Intl.DateTimeFormat("en-GB", {
     timeZone: tz,
     hour: "2-digit",
@@ -199,9 +200,17 @@ function formatTime(tz){
     second: "2-digit",
     hour12: false
   });
+  const displayFmt = new Intl.DateTimeFormat(locale, {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
   const label = fmt.format(new Date()); // HH:MM:SS
+  const displayLabel = displayFmt.format(new Date());
   const [hh, mm, ss] = label.split(":").map(Number);
-  return { hh, mm, ss, label };
+  return { hh, mm, ss, label: displayLabel };
 }
 
 function setupHiDPI(canvas){
@@ -461,7 +470,8 @@ function formatDate(dateString){
   if(!dateString) return "";
   const date = new Date(dateString);
   if(Number.isNaN(date.getTime())) return dateString;
-  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-US";
+  return date.toLocaleDateString(locale, { month: "short", year: "numeric" });
 }
 
 function getReadingTime(content){
@@ -517,7 +527,7 @@ async function renderArticlesGrid(){
 
     holder.innerHTML = visible.length
       ? visible.map(postCardHTML).join("")
-      : '<p class="empty-state">No stories in this section yet.</p>';
+      : `<p class="empty-state">${window.BEZERU_I18N?.t("noStories") || "No stories in this section yet."}</p>`;
   }
 
   paint("all");
@@ -551,7 +561,11 @@ async function renderArticle(){
   titleEl.textContent = post.title;
   categoryEl.textContent = post.category || "Article";
   dateEl.textContent  = formatDate(post.date);
-  readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
+  if(window.BEZERU_I18N?.locale === "ar"){
+    readTimeEl.textContent = `${getReadingTime(post.content_html)} ${window.BEZERU_I18N.t("readTime")}`;
+  }else{
+    readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
+  }
   ledeEl.textContent  = post.excerpt;
   bodyEl.innerHTML    = post.content_html;
 
@@ -578,7 +592,7 @@ async function renderArticle(){
   if(relatedEl){
     const relatedPosts = posts.filter(item => item.id !== post.id).slice(0, 3);
     if(relatedPosts.length === 0){
-      relatedEl.innerHTML = "<p class=\"empty-state\">More coming soon.</p>";
+      relatedEl.innerHTML = `<p class="empty-state">${window.BEZERU_I18N?.t("moreSoon") || "More coming soon."}</p>`;
     }else{
       relatedEl.innerHTML = relatedPosts.map(postCardHTML).join("");
     }
