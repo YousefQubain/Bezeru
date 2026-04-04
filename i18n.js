@@ -1,6 +1,28 @@
 (function(){
   const DEFAULT_LOCALE = "en";
   const SUPPORTED = ["en", "ar"];
+  const ROOT_PAGES = new Set([
+    "index.html",
+    "about.html",
+    "articles.html",
+    "editorial-policy.html",
+    "contributors-policy.html",
+    "affiliate-policy.html",
+    "disclaimer-policy.html",
+    "privacy-policy.html",
+    "terms-policy.html",
+    "editorial.html",
+    "contributors.html",
+    "affiliate.html",
+    "disclaimer.html",
+    "privacy.html",
+    "terms.html",
+    "brands.html",
+    "types.html",
+    "shop.html",
+    "article.html",
+    "ap-vacheron-middle-east-soul.html"
+  ]);
 
   const UI = {
     en: {
@@ -100,10 +122,18 @@
 
   function localizeHref(href, locale){
     if(!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || /^https?:/i.test(href)) return href;
-    const url = new URL(href, window.location.origin + window.location.pathname);
+
+    const url = new URL(href, window.location.href);
+    if(url.origin !== window.location.origin) return href;
+
+    const parts = url.pathname.split("/").filter(Boolean);
+    const leaf = parts[parts.length - 1] || "";
+    if(ROOT_PAGES.has(leaf)){
+      url.pathname = `/${leaf}`;
+    }
+
     url.searchParams.set("lang", locale);
-    const relative = `${url.pathname.replace(/^\//, "")}${url.search}${url.hash}`;
-    return href.startsWith("/") ? `/${relative}` : relative;
+    return `${url.pathname}${url.search}${url.hash}`;
   }
 
   function localizeLinks(locale){
