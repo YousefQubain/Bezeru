@@ -428,24 +428,26 @@ async function loadPosts(){
 }
 
 function postCardHTML(post){
-  const meta = getCardMeta(post);
+  const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
+  const meta = getCardMeta(localizedPost);
   const image = post.image || post.thumbnail || "/images/Article-1.jpg";
-  const dateLabel = formatDate(post.date);
-  const href = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const dateLabel = formatDate(localizedPost.date);
+  const rawHref = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
+  const href = window.BEZERU_I18N?.localizeHref ? window.BEZERU_I18N.localizeHref(rawHref) : rawHref;
   return `
     <article class="card">
       <a class="card-media" href="${href}">
-        <img class="card-image" src="${image}" alt="${post.title}" loading="lazy" decoding="async" />
+        <img class="card-image" src="${image}" alt="${localizedPost.title}" loading="lazy" decoding="async" />
       </a>
       <div class="card-body">
         <div class="meta">
-          <span class="tag">${post.category || "Latest"}</span>
-          <time datetime="${post.date || ""}">${dateLabel}</time>
+          <span class="tag">${localizedPost.category || "Latest"}</span>
+          <time datetime="${localizedPost.date || ""}">${dateLabel}</time>
         </div>
         <h3 class="card-title">
-          <a href="${href}">${post.title}</a>
+          <a href="${href}">${localizedPost.title}</a>
         </h3>
-        <p class="card-excerpt">${post.excerpt || ""}</p>
+        <p class="card-excerpt">${localizedPost.excerpt || ""}</p>
       </div>
     </article>
   `;
@@ -499,14 +501,19 @@ async function renderHomeLatestFeed(){
 
   const existingLinks = new Set(
     Array.from(holder.querySelectorAll("a[href]"))
-      .map(a => (a.getAttribute("href") || "").replace(/^\//, ""))
+      .map(a => {
+        const rawHref = a.getAttribute("href") || "";
+        if(!rawHref) return "";
+        const url = new URL(rawHref, window.location.origin + window.location.pathname);
+        return url.pathname.replace(/^\//, "");
+      })
       .filter(Boolean)
   );
 
   const posts = await loadPosts();
   const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
   const missing = sorted.filter(post => {
-    const href = (post.url || `article.html?id=${encodeURIComponent(post.id)}`).replace(/^\//, "");
+    const href = new URL(post.url || `article.html?id=${encodeURIComponent(post.id)}`, window.location.origin + window.location.pathname).pathname.replace(/^\//, "");
     return !existingLinks.has(href);
   });
 
@@ -557,16 +564,17 @@ async function renderArticle(){
   const id = params.get("id");
   const posts = await loadPosts();
   const post = posts.find(p => p.id === id) || posts[0];
+  const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
 
-  titleEl.textContent = post.title;
-  categoryEl.textContent = post.category || "Article";
-  dateEl.textContent  = formatDate(post.date);
+  titleEl.textContent = localizedPost.title;
+  categoryEl.textContent = localizedPost.category || "Article";
+  dateEl.textContent  = formatDate(localizedPost.date);
   if(window.BEZERU_I18N?.locale === "ar"){
     readTimeEl.textContent = `${getReadingTime(post.content_html)} ${window.BEZERU_I18N.t("readTime")}`;
   }else{
     readTimeEl.textContent = `${getReadingTime(post.content_html)} min read`;
   }
-  ledeEl.textContent  = post.excerpt;
+  ledeEl.textContent  = localizedPost.excerpt;
   bodyEl.innerHTML    = post.content_html;
 
   if(heroImgEl){
@@ -585,7 +593,7 @@ async function renderArticle(){
         heroWrap.removeAttribute("aria-hidden");
       }
       heroImgEl.src = heroSrc;
-      heroImgEl.alt = post.title || "Featured image";
+      heroImgEl.alt = localizedPost.title || "Featured image";
     }
   }
 
