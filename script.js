@@ -490,24 +490,11 @@ async function renderHomeLatestFeed(){
     return segments.length ? segments[segments.length - 1].toLowerCase() : "";
   };
 
-  const usedHomeSlugs = new Set();
-  const featuredLinks = document.querySelectorAll("#featured-story a[href]");
-  const pathwayLinks = document.querySelectorAll(".section-pathways .pathway[href]");
-
-  [...featuredLinks, ...pathwayLinks].forEach((link)=>{
-    const slug = normalizeSlug(link.getAttribute("href") || "");
-    if(slug) usedHomeSlugs.add(slug);
-  });
-
   const existingLinks = new Set();
   holder.querySelectorAll(".card").forEach((card)=>{
     const articleLink = card.querySelector(".card-title a[href]");
     const slug = normalizeSlug(articleLink?.getAttribute("href") || "");
     if(!slug) return;
-    if(usedHomeSlugs.has(slug) || existingLinks.has(slug)){
-      card.remove();
-      return;
-    }
     existingLinks.add(slug);
   });
 
@@ -515,7 +502,7 @@ async function renderHomeLatestFeed(){
   const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
   const missing = sorted.filter(post => {
     const slug = normalizeSlug(post.url || `article.html?id=${encodeURIComponent(post.id)}`);
-    return slug && !usedHomeSlugs.has(slug) && !existingLinks.has(slug);
+    return slug && !existingLinks.has(slug);
   });
 
   if(missing.length === 0) return;
