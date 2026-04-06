@@ -85,7 +85,12 @@ header{
   line-height:1;
 }
 /* spacer matches brand width so clocks stay centered */
-.header-spacer{ width:180px; }
+.header-spacer{
+  width:180px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-start;
+}
 
 /* ---------- CLOCKS ---------- */
 .clocks{
@@ -2542,4 +2547,69 @@ a:focus-visible{
 @media (max-width: 900px){
   .pathway-grid,
   .trust-grid{ grid-template-columns: 1fr; }
+}
+
+/* ---------- I18N + RTL ---------- */
+.lang-switcher{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-inline-start: 0;
+}
+
+.lang-btn{
+  border:1px solid var(--ui-line);
+  background: transparent;
+  color: var(--ui-ink);
+  font-size: 12px;
+  line-height: 1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.lang-btn.is-active{
+  background: var(--ui-ink);
+  color: var(--ui);
+}
+
+[dir="rtl"] body,
+body.is-rtl{
+  text-align: start;
+}
+
+[dir="rtl"] .header-row,
+[dir="rtl"] .nav-panel,
+[dir="rtl"] .hero-actions,
+[dir="rtl"] .section-head,
+[dir="rtl"] .meta,
+[dir="rtl"] .footer-bottom{
+  direction: rtl;
+}
+
+[dir="rtl"] .dropdown .chev{
+  margin-left: 0;
+  margin-right: 6px;
+}
+
+[dir="rtl"] .dd-menu{
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .hero-cta,
+[dir="rtl"] .cta,
+[dir="rtl"] .hero-feature-link{
+  unicode-bidi: plaintext;
+}
+
+@media (max-width: 768px){
+  .lang-switcher{
+    margin-inline-start: 0;
+  }
+
+  .header-row .lang-switcher{
+    margin-inline-start: auto;
+  }
 }
