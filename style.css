@@ -73,10 +73,11 @@ header{
 }
 
 .header-row.clock-wings-ready{
-  display:grid;
-  grid-template-columns: auto auto auto 1fr;
+  display:flex;
+  justify-content:center;
   align-items:flex-start;
-  column-gap: 18px;
+  gap: 18px;
+  position: relative;
 }
 
 .brand{
@@ -106,6 +107,13 @@ header{
   display:flex;
   justify-content:flex-end;
   align-items:flex-start;
+}
+
+.header-row.clock-wings-ready .header-spacer{
+  position:absolute;
+  right:0;
+  top:0;
+  width:auto;
 }
 
 /* ---------- CLOCKS ---------- */
