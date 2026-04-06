@@ -72,19 +72,27 @@ header{
   padding-top: 2px;
 }
 
+.header-row.clock-wings-ready{
+  display:grid;
+  grid-template-columns: auto auto auto 1fr;
+  align-items:flex-start;
+  column-gap: 18px;
+}
+
 .brand{
-  width: 180px; /* fixed so clocks can be centered properly */
+  width: 220px;
   display:flex;
   flex-direction:column;
-  gap:8px;
-  align-items:flex-start;
+  gap:10px;
+  align-items:center;
+  justify-self:center;
 }
 
 .brand-logo{
-  width: 42px;
-  height: 42px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .brand .word{
   font-size: 22px;
@@ -94,19 +102,24 @@ header{
 }
 /* spacer matches brand width so clocks stay centered */
 .header-spacer{
-  width:180px;
+  width:220px;
   display:flex;
   justify-content:flex-end;
   align-items:flex-start;
 }
 
 /* ---------- CLOCKS ---------- */
-.clocks{
+.clocks,
+.clock-wing{
   flex: 1;
   display:flex;
   justify-content:center;
-  gap:28px;
+  gap:24px;
   padding-top: 0px;
+}
+
+.clock-wing{
+  flex: 0 0 auto;
 }
 
 .clock{
@@ -1905,7 +1918,13 @@ html{
     padding-top: 8px;
   }
 
+  .header-row.clock-wings-ready{
+    display:flex;
+    grid-template-columns: none;
+  }
+
   .clocks,
+  .clock-wing,
   .header-spacer{
     display: none;
   }

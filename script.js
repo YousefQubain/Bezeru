@@ -182,6 +182,33 @@ function initStickyHeader(){
 }
 
 /* =========================
+   HEADER CLOCK WINGS
+========================= */
+function initHeaderClockWings(){
+  const row = document.querySelector(".header-row");
+  const clocks = row ? row.querySelector(".clocks") : null;
+  const brand = row ? row.querySelector(".brand") : null;
+  if(!row || !clocks || !brand || row.classList.contains("clock-wings-ready")) return;
+
+  const clockItems = Array.from(clocks.querySelectorAll(".clock"));
+  if(clockItems.length < 4) return;
+
+  const leftWing = document.createElement("div");
+  leftWing.className = "clock-wing clock-wing-left";
+
+  const rightWing = document.createElement("div");
+  rightWing.className = "clock-wing clock-wing-right";
+
+  clockItems.slice(0, 2).forEach((clock)=> leftWing.appendChild(clock));
+  clockItems.slice(2).forEach((clock)=> rightWing.appendChild(clock));
+
+  clocks.remove();
+  row.insertBefore(leftWing, brand);
+  row.insertBefore(rightWing, row.querySelector(".header-spacer"));
+  row.classList.add("clock-wings-ready");
+}
+
+/* =========================
    CLOCKS (HiDPI + markers + seconds)
 ========================= */
 const TZ = {
@@ -577,6 +604,7 @@ async function renderArticle(){
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+  initHeaderClockWings();
   initDropdowns();
   initClocks();
   initMobileNav();
