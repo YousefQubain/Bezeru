@@ -197,7 +197,12 @@
       wrap.appendChild(btn);
     });
 
-    host.appendChild(wrap);
+    const spacer = host.querySelector(".header-spacer");
+    if(spacer){
+      spacer.appendChild(wrap);
+    }else{
+      host.appendChild(wrap);
+    }
   }
 
   function localizePost(post, locale){

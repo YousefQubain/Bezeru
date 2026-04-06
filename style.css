@@ -85,7 +85,12 @@ header{
   line-height:1;
 }
 /* spacer matches brand width so clocks stay centered */
-.header-spacer{ width:180px; }
+.header-spacer{
+  width:180px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-start;
+}
 
 /* ---------- CLOCKS ---------- */
 .clocks{
@@ -2549,7 +2554,7 @@ a:focus-visible{
   display:inline-flex;
   align-items:center;
   gap:6px;
-  margin-inline-start: 10px;
+  margin-inline-start: 0;
 }
 
 .lang-btn{
