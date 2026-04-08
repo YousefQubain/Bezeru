@@ -1,6 +1,59 @@
 /* =========================
    DROPDOWNS (stable)
 ========================= */
+function initUnifiedHeader(){
+  const header = document.querySelector("header");
+  if(!header) return;
+  if(header.dataset.sharedHeader === "true") return;
+
+  const link = (path)=> {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get("lang");
+    return lang ? `${path}?lang=${encodeURIComponent(lang)}` : path;
+  };
+
+  header.innerHTML = `
+    <div class="container">
+      <div class="header-row">
+        <a class="brand" href="${link("/index.html")}">
+          <div class="word">BEZERU</div>
+        </a>
+        <div class="header-spacer"></div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container nav-shell">
+        <div class="nav-clock-slot" aria-live="polite" aria-label="Switzerland time"></div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
+          <span class="nav-toggle-bars" aria-hidden="true">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+        <nav id="primary-nav" aria-label="Primary">
+          <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
+          <div id="primary-nav-panel" class="nav-panel">
+            <div class="nav-links">
+              <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
+              <a class="nav-link" href="${link("/types.html")}">Types</a>
+              <a class="nav-link" href="${link("/brands.html")}">Brands</a>
+              <a class="nav-link" href="${link("/about.html")}">About</a>
+            </div>
+            <a class="nav-cta" href="${link("/shop.html")}">Shop <span aria-hidden="true">→</span></a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  `;
+
+  header.dataset.sharedHeader = "true";
+}
+
+initUnifiedHeader();
+
 function initDropdowns(){
   const dropdowns = document.querySelectorAll(".dropdown");
 
@@ -182,17 +235,18 @@ function initStickyHeader(){
 }
 
 function initSwissHeaderClock(){
-  const row = document.querySelector(".header-row");
-  if(!row) return;
+  const slot = document.querySelector(".nav-clock-slot")
+    || document.querySelector(".header-row .header-spacer")
+    || document.querySelector(".header-row");
+  if(!slot) return;
 
-  const spacer = row.querySelector(".header-spacer") || row;
-  let swissClock = spacer.querySelector(".header-swiss-clock");
+  let swissClock = slot.querySelector(".header-swiss-clock");
   if(!swissClock){
     swissClock = document.createElement("div");
     swissClock.className = "header-swiss-clock";
     swissClock.setAttribute("aria-live", "polite");
     swissClock.setAttribute("aria-label", "Switzerland time");
-    spacer.insertBefore(swissClock, spacer.firstChild);
+    slot.prepend(swissClock);
   }
 
   const formatter = new Intl.DateTimeFormat("en-GB", {
@@ -476,6 +530,8 @@ async function renderArticle(){
   }
   ledeEl.textContent  = localizedPost.excerpt;
   bodyEl.innerHTML = (post.content_html || "")
+    .replace(/<audio\b[^>]*\bcontrols\b[^>]*>[\s\S]*?<\/audio>/gi, "")
+    .replace(/<audio\b[^>]*\bsrc=["'][^"']*independents-that-are-quietly-replacing-hype\.mp3[^"']*["'][^>]*\/?>/gi, "")
     .replace(/<figure[^>]*>[\s\S]*?<img[\s\S]*?<\/figure>/gi, "")
     .replace(/<img\b[^>]*>/gi, "");
 
