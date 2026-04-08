@@ -653,6 +653,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     return path.replace(".html", "");
   }
 
+  function formatMonthYear(dateString) {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  }
+
   async function loadPosts() {
     const res = await fetch("/posts.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load posts.json: ${res.status}`);
@@ -661,16 +668,24 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   function findPostForCurrentPage(posts) {
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    if (id) {
+      const byId = posts.find(p => p.id === id);
+      if (byId) return byId;
+    }
+
     const slug = getSlugFromUrl();
     return posts.find(p => (p.url || "").includes(slug)) || null;
   }
 
-  function buildPlayer({ title, category, dateLabel, audioUrl, slug }) {
+  function buildPlayer({ title, category, dateLabel, audioUrl, slug, hasAudio }) {
     const wrap = document.createElement("section");
     wrap.className = "audio-bar";
+    if (!hasAudio) wrap.classList.add("is-disabled");
     wrap.innerHTML = `
       <div class="audio-bar__left">
-        <button class="audio-bar__btn audio-bar__play" type="button" aria-label="Play">
+        <button class="audio-bar__btn audio-bar__play" type="button" aria-label="Play" ${hasAudio ? "" : "disabled"}>
           <span class="audio-bar__icon" data-icon="play">▶</span>
         </button>
       </div>
@@ -696,17 +711,19 @@ document.addEventListener("DOMContentLoaded", async ()=>{
       </div>
 
       <div class="audio-bar__right">
-        <button class="audio-bar__btn audio-bar__speed" type="button" aria-label="Playback speed">1x</button>
+        <button class="audio-bar__btn audio-bar__speed" type="button" aria-label="Playback speed" ${hasAudio ? "" : "disabled"}>1x</button>
       </div>
 
       <audio class="audio-bar__audio" preload="metadata"></audio>
     `;
 
     wrap.querySelector(".audio-bar__title").textContent = title || "Listen to this article";
-    wrap.querySelector(".audio-bar__sub").textContent = `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim();
+    wrap.querySelector(".audio-bar__sub").textContent = hasAudio
+      ? `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim()
+      : "Audio version coming soon";
 
     const audio = wrap.querySelector(".audio-bar__audio");
-    audio.src = audioUrl;
+    if (hasAudio && audioUrl) audio.src = audioUrl;
 
     const playBtn = wrap.querySelector(".audio-bar__play");
     const icon = wrap.querySelector(".audio-bar__icon");
@@ -718,6 +735,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const speedBtn = wrap.querySelector(".audio-bar__speed");
 
     let speedIndex = 0;
+
+    if (!hasAudio) {
+      timeline.setAttribute("aria-disabled", "true");
+      timeline.tabIndex = -1;
+      durationEl.textContent = "--:--";
+      return wrap;
+    }
 
     // Resume progress
     const saved = localStorage.getItem(storageKey(slug));
@@ -807,11 +831,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   async function initPremiumAudioBar() {
-    const isArticle = location.pathname.includes("/articles/");
+    const pageType = document.body?.getAttribute("data-page");
+    const isArticle = pageType === "static-article" || pageType === "article" || location.pathname.includes("/articles/");
     if (!isArticle) return;
 
-    const article = document.querySelector("article") || document.querySelector("main");
+    const article = document.querySelector(".article-shell") || document.querySelector("article") || document.querySelector("main");
     if (!article) return;
+    if (article.querySelector(".audio-bar")) return;
 
     let posts;
     try {
@@ -821,15 +847,16 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     }
 
     const post = findPostForCurrentPage(posts);
-    if (!post || !post.audioUrl) return;
+    if (!post) return;
 
     const slug = getSlugFromUrl();
     const player = buildPlayer({
       title: post.title,
       category: post.category,
-      dateLabel: post.dateLabel || "",
+      dateLabel: formatMonthYear(post.date),
       audioUrl: post.audioUrl,
-      slug
+      slug,
+      hasAudio: Boolean(post.audioUrl)
     });
 
     article.insertBefore(player, article.firstElementChild);
