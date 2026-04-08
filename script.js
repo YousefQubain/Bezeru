@@ -476,6 +476,8 @@ async function renderArticle(){
   }
   ledeEl.textContent  = localizedPost.excerpt;
   bodyEl.innerHTML = (post.content_html || "")
+    .replace(/<audio\b[^>]*\bcontrols\b[^>]*>[\s\S]*?<\/audio>/gi, "")
+    .replace(/<audio\b[^>]*\bsrc=["'][^"']*independents-that-are-quietly-replacing-hype\.mp3[^"']*["'][^>]*\/?>/gi, "")
     .replace(/<figure[^>]*>[\s\S]*?<img[\s\S]*?<\/figure>/gi, "")
     .replace(/<img\b[^>]*>/gi, "");
 
