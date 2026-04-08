@@ -119,8 +119,34 @@ header{
 /* ---------- CLOCKS ---------- */
 .clocks,
 .clock-wing{
+  display: none;
+}
+
+/* Legacy city clock cluster removed in favor of a single Swiss digital clock */
+.clock,
+.clock .city,
+.clock .time,
+.clock canvas{
+  display: none !important;
+}
+
+.header-swiss-clock{
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #222;
+  font-weight: 600;
+}
+
+.header-spacer{
+  gap: 12px;
+}
+
+.clocks,
+.clock-wing{
   flex: 1;
-  display:flex;
   justify-content:center;
   gap:24px;
   padding-top: 0px;

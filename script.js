@@ -208,6 +208,36 @@ function initHeaderClockWings(){
   row.classList.add("clock-wings-ready");
 }
 
+function initSwissHeaderClock(){
+  const row = document.querySelector(".header-row");
+  if(!row) return;
+
+  const spacer = row.querySelector(".header-spacer") || row;
+  let swissClock = spacer.querySelector(".header-swiss-clock");
+  if(!swissClock){
+    swissClock = document.createElement("div");
+    swissClock.className = "header-swiss-clock";
+    swissClock.setAttribute("aria-live", "polite");
+    swissClock.setAttribute("aria-label", "Switzerland time");
+    spacer.insertBefore(swissClock, spacer.firstChild);
+  }
+
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Zurich",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  });
+
+  const tick = ()=>{
+    swissClock.textContent = `Switzerland — ${formatter.format(new Date())}`;
+  };
+
+  tick();
+  setInterval(tick, 1000);
+}
+
 /* =========================
    CLOCKS (HiDPI + markers + seconds)
 ========================= */
@@ -762,6 +792,7 @@ function initArticleProgressBar(){
 
 document.addEventListener("DOMContentLoaded", async ()=>{
   initHeaderClockWings();
+  initSwissHeaderClock();
   initDropdowns();
   initClocks();
   initMobileNav();
