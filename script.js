@@ -181,33 +181,6 @@ function initStickyHeader(){
   window.addEventListener("resize", update);
 }
 
-/* =========================
-   HEADER CLOCK WINGS
-========================= */
-function initHeaderClockWings(){
-  const row = document.querySelector(".header-row");
-  const clocks = row ? row.querySelector(".clocks") : null;
-  const brand = row ? row.querySelector(".brand") : null;
-  if(!row || !clocks || !brand || row.classList.contains("clock-wings-ready")) return;
-
-  const clockItems = Array.from(clocks.querySelectorAll(".clock"));
-  if(clockItems.length < 4) return;
-
-  const leftWing = document.createElement("div");
-  leftWing.className = "clock-wing clock-wing-left";
-
-  const rightWing = document.createElement("div");
-  rightWing.className = "clock-wing clock-wing-right";
-
-  clockItems.slice(0, 2).forEach((clock)=> leftWing.appendChild(clock));
-  clockItems.slice(2).forEach((clock)=> rightWing.appendChild(clock));
-
-  clocks.remove();
-  row.insertBefore(leftWing, brand);
-  row.insertBefore(rightWing, row.querySelector(".header-spacer"));
-  row.classList.add("clock-wings-ready");
-}
-
 function initSwissHeaderClock(){
   const row = document.querySelector(".header-row");
   if(!row) return;
@@ -236,162 +209,6 @@ function initSwissHeaderClock(){
 
   tick();
   setInterval(tick, 1000);
-}
-
-/* =========================
-   CLOCKS (HiDPI + markers + seconds)
-========================= */
-const TZ = {
-  ny:  { tz: "America/New_York", label: "NEW YORK" },
-  lon: { tz: "Europe/London",    label: "LONDON" },
-  gen: { tz: "Europe/Zurich",    label: "GENEVA" },
-  tok: { tz: "Asia/Tokyo",       label: "TOKYO" }
-};
-
-function formatTime(tz){
-  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-GB";
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    timeZone: tz,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
-  const displayFmt = new Intl.DateTimeFormat(locale, {
-    timeZone: tz,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
-  const label = fmt.format(new Date()); // HH:MM:SS
-  const displayLabel = displayFmt.format(new Date());
-  const [hh, mm, ss] = label.split(":").map(Number);
-  return { hh, mm, ss, label: displayLabel };
-}
-
-function setupHiDPI(canvas){
-  const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
-  const cssW = 38, cssH = 38;
-  canvas.style.width = cssW + "px";
-  canvas.style.height = cssH + "px";
-  canvas.width = cssW * dpr;
-  canvas.height = cssH * dpr;
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(dpr,0,0,dpr,0,0); // draw in CSS pixels
-  return { ctx, dpr, w: cssW, h: cssH };
-}
-
-function drawDial(canvas, hh, mm, ss){
-  if(!canvas) return;
-  const { ctx, w } = setupHiDPI(canvas);
-  const r = w/2;
-
-  ctx.clearRect(0,0,w,w);
-  ctx.save();
-  ctx.translate(r,r);
-
-  // dial fill
-  ctx.beginPath();
-  ctx.arc(0,0,r-2.6,0,Math.PI*2);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-
-  // outer ring
-  ctx.beginPath();
-  ctx.arc(0,0,r-1.5,0,Math.PI*2);
-  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || "#1d4ed8";
-  ctx.lineWidth = 3.2;
-  ctx.stroke();
-
-  // white dial background (inside area)
-  ctx.beginPath();
-  ctx.arc(0,0,r-6.8,0,Math.PI*2);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-
-  // inner ring
-  ctx.beginPath();
-  ctx.arc(0,0,r-6.8,0,Math.PI*2);
-  ctx.strokeStyle = "rgba(15,23,42,0.08)";
-  ctx.lineWidth = 1.8;
-  ctx.stroke();
-
-  // minute/second ticks
-  for(let i=0;i<60;i++){
-    const ang = (Math.PI/30)*i - Math.PI/2;
-    const isHour = i % 5 === 0;
-    const len = isHour ? 6.5 : 3.8;
-    const lw  = isHour ? 1.7 : 1.1;
-
-    ctx.beginPath();
-    ctx.moveTo(Math.cos(ang)*(r-7.5), Math.sin(ang)*(r-7.5));
-    ctx.lineTo(Math.cos(ang)*(r-7.5-len), Math.sin(ang)*(r-7.5-len));
-    ctx.strokeStyle = isHour ? "rgba(15,23,42,0.55)" : "rgba(15,23,42,0.28)";
-    ctx.lineWidth = lw;
-    ctx.lineCap = "round";
-    ctx.stroke();
-  }
-
-  // hands angles
-  const hour = (hh % 12) + mm/60 + ss/3600;
-  const min  = mm + ss/60;
-
-  const hourAng = (Math.PI/6) * hour - Math.PI/2;
-  const minAng  = (Math.PI/30) * min  - Math.PI/2;
-  const secAng  = (Math.PI/30) * ss   - Math.PI/2;
-
-  // hour hand
-  ctx.beginPath();
-  ctx.moveTo(0,0);
-  ctx.lineTo(Math.cos(hourAng) * (r*0.42), Math.sin(hourAng) * (r*0.42));
-  ctx.strokeStyle = "rgba(15,23,42,0.92)";
-  ctx.lineWidth = 3.2;
-  ctx.lineCap = "round";
-  ctx.stroke();
-
-  // minute hand
-  ctx.beginPath();
-  ctx.moveTo(0,0);
-  ctx.lineTo(Math.cos(minAng) * (r*0.62), Math.sin(minAng) * (r*0.62));
-  ctx.strokeStyle = "rgba(15,23,42,0.92)";
-  ctx.lineWidth = 2.4;
-  ctx.lineCap = "round";
-  ctx.stroke();
-
-  // second hand (accent)
-  ctx.beginPath();
-  ctx.moveTo(Math.cos(secAng) * (r*0.10), Math.sin(secAng) * (r*0.10));
-  ctx.lineTo(Math.cos(secAng) * (r*0.70), Math.sin(secAng) * (r*0.70));
-  ctx.strokeStyle = "rgba(29,78,216,0.95)";
-  ctx.lineWidth = 1.4;
-  ctx.lineCap = "round";
-  ctx.stroke();
-
-  // center dot
-  ctx.beginPath();
-  ctx.arc(0,0,2.4,0,Math.PI*2);
-  ctx.fillStyle = "rgba(15,23,42,0.92)";
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function tickClocks(){
-  Object.keys(TZ).forEach(id=>{
-    const canvas = document.getElementById(id);
-    const tEl = document.getElementById(id + "-time");
-    if(!canvas || !tEl) return;
-
-    const parts = formatTime(TZ[id].tz);
-    tEl.textContent = parts.label;
-    drawDial(canvas, parts.hh, parts.mm, parts.ss);
-  });
-}
-
-function initClocks(){
-  tickClocks();
-  setInterval(tickClocks, 1000);
 }
 
 /* =========================
@@ -791,10 +608,8 @@ function initArticleProgressBar(){
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
-  initHeaderClockWings();
   initSwissHeaderClock();
   initDropdowns();
-  initClocks();
   initMobileNav();
   initStickyHeader();
   initMobileCta();

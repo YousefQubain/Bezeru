@@ -67,18 +67,12 @@ header{
 .header-row{
   display:flex;
   align-items:flex-start;
-  justify-content:space-between;
+  justify-content:center;
   gap:18px;
   padding-top: 2px;
-}
-
-.header-row.clock-wings-ready{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  gap: 18px;
   position: relative;
 }
+
 
 .brand{
   width: 220px;
@@ -101,35 +95,19 @@ header{
   letter-spacing: 6px;
   line-height:1;
 }
-/* spacer matches brand width so clocks stay centered */
+/* spacer keeps right-side header utilities aligned */
 .header-spacer{
-  width:220px;
+  width:auto;
   display:flex;
   justify-content:flex-end;
   align-items:flex-start;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-.header-row.clock-wings-ready .header-spacer{
-  position:absolute;
-  right:0;
-  top:0;
-  width:auto;
-}
 
 /* ---------- CLOCKS ---------- */
-.clocks,
-.clock-wing{
-  display: none;
-}
-
-/* Legacy city clock cluster removed in favor of a single Swiss digital clock */
-.clock,
-.clock .city,
-.clock .time,
-.clock canvas{
-  display: none !important;
-}
-
 .header-swiss-clock{
   display: inline-flex;
   align-items: center;
@@ -142,51 +120,6 @@ header{
 
 .header-spacer{
   gap: 12px;
-}
-
-.clocks,
-.clock-wing{
-  flex: 1;
-  justify-content:center;
-  gap:24px;
-  padding-top: 0px;
-}
-
-.clock-wing{
-  flex: 0 0 auto;
-}
-
-.clock{
-  width: 92px;
-  min-width: 92px;
-  flex-shrink: 0;
-  text-align:center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.clock .city{
-  font-size: 10.5px;
-  letter-spacing: 2.5px;
-  color: var(--muted);
-  font-weight: 750;
-  margin-bottom: 6px;
-  white-space: nowrap;
-  width: 100%;
-  text-align: center;
-}
-.clock canvas{
-  display:none;
-}
-.clock .time{
-  margin-top: 0;
-  font-size: 13px;
-  font-weight: 850;
-  color: var(--text);
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  width: 100%;
-  text-align: center;
 }
 
 /* ---------- NAV ---------- */
@@ -371,9 +304,14 @@ body.nav-open{
 .editor-note{ grid-area: note; }
 
 .hero-watch-face{
-  width: 130px;
-  height: 130px;
+  width: clamp(190px, 21vw, 240px);
+  height: clamp(190px, 21vw, 240px);
   overflow: visible;
+  filter: drop-shadow(0 8px 16px rgba(15,23,42,0.08));
+  transition: transform 220ms ease;
+}
+.hero-watch-wrap:hover .hero-watch-face{
+  transform: scale(1.015);
 }
 .hero-watch-face .watch-ring{
   fill: none;
@@ -1261,16 +1199,9 @@ footer{
     align-items:flex-start;
   }
   .brand, .header-spacer{ width:auto; }
-  .clocks{
-    width:100%;
-    justify-content:flex-start;
-    align-items: flex-start;
-    overflow-x:auto;
-    padding-bottom: 8px;
-  }
-  .clock{
-    flex-shrink: 0;
-    min-width: 92px;
+  .header-spacer{
+    position: static;
+    align-self: flex-end;
   }
   nav{
     justify-content:flex-start;
@@ -1301,8 +1232,7 @@ footer{
 }
 
 @media (max-width: 768px){
-  /* Mobile-first header: hide clocks + collapse nav for a clean hero. */
-  .clocks{ display:none; }
+  /* Mobile-first header: collapse nav for a clean hero. */
   .nav-wrap{
     border-top: 1px solid var(--ui-line);
     border-bottom: 1px solid var(--ui-line);
@@ -1414,18 +1344,6 @@ footer{
 
 @media (max-width: 720px){
   .container{ padding: 0 16px; }
-  .clocks{
-    flex-wrap: wrap;
-    justify-content:flex-start;
-    gap: 16px;
-  }
-  .clock{
-    min-width: 78px;
-  }
-  .clock canvas{
-    width: 32px;
-    height: 32px;
-  }
   nav{
     flex-wrap: wrap;
     gap: 10px 12px;
@@ -1483,13 +1401,6 @@ footer{
   .brand .word{
     font-size: 18px;
     letter-spacing: 4px;
-  }
-  .clock .city{
-    font-size: 9.5px;
-    letter-spacing: 2px;
-  }
-  .clock .time{
-    font-size: 12px;
   }
   .lead{
     font-size: 15px;
@@ -2033,17 +1944,6 @@ html{
     padding-top: 8px;
   }
 
-  .header-row.clock-wings-ready{
-    display:flex;
-    grid-template-columns: none;
-  }
-
-  .clocks,
-  .clock-wing,
-  .header-spacer{
-    display: none;
-  }
-
   .brand{
     width: auto;
   }
@@ -2149,6 +2049,10 @@ html{
 
   .hero-watch-wrap{
     justify-content: center;
+  }
+  .hero-watch-face{
+    width: clamp(140px, 42vw, 180px);
+    height: clamp(140px, 42vw, 180px);
   }
 
   h1{
