@@ -332,8 +332,70 @@ body.nav-open{
 .hero-grid{
   display:grid;
   grid-template-columns: 1.35fr 0.85fr;
+  grid-template-areas:
+    "text watch"
+    "note note";
   gap: 28px;
   align-items:start;
+}
+
+.hero-left{ grid-area: text; }
+.hero-watch-wrap{
+  grid-area: watch;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.editor-note{ grid-area: note; }
+
+.hero-watch-face{
+  width: 130px;
+  height: 130px;
+  overflow: visible;
+}
+.hero-watch-face .watch-ring{
+  fill: none;
+  stroke: rgba(15,23,42,0.24);
+  stroke-width: 1.4;
+}
+.hero-watch-face .watch-tick{
+  stroke: rgba(15,23,42,0.24);
+  stroke-width: 1;
+}
+.hero-watch-face .watch-tick-major{
+  stroke: rgba(15,23,42,0.45);
+  stroke-width: 1.3;
+}
+.hero-watch-face .watch-quarters text{
+  fill: rgba(15,23,42,0.72);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.hero-watch-face .watch-brand{
+  fill: rgba(15,23,42,0.65);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hero-watch-face .watch-hand{
+  stroke-linecap: round;
+  transform-origin: 65px 65px;
+}
+.hero-watch-face .watch-hour{
+  stroke: rgba(15,23,42,0.92);
+  stroke-width: 2.3;
+}
+.hero-watch-face .watch-minute{
+  stroke: rgba(15,23,42,0.88);
+  stroke-width: 1.8;
+}
+.hero-watch-face .watch-second{
+  stroke: #D85A30;
+  stroke-width: 1.2;
+}
+.hero-watch-face .watch-center{
+  fill: rgba(15,23,42,0.9);
 }
 
 .kicker{
@@ -1816,7 +1878,8 @@ p{
 .meta{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 8px;
   font-size: 12px;
@@ -1832,6 +1895,29 @@ p{
   background: rgba(15, 23, 42, 0.03);
   color: rgba(15,23,42,0.8);
   font-weight: 600;
+}
+
+.category-badge{
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.category-badge[data-category-key="underdogs"]{ background:#E1F5EE; color:#0F6E56; }
+.category-badge[data-category-key="vintage-design-icons"]{ background:#FAEEDA; color:#854F0B; }
+.category-badge[data-category-key="innovation-industry"]{ background:#E6F1FB; color:#185FA5; }
+.category-badge[data-category-key="design"]{ background:#EEEDFE; color:#534AB7; }
+.category-badge[data-category-key="middle-east-culture"]{ background:#FAECE7; color:#993C1D; }
+.category-badge[data-category-key="guides"]{ background:#EAF3DE; color:#3B6D11; }
+
+.card-read-time{
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .card-title{
@@ -2033,7 +2119,15 @@ html{
 
   .hero-grid{
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "watch"
+      "text"
+      "note";
     gap: 18px;
+  }
+
+  .hero-watch-wrap{
+    justify-content: center;
   }
 
   h1{
@@ -2188,6 +2282,73 @@ html{
   }
 }
 
+.section-brands-teaser{
+  padding-top: 0;
+}
+.brands-teaser{
+  display: grid;
+  gap: 14px;
+}
+.brands-pills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.brand-pill{
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.brand-pill.is-active{
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+.brands-panel{
+  background: rgba(255,255,255,0.72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.brands-panel h3{
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+.brands-panel p{
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+.brands-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.brands-chip{
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.reading-progress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  z-index: 9999;
+  background: var(--text);
+}
+
 @media (hover: none){
   .hero-right img{
     transform: none;
@@ -2233,6 +2394,11 @@ html{
   border-radius: 999px;
   padding: 10px 12px;
   cursor: pointer;
+}
+
+.audio-bar__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .audio-bar__play {
@@ -2315,6 +2481,11 @@ html{
 }
 
 .audio-bar__sep { opacity: 0.5; }
+
+.audio-bar.is-disabled .audio-bar__timeline {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
 
 @media (max-width: 720px) {
   .audio-bar {
