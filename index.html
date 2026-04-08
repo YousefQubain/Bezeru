@@ -143,6 +143,27 @@
     <section class="hero hero-signature">
       <div class="container">
         <div class="hero-grid">
+          <div class="hero-watch-wrap" aria-hidden="true">
+            <svg id="hero-watch-face" class="hero-watch-face" viewBox="0 0 130 130" role="img" aria-label="Live BEZERU watch face">
+              <circle class="watch-ring" cx="65" cy="65" r="58"></circle>
+              <g id="hero-watch-ticks"></g>
+              <g class="watch-quarters">
+                <text x="65" y="21" text-anchor="middle">12</text>
+                <text x="108" y="69" text-anchor="middle">3</text>
+                <text x="65" y="113" text-anchor="middle">6</text>
+                <text x="22" y="69" text-anchor="middle">9</text>
+              </g>
+              <text class="watch-brand" x="65" y="91" text-anchor="middle">BEZERU</text>
+              <g id="hero-watch-hands">
+                <line id="hero-watch-hour" class="watch-hand watch-hour" x1="65" y1="65" x2="65" y2="38"></line>
+                <line id="hero-watch-minute" class="watch-hand watch-minute" x1="65" y1="65" x2="65" y2="27"></line>
+                <line id="hero-watch-second-tail" class="watch-hand watch-second" x1="65" y1="65" x2="65" y2="73"></line>
+                <line id="hero-watch-second" class="watch-hand watch-second" x1="65" y1="65" x2="65" y2="22"></line>
+                <circle class="watch-center" cx="65" cy="65" r="2.8"></circle>
+              </g>
+            </svg>
+          </div>
+
           <div class="hero-left">
             <p class="kicker">Independent Watch Journal</p>
             <h1>Watches, explained with editorial restraint and sharp taste.</h1>
@@ -211,6 +232,35 @@
       </div>
     </section>
 
+    <section class="section section-brands-teaser" aria-labelledby="brands-teaser-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="brands-teaser-title">Brands</h2>
+          <p>A quick editorial lens on four houses shaping watch culture.</p>
+        </div>
+
+        <div class="brands-teaser" id="brands-teaser" data-default-brand="Rolex">
+          <div class="brands-pills" role="tablist" aria-label="Brand previews">
+            <button class="brand-pill is-active" type="button" data-brand="Rolex">Rolex</button>
+            <button class="brand-pill" type="button" data-brand="Cartier">Cartier</button>
+            <button class="brand-pill" type="button" data-brand="Piaget">Piaget</button>
+            <button class="brand-pill" type="button" data-brand="IWC">IWC</button>
+          </div>
+
+          <article class="brands-panel" id="brands-panel" aria-live="polite">
+            <h3 id="brands-name">Rolex</h3>
+            <p id="brands-description">The reference point for tool watches — obsessively refined over decades, deeply wearable, and impossible to ignore on the wrist.</p>
+            <div class="brands-meta" id="brands-meta">
+              <span class="brands-chip">Founded 1905</span>
+              <span class="brands-chip">Switzerland</span>
+              <span class="brands-chip">Tool / Sport</span>
+            </div>
+            <a id="brands-link" class="hero-feature-link" href="brands.html#rolex">Read more about Rolex →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-featured latest">
       <div class="container">
         <div class="section-head">
@@ -222,8 +272,9 @@
           <article class="card">
             <div class="card-body">
               <div class="meta">
-                <span class="tag">Underdogs</span>
+                <span class="tag category-badge" data-category-key="underdogs">Underdogs</span>
                 <time datetime="2026-01-27">Jan 2026</time>
+                <span class="card-read-time">· 2 min read</span>
               </div>
               <h3 class="card-title">
                 <a href="articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a>
@@ -235,8 +286,9 @@
           <article class="card">
             <div class="card-body">
               <div class="meta">
-                <span class="tag">Middle East / Culture</span>
+                <span class="tag category-badge" data-category-key="middle-east-culture">Middle East / Culture</span>
                 <time datetime="2026-01-29">Jan 2026</time>
+                <span class="card-read-time">· 2 min read</span>
               </div>
               <h3 class="card-title">
                 <a href="articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</a>
@@ -248,8 +300,9 @@
           <article class="card">
             <div class="card-body">
               <div class="meta">
-                <span class="tag">Innovation / Industry</span>
+                <span class="tag category-badge" data-category-key="innovation-industry">Innovation / Industry</span>
                 <time datetime="2026-02-11">Feb 2026</time>
+                <span class="card-read-time">· 2 min read</span>
               </div>
               <h3 class="card-title">
                 <a href="articles/time-reimagined-watchmaking-innovations-2025-26.html">Time Reimagined: Watchmaking Innovations of 2025–26</a>
@@ -278,7 +331,7 @@
         <div class="footer-col footer-subscribe" id="subscribe">
           <h4 class="footer-title">Subscribe</h4>
           <p class="footer-subtitle">
-            New watch stories, twice a week. Clean, collectible, and worth your time.
+            What kind of collector are you? Vintage purist, tool watch obsessive, or chasing the under-the-radar indie — new stories twice a week, edited for people who care about the details.
           </p>
 
           <form id="subscribe-form" class="subscribe-form" data-location="footer" novalidate>
