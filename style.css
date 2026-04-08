@@ -2792,16 +2792,36 @@ header.site-header{
   backdrop-filter: blur(8px);
 }
 
+.nav-shell{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-clock-slot{
+  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+}
+
 nav{
-  justify-content: space-between;
+  flex: 1;
+  justify-content: stretch;
   padding: 10px 14px;
 }
 
 .nav-panel{
   width: 100%;
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: flex-end;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.nav-links{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -2820,6 +2840,7 @@ nav{
 }
 
 .nav-cta{
+  justify-self: end;
   margin-left: 8px;
   border: 1px solid #1b1b1b;
   border-radius: 999px;
@@ -2849,16 +2870,45 @@ nav{
     border-radius: 14px;
   }
 
+  .nav-shell{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-clock-slot{
+    min-width: 0;
+  }
+
   .nav-toggle{
     display: inline-flex;
+    justify-self: end;
   }
 
   nav{
     justify-content: flex-end;
     padding: 8px 10px;
+    grid-column: 1 / -1;
   }
 
   .nav-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     width: min(92vw, 360px);
+  }
+
+  .nav-links{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .nav-cta{
+    margin-left: 0;
+    justify-self: auto;
+    text-align: center;
   }
 }
