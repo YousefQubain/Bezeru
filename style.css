@@ -2777,7 +2777,11 @@ header.site-header{
 }
 
 .header-spacer{
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-left: auto;
 }
 
 .nav-wrap{
