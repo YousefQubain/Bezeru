@@ -150,14 +150,10 @@ header{
   text-align: center;
 }
 .clock canvas{
-  display:block;
-  margin:0 auto;
-  width: 38px;   /* visual size */
-  height: 38px;  /* visual size */
-  flex-shrink: 0;
+  display:none;
 }
 .clock .time{
-  margin-top: 6px;
+  margin-top: 0;
   font-size: 13px;
   font-weight: 850;
   color: var(--text);
