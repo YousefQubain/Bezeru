@@ -454,18 +454,37 @@ async function loadPosts(){
   return data.posts || [];
 }
 
+function normalizeCategoryKey(category = ""){
+  const value = category.trim().toLowerCase();
+  if(value.includes("underdogs") || value.includes("indie") || value.includes("independents")) return "underdogs";
+  if(value.includes("design icons") || value.includes("vintage")) return "vintage-design-icons";
+  if(value.includes("innovation") || value.includes("industry")) return "innovation-industry";
+  if(value === "design") return "design";
+  if(value.includes("middle east") || value.includes("culture")) return "middle-east-culture";
+  if(value.includes("guides") || value.includes("guide")) return "guides";
+  return "default";
+}
+
+function getExcerptReadingTime(excerpt = ""){
+  const text = (excerpt || "").replace(/\s+/g, " ").trim();
+  const words = text ? text.split(" ").length : 0;
+  return Math.max(2, Math.round(words / 200) || 0);
+}
+
 function postCardHTML(post){
   const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
-  const meta = getCardMeta(localizedPost);
   const dateLabel = formatDate(localizedPost.date);
+  const readingTime = getExcerptReadingTime(localizedPost.excerpt || "");
+  const categoryKey = normalizeCategoryKey(localizedPost.category || "");
   const rawHref = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
   const href = window.BEZERU_I18N?.localizeHref ? window.BEZERU_I18N.localizeHref(rawHref) : rawHref;
   return `
     <article class="card">
       <div class="card-body">
         <div class="meta">
-          <span class="tag">${localizedPost.category || "Latest"}</span>
+          <span class="tag category-badge" data-category-key="${categoryKey}">${localizedPost.category || "Latest"}</span>
           <time datetime="${localizedPost.date || ""}">${dateLabel}</time>
+          <span class="card-read-time">· ${readingTime} min read</span>
         </div>
         <h3 class="card-title">
           <a href="${href}">${localizedPost.title}</a>
@@ -504,6 +523,26 @@ function getReadingTime(content){
   const text = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
   const words = text ? text.split(" ").length : 0;
   return Math.max(1, Math.ceil(words / 200));
+}
+
+function enhanceStaticCardMeta(){
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card)=>{
+    const categoryEl = card.querySelector(".meta .tag");
+    if(categoryEl){
+      categoryEl.classList.add("category-badge");
+      categoryEl.dataset.categoryKey = normalizeCategoryKey(categoryEl.textContent || "");
+    }
+
+    const meta = card.querySelector(".meta");
+    const excerpt = card.querySelector(".card-excerpt")?.textContent || "";
+    if(meta && !meta.querySelector(".card-read-time")){
+      const read = document.createElement("span");
+      read.className = "card-read-time";
+      read.textContent = `· ${getExcerptReadingTime(excerpt)} min read`;
+      meta.appendChild(read);
+    }
+  });
 }
 
 async function renderHomeLatestFeed(){
@@ -603,6 +642,124 @@ async function renderArticle(){
   }
 }
 
+function initHeroWatchFace(){
+  const svg = document.getElementById("hero-watch-face");
+  if(!svg) return;
+
+  const ticksGroup = document.getElementById("hero-watch-ticks");
+  if(ticksGroup && ticksGroup.childElementCount === 0){
+    for(let i = 0; i < 60; i += 1){
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      const angle = (Math.PI * 2 * i) / 60;
+      const isQuarter = i % 5 === 0;
+      const rOuter = 56;
+      const rInner = isQuarter ? 48 : 52;
+      const x1 = 65 + Math.sin(angle) * rInner;
+      const y1 = 65 - Math.cos(angle) * rInner;
+      const x2 = 65 + Math.sin(angle) * rOuter;
+      const y2 = 65 - Math.cos(angle) * rOuter;
+      line.setAttribute("x1", x1.toFixed(2));
+      line.setAttribute("y1", y1.toFixed(2));
+      line.setAttribute("x2", x2.toFixed(2));
+      line.setAttribute("y2", y2.toFixed(2));
+      line.setAttribute("class", isQuarter ? "watch-tick watch-tick-major" : "watch-tick");
+      ticksGroup.appendChild(line);
+    }
+  }
+
+  const hour = document.getElementById("hero-watch-hour");
+  const minute = document.getElementById("hero-watch-minute");
+  const second = document.getElementById("hero-watch-second");
+  const secondTail = document.getElementById("hero-watch-second-tail");
+  if(!hour || !minute || !second || !secondTail) return;
+
+  const update = ()=>{
+    const now = new Date();
+    const ms = now.getMilliseconds();
+    const sec = now.getSeconds() + ms / 1000;
+    const min = now.getMinutes() + sec / 60;
+    const hr = (now.getHours() % 12) + min / 60;
+    hour.setAttribute("transform", `rotate(${hr * 30} 65 65)`);
+    minute.setAttribute("transform", `rotate(${min * 6} 65 65)`);
+    second.setAttribute("transform", `rotate(${sec * 6} 65 65)`);
+    secondTail.setAttribute("transform", `rotate(${sec * 6} 65 65)`);
+  };
+
+  update();
+  setInterval(update, 100);
+}
+
+function initBrandsTeaser(){
+  const root = document.getElementById("brands-teaser");
+  if(!root) return;
+  const panelName = document.getElementById("brands-name");
+  const panelDescription = document.getElementById("brands-description");
+  const panelMeta = document.getElementById("brands-meta");
+  const panelLink = document.getElementById("brands-link");
+  const pills = Array.from(root.querySelectorAll(".brand-pill"));
+  if(!panelName || !panelDescription || !panelMeta || !panelLink || pills.length === 0) return;
+
+  const brandData = {
+    Rolex: {
+      description: "The reference point for tool watches — obsessively refined over decades, deeply wearable, and impossible to ignore on the wrist.",
+      meta: ["Founded 1905", "Switzerland", "Tool / Sport"],
+      href: "brands.html#rolex"
+    },
+    Cartier: {
+      description: "Where jewellery meets horology — Cartier’s watches are among the most architecturally distinctive objects in the market.",
+      meta: ["Founded 1847", "France", "Dress / Artistic"],
+      href: "brands.html#cartier"
+    },
+    Piaget: {
+      description: "Specialists in ultra-thin movements and high jewellery, Piaget operates at the intersection of watchmaking and fine art.",
+      meta: ["Founded 1874", "Switzerland", "Ultra-thin / Luxury"],
+      href: "brands.html#piaget"
+    },
+    IWC: {
+      description: "Schaffhausen’s answer to serious complications — IWC builds pilots and engineers’ watches with German rigour and Swiss precision.",
+      meta: ["Founded 1868", "Switzerland", "Pilot / Dress"],
+      href: "brands.html#iwc"
+    }
+  };
+
+  function paint(brand){
+    const data = brandData[brand];
+    if(!data) return;
+    panelName.textContent = brand;
+    panelDescription.textContent = data.description;
+    panelMeta.innerHTML = data.meta.map(item => `<span class="brands-chip">${item}</span>`).join("");
+    panelLink.textContent = `Read more about ${brand} →`;
+    panelLink.setAttribute("href", data.href);
+    pills.forEach(pill => pill.classList.toggle("is-active", pill.dataset.brand === brand));
+  }
+
+  pills.forEach((pill)=>{
+    pill.addEventListener("click", ()=> paint(pill.dataset.brand));
+  });
+
+  paint(root.dataset.defaultBrand || "Rolex");
+}
+
+function initArticleProgressBar(){
+  if(!location.pathname.includes("/articles/")) return;
+  if(document.getElementById("reading-progress")) return;
+
+  const bar = document.createElement("div");
+  bar.id = "reading-progress";
+  bar.className = "reading-progress";
+  document.body.appendChild(bar);
+
+  const update = ()=>{
+    const max = document.body.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    bar.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+  };
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
 document.addEventListener("DOMContentLoaded", async ()=>{
   initHeaderClockWings();
   initDropdowns();
@@ -610,6 +767,10 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initMobileNav();
   initStickyHeader();
   initMobileCta();
+  initHeroWatchFace();
+  initBrandsTeaser();
+  initArticleProgressBar();
+  enhanceStaticCardMeta();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");
