@@ -67,18 +67,12 @@ header{
 .header-row{
   display:flex;
   align-items:flex-start;
-  justify-content:space-between;
+  justify-content:center;
   gap:18px;
   padding-top: 2px;
-}
-
-.header-row.clock-wings-ready{
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  gap: 18px;
   position: relative;
 }
+
 
 .brand{
   width: 220px;
@@ -101,70 +95,31 @@ header{
   letter-spacing: 6px;
   line-height:1;
 }
-/* spacer matches brand width so clocks stay centered */
+/* spacer keeps right-side header utilities aligned */
 .header-spacer{
-  width:220px;
+  width:auto;
   display:flex;
   justify-content:flex-end;
   align-items:flex-start;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-.header-row.clock-wings-ready .header-spacer{
-  position:absolute;
-  right:0;
-  top:0;
-  width:auto;
-}
 
 /* ---------- CLOCKS ---------- */
-.clocks,
-.clock-wing{
-  flex: 1;
-  display:flex;
-  justify-content:center;
-  gap:24px;
-  padding-top: 0px;
-}
-
-.clock-wing{
-  flex: 0 0 auto;
-}
-
-.clock{
-  width: 92px;
-  min-width: 92px;
-  flex-shrink: 0;
-  text-align:center;
-  display: flex;
-  flex-direction: column;
+.header-swiss-clock{
+  display: inline-flex;
   align-items: center;
-}
-.clock .city{
-  font-size: 10.5px;
-  letter-spacing: 2.5px;
-  color: var(--muted);
-  font-weight: 750;
-  margin-bottom: 6px;
   white-space: nowrap;
-  width: 100%;
-  text-align: center;
-}
-.clock canvas{
-  display:block;
-  margin:0 auto;
-  width: 38px;   /* visual size */
-  height: 38px;  /* visual size */
-  flex-shrink: 0;
-}
-.clock .time{
-  margin-top: 6px;
   font-size: 13px;
-  font-weight: 850;
-  color: var(--text);
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  width: 100%;
-  text-align: center;
+  letter-spacing: 0.08em;
+  color: #222;
+  font-weight: 600;
+}
+
+.header-spacer{
+  gap: 12px;
 }
 
 /* ---------- NAV ---------- */
@@ -332,8 +287,74 @@ body.nav-open{
 .hero-grid{
   display:grid;
   grid-template-columns: 1.35fr 0.85fr;
+  grid-template-areas:
+    "text watch"
+    "note note";
   gap: 28px;
   align-items:start;
+}
+
+.hero-left{ grid-area: text; }
+.hero-watch-wrap{
+  grid-area: watch;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.editor-note{ grid-area: note; }
+
+.hero-watch-face{
+  width: clamp(190px, 21vw, 240px);
+  height: clamp(190px, 21vw, 240px);
+  overflow: visible;
+  filter: drop-shadow(0 8px 16px rgba(15,23,42,0.08));
+  transition: transform 220ms ease;
+}
+.hero-watch-wrap:hover .hero-watch-face{
+  transform: scale(1.015);
+}
+.hero-watch-face .watch-ring{
+  fill: none;
+  stroke: rgba(15,23,42,0.24);
+  stroke-width: 1.4;
+}
+.hero-watch-face .watch-tick{
+  stroke: rgba(15,23,42,0.24);
+  stroke-width: 1;
+}
+.hero-watch-face .watch-tick-major{
+  stroke: rgba(15,23,42,0.45);
+  stroke-width: 1.3;
+}
+.hero-watch-face .watch-quarters text{
+  fill: rgba(15,23,42,0.72);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.hero-watch-face .watch-brand{
+  fill: rgba(15,23,42,0.65);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hero-watch-face .watch-hand{
+  stroke-linecap: round;
+}
+.hero-watch-face .watch-hour{
+  stroke: rgba(15,23,42,0.92);
+  stroke-width: 2.3;
+}
+.hero-watch-face .watch-minute{
+  stroke: rgba(15,23,42,0.88);
+  stroke-width: 1.8;
+}
+.hero-watch-face .watch-second{
+  stroke: #D85A30;
+  stroke-width: 1.2;
+}
+.hero-watch-face .watch-center{
+  fill: rgba(15,23,42,0.9);
 }
 
 .kicker{
@@ -1178,16 +1199,9 @@ footer{
     align-items:flex-start;
   }
   .brand, .header-spacer{ width:auto; }
-  .clocks{
-    width:100%;
-    justify-content:flex-start;
-    align-items: flex-start;
-    overflow-x:auto;
-    padding-bottom: 8px;
-  }
-  .clock{
-    flex-shrink: 0;
-    min-width: 92px;
+  .header-spacer{
+    position: static;
+    align-self: flex-end;
   }
   nav{
     justify-content:flex-start;
@@ -1218,8 +1232,7 @@ footer{
 }
 
 @media (max-width: 768px){
-  /* Mobile-first header: hide clocks + collapse nav for a clean hero. */
-  .clocks{ display:none; }
+  /* Mobile-first header: collapse nav for a clean hero. */
   .nav-wrap{
     border-top: 1px solid var(--ui-line);
     border-bottom: 1px solid var(--ui-line);
@@ -1331,18 +1344,6 @@ footer{
 
 @media (max-width: 720px){
   .container{ padding: 0 16px; }
-  .clocks{
-    flex-wrap: wrap;
-    justify-content:flex-start;
-    gap: 16px;
-  }
-  .clock{
-    min-width: 78px;
-  }
-  .clock canvas{
-    width: 32px;
-    height: 32px;
-  }
   nav{
     flex-wrap: wrap;
     gap: 10px 12px;
@@ -1400,13 +1401,6 @@ footer{
   .brand .word{
     font-size: 18px;
     letter-spacing: 4px;
-  }
-  .clock .city{
-    font-size: 9.5px;
-    letter-spacing: 2px;
-  }
-  .clock .time{
-    font-size: 12px;
   }
   .lead{
     font-size: 15px;
@@ -1816,7 +1810,8 @@ p{
 .meta{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 8px;
   font-size: 12px;
@@ -1832,6 +1827,29 @@ p{
   background: rgba(15, 23, 42, 0.03);
   color: rgba(15,23,42,0.8);
   font-weight: 600;
+}
+
+.category-badge{
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.category-badge[data-category-key="underdogs"]{ background:#E1F5EE; color:#0F6E56; }
+.category-badge[data-category-key="vintage-design-icons"]{ background:#FAEEDA; color:#854F0B; }
+.category-badge[data-category-key="innovation-industry"]{ background:#E6F1FB; color:#185FA5; }
+.category-badge[data-category-key="design"]{ background:#EEEDFE; color:#534AB7; }
+.category-badge[data-category-key="middle-east-culture"]{ background:#FAECE7; color:#993C1D; }
+.category-badge[data-category-key="guides"]{ background:#EAF3DE; color:#3B6D11; }
+
+.card-read-time{
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .card-title{
@@ -1924,17 +1942,6 @@ html{
   .header-row{
     align-items: center;
     padding-top: 8px;
-  }
-
-  .header-row.clock-wings-ready{
-    display:flex;
-    grid-template-columns: none;
-  }
-
-  .clocks,
-  .clock-wing,
-  .header-spacer{
-    display: none;
   }
 
   .brand{
@@ -2033,7 +2040,19 @@ html{
 
   .hero-grid{
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "watch"
+      "text"
+      "note";
     gap: 18px;
+  }
+
+  .hero-watch-wrap{
+    justify-content: center;
+  }
+  .hero-watch-face{
+    width: clamp(140px, 42vw, 180px);
+    height: clamp(140px, 42vw, 180px);
   }
 
   h1{
@@ -2188,6 +2207,73 @@ html{
   }
 }
 
+.section-brands-teaser{
+  padding-top: 0;
+}
+.brands-teaser{
+  display: grid;
+  gap: 14px;
+}
+.brands-pills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.brand-pill{
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.brand-pill.is-active{
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+.brands-panel{
+  background: rgba(255,255,255,0.72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.brands-panel h3{
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+.brands-panel p{
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+.brands-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.brands-chip{
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.reading-progress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  z-index: 9999;
+  background: var(--text);
+}
+
 @media (hover: none){
   .hero-right img{
     transform: none;
@@ -2233,6 +2319,11 @@ html{
   border-radius: 999px;
   padding: 10px 12px;
   cursor: pointer;
+}
+
+.audio-bar__btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .audio-bar__play {
@@ -2315,6 +2406,11 @@ html{
 }
 
 .audio-bar__sep { opacity: 0.5; }
+
+.audio-bar.is-disabled .audio-bar__timeline {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
 
 @media (max-width: 720px) {
   .audio-bar {

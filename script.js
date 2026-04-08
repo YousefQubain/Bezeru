@@ -181,187 +181,34 @@ function initStickyHeader(){
   window.addEventListener("resize", update);
 }
 
-/* =========================
-   HEADER CLOCK WINGS
-========================= */
-function initHeaderClockWings(){
+function initSwissHeaderClock(){
   const row = document.querySelector(".header-row");
-  const clocks = row ? row.querySelector(".clocks") : null;
-  const brand = row ? row.querySelector(".brand") : null;
-  if(!row || !clocks || !brand || row.classList.contains("clock-wings-ready")) return;
+  if(!row) return;
 
-  const clockItems = Array.from(clocks.querySelectorAll(".clock"));
-  if(clockItems.length < 4) return;
-
-  const leftWing = document.createElement("div");
-  leftWing.className = "clock-wing clock-wing-left";
-
-  const rightWing = document.createElement("div");
-  rightWing.className = "clock-wing clock-wing-right";
-
-  clockItems.slice(0, 2).forEach((clock)=> leftWing.appendChild(clock));
-  clockItems.slice(2).forEach((clock)=> rightWing.appendChild(clock));
-
-  clocks.remove();
-  row.insertBefore(leftWing, brand);
-  row.insertBefore(rightWing, row.querySelector(".header-spacer"));
-  row.classList.add("clock-wings-ready");
-}
-
-/* =========================
-   CLOCKS (HiDPI + markers + seconds)
-========================= */
-const TZ = {
-  ny:  { tz: "America/New_York", label: "NEW YORK" },
-  lon: { tz: "Europe/London",    label: "LONDON" },
-  gen: { tz: "Europe/Zurich",    label: "GENEVA" },
-  tok: { tz: "Asia/Tokyo",       label: "TOKYO" }
-};
-
-function formatTime(tz){
-  const locale = window.BEZERU_I18N?.locale === "ar" ? "ar-SA" : "en-GB";
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    timeZone: tz,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
-  const displayFmt = new Intl.DateTimeFormat(locale, {
-    timeZone: tz,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
-  const label = fmt.format(new Date()); // HH:MM:SS
-  const displayLabel = displayFmt.format(new Date());
-  const [hh, mm, ss] = label.split(":").map(Number);
-  return { hh, mm, ss, label: displayLabel };
-}
-
-function setupHiDPI(canvas){
-  const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
-  const cssW = 38, cssH = 38;
-  canvas.style.width = cssW + "px";
-  canvas.style.height = cssH + "px";
-  canvas.width = cssW * dpr;
-  canvas.height = cssH * dpr;
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(dpr,0,0,dpr,0,0); // draw in CSS pixels
-  return { ctx, dpr, w: cssW, h: cssH };
-}
-
-function drawDial(canvas, hh, mm, ss){
-  if(!canvas) return;
-  const { ctx, w } = setupHiDPI(canvas);
-  const r = w/2;
-
-  ctx.clearRect(0,0,w,w);
-  ctx.save();
-  ctx.translate(r,r);
-
-  // dial fill
-  ctx.beginPath();
-  ctx.arc(0,0,r-2.6,0,Math.PI*2);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-
-  // outer ring
-  ctx.beginPath();
-  ctx.arc(0,0,r-1.5,0,Math.PI*2);
-  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || "#1d4ed8";
-  ctx.lineWidth = 3.2;
-  ctx.stroke();
-
-  // white dial background (inside area)
-  ctx.beginPath();
-  ctx.arc(0,0,r-6.8,0,Math.PI*2);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-
-  // inner ring
-  ctx.beginPath();
-  ctx.arc(0,0,r-6.8,0,Math.PI*2);
-  ctx.strokeStyle = "rgba(15,23,42,0.08)";
-  ctx.lineWidth = 1.8;
-  ctx.stroke();
-
-  // minute/second ticks
-  for(let i=0;i<60;i++){
-    const ang = (Math.PI/30)*i - Math.PI/2;
-    const isHour = i % 5 === 0;
-    const len = isHour ? 6.5 : 3.8;
-    const lw  = isHour ? 1.7 : 1.1;
-
-    ctx.beginPath();
-    ctx.moveTo(Math.cos(ang)*(r-7.5), Math.sin(ang)*(r-7.5));
-    ctx.lineTo(Math.cos(ang)*(r-7.5-len), Math.sin(ang)*(r-7.5-len));
-    ctx.strokeStyle = isHour ? "rgba(15,23,42,0.55)" : "rgba(15,23,42,0.28)";
-    ctx.lineWidth = lw;
-    ctx.lineCap = "round";
-    ctx.stroke();
+  const spacer = row.querySelector(".header-spacer") || row;
+  let swissClock = spacer.querySelector(".header-swiss-clock");
+  if(!swissClock){
+    swissClock = document.createElement("div");
+    swissClock.className = "header-swiss-clock";
+    swissClock.setAttribute("aria-live", "polite");
+    swissClock.setAttribute("aria-label", "Switzerland time");
+    spacer.insertBefore(swissClock, spacer.firstChild);
   }
 
-  // hands angles
-  const hour = (hh % 12) + mm/60 + ss/3600;
-  const min  = mm + ss/60;
-
-  const hourAng = (Math.PI/6) * hour - Math.PI/2;
-  const minAng  = (Math.PI/30) * min  - Math.PI/2;
-  const secAng  = (Math.PI/30) * ss   - Math.PI/2;
-
-  // hour hand
-  ctx.beginPath();
-  ctx.moveTo(0,0);
-  ctx.lineTo(Math.cos(hourAng) * (r*0.42), Math.sin(hourAng) * (r*0.42));
-  ctx.strokeStyle = "rgba(15,23,42,0.92)";
-  ctx.lineWidth = 3.2;
-  ctx.lineCap = "round";
-  ctx.stroke();
-
-  // minute hand
-  ctx.beginPath();
-  ctx.moveTo(0,0);
-  ctx.lineTo(Math.cos(minAng) * (r*0.62), Math.sin(minAng) * (r*0.62));
-  ctx.strokeStyle = "rgba(15,23,42,0.92)";
-  ctx.lineWidth = 2.4;
-  ctx.lineCap = "round";
-  ctx.stroke();
-
-  // second hand (accent)
-  ctx.beginPath();
-  ctx.moveTo(Math.cos(secAng) * (r*0.10), Math.sin(secAng) * (r*0.10));
-  ctx.lineTo(Math.cos(secAng) * (r*0.70), Math.sin(secAng) * (r*0.70));
-  ctx.strokeStyle = "rgba(29,78,216,0.95)";
-  ctx.lineWidth = 1.4;
-  ctx.lineCap = "round";
-  ctx.stroke();
-
-  // center dot
-  ctx.beginPath();
-  ctx.arc(0,0,2.4,0,Math.PI*2);
-  ctx.fillStyle = "rgba(15,23,42,0.92)";
-  ctx.fill();
-
-  ctx.restore();
-}
-
-function tickClocks(){
-  Object.keys(TZ).forEach(id=>{
-    const canvas = document.getElementById(id);
-    const tEl = document.getElementById(id + "-time");
-    if(!canvas || !tEl) return;
-
-    const parts = formatTime(TZ[id].tz);
-    tEl.textContent = parts.label;
-    drawDial(canvas, parts.hh, parts.mm, parts.ss);
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Zurich",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
   });
-}
 
-function initClocks(){
-  tickClocks();
-  setInterval(tickClocks, 1000);
+  const tick = ()=>{
+    swissClock.textContent = `Switzerland — ${formatter.format(new Date())}`;
+  };
+
+  tick();
+  setInterval(tick, 1000);
 }
 
 /* =========================
@@ -454,18 +301,37 @@ async function loadPosts(){
   return data.posts || [];
 }
 
+function normalizeCategoryKey(category = ""){
+  const value = category.trim().toLowerCase();
+  if(value.includes("underdogs") || value.includes("indie") || value.includes("independents")) return "underdogs";
+  if(value.includes("design icons") || value.includes("vintage")) return "vintage-design-icons";
+  if(value.includes("innovation") || value.includes("industry")) return "innovation-industry";
+  if(value === "design") return "design";
+  if(value.includes("middle east") || value.includes("culture")) return "middle-east-culture";
+  if(value.includes("guides") || value.includes("guide")) return "guides";
+  return "default";
+}
+
+function getExcerptReadingTime(excerpt = ""){
+  const text = (excerpt || "").replace(/\s+/g, " ").trim();
+  const words = text ? text.split(" ").length : 0;
+  return Math.max(2, Math.round(words / 200) || 0);
+}
+
 function postCardHTML(post){
   const localizedPost = window.BEZERU_I18N?.localizePost ? window.BEZERU_I18N.localizePost(post) : post;
-  const meta = getCardMeta(localizedPost);
   const dateLabel = formatDate(localizedPost.date);
+  const readingTime = getExcerptReadingTime(localizedPost.excerpt || "");
+  const categoryKey = normalizeCategoryKey(localizedPost.category || "");
   const rawHref = post.url || `article.html?id=${encodeURIComponent(post.id)}`;
   const href = window.BEZERU_I18N?.localizeHref ? window.BEZERU_I18N.localizeHref(rawHref) : rawHref;
   return `
     <article class="card">
       <div class="card-body">
         <div class="meta">
-          <span class="tag">${localizedPost.category || "Latest"}</span>
+          <span class="tag category-badge" data-category-key="${categoryKey}">${localizedPost.category || "Latest"}</span>
           <time datetime="${localizedPost.date || ""}">${dateLabel}</time>
+          <span class="card-read-time">· ${readingTime} min read</span>
         </div>
         <h3 class="card-title">
           <a href="${href}">${localizedPost.title}</a>
@@ -504,6 +370,26 @@ function getReadingTime(content){
   const text = content.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
   const words = text ? text.split(" ").length : 0;
   return Math.max(1, Math.ceil(words / 200));
+}
+
+function enhanceStaticCardMeta(){
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card)=>{
+    const categoryEl = card.querySelector(".meta .tag");
+    if(categoryEl){
+      categoryEl.classList.add("category-badge");
+      categoryEl.dataset.categoryKey = normalizeCategoryKey(categoryEl.textContent || "");
+    }
+
+    const meta = card.querySelector(".meta");
+    const excerpt = card.querySelector(".card-excerpt")?.textContent || "";
+    if(meta && !meta.querySelector(".card-read-time")){
+      const read = document.createElement("span");
+      read.className = "card-read-time";
+      read.textContent = `· ${getExcerptReadingTime(excerpt)} min read`;
+      meta.appendChild(read);
+    }
+  });
 }
 
 async function renderHomeLatestFeed(){
@@ -603,13 +489,134 @@ async function renderArticle(){
   }
 }
 
+function initHeroWatchFace(){
+  const svg = document.getElementById("hero-watch-face");
+  if(!svg) return;
+
+  const ticksGroup = document.getElementById("hero-watch-ticks");
+  if(ticksGroup && ticksGroup.childElementCount === 0){
+    for(let i = 0; i < 60; i += 1){
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      const angle = (Math.PI * 2 * i) / 60;
+      const isQuarter = i % 5 === 0;
+      const rOuter = 56;
+      const rInner = isQuarter ? 48 : 52;
+      const x1 = 65 + Math.sin(angle) * rInner;
+      const y1 = 65 - Math.cos(angle) * rInner;
+      const x2 = 65 + Math.sin(angle) * rOuter;
+      const y2 = 65 - Math.cos(angle) * rOuter;
+      line.setAttribute("x1", x1.toFixed(2));
+      line.setAttribute("y1", y1.toFixed(2));
+      line.setAttribute("x2", x2.toFixed(2));
+      line.setAttribute("y2", y2.toFixed(2));
+      line.setAttribute("class", isQuarter ? "watch-tick watch-tick-major" : "watch-tick");
+      ticksGroup.appendChild(line);
+    }
+  }
+
+  const hour = document.getElementById("hero-watch-hour");
+  const minute = document.getElementById("hero-watch-minute");
+  const second = document.getElementById("hero-watch-second");
+  const secondTail = document.getElementById("hero-watch-second-tail");
+  if(!hour || !minute || !second || !secondTail) return;
+
+  const update = ()=>{
+    const now = new Date();
+    const ms = now.getMilliseconds();
+    const sec = now.getSeconds() + ms / 1000;
+    const min = now.getMinutes() + sec / 60;
+    const hr = (now.getHours() % 12) + min / 60;
+    hour.setAttribute("transform", `rotate(${hr * 30} 65 65)`);
+    minute.setAttribute("transform", `rotate(${min * 6} 65 65)`);
+    second.setAttribute("transform", `rotate(${sec * 6} 65 65)`);
+    secondTail.setAttribute("transform", `rotate(${sec * 6} 65 65)`);
+  };
+
+  update();
+  setInterval(update, 100);
+}
+
+function initBrandsTeaser(){
+  const root = document.getElementById("brands-teaser");
+  if(!root) return;
+  const panelName = document.getElementById("brands-name");
+  const panelDescription = document.getElementById("brands-description");
+  const panelMeta = document.getElementById("brands-meta");
+  const panelLink = document.getElementById("brands-link");
+  const pills = Array.from(root.querySelectorAll(".brand-pill"));
+  if(!panelName || !panelDescription || !panelMeta || !panelLink || pills.length === 0) return;
+
+  const brandData = {
+    Rolex: {
+      description: "The reference point for tool watches — obsessively refined over decades, deeply wearable, and impossible to ignore on the wrist.",
+      meta: ["Founded 1905", "Switzerland", "Tool / Sport"],
+      href: "brands.html#rolex"
+    },
+    Cartier: {
+      description: "Where jewellery meets horology — Cartier’s watches are among the most architecturally distinctive objects in the market.",
+      meta: ["Founded 1847", "France", "Dress / Artistic"],
+      href: "brands.html#cartier"
+    },
+    Piaget: {
+      description: "Specialists in ultra-thin movements and high jewellery, Piaget operates at the intersection of watchmaking and fine art.",
+      meta: ["Founded 1874", "Switzerland", "Ultra-thin / Luxury"],
+      href: "brands.html#piaget"
+    },
+    IWC: {
+      description: "Schaffhausen’s answer to serious complications — IWC builds pilots and engineers’ watches with German rigour and Swiss precision.",
+      meta: ["Founded 1868", "Switzerland", "Pilot / Dress"],
+      href: "brands.html#iwc"
+    }
+  };
+
+  function paint(brand){
+    const data = brandData[brand];
+    if(!data) return;
+    panelName.textContent = brand;
+    panelDescription.textContent = data.description;
+    panelMeta.innerHTML = data.meta.map(item => `<span class="brands-chip">${item}</span>`).join("");
+    panelLink.textContent = `Read more about ${brand} →`;
+    panelLink.setAttribute("href", data.href);
+    pills.forEach(pill => pill.classList.toggle("is-active", pill.dataset.brand === brand));
+  }
+
+  pills.forEach((pill)=>{
+    pill.addEventListener("click", ()=> paint(pill.dataset.brand));
+  });
+
+  paint(root.dataset.defaultBrand || "Rolex");
+}
+
+function initArticleProgressBar(){
+  if(!location.pathname.includes("/articles/")) return;
+  if(document.getElementById("reading-progress")) return;
+
+  const bar = document.createElement("div");
+  bar.id = "reading-progress";
+  bar.className = "reading-progress";
+  document.body.appendChild(bar);
+
+  const update = ()=>{
+    const max = document.body.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    bar.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+  };
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
 document.addEventListener("DOMContentLoaded", async ()=>{
-  initHeaderClockWings();
+  initSwissHeaderClock();
   initDropdowns();
-  initClocks();
   initMobileNav();
   initStickyHeader();
   initMobileCta();
+  initHeroWatchFace();
+  initBrandsTeaser();
+  initArticleProgressBar();
+  enhanceStaticCardMeta();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");
@@ -653,6 +660,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     return path.replace(".html", "");
   }
 
+  function formatMonthYear(dateString) {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  }
+
   async function loadPosts() {
     const res = await fetch("/posts.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load posts.json: ${res.status}`);
@@ -661,16 +675,24 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   function findPostForCurrentPage(posts) {
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    if (id) {
+      const byId = posts.find(p => p.id === id);
+      if (byId) return byId;
+    }
+
     const slug = getSlugFromUrl();
     return posts.find(p => (p.url || "").includes(slug)) || null;
   }
 
-  function buildPlayer({ title, category, dateLabel, audioUrl, slug }) {
+  function buildPlayer({ title, category, dateLabel, audioUrl, slug, hasAudio }) {
     const wrap = document.createElement("section");
     wrap.className = "audio-bar";
+    if (!hasAudio) wrap.classList.add("is-disabled");
     wrap.innerHTML = `
       <div class="audio-bar__left">
-        <button class="audio-bar__btn audio-bar__play" type="button" aria-label="Play">
+        <button class="audio-bar__btn audio-bar__play" type="button" aria-label="Play" ${hasAudio ? "" : "disabled"}>
           <span class="audio-bar__icon" data-icon="play">▶</span>
         </button>
       </div>
@@ -696,17 +718,19 @@ document.addEventListener("DOMContentLoaded", async ()=>{
       </div>
 
       <div class="audio-bar__right">
-        <button class="audio-bar__btn audio-bar__speed" type="button" aria-label="Playback speed">1x</button>
+        <button class="audio-bar__btn audio-bar__speed" type="button" aria-label="Playback speed" ${hasAudio ? "" : "disabled"}>1x</button>
       </div>
 
       <audio class="audio-bar__audio" preload="metadata"></audio>
     `;
 
     wrap.querySelector(".audio-bar__title").textContent = title || "Listen to this article";
-    wrap.querySelector(".audio-bar__sub").textContent = `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim();
+    wrap.querySelector(".audio-bar__sub").textContent = hasAudio
+      ? `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim()
+      : "Audio version coming soon";
 
     const audio = wrap.querySelector(".audio-bar__audio");
-    audio.src = audioUrl;
+    if (hasAudio && audioUrl) audio.src = audioUrl;
 
     const playBtn = wrap.querySelector(".audio-bar__play");
     const icon = wrap.querySelector(".audio-bar__icon");
@@ -718,6 +742,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const speedBtn = wrap.querySelector(".audio-bar__speed");
 
     let speedIndex = 0;
+
+    if (!hasAudio) {
+      timeline.setAttribute("aria-disabled", "true");
+      timeline.tabIndex = -1;
+      durationEl.textContent = "--:--";
+      return wrap;
+    }
 
     // Resume progress
     const saved = localStorage.getItem(storageKey(slug));
@@ -807,11 +838,13 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   async function initPremiumAudioBar() {
-    const isArticle = location.pathname.includes("/articles/");
+    const pageType = document.body?.getAttribute("data-page");
+    const isArticle = pageType === "static-article" || pageType === "article" || location.pathname.includes("/articles/");
     if (!isArticle) return;
 
-    const article = document.querySelector("article") || document.querySelector("main");
+    const article = document.querySelector(".article-shell") || document.querySelector("article") || document.querySelector("main");
     if (!article) return;
+    if (article.querySelector(".audio-bar")) return;
 
     let posts;
     try {
@@ -821,15 +854,16 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     }
 
     const post = findPostForCurrentPage(posts);
-    if (!post || !post.audioUrl) return;
+    if (!post) return;
 
     const slug = getSlugFromUrl();
     const player = buildPlayer({
       title: post.title,
       category: post.category,
-      dateLabel: post.dateLabel || "",
+      dateLabel: formatMonthYear(post.date),
       audioUrl: post.audioUrl,
-      slug
+      slug,
+      hasAudio: Boolean(post.audioUrl)
     });
 
     article.insertBefore(player, article.firstElementChild);
