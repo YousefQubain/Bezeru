@@ -380,7 +380,6 @@ body.nav-open{
 }
 .hero-watch-face .watch-hand{
   stroke-linecap: round;
-  transform-origin: 65px 65px;
 }
 .hero-watch-face .watch-hour{
   stroke: rgba(15,23,42,0.92);
