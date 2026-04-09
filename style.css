@@ -2423,7 +2423,7 @@ html{
   }
 }
 
-/* Footer subscribe — premium + on-site (no Substack UI) */
+/* Footer/article subscribe — Buttondown embed styled to match BEZERU */
 .footer-subscribe .footer-title {
   margin: 0 0 10px;
   letter-spacing: 0.10em;
@@ -2439,7 +2439,7 @@ html{
   max-width: 36ch;
 }
 
-.subscribe-form {
+.bezeru-subscribe-form {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
@@ -2447,7 +2447,15 @@ html{
   margin: 0 0 10px;
 }
 
-.subscribe-input {
+.bezeru-subscribe-label{
+  grid-column: 1 / -1;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(24,21,18,0.75);
+}
+
+.bezeru-subscribe-input {
   width: 100%;
   border: 1px solid rgba(0,0,0,0.14);
   border-radius: 999px;
@@ -2456,28 +2464,32 @@ html{
   background: #fff;
 }
 
-.subscribe-input:focus {
+.bezeru-subscribe-input:focus {
   outline: none;
   border-color: rgba(0,0,0,0.34);
+  box-shadow: 0 0 0 3px rgba(24,21,18,0.08);
 }
 
-.subscribe-button {
+.bezeru-subscribe-button {
   border: 1px solid rgba(0,0,0,0.16);
   border-radius: 999px;
   padding: 12px 16px;
   font-size: 14px;
   cursor: pointer;
-  background: #fff;
+  background: #151311;
+  color: #fff;
   transition: transform 150ms ease, opacity 150ms ease;
 }
 
-.subscribe-button:hover {
+.bezeru-subscribe-button:hover {
   transform: translateY(-1px);
+  background: #25211e;
 }
 
-.subscribe-button.is-loading {
-  opacity: 0.6;
-  cursor: progress;
+.bezeru-subscribe-button:focus-visible,
+.bezeru-subscribe-input:focus-visible {
+  outline: 2px solid rgba(24,21,18,0.4);
+  outline-offset: 2px;
 }
 
 .subscribe-note {
@@ -2495,6 +2507,18 @@ html{
   opacity: 0.9;
 }
 
+.article-subscribe{
+  margin-top: 26px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.72);
+}
+
+.article-subscribe .footer-subtitle{
+  max-width: 52ch;
+}
+
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -2508,10 +2532,10 @@ html{
 }
 
 @media (max-width: 720px) {
-  .subscribe-form {
+  .bezeru-subscribe-form {
     grid-template-columns: 1fr;
   }
-  .subscribe-button {
+  .bezeru-subscribe-button {
     width: 100%;
   }
 }
@@ -2747,5 +2771,168 @@ body.is-rtl{
 
   .header-row .lang-switcher{
     margin-inline-start: auto;
+  }
+}
+
+/* ---------- Editorial premium header refresh ---------- */
+header,
+header.site-header{
+  background: transparent;
+  padding: 18px 0 0;
+}
+
+.header-row{
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.brand{
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brand .word{
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.header-spacer{
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.nav-wrap{
+  margin-top: 12px;
+  border: 1px solid rgba(20, 20, 20, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.nav-shell{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-clock-slot{
+  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+}
+
+nav{
+  flex: 1;
+  justify-content: stretch;
+  padding: 10px 14px;
+}
+
+.nav-panel{
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+}
+
+.nav-links{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.nav-link{
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 1;
+  color: #1f1f1f;
+  border-radius: 999px;
+  padding: 10px 14px;
+}
+
+.nav-link:hover{
+  text-decoration: none;
+  background: rgba(20, 20, 20, 0.05);
+}
+
+.nav-cta{
+  justify-self: end;
+  margin-left: 8px;
+  border: 1px solid #1b1b1b;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  color: #ffffff;
+  background: #1b1b1b;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.nav-cta:hover{
+  background: #2b2b2b;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 900px){
+  .brand .word{
+    font-size: 21px;
+    letter-spacing: 0.16em;
+  }
+
+  .nav-wrap{
+    border-radius: 14px;
+  }
+
+  .nav-shell{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-clock-slot{
+    min-width: 0;
+  }
+
+  .nav-toggle{
+    display: inline-flex;
+    justify-self: end;
+  }
+
+  nav{
+    justify-content: flex-end;
+    padding: 8px 10px;
+    grid-column: 1 / -1;
+  }
+
+  .nav-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: min(92vw, 360px);
+  }
+
+  .nav-links{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .nav-cta{
+    margin-left: 0;
+    justify-self: auto;
+    text-align: center;
   }
 }
