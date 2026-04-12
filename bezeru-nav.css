@@ -311,20 +311,18 @@
 .bz-mm-close:hover { background: var(--nav-surface); }
 
 .bz-mm-nav {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  padding: 0 0 24px;
-  padding: 8px 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  min-height: 0;
+  padding: 0 0 8px;
+  overflow: hidden;
 }
 .bz-mm-link {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 16px;
-  padding: 20px 28px;
+  column-gap: 16px;
+  padding: 13px 28px;
   text-decoration: none;
   color: #f2efeb;
   border-bottom: 1px solid rgba(255,255,255,0.12);
@@ -356,15 +354,17 @@
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.55);
   color: var(--nav-muted);
-  min-width: 20px;
+  width: 20px;
+  line-height: 1;
 }
 .bz-mm-label {
   font-family: var(--nav-serif);
   font-size: 28px;
   font-weight: 400;
   letter-spacing: -0.01em;
-  flex: 1;
+  display: block;
   line-height: 1;
+  margin: 0;
 }
 .bz-mm-link.shop .bz-mm-label { color: var(--nav-accent); }
 .bz-mm-arrow {
@@ -380,14 +380,8 @@
 }
 
 .bz-mm-footer {
-  padding: 18px 28px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.14);
-  margin-top: auto;
-  flex-shrink: 0;
-  background: #111111;
-  flex-shrink: 0;
-  background: #111111;
-  padding: 24px 28px 40px;
+  margin-top: 14px;
+  padding: 20px 28px 28px;
   border-top: 1px solid var(--nav-border);
   flex-shrink: 0;
   background: var(--nav-bg);
@@ -395,7 +389,6 @@
 .bz-mm-lang {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
   margin-bottom: 20px;
 }
 .bz-mm-lang-opt {
