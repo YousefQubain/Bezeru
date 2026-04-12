@@ -2542,13 +2542,13 @@ html{
 
 /* ===== Premium editorial refresh ===== */
 :root{
-  --top-bg:#ecebe8;
-  --mid-bg:#f8f6f2;
-  --surface:#fffdf9;
-  --text:#181512;
-  --text-2:#5d554e;
-  --border:rgba(24,21,18,0.14);
-  --accent:#70604f;
+  --top-bg:#ffffff;
+  --mid-bg:#f7f7f7;
+  --surface:#ffffff;
+  --text:#111111;
+  --text-2:#4a4a4a;
+  --border:rgba(17,17,17,0.14);
+  --accent:#b10f1f;
 }
 
 body{
@@ -2647,7 +2647,7 @@ p, li, .lead, .card-excerpt, .footer-text, .footer-links, .footer-legal{
 .filter-chip:focus-visible,
 button:focus-visible,
 a:focus-visible{
-  outline: 2px solid rgba(112, 96, 79, 0.45);
+  outline: 2px solid rgba(177, 15, 31, 0.4);
   outline-offset: 2px;
 }
 
@@ -2838,7 +2838,7 @@ nav{
   width: 100%;
   display: grid;
   align-items: center;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   gap: 12px;
 }
 
@@ -2860,7 +2860,31 @@ nav{
 
 .nav-link:hover{
   text-decoration: none;
-  background: rgba(20, 20, 20, 0.05);
+  background: rgba(17, 17, 17, 0.07);
+}
+
+.menu-language{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.menu-lang-link{
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #3b3b3b;
+  border: 1px solid rgba(17,17,17,0.14);
+  border-radius: 999px;
+  padding: 7px 10px;
+  line-height: 1;
+}
+
+.menu-lang-link.is-active{
+  background: #111;
+  color: #fff;
+  border-color: #111;
 }
 
 .nav-cta{
@@ -2873,15 +2897,15 @@ nav{
   font-weight: 700;
   line-height: 1;
   color: #ffffff;
-  background: #1b1b1b;
+  background: #111;
   white-space: nowrap;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .nav-cta:hover{
-  background: #2b2b2b;
+  background: #b10f1f;
   transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 18px rgba(177, 15, 31, 0.18);
 }
 
 @media (max-width: 900px){
@@ -2917,9 +2941,9 @@ nav{
   }
 
   .nav-panel{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
     width: min(92vw, 360px);
   }
 
@@ -2928,6 +2952,17 @@ nav{
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
+  }
+
+  .menu-language{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 4px 0;
+  }
+
+  .menu-lang-link{
+    font-size: 10px;
+    padding: 7px 9px;
   }
 
   .nav-cta{

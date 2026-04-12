@@ -11,6 +11,11 @@ function initUnifiedHeader(){
     const lang = params.get("lang");
     return lang ? `${path}?lang=${encodeURIComponent(lang)}` : path;
   };
+  const linkWithLang = (langCode) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", langCode);
+    return `${url.pathname}${url.search}`;
+  };
 
   header.innerHTML = `
     <div class="container">
@@ -42,6 +47,12 @@ function initUnifiedHeader(){
               <a class="nav-link" href="${link("/brands.html")}">Brands</a>
               <a class="nav-link" href="${link("/about.html")}">About</a>
             </div>
+            <div class="menu-language" aria-label="Language">
+              <a class="menu-lang-link" href="${linkWithLang("en")}">English</a>
+              <a class="menu-lang-link" href="${linkWithLang("ar")}">العربية</a>
+              <a class="menu-lang-link" href="${linkWithLang("fr")}">Français</a>
+              <a class="menu-lang-link" href="${linkWithLang("de")}">Deutsch</a>
+            </div>
             <a class="nav-cta" href="${link("/shop.html")}">Shop <span aria-hidden="true">→</span></a>
           </div>
         </nav>
@@ -53,6 +64,71 @@ function initUnifiedHeader(){
 }
 
 initUnifiedHeader();
+
+function initUnifiedFooter(){
+  const footer = document.querySelector("footer.footer-pro");
+  if(!footer) return;
+  if(footer.dataset.sharedFooter === "true") return;
+
+  const prefix = location.pathname.includes("/articles/") ? "../" : "";
+  const page = document.body?.getAttribute("data-page");
+  const subscribeCol = page === "home" ? `
+        <div class="footer-col footer-subscribe" id="subscribe">
+          <h4 class="footer-title">SUBSCRIBE</h4>
+          <p class="footer-subtitle">For collectors who care about the details. New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
+          <form
+            action="https://buttondown.com/api/emails/embed-subscribe/qubain"
+            method="post"
+            target="popupwindow"
+            onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')"
+            class="embeddable-buttondown-form bezeru-subscribe-form"
+            data-location="footer"
+          >
+            <label for="bd-email-footer" class="bezeru-subscribe-label">Email address</label>
+            <input type="email" name="email" id="bd-email-footer" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
+            <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
+          </form>
+          <p class="subscribe-note" aria-live="polite">No spam. Unsubscribe anytime.</p>
+        </div>` : "";
+
+  footer.innerHTML = `
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs shaping modern taste.</div>
+        </div>
+        ${subscribeCol}
+        <div class="footer-col">
+          <h4>Contact me</h4>
+          <div class="footer-links">
+            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
+            <a href="#" aria-disabled="true">Instagram</a>
+            <span class="coming-soon">X (Coming soon)</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Policies</h4>
+          <div class="footer-legal">
+            <a href="${prefix}editorial-policy.html">Editorial Policy</a> ·
+            <a href="${prefix}contributors-policy.html">Contributors</a> ·
+            <a href="${prefix}affiliate-policy.html">Affiliate Disclosure</a> ·
+            <a href="${prefix}disclaimer-policy.html">Disclaimer</a> ·
+            <a href="${prefix}privacy-policy.html">Privacy Policy</a> ·
+            <a href="${prefix}terms-policy.html">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© <span id="year"></span> BEZERU</div>
+        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+      </div>
+    </div>
+  `;
+  footer.dataset.sharedFooter = "true";
+}
+
+initUnifiedFooter();
 
 function initDropdowns(){
   const dropdowns = document.querySelectorAll(".dropdown");
@@ -680,9 +756,12 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     if(index > 0) cta.remove();
   });
 
-  // footer year
+  // footer year (site started in 2026)
   const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
+  if (y) {
+    const currentYear = new Date().getFullYear();
+    y.textContent = currentYear > 2026 ? `2026–${currentYear}` : "2026";
+  }
 
   // page-specific rendering
   const page = document.body.getAttribute("data-page");
