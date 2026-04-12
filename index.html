@@ -79,7 +79,7 @@
           <button class="bz-lang-option soon">DE — Deutsch</button>
         </div>
       </div>
-      <a href="#subscribe" class="bz-subscribe-btn">Subscribe</a>
+      <a href="#footer-subscribe" class="bz-subscribe-btn">Subscribe</a>
       <a href="/shop.html" class="bz-shop-btn">Shop</a>
       <button class="bz-hamburger" id="bzHamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -128,6 +128,7 @@
       <span class="bz-mm-label">Shop</span>
       <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
+    <a href="#footer-subscribe" class="bz-mm-link">
     <a href="#subscribe" class="bz-mm-link">
       <span class="bz-mm-num">07</span>
       <span class="bz-mm-label">Subscribe</span>
@@ -309,6 +310,11 @@
 
 <footer class="footer-pro">
   <div class="container">
+    <section class="footer-newsletter" id="footer-subscribe" aria-label="Newsletter signup">
+      <div class="footer-newsletter-intro">
+        <p class="footer-newsletter-label">Newsletter</p>
+        <p class="footer-newsletter-copy">New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
+      </div>
     <section class="footer-newsletter" id="subscribe" aria-label="Newsletter signup">
       <p class="footer-newsletter-label">Newsletter</p>
       <p class="footer-newsletter-copy">New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
@@ -354,7 +360,7 @@
 
 <script>
 (function() {
-  const popup = document.querySelector('.subscribe-popup, .popup, [class*="subscribe"]');
+  const popup = document.querySelector('.subscribe-popup[data-cta-bar], .subscribe-popup, .popup');
   if (!popup) return;
   popup.style.display = 'none';
   if (sessionStorage.getItem('bezeru_popup_dismissed')) return;
