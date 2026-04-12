@@ -25,6 +25,7 @@ function initUnifiedHeader(){
         <div class="word">BEZERU</div>
       </a>
 
+      <button class="mobile-menu-btn" aria-label="Open menu" onclick="openMobileMenu()">☰</button>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Open navigation menu">☰</button>
 
       <div class="nav-links" aria-label="Primary links">
