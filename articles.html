@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -30,46 +30,11 @@
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
 </head>
 
 <body data-page="articles">
-  <header>
-    <div class="container">
-      <div class="header-row">
-        <a class="brand" href="index.html">
-          <div class="word">BEZERU</div>
-        </a>
-        <div class="header-spacer"></div>
-      </div>
-    </div>
-
-    <div class="nav-wrap">
-      <div class="container">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-          <span class="nav-toggle-bars" aria-hidden="true">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-          <span class="nav-toggle-label">Menu</span>
-        </button>
-        <nav id="primary-nav">
-          <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link" href="articles.html#latest">Read</a>
-
-          <a class="nav-link" href="types.html">Types</a>
-
-          <a class="nav-link" href="brands.html">Brands</a>
-
-          <a class="nav-link" href="about.html">About</a>
-
-          <a class="nav-cta" href="shop.html">Shop <span aria-hidden="true">→</span></a>
-
-          </div>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <header class="site-header"></header>
 
   <main>
     <section class="hero">
@@ -100,17 +65,22 @@
           <button class="filter-chip" type="button" data-filter="Innovation / Industry">Innovation</button>
         </div>
 
-        <div class="grid" id="articles-grid">
+                <div class="grid" id="articles-grid">
           <article class="card" data-category="Underdogs">
-            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
             <div class="card-body">
               <div class="meta"><span class="tag">Underdogs</span><time datetime="2026-01-27">Jan 2026</time><span class="card-read-time">· 2 min read</span></div>
               <h3 class="card-title"><a href="articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a></h3>
               <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
             </div>
           </article>
+          <article class="card" data-category="Brands / Culture">
+            <div class="card-body">
+              <div class="meta"><span class="tag">Brands / Culture</span><time datetime="2026-01-29">Jan 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</a></h3>
+              <p class="card-excerpt">How two maisons are treating Middle Eastern influence not as a trend, but as a treasure.</p>
+            </div>
+          </article>
           <article class="card" data-category="Innovation / Industry">
-            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
             <div class="card-body">
               <div class="meta"><span class="tag">Innovation / Industry</span><time datetime="2026-02-11">Feb 2026</time><span class="card-read-time">· 2 min read</span></div>
               <h3 class="card-title"><a href="articles/time-reimagined-watchmaking-innovations-2025-26.html">Time Reimagined: Watchmaking Innovations of 2025–26</a></h3>
@@ -118,50 +88,46 @@
             </div>
           </article>
           <article class="card" data-category="Design">
-            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
             <div class="card-body">
               <div class="meta"><span class="tag">Design</span><time datetime="2026-02-17">Feb 2026</time><span class="card-read-time">· 2 min read</span></div>
               <h3 class="card-title"><a href="articles/year-of-the-fire-horse-2026.html">Year of the Fire Horse: The 2026 Lunar New Year Watches That Actually Matter</a></h3>
-              <p class="card-excerpt">A tight editorial look at the 2026 Year of the Fire Horse releases.</p>
+              <p class="card-excerpt">A tight editorial look at the 2026 Year of the Fire Horse releases, with real critique and a focus on what will age well beyond February.</p>
+            </div>
+          </article>
+          <article class="card" data-category="Innovation / Industry">
+            <div class="card-body">
+              <div class="meta"><span class="tag">Innovation / Industry</span><time datetime="2026-03-21">Mar 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/cosc-new-standard-signals-a-new-era-for-swiss-watchmaking.html">COSC’s New Standard Signals a New Era for Swiss Watchmaking</a></h3>
+              <p class="card-excerpt">The most important innovation in Swiss luxury watches this month is not a new release, but a new measure of what excellence means</p>
+            </div>
+          </article>
+          <article class="card" data-category="News">
+            <div class="card-body">
+              <div class="meta"><span class="tag">News</span><time datetime="2026-03-28">Mar 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/before-watches-and-wonders-2026-opens-the-mood-of-the-watch-world-already-feels-different.html">Before Watches and Wonders 2026 Opens, the Mood of the Watch World Already Feels Different</a></h3>
+              <p class="card-excerpt">There is always a strange calm before Watches and Wonders.</p>
+            </div>
+          </article>
+          <article class="card" data-category="Middle East / Culture">
+            <div class="card-body">
+              <div class="meta"><span class="tag">Middle East / Culture</span><time datetime="2026-04-08">Apr 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/the-gulf-is-no-longer-just-a-market-for-luxury-watches-its-becoming-a-filter.html">The Gulf Is No Longer Just a Market for Luxury Watches. It’s Becoming a Filter</a></h3>
+              <p class="card-excerpt">The Gulf is no longer simply buying luxury watches. In 2026, it is increasingly shaping how they are designed, sold, and valued.</p>
+            </div>
+          </article>
+          <article class="card" data-category="Marketing / Strategy">
+            <div class="card-body">
+              <div class="meta"><span class="tag">Marketing / Strategy</span><time datetime="2026-04-08">Apr 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/best-luxury-watch-marketing-campaigns.html">Best Luxury Watch Marketing Campaigns: What Rolex and Patek Philippe Get Right</a></h3>
+              <p class="card-excerpt">How Rolex and Patek Philippe built two of the most effective luxury watch campaigns through clarity, legacy, and restraint.</p>
             </div>
           </article>
         </div>
+        <p class="empty-state" id="articles-empty" hidden>No articles in this category yet.</p>
       </div>
     </section>
   </main>
 
-  <footer class="footer-pro">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <div class="footer-text">
-            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
-            shaping modern taste.
-          </div>
-        </div>
-<div class="footer-col">
-          <h4>Contact me</h4>
-          <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Policies</h4>
-          <div class="footer-legal">
-            <a href="editorial-policy.html">Editorial Policy</a> · <a href="contributors-policy.html">Contributors</a> · <a href="affiliate-policy.html">Affiliate Disclosure</a> · <a href="disclaimer-policy.html">Disclaimer</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-policy.html">Terms</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer-pro"></footer>
 </body>
 </html>

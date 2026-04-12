@@ -20,61 +20,68 @@ function initUnifiedHeader(){
   const langLabel = activeLang === "ar" ? "AR" : "EN";
 
   header.innerHTML = `
-    <div class="container">
-      <div class="header-row">
-        <a class="brand" href="${link("/index.html")}">
-          <div class="word">BEZERU</div>
-        </a>
-        <div class="header-spacer"></div>
-      </div>
-    </div>
+    <div class="container global-nav">
+      <a class="brand" href="${link("/index.html")}" aria-label="BEZERU home">
+        <div class="word">BEZERU</div>
+      </a>
 
-    <div class="nav-wrap">
-      <div class="container nav-shell">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-          <span class="nav-toggle-bars" aria-hidden="true">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-          <span class="nav-toggle-label">Menu</span>
-        </button>
-        <nav id="primary-nav" aria-label="Primary">
-          <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
-          <div id="primary-nav-panel" class="nav-panel">
-            <button class="nav-close" type="button" aria-label="Close menu">✕</button>
-            <div class="nav-links">
-              <a class="nav-link" href="${link("/index.html")}">Home</a>
-              <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
-              <a class="nav-link" href="${link("/types.html")}">Types</a>
-              <a class="nav-link" href="${link("/brands.html")}">Brands</a>
-              <a class="nav-link" href="${link("/about.html")}">About</a>
-            </div>
-            <div class="nav-utilities">
-              <a class="nav-cta" href="${link("/shop.html")}">Shop <span aria-hidden="true">→</span></a>
-              <div class="lang-menu" data-lang-menu>
-                <button class="lang-menu__toggle" type="button" aria-expanded="false" aria-haspopup="true">${langLabel} ▾</button>
-                <div class="lang-menu__list" role="menu" aria-label="Language">
-                  <a class="lang-menu__link" role="menuitem" href="${linkWithLang("en")}">English</a>
-                  <a class="lang-menu__link" role="menuitem" href="${linkWithLang("ar")}">العربية</a>
-                  <span class="lang-menu__link is-disabled" aria-disabled="true">Français (coming soon)</span>
-                  <span class="lang-menu__link is-disabled" aria-disabled="true">Deutsch (coming soon)</span>
-                </div>
-              </div>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Open navigation menu">☰</button>
+
+      <div class="nav-links" aria-label="Primary links">
+        <a class="nav-link" href="${link("/index.html")}">Home</a>
+        <a class="nav-link" href="${link("/articles.html")}">Read</a>
+        <a class="nav-link" href="${link("/types.html")}">Types</a>
+        <a class="nav-link" href="${link("/brands.html")}">Brands</a>
+        <a class="nav-link" href="${link("/about.html")}">About</a>
+        <a class="nav-shop" href="${link("/shop.html")}">Shop</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="lang-menu" data-lang-menu>
+          <button class="lang-menu__toggle" type="button" aria-expanded="false" aria-haspopup="true">${langLabel} ▾</button>
+          <div class="lang-menu__list" role="menu" aria-label="Language selector">
+            <a class="lang-menu__link" role="menuitem" href="${linkWithLang("en")}">English</a>
+            <a class="lang-menu__link" role="menuitem" href="${linkWithLang("ar")}">العربية</a>
+            <span class="lang-menu__link is-disabled" aria-disabled="true">Français (coming soon)</span>
+            <span class="lang-menu__link is-disabled" aria-disabled="true">Deutsch (coming soon)</span>
+          </div>
+        </div>
+      </div>
+
+      <nav id="primary-nav" aria-label="Mobile">
+        <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
+        <div id="primary-nav-panel" class="nav-panel" aria-hidden="true">
+          <button class="nav-close" type="button" aria-label="Close menu">✕</button>
+          <div class="nav-links">
+            <a class="nav-link" href="${link("/index.html")}">Home</a>
+            <a class="nav-link" href="${link("/articles.html")}">Read</a>
+            <a class="nav-link" href="${link("/types.html")}">Types</a>
+            <a class="nav-link" href="${link("/brands.html")}">Brands</a>
+            <a class="nav-link" href="${link("/about.html")}">About</a>
+            <a class="nav-shop" href="${link("/shop.html")}">Shop</a>
+          </div>
+          <div class="nav-mobile-footer">
+            <div class="nav-lang-line">
+              <a href="${linkWithLang("en")}">EN</a>
+              <a href="${linkWithLang("ar")}">AR</a>
+              <span class="is-disabled">FR (coming soon)</span>
+              <span class="is-disabled">DE (coming soon)</span>
             </div>
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
     </div>
+
     <div class="clock-strip" aria-label="World clock">
       <div class="container clock-strip__inner">
-        <span><strong>NEW YORK</strong> <em data-city-time="ny">--:--</em></span>
-        <span><strong>LONDON</strong> <em data-city-time="london">--:--</em></span>
-        <span><strong>GENEVA</strong> <em data-city-time="geneva">--:--</em></span>
-        <span><strong>TOKYO</strong> <em data-city-time="tokyo">--:--</em></span>
+        <span><strong>NEW YORK</strong> <em data-city-time="ny">--:--:--</em></span>
+        <span><strong>LONDON</strong> <em data-city-time="london">--:--:--</em></span>
+        <span><strong>GENEVA</strong> <em data-city-time="geneva">--:--:--</em></span>
+        <span><strong>TOKYO</strong> <em data-city-time="tokyo">--:--:--</em></span>
       </div>
     </div>
   `;
+
 
   header.dataset.sharedHeader = "true";
 }
@@ -86,8 +93,6 @@ function initUnifiedFooter(){
   if(!footer) return;
   if(footer.dataset.sharedFooter === "true") return;
 
-  const prefix = location.pathname.includes("/articles/") ? "../" : "";
-  const subscribeCol = "";
   footer.innerHTML = `
     <div class="container">
       <div class="footer-grid">
@@ -95,32 +100,30 @@ function initUnifiedFooter(){
           <div class="footer-brand">BEZERU</div>
           <div class="footer-text">Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs shaping modern taste.</div>
         </div>
-        ${subscribeCol}
         <div class="footer-col">
-          <h4>Contact me</h4>
+          <h4>Contact</h4>
           <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
+            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a><br>
+            <a href="#" aria-disabled="true">Instagram</a><!-- TODO: replace with BEZERU Instagram URL --><br>
+            <span>X coming soon</span>
           </div>
         </div>
         <div class="footer-col">
           <h4>Policies</h4>
           <div class="footer-legal">
-            <a href="${prefix}editorial-policy.html">Editorial Policy</a> ·
-            <a href="${prefix}contributors-policy.html">Contributors</a> ·
-            <a href="${prefix}affiliate-policy.html">Affiliate Disclosure</a> ·
-            <a href="${prefix}disclaimer-policy.html">Disclaimer</a> ·
-            <a href="${prefix}privacy-policy.html">Privacy Policy</a> ·
-            <a href="${prefix}terms-policy.html">Terms</a>
+            <a href="/editorial-policy.html">Editorial Policy</a><br>
+            <a href="/contributors-policy.html">Contributors Policy</a><br>
+            <a href="/affiliate-policy.html">Affiliate Policy</a><br>
+            <a href="/disclaimer-policy.html">Disclaimer Policy</a><br>
+            <a href="/privacy-policy.html">Privacy Policy</a><br>
+            <a href="/terms-policy.html">Terms Policy</a>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <div>© <span id="footer-year"></span> BEZERU. All rights reserved.</div>
-      </div>
+      <div class="footer-bottom">© <span id="footer-year"></span> BEZERU</div>
     </div>
   `;
+
   footer.dataset.sharedFooter = "true";
 }
 
@@ -316,7 +319,7 @@ function initClockStrip(){
     tokyo: document.querySelector('[data-city-time="tokyo"]')
   };
   if(Object.values(nodes).every(v => !v)) return;
-  const format = (tz)=> new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date());
+  const format = (tz)=> new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date());
   const tick = ()=>{
     if(nodes.ny) nodes.ny.textContent = format("America/New_York");
     if(nodes.london) nodes.london.textContent = format("Europe/London");
@@ -324,7 +327,7 @@ function initClockStrip(){
     if(nodes.tokyo) nodes.tokyo.textContent = format("Asia/Tokyo");
   };
   tick();
-  setInterval(tick, 60000);
+  setInterval(tick, 1000);
 }
 
 function initLanguageMenu(){
@@ -567,17 +570,24 @@ async function renderHomeLatestFeed(){
 async function renderArticlesGrid(){
   const holder = document.getElementById("articles-grid");
   if(!holder) return;
-  const posts = await loadPosts();
   const chips = Array.from(document.querySelectorAll(".filter-chip[data-filter]"));
+  const cards = Array.from(holder.querySelectorAll(".card[data-category]"));
+  const empty = document.getElementById("articles-empty");
+
+  if(cards.length === 0) return;
 
   function paint(filter){
-    const visible = filter === "all"
-      ? posts
-      : posts.filter(post => (post.category || "").toLowerCase() === filter.toLowerCase());
-
-    holder.innerHTML = visible.length
-      ? visible.map(postCardHTML).join("")
-      : `<p class="empty-state">${window.BEZERU_I18N?.t("noStories") || "No stories in this section yet."}</p>`;
+    let visibleCount = 0;
+    cards.forEach((card)=>{
+      const category = (card.dataset.category || "").toLowerCase();
+      const show = filter === "all" || category === filter.toLowerCase();
+      card.hidden = !show;
+      if(show) visibleCount += 1;
+    });
+    if(empty){
+      empty.hidden = visibleCount !== 0;
+      empty.textContent = "No articles in this category yet.";
+    }
   }
 
   paint("all");
@@ -770,9 +780,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   });
 
   // footer year (site started in 2026)
-  const y = document.getElementById("footer-year");
-  if (y) {
-    y.textContent = String(new Date().getFullYear());
+  if (document.getElementById("footer-year")) {
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
   }
 
   // page-specific rendering
