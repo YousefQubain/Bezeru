@@ -1008,6 +1008,14 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (document.body?.getAttribute("data-page") === "home") {
+    const homeSections = Array.from(document.querySelectorAll(".section-subscribe-home"));
+    homeSections.forEach((section, index) => {
+      if (index > 0) section.remove();
+    });
+    document.querySelectorAll("footer .footer-subscribe").forEach((dup) => dup.remove());
+  }
+
   const isArticlePage = document.body?.getAttribute("data-page") === "static-article"
     || document.body?.getAttribute("data-page") === "article"
     || location.pathname.includes("/articles/");
