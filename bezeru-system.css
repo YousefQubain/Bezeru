@@ -167,6 +167,12 @@ header {
   display: none;
 }
 
+/* Keep the injected #primary-nav container mobile-only.
+   Desktop primary links are rendered by .global-nav > .nav-links. */
+.global-nav > nav {
+  display: none;
+}
+
 .clock-strip {
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
