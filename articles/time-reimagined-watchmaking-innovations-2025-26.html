@@ -288,14 +288,14 @@ function openMenu() {
   menu.classList.add('open');
   backdrop.classList.add('visible');
   hamburger.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('menu-open');
   hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
   menu.classList.remove('open');
   backdrop.classList.remove('visible');
   hamburger.classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('menu-open');
   hamburger.setAttribute('aria-expanded', 'false');
 }
 
