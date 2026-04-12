@@ -161,7 +161,11 @@ header {
 .nav-toggle,
 .nav-close,
 .nav-overlay,
-.nav-mobile-footer { display: none; }
+.nav-mobile-footer,
+.nav-panel,
+#primary-nav {
+  display: none;
+}
 
 /* Keep the injected #primary-nav container mobile-only.
    Desktop primary links are rendered by .global-nav > .nav-links. */
@@ -250,13 +254,12 @@ footer.footer-pro a:focus-visible,
   .global-nav {
     grid-template-columns: 1fr auto;
   }
-  .global-nav > nav {
-    display: block;
-  }
-  .nav-links,
-  .nav-right {
+
+  .global-nav > .nav-links,
+  .global-nav > .nav-right {
     display: none;
   }
+
   .nav-toggle {
     display: inline-flex;
     border: 1px solid var(--color-border);
@@ -265,6 +268,11 @@ footer.footer-pro a:focus-visible,
     border-radius: 8px;
     color: var(--color-text-primary);
   }
+
+  #primary-nav {
+    display: block;
+  }
+
   .nav-panel {
     position: fixed;
     inset: 0;
@@ -319,6 +327,7 @@ footer.footer-pro a:focus-visible,
     flex-wrap: wrap;
     font-size: 14px;
   }
+
   .nav-lang-line .is-disabled {
     color: var(--color-text-secondary);
     opacity: .7;
