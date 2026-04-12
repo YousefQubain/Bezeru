@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -28,51 +28,16 @@
   <script src="../script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
 </head>
 
 <body data-page="static-article">
-  <header>
-    <div class="container">
-      <div class="header-row">
-        <a class="brand" href="../index.html">
-          <div class="word">BEZERU</div>
-        </a>
-        <div class="header-spacer"></div>
-      </div>
-    </div>
-
-    <div class="nav-wrap">
-      <div class="container">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-          <span class="nav-toggle-bars" aria-hidden="true">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-          <span class="nav-toggle-label">Menu</span>
-        </button>
-        <nav id="primary-nav">
-          <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link" href="../articles.html#latest">Read</a>
-
-          <a class="nav-link" href="../types.html">Types</a>
-
-          <a class="nav-link" href="../brands.html">Brands</a>
-
-          <a class="nav-link" href="../about.html">About</a>
-
-          <a class="nav-cta" href="../shop.html">Shop <span aria-hidden="true">→</span></a>
-
-          </div>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <header class="site-header"></header>
 
   <main class="page article-page">
     <section class="article-hero">
       <div class="container">
-        <a class="back-link" href="../index.html">← Back to Home</a>
+        <a class="back-link" href="/articles.html">← Back to Articles</a>
 
         <article class="article-shell">
           <div class="article-meta">
@@ -138,44 +103,38 @@
             <div class="article-author-title">Written by Yousef — Editor at BEZERU</div>
             <p class="article-author-note">Design-led watch writing with a focus on form, proportion, and the stories behind the dial.</p>
           </div>
+                  <section class="related-stories">
+            <h2>Related stories</h2>
+            <div class="card-grid">
+              <article class="card">
+                <div class="card-body">
+                  <div class="meta">
+                    <span class="tag">Underdogs</span>
+                    <time datetime="">Jan 2026</time>
+                    <span class="card-read-time">· 2 min read</span>
+                  </div>
+                  <h3 class="card-title"><a href="independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a></h3>
+                  <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="card-body">
+                  <div class="meta">
+                    <span class="tag">Brands / Culture</span>
+                    <time datetime="">Jan 2026</time>
+                    <span class="card-read-time">· 2 min read</span>
+                  </div>
+                  <h3 class="card-title"><a href="timeless-stories-in-timepieces-ap-vacheron-middle-east.html">Timeless Stories in Timepieces: How AP and Vacheron Embrace Middle Eastern Soul</a></h3>
+                  <p class="card-excerpt">How AP and Vacheron Constantin design with cultural depth, heritage, and regional storytelling in mind.</p>
+                </div>
+              </article>
+            </div>
+          </section>
         </article>
       </div>
     </section>
   </main>
 
-  <footer class="footer-pro">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <div class="footer-text">
-            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
-            shaping modern taste.
-          </div>
-        </div>
-
-<div class="footer-col">
-          <h4>Contact me</h4>
-          <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Policies</h4>
-          <div class="footer-legal">
-            <a href="../about.html">About</a> · <a href="../editorial.html">Editorial Policy</a> · <a href="../contributors.html">Contributors</a> · <a href="../affiliate.html">Affiliate Disclosure</a> · <a href="../disclaimer.html">Disclaimer</a> · <a href="../privacy.html">Privacy Policy</a> · <a href="../terms.html">Terms</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer-pro"></footer>
 </body>
 </html>

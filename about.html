@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
@@ -11,47 +11,12 @@
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
 </head>
 
 <body data-page="about">
   <!-- HEADER (same everywhere) -->
-  <header>
-    <div class="container">
-      <div class="header-row">
-        <a class="brand" href="index.html">
-          <div class="word">BEZERU</div>
-        </a>
-        <div class="header-spacer"></div>
-      </div>
-    </div>
-
-    <div class="nav-wrap">
-      <div class="container">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-          <span class="nav-toggle-bars" aria-hidden="true">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-          <span class="nav-toggle-label">Menu</span>
-        </button>
-        <nav id="primary-nav">
-          <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link" href="articles.html#latest">Read</a>
-
-          <a class="nav-link" href="types.html">Types</a>
-
-          <a class="nav-link" href="brands.html">Brands</a>
-
-          <a class="nav-link" href="about.html">About</a>
-
-          <a class="nav-cta" href="shop.html">Shop <span aria-hidden="true">→</span></a>
-
-          </div>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <header class="site-header"></header>
 
   <!-- ABOUT CONTENT -->
   
@@ -77,31 +42,6 @@
 
 
   <!-- FOOTER -->
-  <footer class="footer-pro">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <div class="footer-text">
-            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
-            shaping modern taste.
-          </div>
-        </div>
-<div class="footer-col">
-          <h4>Contact me</h4>
-          <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
-      </div>
-    </div>
-  </footer>
+  <footer class="footer-pro"></footer>
 </body>
 </html>
