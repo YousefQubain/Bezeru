@@ -55,6 +55,121 @@
   select {
     font-size: 16px !important;
   }
+
+  .hero h1,
+  section:first-of-type h1 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .hero p,
+  section:first-of-type p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .hero .cta-buttons,
+  .hero-buttons,
+  section:first-of-type .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero .cta-buttons a,
+  .hero-buttons a,
+  section:first-of-type .buttons a {
+    width: 100%;
+    text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .clock,
+  .watch-face,
+  .analog-clock,
+  svg.clock {
+    display: none !important;
+  }
+
+  .editors-note,
+  .editor-note,
+  section.note {
+    display: none !important;
+  }
+
+  .featured-story,
+  .featured-card {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .start-here-grid,
+  .cards-grid,
+  .editorial-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .start-here-card,
+  .editorial-card {
+    width: 100%;
+    margin: 0;
+  }
+
+  .latest-articles .article-row,
+  .latest-list .article-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #E0DDD8;
+  }
+
+  .latest-articles h3,
+  .latest-list h3 {
+    font-size: 18px;
+    line-height: 1.35;
+    margin: 6px 0 4px;
+  }
+
+  .shop-teaser .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .shop-teaser .buttons a {
+    width: 100%;
+    text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .subscribe-form,
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .subscribe-form input,
+  .newsletter-form input {
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .subscribe-form button,
+  .newsletter-form button {
+    width: 100%;
+    height: 48px;
+  }
 }
 
 @media (hover: none) and (pointer: coarse) {
