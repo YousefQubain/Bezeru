@@ -316,11 +316,46 @@
     </div>
   </footer>
 
-  <div class="mobile-cta" data-cta-bar aria-hidden="true">
+  <div class="mobile-cta subscribe-popup" data-cta-bar aria-hidden="true">
     <span class="mobile-cta-text">Get new articles by email.</span>
     <button class="mobile-cta-button" type="button" data-cta-action>Subscribe</button>
     <button class="mobile-cta-close" type="button" data-cta-close aria-label="Dismiss subscribe prompt">×</button>
   </div>
+
+  <script>
+  (function() {
+    const popup = document.querySelector('.subscribe-popup, .popup, [class*="subscribe"]');
+    if (!popup) return;
+
+    popup.style.display = 'none';
+
+    if (sessionStorage.getItem('bezeru_popup_dismissed')) return;
+
+    let shown = false;
+
+    function showPopup() {
+      if (shown) return;
+      shown = true;
+      popup.style.display = '';
+      popup.style.animation = 'fadeInUp 300ms ease forwards';
+    }
+
+    setTimeout(showPopup, 45000);
+
+    document.addEventListener('mouseleave', function(e) {
+      if (e.clientY <= 0) {
+        showPopup();
+      }
+    });
+
+    const closeBtn = popup.querySelector('[class*="close"], button');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        sessionStorage.setItem('bezeru_popup_dismissed', '1');
+      });
+    }
+  })();
+  </script>
 
 </body>
 </html>
