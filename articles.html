@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -25,8 +25,12 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="bezeru-system.css" />
+  <link rel="stylesheet" href="bezeru-mobile.css" />
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
+  <link rel="icon" type="image/png" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 
 <body data-page="articles">
@@ -34,7 +38,6 @@
     <div class="container">
       <div class="header-row">
         <a class="brand" href="index.html">
-          <img class="brand-logo" src="/apple-touch-icon.png" alt="BEZERU logo" width="42" height="42" loading="eager" decoding="async" />
           <div class="word">BEZERU</div>
         </a>
         <div class="header-spacer"></div>
@@ -53,48 +56,16 @@
         </button>
         <nav id="primary-nav">
           <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="articles.html#latest">Read</a>
+
+          <a class="nav-link" href="types.html">Types</a>
+
+          <a class="nav-link" href="brands.html">Brands</a>
 
           <a class="nav-link" href="about.html">About</a>
 
-          <div class="dropdown dd-open" data-dd="articles">
-            <button class="dd-btn active" type="button">
-              Read <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Read">
-              <a href="#latest">Latest</a>
-              <a href="#design">Design</a>
-              <a href="#guides">Guides</a>
-              <a href="#vintage">Vintage</a>
-            </div>
-          </div>
+          <a class="nav-cta" href="shop.html">Shop <span aria-hidden="true">→</span></a>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Types">
-              <a href="types.html#dress">Dress</a>
-              <a href="types.html#diver">Diver</a>
-              <a href="types.html#chrono">Chronograph</a>
-              <a href="types.html#gmt">Travel</a>
-              <a href="types.html#comp">Complications</a>
-            </div>
-          </div>
-
-          <div class="dropdown" data-dd="brands">
-            <button class="dd-btn" type="button">
-              Brands <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Brands">
-              <a href="brands.html#rolex">Rolex</a>
-              <a href="brands.html#cartier">Cartier</a>
-              <a href="brands.html#piaget">Piaget</a>
-              <a href="brands.html#iwc">IWC</a>
-            </div>
-          </div>
-
-          <a class="nav-link" href="shop.html">Shop</a>
           </div>
         </nav>
       </div>
@@ -131,7 +102,30 @@
         </div>
 
         <div class="grid" id="articles-grid">
-          <!-- filled by script.js -->
+          <article class="card" data-category="Underdogs">
+            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
+            <div class="card-body">
+              <div class="meta"><span class="tag">Underdogs</span><time datetime="2026-01-27">Jan 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a></h3>
+              <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
+            </div>
+          </article>
+          <article class="card" data-category="Innovation / Industry">
+            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
+            <div class="card-body">
+              <div class="meta"><span class="tag">Innovation / Industry</span><time datetime="2026-02-11">Feb 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/time-reimagined-watchmaking-innovations-2025-26.html">Time Reimagined: Watchmaking Innovations of 2025–26</a></h3>
+              <p class="card-excerpt">A closer look at the materials, mechanics, and independent energy reshaping watchmaking in 2025–26.</p>
+            </div>
+          </article>
+          <article class="card" data-category="Design">
+            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
+            <div class="card-body">
+              <div class="meta"><span class="tag">Design</span><time datetime="2026-02-17">Feb 2026</time><span class="card-read-time">· 2 min read</span></div>
+              <h3 class="card-title"><a href="articles/year-of-the-fire-horse-2026.html">Year of the Fire Horse: The 2026 Lunar New Year Watches That Actually Matter</a></h3>
+              <p class="card-excerpt">A tight editorial look at the 2026 Year of the Fire Horse releases.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
