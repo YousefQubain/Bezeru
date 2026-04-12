@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-312HY6RE8D"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -26,53 +26,129 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
+  <link rel="stylesheet" href="/bezeru-mobile.css">
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/bezeru-mobile.css" />
+  <link rel="stylesheet" href="/bezeru-nav.css">
 </head>
 
 <body data-page="articles">
-  <header>
-    <div class="container">
-      <div class="header-row">
-        <a class="brand" href="index.html">
-          <div class="word">BEZERU</div>
-        </a>
-        <div class="header-spacer"></div>
-      </div>
+
+<header class="bz-header" id="bzHeader" data-shared-header="true">
+  <div class="bz-topbar">
+    <span class="bz-topbar-date" id="bzDate"></span>
+    <div class="bz-topbar-cities">
+      <span>GVA <span class="bz-city-time" data-tz="Europe/Zurich"></span></span>
+      <span>NYC <span class="bz-city-time" data-tz="America/New_York"></span></span>
+      <span>TYO <span class="bz-city-time" data-tz="Asia/Tokyo"></span></span>
+      <span>DXB <span class="bz-city-time" data-tz="Asia/Dubai"></span></span>
     </div>
-
-    <div class="nav-wrap">
-      <div class="container">
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
-          <span class="nav-toggle-bars" aria-hidden="true">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-          <span class="nav-toggle-label">Menu</span>
-        </button>
-        <nav id="primary-nav">
-          <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link" href="articles.html#latest">Read</a>
-
-          <a class="nav-link" href="types.html">Types</a>
-
-          <a class="nav-link" href="brands.html">Brands</a>
-
-          <a class="nav-link" href="about.html">About</a>
-
-          <a class="nav-cta" href="shop.html">Shop <span aria-hidden="true">→</span></a>
-
-          </div>
-        </nav>
+  </div>
+  <div class="bz-nav-row">
+    <nav class="bz-nav-left">
+      <a href="/index.html" class="bz-nav-link">Home</a>
+      <a href="/articles.html" class="bz-nav-link">Read</a>
+      <a href="/types.html" class="bz-nav-link">Types</a>
+      <a href="/brands.html" class="bz-nav-link">Brands</a>
+      <a href="/about.html" class="bz-nav-link">About</a>
+    </nav>
+    <a href="/index.html" class="bz-logo">
+      <span class="bz-logo-wordmark">BEZERU</span>
+      <span class="bz-logo-sub">Independent Watch Journal</span>
+    </a>
+    <div class="bz-nav-right">
+      <button class="bz-icon-btn" id="bzSearchToggle" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <div class="bz-lang-wrap">
+        <button class="bz-lang-btn">EN ▾</button>
+        <div class="bz-lang-dropdown">
+          <button class="bz-lang-option active">EN — English</button>
+          <button class="bz-lang-option">AR — العربية</button>
+          <button class="bz-lang-option soon">FR — Français</button>
+          <button class="bz-lang-option soon">DE — Deutsch</button>
+        </div>
       </div>
+      <a href="/shop.html" class="bz-shop-btn">Shop</a>
+      <button class="bz-hamburger" id="bzHamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main>
+<div class="bz-mobile-menu" id="bzMobileMenu">
+  <div class="bz-mm-header">
+    <a href="/index.html" class="bz-logo">
+      <span class="bz-logo-wordmark">BEZERU</span>
+    </a>
+    <button class="bz-mm-close" id="bzMenuClose" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <nav class="bz-mm-nav">
+    <a href="/index.html" class="bz-mm-link">
+      <span class="bz-mm-num">01</span>
+      <span class="bz-mm-label">Home</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="/articles.html" class="bz-mm-link">
+      <span class="bz-mm-num">02</span>
+      <span class="bz-mm-label">Read</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="/types.html" class="bz-mm-link">
+      <span class="bz-mm-num">03</span>
+      <span class="bz-mm-label">Types</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="/brands.html" class="bz-mm-link">
+      <span class="bz-mm-num">04</span>
+      <span class="bz-mm-label">Brands</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="/about.html" class="bz-mm-link">
+      <span class="bz-mm-num">05</span>
+      <span class="bz-mm-label">About</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="/shop.html" class="bz-mm-link shop">
+      <span class="bz-mm-num">06</span>
+      <span class="bz-mm-label">Shop</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </nav>
+  <div class="bz-mm-footer">
+    <div class="bz-mm-lang">
+      <button class="bz-mm-lang-opt active">EN</button>
+      <button class="bz-mm-lang-opt">AR</button>
+      <button class="bz-mm-lang-opt soon">FR</button>
+      <button class="bz-mm-lang-opt soon">DE</button>
+    </div>
+    <div class="bz-mm-cities">
+      <span>GVA <span class="bz-city-time" data-tz="Europe/Zurich"></span></span>
+      <span>NYC <span class="bz-city-time" data-tz="America/New_York"></span></span>
+      <span>DXB <span class="bz-city-time" data-tz="Asia/Dubai"></span></span>
+    </div>
+  </div>
+</div>
+
+<div class="bz-backdrop" id="bzBackdrop"></div>
+
+<div class="bz-search-bar" id="bzSearchBar">
+  <div class="bz-search-inner">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="bz-search-input" id="bzSearchInput" placeholder="Search articles, brands, types…" autocomplete="off">
+    <button class="bz-icon-btn" id="bzSearchClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="bz-search-results" id="bzSearchResults"></div>
+</div>
+
+<main>
     <section class="hero">
       <div class="container">
         <div>
@@ -164,49 +240,107 @@
       </div>
     </div>
   </footer>
-<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
-  <div class="mobile-overlay-inner">
-    <div class="mobile-overlay-top">
-      <span class="mobile-overlay-logo">BEZERU</span>
-      <button class="mobile-overlay-close" aria-label="Close menu" onclick="closeMobileMenu()">✕</button>
-    </div>
-    <nav class="mobile-overlay-nav">
-      <a href="/index.html">Home</a>
-      <a href="/articles.html">Read</a>
-      <a href="/types.html">Types</a>
-      <a href="/brands.html">Brands</a>
-      <a href="/about.html">About</a>
-      <a href="/shop.html" class="mobile-nav-shop">Shop</a>
-    </nav>
-    <div class="mobile-overlay-lang">
-      <span class="lang-active">EN</span>
-      <span>AR</span>
-      <span class="lang-soon">FR</span>
-      <span class="lang-soon">DE</span>
-    </div>
-  </div>
-</div>
+
 <script>
-function openMobileMenu() {
-  const overlay = document.getElementById('mobileOverlay');
-  if (!overlay) return;
-  overlay.classList.add('open');
-  overlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
+// ── Active nav link ──────────────────────────
+document.querySelectorAll('.bz-nav-link, .bz-mm-link').forEach(function(link) {
+  if (link.href === window.location.href) link.classList.add('active');
+});
 
-function closeMobileMenu() {
-  const overlay = document.getElementById('mobileOverlay');
-  if (!overlay) return;
-  overlay.classList.remove('open');
-  overlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
+// ── Scroll shadow on header ──────────────────
+window.addEventListener('scroll', function() {
+  document.getElementById('bzHeader').classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
 
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.mobile-overlay-nav a').forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
+// ── Live city times ──────────────────────────
+function updateTimes() {
+  document.querySelectorAll('.bz-city-time').forEach(function(el) {
+    var tz = el.getAttribute('data-tz');
+    el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
   });
+}
+updateTimes();
+setInterval(updateTimes, 30000);
+
+// ── Topbar date ──────────────────────────────
+var dateEl = document.getElementById('bzDate');
+if (dateEl) {
+  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+// ── Mobile menu ──────────────────────────────
+var hamburger = document.getElementById('bzHamburger');
+var menu = document.getElementById('bzMobileMenu');
+var backdrop = document.getElementById('bzBackdrop');
+var closeBtn = document.getElementById('bzMenuClose');
+
+function openMenu() {
+  menu.classList.add('open');
+  backdrop.classList.add('visible');
+  hamburger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  hamburger.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  menu.classList.remove('open');
+  backdrop.classList.remove('visible');
+  hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+if (hamburger) hamburger.addEventListener('click', openMenu);
+if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+if (backdrop) backdrop.addEventListener('click', closeMenu);
+document.querySelectorAll('.bz-mm-link').forEach(function(link) {
+  link.addEventListener('click', closeMenu);
+});
+
+// ── Search ───────────────────────────────────
+var searchToggle = document.getElementById('bzSearchToggle');
+var searchBar = document.getElementById('bzSearchBar');
+var searchClose = document.getElementById('bzSearchClose');
+var searchInput = document.getElementById('bzSearchInput');
+var searchResults = document.getElementById('bzSearchResults');
+
+var ARTICLES = [
+  { title: 'Independents That Are Quietly Replacing Hype', desc: 'Four names collectors are watching — often before anyone else catches on.', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs' },
+  { title: 'Time Reimagined: Watchmaking Innovations of 2025–26', desc: 'Materials, mechanics, and independent energy reshaping watchmaking.', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation' },
+  { title: 'Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul', desc: 'How two maisons treat regional culture as treasure, not trend.', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East' },
+  { title: 'Year of the Fire Horse: 2026 Lunar New Year Watches', desc: 'Which zodiac releases will still feel right years from now.', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design' }
+];
+
+function openSearch() {
+  searchBar.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() { searchInput.focus(); }, 50);
+}
+function closeSearch() {
+  searchBar.classList.remove('open');
+  document.body.style.overflow = '';
+  searchInput.value = '';
+  searchResults.innerHTML = '';
+}
+function runSearch(q) {
+  if (!q || q.length < 2) { searchResults.innerHTML = ''; return; }
+  var matches = ARTICLES.filter(function(a) {
+    return (a.title + a.desc + a.tag).toLowerCase().indexOf(q.toLowerCase()) > -1;
+  });
+  if (!matches.length) {
+    searchResults.innerHTML = '<p class="bz-search-empty">No results for "' + q + '"</p>';
+    return;
+  }
+  searchResults.innerHTML = matches.map(function(a) {
+    return '<a class="bz-search-result" href="' + a.url + '"><strong>' + a.title + '</strong><span>' + a.tag + ' — ' + a.desc + '</span></a>';
+  }).join('');
+}
+
+if (searchToggle) searchToggle.addEventListener('click', openSearch);
+if (searchClose) searchClose.addEventListener('click', closeSearch);
+if (searchInput) searchInput.addEventListener('input', function() { runSearch(this.value); });
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeMenu(); closeSearch(); }
 });
 </script>
 </body>
