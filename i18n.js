@@ -174,35 +174,14 @@
   }
 
   function injectSwitcher(locale){
-    const host = document.querySelector(".header-row");
-    if(!host || host.querySelector(".lang-switcher")) return;
-
-    const wrap = document.createElement("div");
-    wrap.className = "lang-switcher";
-    wrap.setAttribute("role", "group");
-    wrap.setAttribute("aria-label", UI[locale].languageSwitcher);
-
-    [["en","English"],["ar","العربية"]].forEach(([code,label])=>{
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = `lang-btn${locale === code ? " is-active" : ""}`;
-      btn.textContent = label;
-      btn.setAttribute("aria-pressed", String(locale === code));
-      btn.addEventListener("click", ()=>{
-        const params = new URLSearchParams(window.location.search);
-        params.set("lang", code);
-        localStorage.setItem("bezeru-locale", code);
-        window.location.search = params.toString();
-      });
-      wrap.appendChild(btn);
+    document.querySelectorAll(".menu-lang-link").forEach((link)=>{
+      const href = link.getAttribute("href") || "";
+      const lang = new URL(href, window.location.origin).searchParams.get("lang");
+      link.classList.toggle("is-active", lang === locale);
+      if(lang === "en" || lang === "ar"){
+        link.addEventListener("click", ()=> localStorage.setItem("bezeru-locale", lang));
+      }
     });
-
-    const spacer = host.querySelector(".header-spacer");
-    if(spacer){
-      spacer.appendChild(wrap);
-    }else{
-      host.appendChild(wrap);
-    }
   }
 
   function localizePost(post, locale){
