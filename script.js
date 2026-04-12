@@ -1,6 +1,130 @@
 /* =========================
    DROPDOWNS (stable)
 ========================= */
+function initUnifiedHeader(){
+  const header = document.querySelector("header");
+  if(!header) return;
+  if(header.dataset.sharedHeader === "true") return;
+
+  const link = (path)=> {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get("lang");
+    return lang ? `${path}?lang=${encodeURIComponent(lang)}` : path;
+  };
+  const linkWithLang = (langCode) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", langCode);
+    return `${url.pathname}${url.search}`;
+  };
+  const activeLang = (new URL(window.location.href)).searchParams.get("lang");
+  const langLabel = activeLang === "ar" ? "AR" : "EN";
+
+  header.innerHTML = `
+    <div class="container">
+      <div class="header-row">
+        <a class="brand" href="${link("/index.html")}">
+          <div class="word">BEZERU</div>
+        </a>
+        <div class="header-spacer"></div>
+      </div>
+    </div>
+
+    <div class="nav-wrap">
+      <div class="container nav-shell">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
+          <span class="nav-toggle-bars" aria-hidden="true">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
+        <nav id="primary-nav" aria-label="Primary">
+          <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
+          <div id="primary-nav-panel" class="nav-panel">
+            <button class="nav-close" type="button" aria-label="Close menu">✕</button>
+            <div class="nav-links">
+              <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
+              <a class="nav-link" href="${link("/types.html")}">Types</a>
+              <a class="nav-link" href="${link("/brands.html")}">Brands</a>
+              <a class="nav-link" href="${link("/about.html")}">About</a>
+            </div>
+            <div class="nav-utilities">
+              <a class="nav-cta" href="${link("/shop.html")}">Shop <span aria-hidden="true">→</span></a>
+              <div class="lang-menu" data-lang-menu>
+                <button class="lang-menu__toggle" type="button" aria-expanded="false" aria-haspopup="true">${langLabel} ▾</button>
+                <div class="lang-menu__list" role="menu" aria-label="Language">
+                  <a class="lang-menu__link" role="menuitem" href="${linkWithLang("en")}">English</a>
+                  <a class="lang-menu__link" role="menuitem" href="${linkWithLang("ar")}">العربية</a>
+                  <span class="lang-menu__link is-disabled" aria-disabled="true">Français (coming soon)</span>
+                  <span class="lang-menu__link is-disabled" aria-disabled="true">Deutsch (coming soon)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="clock-strip" aria-label="World clock">
+      <div class="container clock-strip__inner">
+        <span><strong>NEW YORK</strong> <em data-city-time="ny">--:--</em></span>
+        <span><strong>LONDON</strong> <em data-city-time="london">--:--</em></span>
+        <span><strong>GENEVA</strong> <em data-city-time="geneva">--:--</em></span>
+        <span><strong>TOKYO</strong> <em data-city-time="tokyo">--:--</em></span>
+      </div>
+    </div>
+  `;
+
+  header.dataset.sharedHeader = "true";
+}
+
+initUnifiedHeader();
+
+function initUnifiedFooter(){
+  const footer = document.querySelector("footer.footer-pro");
+  if(!footer) return;
+  if(footer.dataset.sharedFooter === "true") return;
+
+  const prefix = location.pathname.includes("/articles/") ? "../" : "";
+  const subscribeCol = "";
+  footer.innerHTML = `
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BEZERU</div>
+          <div class="footer-text">Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs shaping modern taste.</div>
+        </div>
+        ${subscribeCol}
+        <div class="footer-col">
+          <h4>Contact me</h4>
+          <div class="footer-links">
+            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
+            <a href="#" aria-disabled="true">Instagram</a>
+            <span class="coming-soon">X (Coming soon)</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Policies</h4>
+          <div class="footer-legal">
+            <a href="${prefix}editorial-policy.html">Editorial Policy</a> ·
+            <a href="${prefix}contributors-policy.html">Contributors</a> ·
+            <a href="${prefix}affiliate-policy.html">Affiliate Disclosure</a> ·
+            <a href="${prefix}disclaimer-policy.html">Disclaimer</a> ·
+            <a href="${prefix}privacy-policy.html">Privacy Policy</a> ·
+            <a href="${prefix}terms-policy.html">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© <span id="footer-year"></span> BEZERU. All rights reserved.</div>
+      </div>
+    </div>
+  `;
+  footer.dataset.sharedFooter = "true";
+}
+
+initUnifiedFooter();
+
 function initDropdowns(){
   const dropdowns = document.querySelectorAll(".dropdown");
 
@@ -58,6 +182,7 @@ function initMobileNav(){
   const nav = document.getElementById("primary-nav");
   const panel = document.getElementById("primary-nav-panel");
   const overlay = nav ? nav.querySelector("[data-nav-overlay]") : null;
+  const closeBtn = panel ? panel.querySelector(".nav-close") : null;
   if(!toggle || !nav || !panel) return;
 
   const focusableSelector = [
@@ -122,6 +247,7 @@ function initMobileNav(){
       }
     });
   });
+  closeBtn?.addEventListener("click", closeNav);
 
   overlay?.addEventListener("click", closeNav);
 
@@ -181,34 +307,36 @@ function initStickyHeader(){
   window.addEventListener("resize", update);
 }
 
-function initSwissHeaderClock(){
-  const row = document.querySelector(".header-row");
-  if(!row) return;
-
-  const spacer = row.querySelector(".header-spacer") || row;
-  let swissClock = spacer.querySelector(".header-swiss-clock");
-  if(!swissClock){
-    swissClock = document.createElement("div");
-    swissClock.className = "header-swiss-clock";
-    swissClock.setAttribute("aria-live", "polite");
-    swissClock.setAttribute("aria-label", "Switzerland time");
-    spacer.insertBefore(swissClock, spacer.firstChild);
-  }
-
-  const formatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Europe/Zurich",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
-
-  const tick = ()=>{
-    swissClock.textContent = `Switzerland — ${formatter.format(new Date())}`;
+function initClockStrip(){
+  const nodes = {
+    ny: document.querySelector('[data-city-time="ny"]'),
+    london: document.querySelector('[data-city-time="london"]'),
+    geneva: document.querySelector('[data-city-time="geneva"]'),
+    tokyo: document.querySelector('[data-city-time="tokyo"]')
   };
-
+  if(Object.values(nodes).every(v => !v)) return;
+  const format = (tz)=> new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date());
+  const tick = ()=>{
+    if(nodes.ny) nodes.ny.textContent = format("America/New_York");
+    if(nodes.london) nodes.london.textContent = format("Europe/London");
+    if(nodes.geneva) nodes.geneva.textContent = format("Europe/Zurich");
+    if(nodes.tokyo) nodes.tokyo.textContent = format("Asia/Tokyo");
+  };
   tick();
-  setInterval(tick, 1000);
+  setInterval(tick, 60000);
+}
+
+function initLanguageMenu(){
+  const menu = document.querySelector("[data-lang-menu]");
+  if(!menu) return;
+  const button = menu.querySelector(".lang-menu__toggle");
+  const toggle = (open)=>{
+    menu.classList.toggle("is-open", open);
+    button?.setAttribute("aria-expanded", String(open));
+  };
+  button?.addEventListener("click", ()=> toggle(!menu.classList.contains("is-open")));
+  document.addEventListener("click", (e)=> { if(!menu.contains(e.target)) toggle(false); });
+  document.addEventListener("keydown", (e)=> { if(e.key === "Escape") toggle(false); });
 }
 
 /* =========================
@@ -476,6 +604,8 @@ async function renderArticle(){
   }
   ledeEl.textContent  = localizedPost.excerpt;
   bodyEl.innerHTML = (post.content_html || "")
+    .replace(/<audio\b[^>]*\bcontrols\b[^>]*>[\s\S]*?<\/audio>/gi, "")
+    .replace(/<audio\b[^>]*\bsrc=["'][^"']*independents-that-are-quietly-replacing-hype\.mp3[^"']*["'][^>]*\/?>/gi, "")
     .replace(/<figure[^>]*>[\s\S]*?<img[\s\S]*?<\/figure>/gi, "")
     .replace(/<img\b[^>]*>/gi, "");
 
@@ -608,7 +738,8 @@ function initArticleProgressBar(){
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
-  initSwissHeaderClock();
+  initClockStrip();
+  initLanguageMenu();
   initDropdowns();
   initMobileNav();
   initStickyHeader();
@@ -624,9 +755,11 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     if(index > 0) cta.remove();
   });
 
-  // footer year
-  const y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
+  // footer year (site started in 2026)
+  const y = document.getElementById("footer-year");
+  if (y) {
+    y.textContent = String(new Date().getFullYear());
+  }
 
   // page-specific rendering
   const page = document.body.getAttribute("data-page");
@@ -875,80 +1008,71 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("subscribe-form");
-  const input = document.getElementById("subscribe-email");
-  const button = document.getElementById("subscribe-button");
-  const statusEl = document.getElementById("subscribe-status");
-  if (!form || !input || !button || !statusEl) return;
+  const isArticlePage = document.body?.getAttribute("data-page") === "static-article"
+    || document.body?.getAttribute("data-page") === "article"
+    || location.pathname.includes("/articles/");
 
-  const WORKER_ENDPOINT = "YOUR_WORKER_URL"; // e.g. https://bezeru-subscribe.x.workers.dev/subscribe
-
-  const baseParams = () => ({
-    location: form.dataset.location || "unknown",
-    page_path: window.location.pathname
-  });
-
-  function ga(eventName, extra = {}) {
-    if (typeof window.gtag === "function") {
-      window.gtag("event", eventName, { ...baseParams(), ...extra });
+  if (isArticlePage) {
+    const shell = document.querySelector(".article-shell");
+    if (shell && !shell.querySelector(".article-subscribe")) {
+      const subscribe = document.createElement("section");
+      subscribe.className = "article-subscribe";
+      subscribe.innerHTML = `
+        <h2 class="footer-title">SUBSCRIBE</h2>
+        <p class="footer-subtitle">For collectors who care about the details. New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
+        <form
+          action="https://buttondown.com/api/emails/embed-subscribe/qubain"
+          method="post"
+          target="popupwindow"
+          onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')"
+          class="embeddable-buttondown-form bezeru-subscribe-form"
+          data-location="article-end"
+        >
+          <label for="bd-email-article" class="bezeru-subscribe-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            id="bd-email-article"
+            class="bezeru-subscribe-input"
+            placeholder="Your email address"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
+        </form>
+        <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+      `;
+      const anchor = shell.querySelector(".article-author-box") || shell.lastElementChild;
+      shell.insertBefore(subscribe, anchor);
     }
   }
 
-  input.addEventListener("focus", () => ga("subscribe_focus"), { once: true });
+  const forms = document.querySelectorAll(".bezeru-subscribe-form");
+  forms.forEach((form) => {
+    const input = form.querySelector('input[type="email"]');
+    const button = form.querySelector('button[type="submit"]');
+    const locationLabel = form.dataset.location || "unknown";
 
-  function setStatus(kind, msg) {
-    statusEl.classList.remove("is-success", "is-error");
-    if (kind === "success") statusEl.classList.add("is-success");
-    if (kind === "error") statusEl.classList.add("is-error");
-    statusEl.textContent = msg;
-  }
-
-  function setLoading(isLoading) {
-    button.classList.toggle("is-loading", isLoading);
-    button.disabled = isLoading;
-    button.textContent = isLoading ? "Subscribing…" : "Subscribe";
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = String(input.value || "").trim().toLowerCase();
-    const hp = form.querySelector('input[name="hp"]')?.value || "";
-
-    ga("subscribe_submit");
-
-    if (!email) {
-      setStatus("error", "Please enter your email.");
-      ga("subscribe_error", { error_reason: "empty_email" });
-      return;
-    }
-
-    setLoading(true);
-    setStatus("", "");
-
-    try {
-      const res = await fetch(WORKER_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, hp })
-      });
-
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.ok) {
-        setStatus("success", "You’re in — check your inbox to confirm.");
-        input.value = "";
-        ga("subscribe_success");
-      } else {
-        const reason = data?.error ? String(data.error) : `http_${res.status}`;
-        setStatus("error", "Something went wrong. Please try again.");
-        ga("subscribe_error", { error_reason: reason.slice(0, 80) });
+    const ga = (eventName, extra = {}) => {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", eventName, {
+          location: locationLabel,
+          page_path: window.location.pathname,
+          ...extra
+        });
       }
-    } catch {
-      setStatus("error", "Network error. Please try again.");
-      ga("subscribe_error", { error_reason: "network_error" });
-    } finally {
-      setLoading(false);
+    };
+
+    if (input) {
+      input.addEventListener("focus", () => ga("subscribe_focus"), { once: true });
     }
+
+    form.addEventListener("submit", () => {
+      ga("subscribe_submit");
+      if (button) {
+        button.textContent = "Opening…";
+        setTimeout(() => { button.textContent = "Subscribe"; }, 1400);
+      }
+    });
   });
 });
