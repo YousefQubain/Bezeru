@@ -314,12 +314,16 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
+  padding: 0 0 8px;
   padding: 4px 0 10px;
   overflow: hidden;
 }
 .bz-mm-link {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
   align-items: center;
+  column-gap: 16px;
+  padding: 13px 28px;
   gap: 16px;
   padding: 14px 28px;
   text-decoration: none;
@@ -353,15 +357,17 @@
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.55);
   color: var(--nav-muted);
-  min-width: 20px;
+  width: 20px;
+  line-height: 1;
 }
 .bz-mm-label {
   font-family: var(--nav-serif);
   font-size: 28px;
   font-weight: 400;
   letter-spacing: -0.01em;
-  flex: 1;
+  display: block;
   line-height: 1;
+  margin: 0;
 }
 .bz-mm-link.shop .bz-mm-label { color: var(--nav-accent); }
 .bz-mm-arrow {
