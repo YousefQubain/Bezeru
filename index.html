@@ -128,6 +128,11 @@
       <span class="bz-mm-label">Shop</span>
       <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
+    <a href="#subscribe" class="bz-mm-link">
+      <span class="bz-mm-num">07</span>
+      <span class="bz-mm-label">Subscribe</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </nav>
   <div class="bz-mm-footer">
     <div class="bz-mm-lang">
@@ -244,13 +249,12 @@
     <div class="container">
       <div class="section-head">
         <h2 id="shop-teaser-title">Shop</h2>
-        <p>A quieter, trust-first route for buying or listing watches through BEZERU.</p>
       </div>
-      <div class="featured-hero">
-        <div class="hero-left">
-          <h3 class="hero-title">Editorial clarity, now with a cleaner buy/sell funnel.</h3>
-          <p class="hero-sub">Browse the BEZERU shop flow for collector inquiries, listing support, and transparent introductions.</p>
-          <a class="btn" href="shop.html">Explore the shop →</a>
+      <div class="shop-teaser-compact">
+        <p class="shop-teaser-copy">A quieter, trust-first route for buying or listing watches.</p>
+        <div class="shop-teaser-actions">
+          <a class="shop-teaser-link" href="shop.html#buy">Buy a watch</a>
+          <a class="shop-teaser-link" href="shop.html#sell">Sell a watch</a>
         </div>
       </div>
     </div>
@@ -301,26 +305,20 @@
     </div>
   </section>
 
-  <section class="section section-subscribe-home" id="subscribe">
-    <div class="container">
-      <div class="featured-hero">
-        <div class="section-head">
-          <h2>SUBSCRIBE</h2>
-          <p>For collectors who care about the details. New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
-        </div>
-        <form action="https://buttondown.com/api/emails/embed-subscribe/qubain" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')" class="embeddable-buttondown-form bezeru-subscribe-form" data-location="home-section">
-          <label for="bd-email-home" class="bezeru-subscribe-label">Email address</label>
-          <input type="email" name="email" id="bd-email-home" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
-          <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
-        </form>
-        <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="footer-pro">
   <div class="container">
+    <section class="footer-newsletter" id="subscribe" aria-label="Newsletter signup">
+      <p class="footer-newsletter-label">Newsletter</p>
+      <p class="footer-newsletter-copy">New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/qubain" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')" class="embeddable-buttondown-form bezeru-subscribe-form footer-newsletter-form" data-location="footer-newsletter">
+        <label for="bd-email-home" class="bezeru-subscribe-label">Email address</label>
+        <input type="email" name="email" id="bd-email-home" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
+        <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
+      </form>
+      <p class="subscribe-note footer-newsletter-note">No spam. Unsubscribe anytime.</p>
+    </section>
     <div class="footer-grid">
       <div>
         <div class="footer-brand">BEZERU</div>
