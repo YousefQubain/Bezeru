@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editorial Policy | BEZERU</title>
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
+  <link rel="stylesheet" href="/bezeru-mobile.css">
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/bezeru-mobile.css" />
 </head>
 
 <body data-page="policy">
@@ -108,50 +108,5 @@
       </div>
     </div>
   </footer>
-<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
-  <div class="mobile-overlay-inner">
-    <div class="mobile-overlay-top">
-      <span class="mobile-overlay-logo">BEZERU</span>
-      <button class="mobile-overlay-close" aria-label="Close menu" onclick="closeMobileMenu()">✕</button>
-    </div>
-    <nav class="mobile-overlay-nav">
-      <a href="/index.html">Home</a>
-      <a href="/articles.html">Read</a>
-      <a href="/types.html">Types</a>
-      <a href="/brands.html">Brands</a>
-      <a href="/about.html">About</a>
-      <a href="/shop.html" class="mobile-nav-shop">Shop</a>
-    </nav>
-    <div class="mobile-overlay-lang">
-      <span class="lang-active">EN</span>
-      <span>AR</span>
-      <span class="lang-soon">FR</span>
-      <span class="lang-soon">DE</span>
-    </div>
-  </div>
-</div>
-<script>
-function openMobileMenu() {
-  const overlay = document.getElementById('mobileOverlay');
-  if (!overlay) return;
-  overlay.classList.add('open');
-  overlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeMobileMenu() {
-  const overlay = document.getElementById('mobileOverlay');
-  if (!overlay) return;
-  overlay.classList.remove('open');
-  overlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.mobile-overlay-nav a').forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-  });
-});
-</script>
 </body>
 </html>
