@@ -341,6 +341,20 @@ var dateEl = document.getElementById('bzDate');
 if (dateEl) {
   dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
+updateTimes();
+setInterval(updateTimes, 30000);
+
+// ── Topbar date ──────────────────────────────
+var dateEl = document.getElementById('bzDate');
+if (dateEl) {
+  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+// ── Mobile menu ──────────────────────────────
+var hamburger = document.getElementById('bzHamburger');
+var menu = document.getElementById('bzMobileMenu');
+var backdrop = document.getElementById('bzBackdrop');
+var closeBtn = document.getElementById('bzMenuClose');
 
 // ── Mobile menu ──────────────────────────────
 var hamburger = document.getElementById('bzHamburger');
