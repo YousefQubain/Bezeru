@@ -86,6 +86,21 @@ function initUnifiedHeader(){
 
 initUnifiedHeader();
 
+function sanitizeBzMobileMenu(){
+  const menu = document.getElementById("bzMobileMenu");
+  if(!menu) return;
+
+  menu.querySelectorAll(".bz-mm-cities").forEach(el => el.remove());
+
+  const footers = Array.from(menu.querySelectorAll(".bz-mm-footer"));
+  footers.slice(1).forEach(el => el.remove());
+
+  const langRows = Array.from(menu.querySelectorAll(".bz-mm-lang"));
+  langRows.slice(1).forEach(el => el.remove());
+}
+
+sanitizeBzMobileMenu();
+
 function initUnifiedFooter(){
   const footer = document.querySelector("footer.footer-pro");
   if(!footer) return;

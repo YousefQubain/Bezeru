@@ -510,6 +510,7 @@ function openMenu() {
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
+  document.body.classList.add('bz-menu-open');
   hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
@@ -519,6 +520,7 @@ function closeMenu() {
   document.body.style.overflow = '';
   document.body.style.position = '';
   document.body.style.width = '';
+  document.body.classList.remove('bz-menu-open');
   hamburger.setAttribute('aria-expanded', 'false');
 }
 

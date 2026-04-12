@@ -377,6 +377,34 @@
     margin-top: 16px;
   }
 
+  .bz-mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    background: #111111 !important;
+    opacity: 1 !important;
+  }
+
+  .bz-mobile-menu .bz-mm-cities,
+  .bz-mobile-menu .clock-strip,
+  .bz-mobile-menu .lang-menu,
+  .bz-mobile-menu .lang-dropdown {
+    display: none !important;
+  }
+
+  .bz-mobile-menu .bz-mm-footer + .bz-mm-footer {
+    display: none !important;
+  }
+
+  body.bz-menu-open .bz-header > .bz-topbar,
+  body.bz-menu-open .bz-header > .bz-nav-row {
+    visibility: hidden;
+  }
+
+  body.bz-menu-open .bz-mobile-menu.open {
+    visibility: visible;
+  }
+
   footer .footer-grid,
   footer .footer-columns {
     display: flex;

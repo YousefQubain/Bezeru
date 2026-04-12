@@ -247,6 +247,7 @@ function openMenu() {
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
+  document.body.classList.add('bz-menu-open');
   hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
@@ -256,6 +257,8 @@ function closeMenu() {
   document.body.style.overflow = '';
   document.body.style.position = '';
   document.body.style.width = '';
+  document.body.classList.remove('bz-menu-open');
+  hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.classList.add('menu-open');
   hamburger.setAttribute('aria-expanded', 'true');
@@ -274,6 +277,27 @@ if (backdrop) backdrop.addEventListener('click', closeMenu);
 document.querySelectorAll('.bz-mm-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
+
+if (hamburger) hamburger.addEventListener('click', openMenu);
+if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+if (backdrop) backdrop.addEventListener('click', closeMenu);
+document.querySelectorAll('.bz-mm-link').forEach(function(link) {
+  link.addEventListener('click', closeMenu);
+});
+
+// ── Search ───────────────────────────────────
+var searchToggle = document.getElementById('bzSearchToggle');
+var searchBar = document.getElementById('bzSearchBar');
+var searchClose = document.getElementById('bzSearchClose');
+var searchInput = document.getElementById('bzSearchInput');
+var searchResults = document.getElementById('bzSearchResults');
+
+var ARTICLES = [
+  { title: 'Independents That Are Quietly Replacing Hype', desc: 'Four names collectors are watching — often before anyone else catches on.', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs' },
+  { title: 'Time Reimagined: Watchmaking Innovations of 2025–26', desc: 'Materials, mechanics, and independent energy reshaping watchmaking.', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation' },
+  { title: 'Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul', desc: 'How two maisons treat regional culture as treasure, not trend.', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East' },
+  { title: 'Year of the Fire Horse: 2026 Lunar New Year Watches', desc: 'Which zodiac releases will still feel right years from now.', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design' }
+];
 
 if (hamburger) hamburger.addEventListener('click', openMenu);
 if (closeBtn) closeBtn.addEventListener('click', closeMenu);
