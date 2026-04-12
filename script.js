@@ -1,6 +1,3 @@
-/* =========================
-   DROPDOWNS (stable)
-========================= */
 function initUnifiedHeader(){
   const header = document.querySelector("header");
   if(!header) return;
@@ -11,11 +8,13 @@ function initUnifiedHeader(){
     const lang = params.get("lang");
     return lang ? `${path}?lang=${encodeURIComponent(lang)}` : path;
   };
+
   const linkWithLang = (langCode) => {
     const url = new URL(window.location.href);
     url.searchParams.set("lang", langCode);
     return `${url.pathname}${url.search}`;
   };
+
   const activeLang = (new URL(window.location.href)).searchParams.get("lang");
   const langLabel = activeLang === "ar" ? "AR" : "EN";
 
@@ -25,7 +24,6 @@ function initUnifiedHeader(){
         <div class="word">BEZERU</div>
       </a>
 
-      <button class="mobile-menu-btn" aria-label="Open menu" onclick="openMobileMenu()">☰</button>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Open navigation menu">☰</button>
 
       <div class="nav-links" aria-label="Primary links">
@@ -82,7 +80,6 @@ function initUnifiedHeader(){
       </div>
     </div>
   `;
-
 
   header.dataset.sharedHeader = "true";
 }
