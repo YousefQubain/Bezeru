@@ -44,6 +44,7 @@ function initUnifiedHeader(){
           <div id="primary-nav-panel" class="nav-panel">
             <button class="nav-close" type="button" aria-label="Close menu">✕</button>
             <div class="nav-links">
+              <a class="nav-link" href="${link("/index.html")}">Home</a>
               <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
               <a class="nav-link" href="${link("/types.html")}">Types</a>
               <a class="nav-link" href="${link("/brands.html")}">Brands</a>
@@ -350,8 +351,10 @@ function initMobileCta(){
   if(!cta || !action || !close || !subscribeSection) return;
 
   const storageKey = "bezeru-cta-dismissed";
+  const subscribedKey = "bezeru-subscribed-session";
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let isInSubscribe = false;
+  let eligibleToShow = false;
 
   function isDismissed(){
     try{
@@ -385,7 +388,7 @@ function initMobileCta(){
       setVisible(false);
       return;
     }
-    if(isDismissed() || isInSubscribe){
+    if(!eligibleToShow || isDismissed() || sessionStorage.getItem(subscribedKey) === "1" || isInSubscribe){
       setVisible(false);
       return;
     }
@@ -393,6 +396,8 @@ function initMobileCta(){
   }
 
   action.addEventListener("click", ()=>{
+    sessionStorage.setItem(subscribedKey, "1");
+    setVisible(false);
     subscribeSection.scrollIntoView({
       behavior: prefersReducedMotion ? "auto" : "smooth",
       block: "start"
@@ -413,7 +418,16 @@ function initMobileCta(){
 
   observer.observe(subscribeSection);
 
-  updateVisibility();
+  setTimeout(() => {
+    eligibleToShow = true;
+    updateVisibility();
+  }, 45000);
+  document.addEventListener("mouseleave", (e) => {
+    if(e.clientY <= 0){
+      eligibleToShow = true;
+      updateVisibility();
+    }
+  });
   window.addEventListener("resize", updateVisibility);
 }
 
@@ -1021,7 +1035,44 @@ document.addEventListener("DOMContentLoaded", () => {
     || location.pathname.includes("/articles/");
 
   if (isArticlePage) {
+    const backLink = document.querySelector(".back-link");
+    if (backLink) {
+      backLink.textContent = "← Back to Articles";
+      backLink.setAttribute("href", location.pathname.includes("/articles/") ? "../articles.html" : "articles.html");
+    }
     const shell = document.querySelector(".article-shell");
+    if (shell && !shell.querySelector(".article-hero-image")) {
+      const heroImage = document.createElement("div");
+      heroImage.className = "article-hero-image";
+      heroImage.style.cssText = "width:100%;aspect-ratio:16/9;background:var(--color-surface);display:flex;align-items:center;justify-content:center;color:var(--color-text-secondary);font-size:14px;margin-bottom:32px;";
+      heroImage.textContent = "[Article hero image]";
+      const title = shell.querySelector(".article-title");
+      if (title) shell.insertBefore(heroImage, title);
+    }
+
+    if (shell && !shell.querySelector(".article-share")) {
+      const share = document.createElement("div");
+      share.className = "article-share";
+      const encodedUrl = encodeURIComponent(location.href);
+      const articleTitle = encodeURIComponent(document.querySelector(".article-title")?.textContent?.trim() || "BEZERU Article");
+      share.innerHTML = `
+        <span>Share:</span>
+        <button type="button" class="share-pill" data-copy-link>Copy link</button>
+        <a class="share-pill" href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${articleTitle}" target="_blank" rel="noopener">Share on X</a>
+        <a class="share-pill" href="https://wa.me/?text=${articleTitle}%20${encodedUrl}" target="_blank" rel="noopener">Share on WhatsApp</a>
+      `;
+      const authorBox = shell.querySelector(".article-author-box");
+      if (authorBox) shell.insertBefore(share, authorBox.nextSibling);
+      const copyBtn = share.querySelector("[data-copy-link]");
+      copyBtn?.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(location.href);
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => { copyBtn.textContent = "Copy link"; }, 2000);
+        } catch (_) {}
+      });
+    }
+
     if (shell && !shell.querySelector(".article-subscribe")) {
       const subscribe = document.createElement("section");
       subscribe.className = "article-subscribe";
@@ -1052,6 +1103,25 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       const anchor = shell.querySelector(".article-author-box") || shell.lastElementChild;
       shell.insertBefore(subscribe, anchor);
+    }
+
+    if (shell) {
+      loadPosts().then((posts)=>{
+        if (shell.querySelector(".related-stories")) return;
+        const currentPath = location.pathname.split("/").pop() || "";
+        const current = posts.find(p => (p.url || "").includes(currentPath));
+        const related = posts.filter(p => p.id !== current?.id).slice(0, 2);
+        if (!related.length) return;
+        const section = document.createElement("section");
+        section.className = "related-stories";
+        section.innerHTML = `
+          <h2>Related stories</h2>
+          <div class="card-grid">
+            ${related.map(r => `<article class="card"><div class="card-body"><div class="meta"><span class="tag">${r.category || "Article"}</span><time datetime="${r.date || ""}">${formatDate(r.date)}</time></div><h3 class="card-title"><a href="${r.url}">${r.title}</a></h3><p class="card-excerpt">${r.excerpt || ""}</p></div></article>`).join("")}
+          </div>
+        `;
+        shell.appendChild(section);
+      }).catch(()=>{});
     }
   }
 
