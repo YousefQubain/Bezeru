@@ -1,0 +1,79 @@
+:root {
+  --color-bg: #FFFFFF;
+  --color-surface: #F7F5F2;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-accent: #C0392B;
+  --color-border: #E0DDD8;
+  --font-heading: 'Georgia', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-label: 'Inter', sans-serif;
+  --spacing-section: 80px;
+  --spacing-section-mobile: 48px;
+  --max-width: 1100px;
+  --max-width-text: 680px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: 24px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: 36px; }
+h2 { font-size: 26px; }
+
+p, li, .lead, .footer-text, .footer-links, .footer-legal {
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+.kicker, .badge, .tag, .pathway-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  color: var(--color-accent);
+  font-family: var(--font-label);
+}
+
+.section { padding-block: var(--spacing-section); }
+
+.card, .pathway, .featured-hero, .hero-card, .trust-card {
+  border: 1px solid var(--color-border);
+}
+
+a:hover, .text-link:hover, .hero-feature-link:hover {
+  color: var(--color-accent);
+}
+
+footer.footer-pro {
+  background: var(--color-text-primary);
+  color: #F8F8F8;
+}
+
+footer.footer-pro a:hover {
+  color: var(--color-accent);
+}
+
+@media (min-width: 768px) {
+  .container { padding-inline: 48px; }
+  h1 { font-size: 52px; }
+  h2 { font-size: 36px; }
+}
+
+@media (max-width: 767px) {
+  .section { padding-block: var(--spacing-section-mobile); }
+}

@@ -16,6 +16,8 @@ function initUnifiedHeader(){
     url.searchParams.set("lang", langCode);
     return `${url.pathname}${url.search}`;
   };
+  const activeLang = (new URL(window.location.href)).searchParams.get("lang");
+  const langLabel = activeLang === "ar" ? "AR" : "EN";
 
   header.innerHTML = `
     <div class="container">
@@ -29,7 +31,6 @@ function initUnifiedHeader(){
 
     <div class="nav-wrap">
       <div class="container nav-shell">
-        <div class="nav-clock-slot" aria-live="polite" aria-label="Switzerland time"></div>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav-panel" aria-label="Toggle navigation">
           <span class="nav-toggle-bars" aria-hidden="true">
             <span class="bar"></span>
@@ -41,21 +42,35 @@ function initUnifiedHeader(){
         <nav id="primary-nav" aria-label="Primary">
           <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
           <div id="primary-nav-panel" class="nav-panel">
+            <button class="nav-close" type="button" aria-label="Close menu">✕</button>
             <div class="nav-links">
               <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
               <a class="nav-link" href="${link("/types.html")}">Types</a>
               <a class="nav-link" href="${link("/brands.html")}">Brands</a>
               <a class="nav-link" href="${link("/about.html")}">About</a>
             </div>
-            <div class="menu-language" aria-label="Language">
-              <a class="menu-lang-link" href="${linkWithLang("en")}">English</a>
-              <a class="menu-lang-link" href="${linkWithLang("ar")}">العربية</a>
-              <a class="menu-lang-link" href="${linkWithLang("fr")}">Français</a>
-              <a class="menu-lang-link" href="${linkWithLang("de")}">Deutsch</a>
+            <div class="nav-utilities">
+              <a class="nav-cta" href="${link("/shop.html")}">Shop <span aria-hidden="true">→</span></a>
+              <div class="lang-menu" data-lang-menu>
+                <button class="lang-menu__toggle" type="button" aria-expanded="false" aria-haspopup="true">${langLabel} ▾</button>
+                <div class="lang-menu__list" role="menu" aria-label="Language">
+                  <a class="lang-menu__link" role="menuitem" href="${linkWithLang("en")}">English</a>
+                  <a class="lang-menu__link" role="menuitem" href="${linkWithLang("ar")}">العربية</a>
+                  <span class="lang-menu__link is-disabled" aria-disabled="true">Français (coming soon)</span>
+                  <span class="lang-menu__link is-disabled" aria-disabled="true">Deutsch (coming soon)</span>
+                </div>
+              </div>
             </div>
-            <a class="nav-cta" href="${link("/shop.html")}">Shop <span aria-hidden="true">→</span></a>
           </div>
         </nav>
+      </div>
+    </div>
+    <div class="clock-strip" aria-label="World clock">
+      <div class="container clock-strip__inner">
+        <span><strong>NEW YORK</strong> <em data-city-time="ny">--:--</em></span>
+        <span><strong>LONDON</strong> <em data-city-time="london">--:--</em></span>
+        <span><strong>GENEVA</strong> <em data-city-time="geneva">--:--</em></span>
+        <span><strong>TOKYO</strong> <em data-city-time="tokyo">--:--</em></span>
       </div>
     </div>
   `;
@@ -71,9 +86,7 @@ function initUnifiedFooter(){
   if(footer.dataset.sharedFooter === "true") return;
 
   const prefix = location.pathname.includes("/articles/") ? "../" : "";
-  const page = document.body?.getAttribute("data-page");
   const subscribeCol = "";
-
   footer.innerHTML = `
     <div class="container">
       <div class="footer-grid">
@@ -103,8 +116,7 @@ function initUnifiedFooter(){
         </div>
       </div>
       <div class="footer-bottom">
-        <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+        <div>© <span id="footer-year"></span> BEZERU. All rights reserved.</div>
       </div>
     </div>
   `;
@@ -170,6 +182,7 @@ function initMobileNav(){
   const nav = document.getElementById("primary-nav");
   const panel = document.getElementById("primary-nav-panel");
   const overlay = nav ? nav.querySelector("[data-nav-overlay]") : null;
+  const closeBtn = panel ? panel.querySelector(".nav-close") : null;
   if(!toggle || !nav || !panel) return;
 
   const focusableSelector = [
@@ -234,6 +247,7 @@ function initMobileNav(){
       }
     });
   });
+  closeBtn?.addEventListener("click", closeNav);
 
   overlay?.addEventListener("click", closeNav);
 
@@ -293,35 +307,36 @@ function initStickyHeader(){
   window.addEventListener("resize", update);
 }
 
-function initSwissHeaderClock(){
-  const slot = document.querySelector(".nav-clock-slot")
-    || document.querySelector(".header-row .header-spacer")
-    || document.querySelector(".header-row");
-  if(!slot) return;
-
-  let swissClock = slot.querySelector(".header-swiss-clock");
-  if(!swissClock){
-    swissClock = document.createElement("div");
-    swissClock.className = "header-swiss-clock";
-    swissClock.setAttribute("aria-live", "polite");
-    swissClock.setAttribute("aria-label", "Switzerland time");
-    slot.prepend(swissClock);
-  }
-
-  const formatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Europe/Zurich",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  });
-
-  const tick = ()=>{
-    swissClock.textContent = `Switzerland — ${formatter.format(new Date())}`;
+function initClockStrip(){
+  const nodes = {
+    ny: document.querySelector('[data-city-time="ny"]'),
+    london: document.querySelector('[data-city-time="london"]'),
+    geneva: document.querySelector('[data-city-time="geneva"]'),
+    tokyo: document.querySelector('[data-city-time="tokyo"]')
   };
-
+  if(Object.values(nodes).every(v => !v)) return;
+  const format = (tz)=> new Intl.DateTimeFormat("en-GB", { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date());
+  const tick = ()=>{
+    if(nodes.ny) nodes.ny.textContent = format("America/New_York");
+    if(nodes.london) nodes.london.textContent = format("Europe/London");
+    if(nodes.geneva) nodes.geneva.textContent = format("Europe/Zurich");
+    if(nodes.tokyo) nodes.tokyo.textContent = format("Asia/Tokyo");
+  };
   tick();
-  setInterval(tick, 1000);
+  setInterval(tick, 60000);
+}
+
+function initLanguageMenu(){
+  const menu = document.querySelector("[data-lang-menu]");
+  if(!menu) return;
+  const button = menu.querySelector(".lang-menu__toggle");
+  const toggle = (open)=>{
+    menu.classList.toggle("is-open", open);
+    button?.setAttribute("aria-expanded", String(open));
+  };
+  button?.addEventListener("click", ()=> toggle(!menu.classList.contains("is-open")));
+  document.addEventListener("click", (e)=> { if(!menu.contains(e.target)) toggle(false); });
+  document.addEventListener("keydown", (e)=> { if(e.key === "Escape") toggle(false); });
 }
 
 /* =========================
@@ -723,7 +738,8 @@ function initArticleProgressBar(){
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
-  initSwissHeaderClock();
+  initClockStrip();
+  initLanguageMenu();
   initDropdowns();
   initMobileNav();
   initStickyHeader();
@@ -740,10 +756,9 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   });
 
   // footer year (site started in 2026)
-  const y = document.getElementById("year");
+  const y = document.getElementById("footer-year");
   if (y) {
-    const currentYear = new Date().getFullYear();
-    y.textContent = currentYear > 2026 ? `2026–${currentYear}` : "2026";
+    y.textContent = String(new Date().getFullYear());
   }
 
   // page-specific rendering

@@ -174,7 +174,8 @@
   }
 
   function injectSwitcher(locale){
-    document.querySelectorAll(".menu-lang-link").forEach((link)=>{
+    document.querySelectorAll(".lang-menu__link").forEach((link)=>{
+      if(link.classList.contains("is-disabled")) return;
       const href = link.getAttribute("href") || "";
       const lang = new URL(href, window.location.origin).searchParams.get("lang");
       link.classList.toggle("is-active", lang === locale);
@@ -182,6 +183,8 @@
         link.addEventListener("click", ()=> localStorage.setItem("bezeru-locale", lang));
       }
     });
+    const toggle = document.querySelector(".lang-menu__toggle");
+    if(toggle) toggle.textContent = `${locale === "ar" ? "AR" : "EN"} ▾`;
   }
 
   function localizePost(post, locale){
