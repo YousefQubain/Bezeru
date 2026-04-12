@@ -17,6 +17,7 @@
   <link rel="canonical" href="https://bezeru.com/shop.html" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="bezeru-system.css" />
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
 </head>
@@ -27,7 +28,6 @@
     <div class="container">
       <div class="header-row">
         <a class="brand" href="index.html">
-          <img class="brand-logo" src="/apple-touch-icon.png" alt="BEZERU logo" width="42" height="42" loading="eager" decoding="async" />
           <div class="word">BEZERU</div>
         </a>
         <div class="header-spacer"></div>
@@ -46,48 +46,16 @@
         </button>
         <nav id="primary-nav">
           <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="articles.html#latest">Read</a>
+
+          <a class="nav-link" href="types.html">Types</a>
+
+          <a class="nav-link" href="brands.html">Brands</a>
 
           <a class="nav-link" href="about.html">About</a>
 
-          <div class="dropdown" data-dd="articles">
-            <button class="dd-btn" type="button">
-              Read <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Read">
-              <a href="articles.html#latest">Latest</a>
-              <a href="articles.html#design">Design</a>
-              <a href="articles.html#guides">Guides</a>
-              <a href="articles.html#vintage">Vintage</a>
-            </div>
-          </div>
+          <a class="nav-cta" href="shop.html">Shop <span aria-hidden="true">→</span></a>
 
-          <div class="dropdown" data-dd="types">
-            <button class="dd-btn" type="button">
-              Types <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Types">
-              <a href="types.html#dress">Dress</a>
-              <a href="types.html#diver">Diver</a>
-              <a href="types.html#chrono">Chronograph</a>
-              <a href="types.html#gmt">Travel</a>
-              <a href="types.html#comp">Complications</a>
-            </div>
-          </div>
-
-          <div class="dropdown" data-dd="brands">
-            <button class="dd-btn" type="button">
-              Brands <span class="chev"></span>
-            </button>
-            <div class="dd-menu" role="menu" aria-label="Brands">
-              <a href="brands.html#rolex">Rolex</a>
-              <a href="brands.html#cartier">Cartier</a>
-              <a href="brands.html#piaget">Piaget</a>
-              <a href="brands.html#iwc">IWC</a>
-            </div>
-          </div>
-
-          <a class="nav-link active" href="shop.html">Shop</a>
           </div>
         </nav>
       </div>
@@ -99,108 +67,75 @@
       <div class="container">
         <div class="hero-grid">
           <div class="hero-left">
-            <h1>Shop the community vault.</h1>
-            <p class="lead">
-              A curated marketplace where collectors can list watches for the BEZERU community to discover,
-              compare, and purchase. Think of it as the trusted, editorial-first alternative inspired by
-              trusted retail partners and established marketplaces.
-            </p>
-            <p class="lead">
-              Every listing is reviewed for clarity, condition, and provenance, so buyers know exactly what
-              they are getting and sellers earn confidence with every sale.
-            </p>
-            <a class="cta hero-cta" href="#list">List your watch →</a>
+            <h1>Buy or sell a watch through BEZERU.</h1>
+            <p class="lead">A trust-first editorial process for serious collectors on both sides of the transaction.</p>
+            <div class="hero-actions">
+              <a class="cta hero-cta" href="#buy">I want to buy</a>
+              <a class="cta" href="#sell">I want to sell</a>
+            </div>
           </div>
 
           <div class="hero-card">
             <h3>What we accept</h3>
             <p>
-              Modern, vintage, and independent watches with clear ownership history, complete photos, and
-              fair market pricing. We celebrate honest descriptions and well-cared-for pieces.
+              Modern, vintage, and independent watches with clear ownership history, complete photos, and fair market pricing.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="buy">
       <div class="container">
         <div class="section-head">
-          <h2>How the BEZERU shop works</h2>
+          <h2>Find a watch</h2>
         </div>
         <div class="grid">
           <div class="card">
             <span class="badge">Step 1</span>
-            <h3>Submit your watch</h3>
-            <p>
-              Share the reference, condition notes, service history, and a full photo set. We will help you
-              price the piece based on recent market data and comparable listings.
-            </p>
+            <h3>Submit your wishlist</h3>
+            <p>Share target references, budget, and condition preferences.</p>
           </div>
           <div class="card">
             <span class="badge">Step 2</span>
-            <h3>Editorial review</h3>
-            <p>
-              We verify details, tighten copy, and highlight what makes the watch special. Every listing is
-              presented with the same care as our editorial features.
-            </p>
+            <h3>We source and vet</h3>
+            <p>We filter options with editorial scrutiny and clear condition notes.</p>
           </div>
           <div class="card">
             <span class="badge">Step 3</span>
-            <h3>Connect with buyers</h3>
-            <p>
-              Interested collectors can reach out through BEZERU for secure introductions. You stay in
-              control of final terms while we provide support through the process.
-            </p>
+            <h3>You get introduced</h3>
+            <p>You review qualified opportunities and move forward with confidence.</p>
           </div>
         </div>
+        <p><a class="cta" href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20Buying%20Inquiry">Start a buying inquiry</a></p>
+        <p class="lead">Every listing is reviewed for clarity, condition, and provenance so the buying process stays calm and transparent.</p>
       </div>
     </section>
 
-    <section class="section trust-section" aria-labelledby="trust-title">
+    <section class="section" id="sell">
       <div class="container">
         <div class="section-head">
-          <h2 id="trust-title">Trust and transparency</h2>
-          <p>Clear boundaries on what BEZERU reviews and what remains between buyer and seller.</p>
+          <h2>List your watch</h2>
         </div>
-        <div class="trust-grid">
-          <article class="trust-card">
-            <h3>What BEZERU does</h3>
-            <ul>
-              <li>Reviews listing details for clarity and completeness.</li>
-              <li>Encourages accurate condition notes and reference-level specifics.</li>
-              <li>Supports secure introductions between interested parties.</li>
-            </ul>
-          </article>
-          <article class="trust-card">
-            <h3>What BEZERU does not guarantee</h3>
-            <ul>
-              <li>Final transaction terms, escrow, or payment custody.</li>
-              <li>Independent legal authentication or certification services.</li>
-              <li>Shipping insurance or post-sale warranty arrangements.</li>
-            </ul>
-          </article>
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Step 1</span>
+            <h3>Send details + photos</h3>
+            <p>Email reference, condition, price target, and a complete photo set.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Step 2</span>
+            <h3>Editorial review + pricing</h3>
+            <p>We tighten listing quality and align pricing to current market context.</p>
+          </div>
+          <div class="card">
+            <span class="badge">Step 3</span>
+            <h3>We connect you with buyers</h3>
+            <p>Qualified introductions are made while you retain control over final terms.</p>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="list">
-      <div class="container">
-        <div class="section-head">
-          <h2>List a watch</h2>
-        </div>
-        <div class="card">
-          <h3>Start your listing</h3>
-          <p>
-            Email <strong>yousef.qubain@gmail.com</strong> with the model reference, asking price, your location, and
-            8-12 high resolution photos (dial, case, clasp, movement, and accessories). We will respond
-            within two business days with next steps.
-          </p>
-          <p>
-            By submitting, you confirm the watch is owned by you and that all information provided is accurate.
-          </p>
-          <a class="cta" href="mailto:yousef.qubain@gmail.com">Submit a watch →</a>
-        </div>
+        <p><a class="cta" href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20Sell%20Submission">Submit a watch</a></p>
+        <p class="subscribe-note">BEZERU reviews listing quality and supports introductions. BEZERU does not guarantee transaction terms, payment custody, legal authentication, shipping insurance, or post-sale warranties.</p>
       </div>
     </section>
   </main>

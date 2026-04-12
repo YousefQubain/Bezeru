@@ -38,6 +38,7 @@
 
     <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="bezeru-system.css" />
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
 </head>
@@ -49,7 +50,6 @@
     <div class="container">
       <div class="header-row">
         <a class="brand" href="index.html">
-          <img class="brand-logo" src="/apple-touch-icon.png" alt="BEZERU logo" width="42" height="42" loading="eager" decoding="async" />
           <div class="word">BEZERU</div>
         </a>
 
@@ -73,42 +73,16 @@
         <nav id="primary-nav" aria-label="Primary">
           <div class="nav-overlay" data-nav-overlay aria-hidden="true"></div>
           <div id="primary-nav-panel" class="nav-panel">
-          <a class="nav-link active" href="index.html">Home</a>
+          <a class="nav-link" href="articles.html#latest">Read</a>
+
+          <a class="nav-link" href="types.html">Types</a>
+
+          <a class="nav-link" href="brands.html">Brands</a>
 
           <a class="nav-link" href="about.html">About</a>
 
-          <div class="dropdown">
-            <button class="dd-btn">Read <span class="chev"></span></button>
-            <div class="dd-menu">
-              <a href="articles.html#latest">Latest</a>
-              <a href="articles.html#design">Design</a>
-              <a href="articles.html#guides">Guides</a>
-              <a href="articles.html#vintage">Vintage</a>
-            </div>
-          </div>
+          <a class="nav-cta" href="shop.html">Shop <span aria-hidden="true">→</span></a>
 
-          <div class="dropdown">
-            <button class="dd-btn">Types <span class="chev"></span></button>
-            <div class="dd-menu">
-              <a href="types.html#dress">Dress</a>
-              <a href="types.html#diver">Diver</a>
-              <a href="types.html#chrono">Chronograph</a>
-              <a href="types.html#gmt">Travel</a>
-              <a href="types.html#comp">Complications</a>
-            </div>
-          </div>
-
-          <div class="dropdown">
-            <button class="dd-btn">Brands <span class="chev"></span></button>
-            <div class="dd-menu">
-              <a href="brands.html#rolex">Rolex</a>
-              <a href="brands.html#cartier">Cartier</a>
-              <a href="brands.html#piaget">Piaget</a>
-              <a href="brands.html#iwc">IWC</a>
-            </div>
-          </div>
-
-          <a class="nav-link" href="shop.html">Shop</a>
           </div>
         </nav>
       </div>
@@ -143,10 +117,9 @@
 
           <div class="hero-left">
             <p class="kicker">Independent Watch Journal</p>
-            <h1>Watches, explained with editorial restraint and sharp taste.</h1>
+            <h1>A calmer editorial lens on modern watch culture.</h1>
             <p class="lead">
-              BEZERU is a design-led watch publication focused on proportion, wearability,
-              vintage context, and the underdog brands quietly shaping modern collecting.
+              Design, wearability, and collecting context — written with clarity, not hype.
             </p>
             <div class="hero-actions">
               <a class="cta hero-cta" href="articles.html">Explore the archive →</a>
@@ -158,8 +131,7 @@
             <p class="hero-kicker">Editor’s note</p>
             <h2 class="hero-feature-title">A slower, clearer point of view on watches.</h2>
             <p class="hero-feature-excerpt">
-              We publish thoughtful stories on what matters beyond hype: design decisions,
-              cultural relevance, and the way a watch really wears.
+              Thoughtful reporting on design decisions, cultural relevance, and real wrist experience.
             </p>
             <a class="hero-feature-link" href="about.html">About BEZERU →</a>
           </aside>
@@ -209,31 +181,18 @@
       </div>
     </section>
 
-    <section class="section section-brands-teaser" aria-labelledby="brands-teaser-title">
+    <section class="section section-shop-teaser" aria-labelledby="shop-teaser-title">
       <div class="container">
         <div class="section-head">
-          <h2 id="brands-teaser-title">Brands</h2>
-          <p>A quick editorial lens on four houses shaping watch culture.</p>
+          <h2 id="shop-teaser-title">Shop</h2>
+          <p>A quieter, trust-first route for buying or listing watches through BEZERU.</p>
         </div>
-
-        <div class="brands-teaser" id="brands-teaser" data-default-brand="Rolex">
-          <div class="brands-pills" role="tablist" aria-label="Brand previews">
-            <button class="brand-pill is-active" type="button" data-brand="Rolex">Rolex</button>
-            <button class="brand-pill" type="button" data-brand="Cartier">Cartier</button>
-            <button class="brand-pill" type="button" data-brand="Piaget">Piaget</button>
-            <button class="brand-pill" type="button" data-brand="IWC">IWC</button>
+        <div class="featured-hero">
+          <div class="hero-left">
+            <h3 class="hero-title">Editorial clarity, now with a cleaner buy/sell funnel.</h3>
+            <p class="hero-sub">Browse the BEZERU shop flow for collector inquiries, listing support, and transparent introductions.</p>
+            <a class="btn" href="shop.html">Explore the shop →</a>
           </div>
-
-          <article class="brands-panel" id="brands-panel" aria-live="polite">
-            <h3 id="brands-name">Rolex</h3>
-            <p id="brands-description">The reference point for tool watches — obsessively refined over decades, deeply wearable, and impossible to ignore on the wrist.</p>
-            <div class="brands-meta" id="brands-meta">
-              <span class="brands-chip">Founded 1905</span>
-              <span class="brands-chip">Switzerland</span>
-              <span class="brands-chip">Tool / Sport</span>
-            </div>
-            <a id="brands-link" class="hero-feature-link" href="brands.html#rolex">Read more about Rolex →</a>
-          </article>
         </div>
       </div>
     </section>
@@ -242,7 +201,7 @@
       <div class="container">
         <div class="section-head">
           <h2>Latest</h2>
-          <p>New writing, edited for clarity.</p>
+          <p>Recent stories, edited with restraint.</p>
         </div>
 
         <div class="card-grid" id="home-latest">
@@ -288,6 +247,31 @@
             </div>
           </article>
         </div>
+        <p><a class="text-link" href="articles.html">See all articles →</a></p>
+      </div>
+    </section>
+
+    <section class="section section-subscribe-home" id="subscribe">
+      <div class="container">
+        <div class="featured-hero">
+          <div class="section-head">
+            <h2>SUBSCRIBE</h2>
+            <p>For collectors who care about the details. New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
+          </div>
+          <form
+            action="https://buttondown.com/api/emails/embed-subscribe/qubain"
+            method="post"
+            target="popupwindow"
+            onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')"
+            class="embeddable-buttondown-form bezeru-subscribe-form"
+            data-location="home-section"
+          >
+            <label for="bd-email-home" class="bezeru-subscribe-label">Email address</label>
+            <input type="email" name="email" id="bd-email-home" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
+            <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
+          </form>
+          <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
+        </div>
       </div>
     </section>
 
@@ -303,42 +287,6 @@
             Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
             shaping modern taste.
           </div>
-        </div>
-
-        <div class="footer-col footer-subscribe" id="subscribe">
-          <h4 class="footer-title">Subscribe</h4>
-          <p class="footer-subtitle">
-            What kind of collector are you? Vintage purist, tool watch obsessive, or chasing the under-the-radar indie — new stories twice a week, edited for people who care about the details.
-          </p>
-
-          <form id="subscribe-form" class="subscribe-form" data-location="footer" novalidate>
-            <label class="sr-only" for="subscribe-email">Email address</label>
-            <input
-              id="subscribe-email"
-              class="subscribe-input"
-              type="email"
-              placeholder="Your email"
-              autocomplete="email"
-              required
-            />
-
-            <input
-              type="text"
-              name="hp"
-              class="sr-only"
-              tabindex="-1"
-              autocomplete="off"
-              aria-hidden="true"
-            />
-
-            <button id="subscribe-button" class="subscribe-button" type="submit">
-              Subscribe
-            </button>
-          </form>
-
-          <p id="subscribe-status" class="subscribe-note" aria-live="polite">
-            No spam. Unsubscribe anytime.
-          </p>
         </div>
 
         <div class="footer-col">
