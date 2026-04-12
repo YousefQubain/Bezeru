@@ -210,6 +210,28 @@
 }
 .bz-shop-btn:hover { opacity: 0.85; }
 
+.bz-subscribe-btn {
+  font-family: var(--nav-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--nav-accent);
+  background: transparent;
+  border: 1px solid var(--nav-accent);
+  border-radius: 3px;
+  padding: 7px 16px;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: all 150ms;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.bz-subscribe-btn:hover {
+  background: var(--nav-accent);
+  color: #ffffff;
+}
+
 /* Hamburger — mobile only */
 .bz-hamburger {
   display: none;
@@ -345,6 +367,7 @@
 .bz-mm-footer {
   padding: 24px 28px 40px;
   border-top: 1px solid var(--nav-border);
+  margin-top: auto;
   flex-shrink: 0;
 }
 .bz-mm-lang {
@@ -516,6 +539,9 @@ body.menu-open {
   }
   .bz-nav-left { display: none; }
   .bz-nav-right .bz-lang-wrap { display: none; }
+  .bz-subscribe-btn {
+    display: none;
+  }
   .bz-nav-right .bz-shop-btn { display: none; }
   .bz-nav-right .bz-icon-btn { display: none; }
   .bz-hamburger { display: flex !important; }

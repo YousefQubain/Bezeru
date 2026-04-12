@@ -71,6 +71,7 @@
           <button class="bz-lang-option soon">DE — Deutsch</button>
         </div>
       </div>
+      <a href="#subscribe" class="bz-subscribe-btn">Subscribe</a>
       <a href="/shop.html" class="bz-shop-btn">Shop</a>
       <button class="bz-hamburger" id="bzHamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -267,6 +268,14 @@ var dateEl = document.getElementById('bzDate');
 if (dateEl) {
   dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
+updateTimes();
+setInterval(updateTimes, 30000);
+
+// ── Topbar date ──────────────────────────────
+var dateEl = document.getElementById('bzDate');
+if (dateEl) {
+  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
 
 // ── Mobile menu ──────────────────────────────
 var hamburger = document.getElementById('bzHamburger');
@@ -278,6 +287,19 @@ function openMenu() {
   menu.classList.add('open');
   backdrop.classList.add('visible');
   hamburger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
+  hamburger.setAttribute('aria-expanded', 'true');
+}
+function closeMenu() {
+  menu.classList.remove('open');
+  backdrop.classList.remove('visible');
+  hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
+  hamburger.setAttribute('aria-expanded', 'false');
   document.body.classList.add('menu-open');
   hamburger.setAttribute('aria-expanded', 'true');
 }
@@ -288,6 +310,13 @@ function closeMenu() {
   document.body.classList.remove('menu-open');
   hamburger.setAttribute('aria-expanded', 'false');
 }
+
+if (hamburger) hamburger.addEventListener('click', openMenu);
+if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+if (backdrop) backdrop.addEventListener('click', closeMenu);
+document.querySelectorAll('.bz-mm-link').forEach(function(link) {
+  link.addEventListener('click', closeMenu);
+});
 
 if (hamburger) hamburger.addEventListener('click', openMenu);
 if (closeBtn) closeBtn.addEventListener('click', closeMenu);
