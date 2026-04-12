@@ -2971,3 +2971,38 @@ nav{
     text-align: center;
   }
 }
+
+/* ---------- Homepage cohesion pass ---------- */
+body[data-page="home"] .hero-signature{
+  padding-top: 30px;
+}
+
+body[data-page="home"] .section{
+  padding: clamp(38px, 6vw, 66px) 0;
+}
+
+body[data-page="home"] .section-head p{
+  max-width: 52ch;
+}
+
+body[data-page="home"] .section-shop-teaser .featured-hero,
+body[data-page="home"] .section-subscribe-home .featured-hero{
+  border-radius: 18px;
+  background: #fff;
+}
+
+body[data-page="home"] .section-subscribe-home .featured-hero{
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--border);
+}
+
+@media (max-width: 720px){
+  body[data-page="home"] .hero-signature h1{
+    max-width: 14ch;
+  }
+
+  body[data-page="home"] .hero-feature-excerpt{
+    font-size: 0.96rem;
+  }
+}

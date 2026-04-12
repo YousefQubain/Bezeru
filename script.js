@@ -72,24 +72,7 @@ function initUnifiedFooter(){
 
   const prefix = location.pathname.includes("/articles/") ? "../" : "";
   const page = document.body?.getAttribute("data-page");
-  const subscribeCol = page === "home" ? `
-        <div class="footer-col footer-subscribe" id="subscribe">
-          <h4 class="footer-title">SUBSCRIBE</h4>
-          <p class="footer-subtitle">For collectors who care about the details. New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
-          <form
-            action="https://buttondown.com/api/emails/embed-subscribe/qubain"
-            method="post"
-            target="popupwindow"
-            onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')"
-            class="embeddable-buttondown-form bezeru-subscribe-form"
-            data-location="footer"
-          >
-            <label for="bd-email-footer" class="bezeru-subscribe-label">Email address</label>
-            <input type="email" name="email" id="bd-email-footer" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
-            <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
-          </form>
-          <p class="subscribe-note" aria-live="polite">No spam. Unsubscribe anytime.</p>
-        </div>` : "";
+  const subscribeCol = "";
 
   footer.innerHTML = `
     <div class="container">
