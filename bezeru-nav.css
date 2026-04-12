@@ -314,6 +314,7 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
+  padding: 0 0 4px;
   padding: 0 0 8px;
   padding: 4px 0 10px;
   overflow: hidden;
@@ -323,6 +324,7 @@
   grid-template-columns: 20px minmax(0, 1fr) auto;
   align-items: center;
   column-gap: 16px;
+  padding: 12px 28px;
   padding: 13px 28px;
   gap: 16px;
   padding: 14px 28px;
@@ -359,6 +361,8 @@
   color: var(--nav-muted);
   width: 20px;
   line-height: 1;
+  margin: 0;
+  transform: none;
 }
 .bz-mm-label {
   font-family: var(--nav-serif);
@@ -368,6 +372,9 @@
   display: block;
   line-height: 1;
   margin: 0;
+  justify-self: start;
+  text-align: left;
+  transform: none;
 }
 .bz-mm-link.shop .bz-mm-label { color: var(--nav-accent); }
 .bz-mm-arrow {
@@ -383,6 +390,7 @@
 }
 
 .bz-mm-footer {
+  margin-top: 8px;
   margin-top: 14px;
   padding: 20px 28px 28px;
   border-top: 1px solid var(--nav-border);
