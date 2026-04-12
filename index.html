@@ -104,6 +104,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
   </div>
+  
   <div class="bz-mm-footer">
     <div class="bz-mm-lang">
       <button class="bz-mm-lang-opt active">EN</button>
@@ -460,6 +461,22 @@ function updateTimes() {
     var tz = el.getAttribute('data-tz');
     el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
   });
+}
+updateTimes();
+setInterval(updateTimes, 30000);
+
+// ── Topbar date ──────────────────────────────
+var dateEl = document.getElementById('bzDate');
+if (dateEl) {
+  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+// ── Mobile menu ──────────────────────────────
+var hamburger = document.getElementById('bzHamburger');
+var menu = document.getElementById('bzMobileMenu');
+var backdrop = document.getElementById('bzBackdrop');
+var closeBtn = document.getElementById('bzMenuClose');
+
 }
 updateTimes();
 setInterval(updateTimes, 30000);
