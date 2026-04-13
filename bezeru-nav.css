@@ -310,14 +310,60 @@
   transition: background 150ms;
 }
 .bz-mm-close:hover { background: var(--nav-surface); }
+.bz-mm-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.bz-mm-header-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+.bz-mm-header-cities {
+  display: flex;
+  gap: 10px;
+}
+.bz-mm-header-cities span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.bz-mm-header-cities em {
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.3);
+  font-family: var(--nav-sans);
+}
+.bz-mm-header-cities b {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  font-family: var(--nav-sans);
+  letter-spacing: 0.04em;
+}
+
+.bz-mm-lang-bar {
+  display: flex;
+  gap: 8px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--nav-border);
+  flex-shrink: 0;
+}
 
 .bz-mm-nav {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   padding: 0 0 4px;
   margin-top: -4px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 .bz-mm-link {
   display: grid;
@@ -367,7 +413,7 @@
 }
 .bz-mm-label {
   font-family: var(--nav-serif);
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 400;
   letter-spacing: -0.01em;
   display: block;
