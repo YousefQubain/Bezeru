@@ -129,7 +129,6 @@
       <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
     <a href="#footer-subscribe" class="bz-mm-link">
-    <a href="#subscribe" class="bz-mm-link">
       <span class="bz-mm-num">07</span>
       <span class="bz-mm-label">Subscribe</span>
       <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -324,15 +323,6 @@
         </form>
         <p class="subscribe-note footer-newsletter-note">No spam. Unsubscribe anytime.</p>
       </div>
-    <section class="footer-newsletter" id="subscribe" aria-label="Newsletter signup">
-      <p class="footer-newsletter-label">Newsletter</p>
-      <p class="footer-newsletter-copy">New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
-      <form action="https://buttondown.com/api/emails/embed-subscribe/qubain" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')" class="embeddable-buttondown-form bezeru-subscribe-form footer-newsletter-form" data-location="footer-newsletter">
-        <label for="bd-email-home" class="bezeru-subscribe-label">Email address</label>
-        <input type="email" name="email" id="bd-email-home" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
-        <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
-      </form>
-      <p class="subscribe-note footer-newsletter-note">No spam. Unsubscribe anytime.</p>
     </section>
     <div class="footer-grid">
       <div>
@@ -394,17 +384,14 @@
 </script>
 
 <script>
-// ── Active nav link ──────────────────────────
 document.querySelectorAll('.bz-nav-link, .bz-mm-link').forEach(function(link) {
   if (link.href === window.location.href) link.classList.add('active');
 });
 
-// ── Scroll shadow on header ──────────────────
 window.addEventListener('scroll', function() {
   document.getElementById('bzHeader').classList.toggle('scrolled', window.scrollY > 8);
 }, { passive: true });
 
-// ── Live city times ──────────────────────────
 function updateTimes() {
   document.querySelectorAll('.bz-city-time').forEach(function(el) {
     var tz = el.getAttribute('data-tz');
@@ -414,13 +401,11 @@ function updateTimes() {
 updateTimes();
 setInterval(updateTimes, 1000);
 
-// ── Topbar date ──────────────────────────────
 var dateEl = document.getElementById('bzDate');
 if (dateEl) {
   dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// ── Mobile menu ──────────────────────────────
 var hamburger = document.getElementById('bzHamburger');
 var menu = document.getElementById('bzMobileMenu');
 var backdrop = document.getElementById('bzBackdrop');
@@ -448,7 +433,6 @@ document.querySelectorAll('.bz-mm-link').forEach(function(link) {
   link.addEventListener('click', closeMenu);
 });
 
-// ── Search ───────────────────────────────────
 var searchToggle = document.getElementById('bzSearchToggle');
 var searchBar = document.getElementById('bzSearchBar');
 var searchClose = document.getElementById('bzSearchClose');
