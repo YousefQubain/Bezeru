@@ -1433,6 +1433,14 @@ footer{
   padding: 34px 0;
 }
 
+#footer-subscribe{
+  scroll-margin-top: 120px;
+}
+
+.footer-newsletter{
+  width: 100%;
+  margin: 0 0 28px;
+  padding: 18px 20px;
 .footer-newsletter{
   width: 100%;
   margin: 0 0 28px;
@@ -1441,6 +1449,13 @@ footer{
   border-radius: 14px;
   background: rgba(255,255,255,0.02);
   display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(280px,420px);
+  gap: 32px;
+  align-items: center;
+}
+
+.footer-newsletter > #subscribe{
+  display: none;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
   gap: 12px 16px;
   align-items: end;
@@ -1455,6 +1470,8 @@ footer{
 .footer-newsletter-right {
   min-width: 0;
   align-self: end;
+  display: grid;
+  gap: 8px;
 }
 
 .footer-newsletter-label{
@@ -1653,6 +1670,7 @@ footer{
     max-width: 100%;
     margin-bottom: 22px;
     grid-template-columns: 1fr;
+    gap: 12px;
     gap: 10px;
   }
   .footer-bottom{
