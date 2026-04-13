@@ -1449,6 +1449,12 @@ footer{
 
 .footer-newsletter-intro{
   min-width: 0;
+  align-self: center;
+}
+
+.footer-newsletter-right {
+  min-width: 0;
+  align-self: end;
   max-width: 640px;
   margin: 0 0 28px;
   padding: 16px 18px 14px;
