@@ -377,6 +377,8 @@
   justify-self: start;
   text-align: left;
   text-indent: 0;
+  justify-self: start;
+  text-align: left;
   transform: none;
 }
 .bz-mm-link.shop .bz-mm-label { color: var(--nav-accent); }
@@ -395,6 +397,9 @@
 .bz-mm-footer {
   margin-top: 4px;
   padding: 16px 28px 20px;
+  margin-top: 8px;
+  margin-top: 14px;
+  padding: 20px 28px 28px;
   border-top: 1px solid var(--nav-border);
   flex-shrink: 0;
   background: var(--nav-bg);
