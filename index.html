@@ -79,7 +79,7 @@
           <button class="bz-lang-option soon">DE — Deutsch</button>
         </div>
       </div>
-      <a href="#subscribe" class="bz-subscribe-btn">Subscribe</a>
+      <a href="#footer-subscribe" class="bz-subscribe-btn">Subscribe</a>
       <a href="/shop.html" class="bz-shop-btn">Shop</a>
       <button class="bz-hamburger" id="bzHamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -240,22 +240,6 @@
     </div>
   </section>
 
-  <section class="section section-shop-teaser" aria-labelledby="shop-teaser-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="shop-teaser-title">Shop</h2>
-        <p>A quieter, trust-first route for buying or listing watches through BEZERU.</p>
-      </div>
-      <div class="featured-hero">
-        <div class="hero-left">
-          <h3 class="hero-title">Editorial clarity, now with a cleaner buy/sell funnel.</h3>
-          <p class="hero-sub">Browse the BEZERU shop flow for collector inquiries, listing support, and transparent introductions.</p>
-          <a class="btn" href="shop.html">Explore the shop →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section section-featured latest">
     <div class="container">
       <div class="section-head">
@@ -301,26 +285,25 @@
     </div>
   </section>
 
-  <section class="section section-subscribe-home" id="subscribe">
-    <div class="container">
-      <div class="featured-hero">
-        <div class="section-head">
-          <h2>SUBSCRIBE</h2>
-          <p>For collectors who care about the details. New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
-        </div>
-        <form action="https://buttondown.com/api/emails/embed-subscribe/qubain" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')" class="embeddable-buttondown-form bezeru-subscribe-form" data-location="home-section">
-          <label for="bd-email-home" class="bezeru-subscribe-label">Email address</label>
-          <input type="email" name="email" id="bd-email-home" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
-          <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
-        </form>
-        <p class="subscribe-note">No spam. Unsubscribe anytime.</p>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer class="footer-pro">
   <div class="container">
+    <section class="footer-newsletter" id="footer-subscribe" aria-label="Newsletter signup">
+      <span id="subscribe"></span>
+      <div class="footer-newsletter-intro">
+        <p class="footer-newsletter-label">Newsletter</p>
+        <p class="footer-newsletter-copy">New BEZERU stories on design, wearability, independents, and vintage — delivered quietly.</p>
+      </div>
+      <div class="footer-newsletter-right">
+        <form action="https://buttondown.com/api/emails/embed-subscribe/qubain" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')" class="embeddable-buttondown-form bezeru-subscribe-form footer-newsletter-form" data-location="footer-newsletter">
+          <label for="bd-email-home" class="bezeru-subscribe-label">Email address</label>
+          <input type="email" name="email" id="bd-email-home" class="bezeru-subscribe-input" placeholder="Your email address" required autocomplete="email" />
+          <button type="submit" class="bezeru-subscribe-button">Subscribe</button>
+        </form>
+        <p class="subscribe-note footer-newsletter-note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </section>
     <div class="footer-grid">
       <div>
         <div class="footer-brand">BEZERU</div>
@@ -356,7 +339,7 @@
 
 <script>
 (function() {
-  const popup = document.querySelector('.subscribe-popup, .popup, [class*="subscribe"]');
+  const popup = document.querySelector('.subscribe-popup[data-cta-bar], .subscribe-popup, .popup');
   if (!popup) return;
   popup.style.display = 'none';
   if (sessionStorage.getItem('bezeru_popup_dismissed')) return;
