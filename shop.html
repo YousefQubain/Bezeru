@@ -16,6 +16,7 @@
   <meta name="twitter:image" content="https://bezeru.com/images/Article-1.jpg" />
   <link rel="canonical" href="https://bezeru.com/shop.html" />
 
+  <link rel="stylesheet" href="bezeru-core.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
   <link rel="stylesheet" href="/bezeru-mobile.css">
@@ -24,6 +25,26 @@
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/bezeru-nav.css">
+  <style>
+
+.shop-hero { padding: 90px 0; border-bottom: 1px solid #E0DDD8; }
+.shop-eyebrow { color: #C0392B; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-bottom: 14px; }
+.shop-hero h1 { max-width: 640px; }
+.shop-subtext { font-family: 'Inter', sans-serif; font-size: 17px; color: #555555; max-width: 480px; margin-bottom: 40px; }
+.shop-hero-actions { display: flex; gap: 14px; }
+.shop-panel { padding: 80px 0; }
+.shop-panel.buy { background: #F7F5F2; border-bottom: 1px solid #E0DDD8; }
+.shop-panel.sell { background: #ffffff; }
+.shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.shop-grid h2 { font-size: 32px; }
+.shop-steps { border-top: 1px solid #E0DDD8; }
+.shop-step { display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid #E0DDD8; }
+.shop-num { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; color: #C0392B; line-height: 1; }
+.shop-step h3 { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; margin: 0 0 6px; }
+.shop-step p { margin: 0; font-family: 'Inter', sans-serif; color: #555555; }
+.shop-small { font-size: 12px; color: #999999; margin-top: 16px; font-family: 'Inter', sans-serif; }
+
+  </style>
 </head>
 
 <body data-page="shop">
@@ -73,7 +94,7 @@
   </div>
 </header>
 
-<div class="bz-mobile-menu" id="bzMobileMenu">
+<div class="bz-mobile-menu" id="bzMobileMenu" style="display:none;">
   <div class="bz-mm-header">
     <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
@@ -157,82 +178,53 @@
 </div>
 
 <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-left">
-            <h1>Buy or sell a watch through BEZERU.</h1>
-            <p class="lead">A trust-first editorial process for serious collectors on both sides of the transaction.</p>
-            <div class="hero-actions">
-              <a class="cta hero-cta" href="#buy">I want to buy</a>
-              <a class="cta" href="#sell">I want to sell</a>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <h3>What we accept</h3>
-            <p>
-              Modern, vintage, and independent watches with clear ownership history, complete photos, and fair market pricing.
-            </p>
-          </div>
+  <section class="shop-hero">
+    <div class="container">
+      <span class="shop-eyebrow">The BEZERU Shop</span>
+      <h1>Buy or sell a watch through BEZERU.</h1>
+      <p class="shop-subtext">A curated, trust-first channel for serious collectors. Editorial review, transparent introductions.</p>
+      <div class="shop-hero-actions">
+        <a class="btn-dark" href="#buy">I want to buy</a>
+        <a class="btn-outline" href="#sell">I want to sell</a>
+      </div>
+    </div>
+  </section>
+  <section class="shop-panel buy" id="buy">
+    <div class="container">
+      <div class="section-strip"><span class="section-strip-label">Buy a watch</span></div>
+      <div class="shop-grid">
+        <div>
+          <h2>Find a watch.</h2>
+          <p>Tell us what you are looking for and we will narrow options with editorial clarity and practical market context.</p>
+          <a class="btn-dark" href="mailto:yousef.qubain@gmail.com?subject=BEZERU Shop — Buying Inquiry">Start a buying inquiry →</a>
+        </div>
+        <div class="shop-steps">
+          <div class="shop-step"><span class="shop-num">1</span><div><h3>Submit your wishlist</h3><p>Share target references, budget, and condition preferences.</p></div></div>
+          <div class="shop-step"><span class="shop-num">2</span><div><h3>We source and vet</h3><p>We filter options with editorial scrutiny and clear condition notes.</p></div></div>
+          <div class="shop-step"><span class="shop-num">3</span><div><h3>You get introduced</h3><p>You review qualified opportunities and move forward with confidence.</p></div></div>
         </div>
       </div>
-    </section>
-
-    <section class="section" id="buy">
-      <div class="container">
-        <div class="section-head">
-          <h2>Find a watch</h2>
+    </div>
+  </section>
+  <section class="shop-panel sell" id="sell">
+    <div class="container">
+      <div class="section-strip"><span class="section-strip-label">Sell a watch</span></div>
+      <div class="shop-grid">
+        <div>
+          <h2>List your watch.</h2>
+          <p>We help you present your watch clearly, price it responsibly, and connect with serious buyers.</p>
+          <a class="btn-dark" href="mailto:yousef.qubain@gmail.com?subject=BEZERU Shop — Watch Listing">Submit a watch →</a>
+          <p class="shop-small">BEZERU reviews listing quality and supports introductions. BEZERU does not guarantee transaction terms, payment custody, legal authentication, shipping insurance, or post-sale warranties.</p>
         </div>
-        <div class="grid">
-          <div class="card">
-            <span class="badge">Step 1</span>
-            <h3>Submit your wishlist</h3>
-            <p>Share target references, budget, and condition preferences.</p>
-          </div>
-          <div class="card">
-            <span class="badge">Step 2</span>
-            <h3>We source and vet</h3>
-            <p>We filter options with editorial scrutiny and clear condition notes.</p>
-          </div>
-          <div class="card">
-            <span class="badge">Step 3</span>
-            <h3>You get introduced</h3>
-            <p>You review qualified opportunities and move forward with confidence.</p>
-          </div>
+        <div class="shop-steps">
+          <div class="shop-step"><span class="shop-num">1</span><div><h3>Send details + photos</h3><p>Email reference, condition, price target, and a complete photo set.</p></div></div>
+          <div class="shop-step"><span class="shop-num">2</span><div><h3>Editorial review + pricing</h3><p>We tighten listing quality and align pricing to current market context.</p></div></div>
+          <div class="shop-step"><span class="shop-num">3</span><div><h3>We connect you with buyers</h3><p>Qualified introductions are made while you retain control over final terms.</p></div></div>
         </div>
-        <p><a class="cta" href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20Buying%20Inquiry">Start a buying inquiry</a></p>
-        <p class="lead">Every listing is reviewed for clarity, condition, and provenance so the buying process stays calm and transparent.</p>
       </div>
-    </section>
-
-    <section class="section" id="sell">
-      <div class="container">
-        <div class="section-head">
-          <h2>List your watch</h2>
-        </div>
-        <div class="grid">
-          <div class="card">
-            <span class="badge">Step 1</span>
-            <h3>Send details + photos</h3>
-            <p>Email reference, condition, price target, and a complete photo set.</p>
-          </div>
-          <div class="card">
-            <span class="badge">Step 2</span>
-            <h3>Editorial review + pricing</h3>
-            <p>We tighten listing quality and align pricing to current market context.</p>
-          </div>
-          <div class="card">
-            <span class="badge">Step 3</span>
-            <h3>We connect you with buyers</h3>
-            <p>Qualified introductions are made while you retain control over final terms.</p>
-          </div>
-        </div>
-        <p><a class="cta" href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20Sell%20Submission">Submit a watch</a></p>
-        <p class="subscribe-note">BEZERU reviews listing quality and supports introductions. BEZERU does not guarantee transaction terms, payment custody, legal authentication, shipping insurance, or post-sale warranties.</p>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
+</main>
 
   <footer class="footer-pro">
     <div class="container">

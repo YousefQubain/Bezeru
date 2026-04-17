@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | BEZERU</title>
 
+  <link rel="stylesheet" href="bezeru-core.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
   <link rel="stylesheet" href="/bezeru-mobile.css">
@@ -13,6 +14,15 @@
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/bezeru-nav.css">
+  <style>
+
+.credentials-strip { display: flex; border-top: 1px solid #E0DDD8; border-bottom: 1px solid #E0DDD8; margin: 48px 0; }
+.credential { flex: 1; padding: 24px 28px; border-right: 1px solid #E0DDD8; display: flex; flex-direction: column; gap: 6px; }
+.credential:last-child { border-right: none; }
+.cred-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #999999; }
+.cred-value { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: #111111; }
+
+  </style>
 </head>
 
 <body data-page="about">
@@ -62,7 +72,7 @@
   </div>
 </header>
 
-<div class="bz-mobile-menu" id="bzMobileMenu">
+<div class="bz-mobile-menu" id="bzMobileMenu" style="display:none;">
   <div class="bz-mm-header">
     <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
@@ -156,6 +166,20 @@
             <p>My relationship with watches started early. My great-grandfather was a watch retailer across the Middle East, and growing up in a culture that values tradition and history, I heard about his journeys through Europe, especially Switzerland, where he would travel to source exceptional pieces. I first heard these stories through my grandmother, and the passion he had for watches stayed with me. Over time, that became my own curiosity and ambition.</p>
             <p>Later, I interned at Richemont, home to some of the most respected watch maisons in the world. Seeing the industry from the inside made everything feel more real. It reminded me that behind every watch is a chain of people, decisions, and details, and that the best pieces carry more than branding. They carry intention, craft, and a kind of meaning you only notice when you slow down.</p>
             <p>That is the spirit behind BEZERU.</p>
+            <div class="credentials-strip">
+              <div class="credential">
+                <span class="cred-label">Background</span>
+                <span class="cred-value">Richemont Intern</span>
+              </div>
+              <div class="credential">
+                <span class="cred-label">Focus</span>
+                <span class="cred-value">Independent & Vintage</span>
+              </div>
+              <div class="credential">
+                <span class="cred-label">Based</span>
+                <span class="cred-value">Geneva</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
