@@ -131,6 +131,10 @@ img { max-width: 100%; height: auto; display: block; }
   color: #C0392B;
   display: inline-block;
 }
+
+.article-card-featured {
+  flex-direction: row;
+  min-height: 300px;
 .article-card-read:hover { text-decoration: underline; }
 
 /* Featured card — horizontal */
