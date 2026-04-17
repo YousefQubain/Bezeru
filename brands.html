@@ -4,16 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BEZERU — Brands</title>
+  <meta name="description" content="An editorial map of the watch brands shaping modern collecting, from Rolex and Patek to Seiko and Tudor.">
+  <link rel="canonical" href="https://bezeru.com/brands.html">
+  <meta property="og:site_name" content="BEZERU">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BEZERU — Brands">
+  <meta property="og:description" content="An editorial map of the watch brands shaping modern collecting, from Rolex and Patek to Seiko and Tudor.">
+  <meta property="og:image" content="https://bezeru.com/images/bezeru-og.jpg">
+  <meta property="og:url" content="https://bezeru.com/brands.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BEZERU — Brands">
+  <meta name="twitter:description" content="An editorial map of the watch brands shaping modern collecting, from Rolex and Patek to Seiko and Tudor.">
+  <meta name="twitter:image" content="https://bezeru.com/images/bezeru-og.jpg">
+  <!-- TODO: create 1200x630px OG image and upload to /images/bezeru-og.jpg -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="stylesheet" href="bezeru-core.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
-  <link rel="stylesheet" href="/bezeru-mobile.css">
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/bezeru-nav.css">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
+  <style>
+
+.tb-page-head { padding: 72px 0 52px; border-bottom: 1px solid #E0DDD8; }
+.tb-eyebrow { color: #C0392B; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.tb-page-head p { font-family: 'Inter', sans-serif; font-size: 16px; color: #555555; max-width: 560px; margin-bottom: 0; }
+.tb-grid-sec { padding-top: 52px; padding-bottom: 70px; }
+.tb-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.type-card {
+  background: #ffffff;
+  border: 1px solid #E0DDD8;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #111111;
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.type-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
+.type-card-img { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #1c1c1c, #2e2e2e, #1c1c1c); }
+.type-card-body { padding: 22px 24px 28px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.type-card-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #C0392B; }
+.type-card-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; margin: 0; }
+.type-card-desc { font-family: 'Inter', sans-serif; font-size: 13px; color: #666666; line-height: 1.65; margin: 0; flex: 1; }
+.type-card-link { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #C0392B; }
+.tb-bottom { background: #F7F5F2; border-top: 1px solid #E0DDD8; padding: 60px 0; }
+.tb-plain-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.plain-card { border: 1px solid #E0DDD8; border-radius: 6px; padding: 28px; background: #fff; }
+.plain-card h3 { margin-bottom: 10px; font-size: 22px; }
+.plain-card p { margin: 0; color: #555555; font-family: 'Inter', sans-serif; }
+
+  </style>
 </head>
 
 <body data-page="brands">
@@ -62,7 +108,7 @@
   </div>
 </header>
 
-<div class="bz-mobile-menu" id="bzMobileMenu">
+<div class="bz-mobile-menu" id="bzMobileMenu" style="display:none;">
   <div class="bz-mm-header">
     <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
@@ -146,138 +192,76 @@
 </div>
 
 <main>
-    <section class="hero">
-      <div class="container">
-        <div class="kicker">WATCH BRANDS</div>
-        <h1>Brands</h1>
-        <p class="lead">
-          A clear editorial map of the brands shaping modern collecting, from foundational houses to value leaders.
-        </p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="grid">
-          <div class="card" id="rolex">
-            <!-- TODO: Replace placeholder with real Rolex image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">Rolex</span>
-            <h3>Rolex</h3>
-            <p>Tool-first icons turned global benchmarks. Focus on proportion, dial era, and condition quality over hype cycles.</p>
-            <a class="text-link" href="articles.html?brand=rolex">Read related articles →</a>
-          </div>
-
-          <div class="card" id="omega">
-            <!-- TODO: Replace placeholder with real Omega image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">Omega</span>
-            <h3>Omega</h3>
-            <p>Space history, diver credibility, and strong movement development. Speedmaster and Seamaster remain core references.</p>
-            <a class="text-link" href="articles.html?brand=omega">Read related articles →</a>
-          </div>
-
-          <div class="card" id="patek">
-            <!-- TODO: Replace placeholder with real Patek Philippe image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">Patek</span>
-            <h3>Patek Philippe</h3>
-            <p>High-end complications with restraint and continuity. A benchmark for long-horizon collecting and legacy value.</p>
-            <a class="text-link" href="articles.html?brand=patek-philippe">Read related articles →</a>
-          </div>
-
-          <div class="card" id="audemars">
-            <!-- TODO: Replace placeholder with real Audemars Piguet image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">A.P.</span>
-            <h3>Audemars Piguet</h3>
-            <p>Royal Oak architecture that reshaped sporty luxury. Case finishing and bracelet execution are central to the appeal.</p>
-            <a class="text-link" href="articles.html?brand=audemars-piguet">Read related articles →</a>
-          </div>
-
-          <div class="card" id="cartier">
-            <!-- TODO: Replace placeholder with real Cartier image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">Cartier</span>
-            <h3>Cartier</h3>
-            <p>Shape-led watchmaking with historic clarity. Tank and Santos remain best-in-class for elegant everyday wear.</p>
-            <a class="text-link" href="articles.html?brand=cartier">Read related articles →</a>
-          </div>
-
-          <div class="card" id="seiko">
-            <!-- TODO: Replace placeholder with real Seiko image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">Seiko</span>
-            <h3>Seiko</h3>
-            <p>From reliable entry points to Grand Seiko finishing, Seiko anchors value and depth in one ecosystem.</p>
-            <a class="text-link" href="articles.html?brand=seiko">Read related articles →</a>
-          </div>
-
-          <div class="card" id="tudor">
-            <!-- TODO: Replace placeholder with real Tudor image asset -->
-            <div class="editorial-image-placeholder">[ image ]</div>
-            <span class="badge">Tudor</span>
-            <h3>Tudor</h3>
-            <p>Robust, vintage-informed sports watches with modern sizing and strong day-to-day practicality.</p>
-            <a class="text-link" href="articles.html?brand=tudor">Read related articles →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <h2>Start with a brand path</h2>
-          <p>Pick your lane first, then compare references inside that lane.</p>
-        </div>
-        <div class="grid">
-          <article class="card">
-            <span class="badge">Heritage Core</span>
-            <h3>Rolex / Omega</h3>
-            <p>For collectors who value proven icons, serviceability, and global demand depth.</p>
-          </article>
-          <article class="card">
-            <span class="badge">Design-Led</span>
-            <h3>Cartier / A.P.</h3>
-            <p>For shape, proportion, and brand signatures that read clearly across generations.</p>
-          </article>
-          <article class="card">
-            <span class="badge">Long Horizon</span>
-            <h3>Patek / Grand Seiko</h3>
-            <p>For finishing depth, quieter ownership, and slower collecting strategies.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer-pro">
+  <section class="tb-page-head">
     <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <div class="footer-text">
-            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
-            shaping modern taste.
-          </div>
-        </div>
-<div class="footer-col">
-          <h4>Contact me</h4>
-          <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
+      <span class="tb-eyebrow">Editorial Map</span>
+      <h1>Brands</h1>
+      <p>A clear editorial map of the brands shaping modern collecting, from foundational houses to value leaders.</p>
+    </div>
+  </section>
+  <section class="tb-grid-sec">
+    <div class="container">
+      <div class="tb-grid">
+        <a class="type-card" href="/articles.html?brand=rolex"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Rolex</span><h3 class="type-card-title">Rolex</h3><p class="type-card-desc">Tool-first icons turned global benchmarks. Focus on proportion, dial era, and condition quality over hype cycles.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=omega"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Omega</span><h3 class="type-card-title">Omega</h3><p class="type-card-desc">Space history, diver credibility, and strong movement development. Speedmaster and Seamaster remain core references.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=patek-philippe"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Patek Philippe</span><h3 class="type-card-title">Patek Philippe</h3><p class="type-card-desc">High-end complications with restraint and continuity. A benchmark for long-horizon collecting and legacy value.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=audemars-piguet"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Audemars Piguet</span><h3 class="type-card-title">Audemars Piguet</h3><p class="type-card-desc">Royal Oak architecture that reshaped sporty luxury. Case finishing and bracelet execution are central to the appeal.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=cartier"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Cartier</span><h3 class="type-card-title">Cartier</h3><p class="type-card-desc">Shape-led watchmaking with historic clarity. Tank and Santos remain best-in-class for elegant everyday wear.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=seiko"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Seiko</span><h3 class="type-card-title">Seiko</h3><p class="type-card-desc">From reliable entry points to Grand Seiko finishing, Seiko anchors value and depth in one ecosystem.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=tudor"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Tudor</span><h3 class="type-card-title">Tudor</h3><p class="type-card-desc">Robust, vintage-informed sports watches with modern sizing and strong day-to-day practicality.</p><span class="type-card-link">Read related articles →</span></div></a>
       </div>
     </div>
-  </footer>
+  </section>
+  <section class="tb-bottom">
+    <div class="container">
+      <div class="section-strip"><span class="section-strip-label">Start with a brand path</span></div>
+      <div class="tb-plain-grid">
+        <article class="plain-card"><h3>Rolex / Omega</h3><p>For collectors who value proven icons, serviceability, and global demand depth.</p></article>
+        <article class="plain-card"><h3>Cartier / A.P.</h3><p>For shape, proportion, and brand signatures that read clearly across generations.</p></article>
+        <article class="plain-card"><h3>Patek / Grand Seiko</h3><p>For finishing depth, quieter ownership, and slower collecting strategies.</p></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <span class="footer-logo">BEZERU</span>
+      <p>Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Navigate</span>
+      <a href="/index.html">Home</a>
+      <a href="/articles.html">Read</a>
+      <a href="/types.html">Types</a>
+      <a href="/brands.html">Brands</a>
+      <a href="/about.html">About</a>
+      <a href="/shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Policies</span>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/contributors-policy.html">Contributors</a>
+      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-policy.html">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>
+  var fy = document.getElementById('footerYear');
+  if (fy) fy.textContent = new Date().getFullYear();
+</script>
 
 <script>
 // ── Active nav link ──────────────────────────
@@ -345,14 +329,14 @@ function closeMenu() {
   document.body.style.position = '';
   document.body.style.width = '';
   hamburger.setAttribute('aria-expanded', 'false');
-  document.body.classList.add('menu-open');
-  hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
   menu.classList.remove('open');
   backdrop.classList.remove('visible');
   hamburger.classList.remove('open');
-  document.body.classList.remove('menu-open');
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
   hamburger.setAttribute('aria-expanded', 'false');
 }
 
