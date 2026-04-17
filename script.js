@@ -462,12 +462,22 @@ async function loadPosts(){
 function normalizeCategoryKey(category = ""){
   const value = category.trim().toLowerCase();
   if(value.includes("underdogs") || value.includes("indie") || value.includes("independents")) return "underdogs";
-  if(value.includes("design icons") || value.includes("vintage")) return "vintage-design-icons";
-  if(value.includes("innovation") || value.includes("industry")) return "innovation-industry";
-  if(value === "design") return "design";
-  if(value.includes("middle east") || value.includes("culture")) return "middle-east-culture";
+  if(value.includes("design icons") || value.includes("vintage")) return "design-icons";
+  if(value.includes("innovation") || value.includes("industry")) return "innovation";
+  if(value === "design" || value.includes("marketing")) return "design-icons";
+  if(value.includes("middle east") || value.includes("culture") || value.includes("brands")) return "middle-east-stories";
   if(value.includes("guides") || value.includes("guide")) return "guides";
   return "default";
+}
+
+function categoryLabelFromKey(key){
+  const labels = {
+    underdogs: "Underdogs",
+    "middle-east-stories": "Middle East Stories",
+    innovation: "Innovation",
+    "design-icons": "Design Icons"
+  };
+  return labels[key] || "Latest";
 }
 
 function getExcerptReadingTime(excerpt = ""){
@@ -487,7 +497,7 @@ function postCardHTML(post){
     <article class="card">
       <div class="card-body">
         <div class="meta">
-          <span class="tag category-badge" data-category-key="${categoryKey}">${localizedPost.category || "Latest"}</span>
+          <span class="tag category-badge" data-category-key="${categoryKey}">${categoryLabelFromKey(categoryKey)}</span>
           <time datetime="${localizedPost.date || ""}">${dateLabel}</time>
           <span class="card-read-time">· ${readingTime} min read</span>
         </div>
@@ -553,56 +563,87 @@ function enhanceStaticCardMeta(){
 async function renderHomeLatestFeed(){
   const holder = document.getElementById("home-latest");
   if(!holder) return;
-
-  const normalizeSlug = (href)=>{
-    if(!href) return "";
-    const url = new URL(href, window.location.origin + window.location.pathname);
-    const segments = url.pathname.split("/").filter(Boolean);
-    return segments.length ? segments[segments.length - 1].toLowerCase() : "";
-  };
-
-  const existingLinks = new Set();
-  holder.querySelectorAll(".card").forEach((card)=>{
-    const articleLink = card.querySelector(".card-title a[href]");
-    const slug = normalizeSlug(articleLink?.getAttribute("href") || "");
-    if(!slug) return;
-    existingLinks.add(slug);
-  });
-
   const posts = await loadPosts();
   const sorted = [...posts].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const missing = sorted.filter(post => {
-    const slug = normalizeSlug(post.url || `article.html?id=${encodeURIComponent(post.id)}`);
-    return slug && !existingLinks.has(slug);
-  });
-
-  if(missing.length === 0) return;
-  holder.insertAdjacentHTML("beforeend", missing.map(postCardHTML).join(""));
+  holder.innerHTML = sorted.slice(0, 3).map(postCardHTML).join("");
 }
 
-async function renderArticlesGrid(){
-  const holder = document.getElementById("articles-grid");
+async function renderArticlesArchive(){
+  const holder = document.getElementById("articles-archive");
   if(!holder) return;
   const posts = await loadPosts();
   const chips = Array.from(document.querySelectorAll(".filter-chip[data-filter]"));
+  const categoryBlueprint = [
+    {
+      key: "underdogs",
+      heading: "Underdogs",
+      descriptor: "Small-scale makers and overlooked names worth watching."
+    },
+    {
+      key: "middle-east-stories",
+      heading: "Middle East Stories",
+      descriptor: "Regional taste, culture, and watchmaking beyond surface-level luxury."
+    },
+    {
+      key: "innovation",
+      heading: "Innovation",
+      descriptor: "Materials, mechanics, and the ideas reshaping modern watchmaking."
+    },
+    {
+      key: "design-icons",
+      heading: "Design Icons",
+      descriptor: "Releases and themes that matter because they last, not because they trend."
+    }
+  ];
 
-  function paint(filter){
-    const visible = filter === "all"
-      ? posts
-      : posts.filter(post => (post.category || "").toLowerCase() === filter.toLowerCase());
+  const groupedPosts = posts.reduce((acc, post)=>{
+    const key = normalizeCategoryKey(post.category || "");
+    if(!acc[key]) acc[key] = [];
+    acc[key].push(post);
+    return acc;
+  }, {});
 
-    holder.innerHTML = visible.length
-      ? visible.map(postCardHTML).join("")
-      : `<p class="empty-state">${window.BEZERU_I18N?.t("noStories") || "No stories in this section yet."}</p>`;
+  function renderGroup(group){
+    const sectionPosts = (groupedPosts[group.key] || [])
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+    if(sectionPosts.length === 0) return "";
+    return `
+      <section class="archive-group" data-category-group="${group.key}" id="category-${group.key}">
+        <header class="archive-group-head">
+          <h3>${group.heading}</h3>
+          <p>${group.descriptor}</p>
+        </header>
+        <div class="card-grid archive-card-grid">
+          ${sectionPosts.map(postCardHTML).join("")}
+        </div>
+      </section>
+    `;
   }
 
-  paint("all");
+  holder.innerHTML = categoryBlueprint.map(renderGroup).join("");
 
   chips.forEach(chip => {
     chip.addEventListener("click", ()=>{
       chips.forEach(item => item.classList.remove("is-active"));
       chip.classList.add("is-active");
-      paint(chip.dataset.filter || "all");
+      const filter = chip.dataset.filter || "all";
+      const groups = holder.querySelectorAll("[data-category-group]");
+      let visibleCount = 0;
+      groups.forEach(group => {
+        const shouldShow = filter === "all" || group.dataset.categoryGroup === filter;
+        group.hidden = !shouldShow;
+        if(shouldShow) visibleCount += 1;
+      });
+      const empty = holder.querySelector(".empty-state");
+      if(empty) empty.remove();
+      if(visibleCount === 0){
+        holder.insertAdjacentHTML("beforeend", `<p class="empty-state">${window.BEZERU_I18N?.t("noStories") || "No stories in this section yet."}</p>`);
+        return;
+      }
+      if(filter !== "all"){
+        const target = holder.querySelector(`[data-category-group="${filter}"]`);
+        target?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   });
 }
@@ -795,7 +836,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
   try{
     if(page === "home") await renderHomeLatestFeed();
-    if(page === "articles") await renderArticlesGrid();
+    if(page === "articles") await renderArticlesArchive();
     if(page === "article") await renderArticle();
   }catch(err){
     console.warn(err);

@@ -180,44 +180,20 @@
     <section class="section archive-intro" id="latest">
       <div class="container">
         <div class="section-head">
-          <h2>All stories</h2>
+          <h2>Archive</h2>
           <a class="viewall" href="index.html">Back to Home</a>
         </div>
+        <p class="archive-intro-copy">A category-led archive of BEZERU stories, organized for slower, clearer browsing.</p>
 
         <div class="archive-filter-row" aria-label="Browse by focus">
           <button class="filter-chip is-active" type="button" data-filter="all">All</button>
-          <button class="filter-chip" type="button" data-filter="Underdogs">Underdogs</button>
-          <button class="filter-chip" type="button" data-filter="Design">Design Icons</button>
-          <button class="filter-chip" type="button" data-filter="Middle East / Culture">Middle East Stories</button>
-          <button class="filter-chip" type="button" data-filter="Innovation / Industry">Innovation</button>
+          <button class="filter-chip" type="button" data-filter="underdogs">Underdogs</button>
+          <button class="filter-chip" type="button" data-filter="middle-east-stories">Middle East Stories</button>
+          <button class="filter-chip" type="button" data-filter="innovation">Innovation</button>
+          <button class="filter-chip" type="button" data-filter="design-icons">Design Icons</button>
         </div>
 
-        <div class="grid" id="articles-grid">
-          <article class="card" data-category="Underdogs">
-            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
-            <div class="card-body">
-              <div class="meta"><span class="tag">Underdogs</span><time datetime="2026-01-27">Jan 2026</time><span class="card-read-time">· 2 min read</span></div>
-              <h3 class="card-title"><a href="articles/independents-that-are-quietly-replacing-hype.html">Independents That Are Quietly Replacing Hype</a></h3>
-              <p class="card-excerpt">Four names collectors are watching—often before anyone else catches on.</p>
-            </div>
-          </article>
-          <article class="card" data-category="Innovation / Industry">
-            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
-            <div class="card-body">
-              <div class="meta"><span class="tag">Innovation / Industry</span><time datetime="2026-02-11">Feb 2026</time><span class="card-read-time">· 2 min read</span></div>
-              <h3 class="card-title"><a href="articles/time-reimagined-watchmaking-innovations-2025-26.html">Time Reimagined: Watchmaking Innovations of 2025–26</a></h3>
-              <p class="card-excerpt">A closer look at the materials, mechanics, and independent energy reshaping watchmaking in 2025–26.</p>
-            </div>
-          </article>
-          <article class="card" data-category="Design">
-            <div class="editorial-image-placeholder">[Watch image — TODO]</div>
-            <div class="card-body">
-              <div class="meta"><span class="tag">Design</span><time datetime="2026-02-17">Feb 2026</time><span class="card-read-time">· 2 min read</span></div>
-              <h3 class="card-title"><a href="articles/year-of-the-fire-horse-2026.html">Year of the Fire Horse: The 2026 Lunar New Year Watches That Actually Matter</a></h3>
-              <p class="card-excerpt">A tight editorial look at the 2026 Year of the Fire Horse releases.</p>
-            </div>
-          </article>
-        </div>
+        <div id="articles-archive" class="archive-groups" aria-live="polite"></div>
       </div>
     </section>
   </main>
