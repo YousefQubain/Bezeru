@@ -219,6 +219,15 @@
       </div>
       <div class="hero-right">
         <div class="hero-clock">
+          <svg id="bezeruClock" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:200px;height:200px;">
+            <circle cx="100" cy="100" r="96" fill="none" stroke="#111111" stroke-width="2"/>
+            <g id="bzClockTicks"></g>
+            <line id="bzHourHand"   x1="100" y1="100" x2="100" y2="55" stroke="#111111" stroke-width="5"   stroke-linecap="round"/>
+            <line id="bzMinuteHand" x1="100" y1="100" x2="100" y2="30" stroke="#111111" stroke-width="3"   stroke-linecap="round"/>
+            <line id="bzSecondHand" x1="100" y1="115" x2="100" y2="26" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="100" cy="100" r="5" fill="#111111"/>
+            <circle cx="100" cy="100" r="2.5" fill="#C0392B"/>
+            <text x="100" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="10" font-weight="700" letter-spacing="3" fill="#111111">BEZERU</text>
           <svg class="clock-face" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <circle cx="100" cy="100" r="96" fill="none" stroke="#111111" stroke-width="2"/>
             <g id="clockMinuteMarkers"></g>
@@ -350,6 +359,13 @@
       <a href="/brands.html">Brands</a>
       <a href="/about.html">About</a>
       <a href="/shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
     </div>
     <div class="footer-col">
       <span class="footer-col-title">Contact</span>
@@ -529,6 +545,70 @@ if (searchInput) searchInput.addEventListener('input', function() { runSearch(th
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { closeMenu(); closeSearch(); }
 });
+</script>
+<script>
+(function() {
+  var ns = 'http://www.w3.org/2000/svg';
+  var tickGroup = document.getElementById('bzClockTicks');
+  if (!tickGroup) return;
+
+  for (var i = 0; i < 60; i++) {
+    var rad = (i * 6 - 90) * Math.PI / 180;
+    var isHour = (i % 5 === 0);
+    var r1 = isHour ? 76 : 85;
+    var r2 = 92;
+    var tick = document.createElementNS(ns, 'line');
+    tick.setAttribute('x1', 100 + r1 * Math.cos(rad));
+    tick.setAttribute('y1', 100 + r1 * Math.sin(rad));
+    tick.setAttribute('x2', 100 + r2 * Math.cos(rad));
+    tick.setAttribute('y2', 100 + r2 * Math.sin(rad));
+    tick.setAttribute('stroke', '#111111');
+    tick.setAttribute('stroke-width', isHour ? '2' : '1');
+    tick.setAttribute('stroke-linecap', 'round');
+    tick.setAttribute('opacity', isHour ? '1' : '0.25');
+    tickGroup.appendChild(tick);
+  }
+
+  function deg(angle, len) {
+    return {
+      x: 100 + len * Math.cos((angle - 90) * Math.PI / 180),
+      y: 100 + len * Math.sin((angle - 90) * Math.PI / 180)
+    };
+  }
+
+  function tick() {
+    var now  = new Date();
+    var h    = now.getHours() % 12;
+    var m    = now.getMinutes();
+    var s    = now.getSeconds();
+    var ms   = now.getMilliseconds();
+
+    var hDeg = (h * 30) + (m * 0.5);
+    var mDeg = (m * 6)  + (s * 0.1);
+    var sDeg = (s * 6)  + (ms * 0.006);
+
+    var hPos = deg(hDeg, 52);
+    var mPos = deg(mDeg, 68);
+    var sPos = deg(sDeg, 72);
+    var sTail = deg(sDeg + 180, 14);
+
+    var hh = document.getElementById('bzHourHand');
+    var mh = document.getElementById('bzMinuteHand');
+    var sh = document.getElementById('bzSecondHand');
+
+    if (hh) { hh.setAttribute('x2', hPos.x); hh.setAttribute('y2', hPos.y); }
+    if (mh) { mh.setAttribute('x2', mPos.x); mh.setAttribute('y2', mPos.y); }
+    if (sh) {
+      sh.setAttribute('x2', sPos.x);
+      sh.setAttribute('y2', sPos.y);
+      sh.setAttribute('x1', sTail.x);
+      sh.setAttribute('y1', sTail.y);
+    }
+  }
+
+  tick();
+  setInterval(tick, 50);
+})();
 </script>
 </body>
 </html>
