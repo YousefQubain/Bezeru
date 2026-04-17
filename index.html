@@ -49,6 +49,14 @@
   <style>
 
 
+.hero-clock { width: 200px; height: 200px; flex-shrink: 0; }
+.clock-face { width: 100%; height: 100%; }
+.hero-section-inner { display: flex; align-items: center; gap: 60px; max-width: 1100px; padding: 100px 48px 90px; border-bottom: 1px solid #E0DDD8; }
+.hero-left { flex: 0 0 60%; }
+.hero-right { flex: 0 0 40%; display: flex; align-items: center; justify-content: center; }
+.hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C0392B; display: block; margin-bottom: 20px; }
+.hero-subhead { font-family: 'Inter', sans-serif; font-size: 18px; color: #555555; line-height: 1.65; max-width: 460px; margin-bottom: 40px; }
+.hero-cta-row { display: flex; gap: 14px; }
 
 .home-latest { background: #fff; padding: 70px 0; }
 .latest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
@@ -377,6 +385,41 @@
   if (bfy) bfy.textContent = new Date().getFullYear();
 </script>
 
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <span class="footer-logo">BEZERU</span>
+      <p>Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Navigate</span>
+      <a href="/index.html">Home</a>
+      <a href="/articles.html">Read</a>
+      <a href="/types.html">Types</a>
+      <a href="/brands.html">Brands</a>
+      <a href="/about.html">About</a>
+      <a href="/shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Policies</span>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/contributors-policy.html">Contributors</a>
+      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-policy.html">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 <div class="mobile-cta subscribe-popup" data-cta-bar aria-hidden="true">
   <span class="mobile-cta-text">Get new articles by email.</span>
   <button class="mobile-cta-button" type="button" data-cta-action>Subscribe</button>
