@@ -3186,14 +3186,136 @@ body[data-page="home"] .shop-teaser-link:hover{
 }
 
 body[data-page="home"] .latest .card{
-  border: 0;
-  border-bottom: 1px solid var(--color-border);
-  border-radius: 0;
-  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: none;
+  display: flex;
 }
 
-body[data-page="home"] .latest .card:last-child{
-  border-bottom: 0;
+body[data-page="home"] .latest .card .card-body{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+body[data-page="home"] .latest .card-title{
+  font-size: clamp(1.04rem, 1.3vw, 1.2rem);
+  line-height: 1.28;
+}
+
+body[data-page="home"] .latest .card-excerpt{
+  margin-top: auto;
+}
+
+body[data-page="home"] .latest .card-grid{
+  gap: 18px;
+}
+
+body[data-page="home"] .latest .card:hover{
+  transform: translateY(-2px);
+  box-shadow: none;
+  border-color: rgba(17,17,17,0.24);
+}
+
+body[data-page="articles"] .archive-intro-copy{
+  max-width: 66ch;
+  margin: 0 0 18px;
+  color: var(--text-2);
+}
+
+body[data-page="articles"] .archive-groups{
+  display: grid;
+  gap: 30px;
+}
+
+body[data-page="articles"] .archive-group{
+  border-top: 1px solid var(--color-border);
+  padding-top: 22px;
+}
+
+body[data-page="articles"] .archive-group-head{
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+body[data-page="articles"] .archive-group-head h3{
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  letter-spacing: 0.01em;
+}
+
+body[data-page="articles"] .archive-group-head p{
+  color: var(--text-2);
+  max-width: 68ch;
+  font-size: 0.95rem;
+}
+
+body[data-page="articles"] .archive-card-grid{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 780px){
+  body[data-page="articles"] .archive-card-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+:root{
+  --cat-underdogs-bg: #efe3e1;
+  --cat-underdogs-fg: #6f2b2f;
+  --cat-middle-east-bg: #f2e6d2;
+  --cat-middle-east-fg: #7e6438;
+  --cat-innovation-bg: #e3e9f1;
+  --cat-innovation-fg: #3f566f;
+  --cat-design-icons-bg: #e5eadf;
+  --cat-design-icons-fg: #3f4f38;
+}
+
+.category-badge[data-category-key="underdogs"]{
+  background: var(--cat-underdogs-bg);
+  color: var(--cat-underdogs-fg);
+}
+.category-badge[data-category-key="middle-east-stories"],
+.category-badge[data-category-key="middle-east-culture"]{
+  background: var(--cat-middle-east-bg);
+  color: var(--cat-middle-east-fg);
+}
+.category-badge[data-category-key="innovation"],
+.category-badge[data-category-key="innovation-industry"]{
+  background: var(--cat-innovation-bg);
+  color: var(--cat-innovation-fg);
+}
+.category-badge[data-category-key="design-icons"],
+.category-badge[data-category-key="design"],
+.category-badge[data-category-key="vintage-design-icons"]{
+  background: var(--cat-design-icons-bg);
+  color: var(--cat-design-icons-fg);
+}
+
+body[data-page="articles"] .filter-chip[data-filter="underdogs"]{
+  border-color: var(--cat-underdogs-fg);
+  color: var(--cat-underdogs-fg);
+}
+body[data-page="articles"] .filter-chip[data-filter="middle-east-stories"]{
+  border-color: var(--cat-middle-east-fg);
+  color: var(--cat-middle-east-fg);
+}
+body[data-page="articles"] .filter-chip[data-filter="innovation"]{
+  border-color: var(--cat-innovation-fg);
+  color: var(--cat-innovation-fg);
+}
+body[data-page="articles"] .filter-chip[data-filter="design-icons"]{
+  border-color: var(--cat-design-icons-fg);
+  color: var(--cat-design-icons-fg);
+}
+body[data-page="articles"] .filter-chip.is-active{
+  color: #fff;
+  background: var(--text);
+  border-color: var(--text);
 }
 
 .editorial-image-placeholder{
