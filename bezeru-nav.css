@@ -674,3 +674,51 @@ body.menu-open {
   .bz-search-result { padding: 14px 18px; }
   .bz-search-empty { padding: 20px 18px; }
 }
+
+
+@media (max-width: 767px) {
+
+  .bz-topbar {
+    background: #111111 !important;
+    padding: 7px 18px;
+  }
+  .bz-topbar-date { display: none; }
+  .bz-topbar-cities { gap: 14px; font-size: 9px; }
+  .bz-topbar-cities span { color: rgba(255,255,255,0.55); }
+  .bz-city-time { color: #ffffff !important; font-weight: 600; }
+
+  .bz-header { height: auto; }
+
+  .bz-nav-row {
+    grid-template-columns: auto 1fr auto;
+    padding: 0 18px;
+    height: 56px;
+  }
+
+  .bz-nav-left { display: none !important; }
+  .bz-nav-right .bz-lang-wrap { display: none !important; }
+  .bz-nav-right .bz-shop-btn { display: none !important; }
+  .bz-nav-right .bz-subscribe-btn { display: none !important; }
+  .bz-nav-right .bz-icon-btn { display: none !important; }
+
+  .bz-hamburger { display: flex !important; }
+
+  .bz-logo { justify-self: center; }
+  .bz-logo-sub { display: none; }
+  .bz-logo-wordmark { font-size: 18px; }
+
+  .bz-mobile-menu {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .bz-mm-footer {
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+
+  .bz-search-inner { padding: 0 18px; height: 56px; }
+  .bz-search-input { font-size: 17px; }
+  .bz-search-result { padding: 14px 18px; }
+
+}

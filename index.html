@@ -40,12 +40,12 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="style.css?v=2" />
   <link rel="stylesheet" href="bezeru-system.css" />
-  <link rel="stylesheet" href="/bezeru-mobile.css">
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/bezeru-nav.css">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
   <style>
 
 .hero-clock { width: 200px; height: 200px; flex-shrink: 0; }
@@ -364,6 +364,32 @@
       <a href="/privacy-policy.html">Privacy Policy</a>
       <a href="/terms-policy.html">Terms</a>
     </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Navigate</span>
+      <a href="/index.html">Home</a>
+      <a href="/articles.html">Read</a>
+      <a href="/types.html">Types</a>
+      <a href="/brands.html">Brands</a>
+      <a href="/about.html">About</a>
+      <a href="/shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Policies</span>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/contributors-policy.html">Contributors</a>
+      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-policy.html">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
   </div>
   <div class="footer-bottom">
     <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
@@ -436,14 +462,18 @@ function openMenu() {
   menu.classList.add('open');
   backdrop.classList.add('visible');
   hamburger.classList.add('open');
-  document.body.classList.add('menu-open');
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
   hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
   menu.classList.remove('open');
   backdrop.classList.remove('visible');
   hamburger.classList.remove('open');
-  document.body.classList.remove('menu-open');
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
   hamburger.setAttribute('aria-expanded', 'false');
 }
 

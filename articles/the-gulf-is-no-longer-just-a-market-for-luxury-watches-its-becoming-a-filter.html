@@ -43,12 +43,12 @@
   <link rel="stylesheet" href="../bezeru-core.css" />
   <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="../bezeru-system.css" />
-  <link rel="stylesheet" href="/bezeru-mobile.css">
   <script src="../i18n.js" defer></script>
   <script src="../script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/bezeru-nav.css">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
 
   <style>
 .article-content {
@@ -413,14 +413,14 @@ function closeMenu() {
   document.body.style.position = '';
   document.body.style.width = '';
   hamburger.setAttribute('aria-expanded', 'false');
-  document.body.classList.add('menu-open');
-  hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
   menu.classList.remove('open');
   backdrop.classList.remove('visible');
   hamburger.classList.remove('open');
-  document.body.classList.remove('menu-open');
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
   hamburger.setAttribute('aria-expanded', 'false');
 }
 
