@@ -4,15 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | BEZERU</title>
+  <meta name="description" content="BEZERU is written by Yousef Qubain — a watch editor with roots in the Middle East and experience at Richemont.">
+  <link rel="canonical" href="https://bezeru.com/about.html">
+  <meta property="og:site_name" content="BEZERU">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About | BEZERU">
+  <meta property="og:description" content="BEZERU is written by Yousef Qubain — a watch editor with roots in the Middle East and experience at Richemont.">
+  <meta property="og:image" content="https://bezeru.com/images/bezeru-og.jpg">
+  <meta property="og:url" content="https://bezeru.com/about.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About | BEZERU">
+  <meta name="twitter:description" content="BEZERU is written by Yousef Qubain — a watch editor with roots in the Middle East and experience at Richemont.">
+  <meta name="twitter:image" content="https://bezeru.com/images/bezeru-og.jpg">
+  <!-- TODO: create 1200x630px OG image and upload to /images/bezeru-og.jpg -->
 
+  <link rel="stylesheet" href="bezeru-core.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
-  <link rel="stylesheet" href="/bezeru-mobile.css">
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="stylesheet" href="/bezeru-nav.css">
+  <link rel="stylesheet" href="/bezeru-mobile.css">
+  <style>
+
+.credentials-strip { display: flex; border-top: 1px solid #E0DDD8; border-bottom: 1px solid #E0DDD8; margin: 48px 0; }
+.credential { flex: 1; padding: 24px 28px; border-right: 1px solid #E0DDD8; display: flex; flex-direction: column; gap: 6px; }
+.credential:last-child { border-right: none; }
+.cred-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #999999; }
+.cred-value { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; color: #111111; }
+
+  </style>
 </head>
 
 <body data-page="about">
@@ -62,7 +85,7 @@
   </div>
 </header>
 
-<div class="bz-mobile-menu" id="bzMobileMenu">
+<div class="bz-mobile-menu" id="bzMobileMenu" style="display:none;">
   <div class="bz-mm-header">
     <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
@@ -156,6 +179,20 @@
             <p>My relationship with watches started early. My great-grandfather was a watch retailer across the Middle East, and growing up in a culture that values tradition and history, I heard about his journeys through Europe, especially Switzerland, where he would travel to source exceptional pieces. I first heard these stories through my grandmother, and the passion he had for watches stayed with me. Over time, that became my own curiosity and ambition.</p>
             <p>Later, I interned at Richemont, home to some of the most respected watch maisons in the world. Seeing the industry from the inside made everything feel more real. It reminded me that behind every watch is a chain of people, decisions, and details, and that the best pieces carry more than branding. They carry intention, craft, and a kind of meaning you only notice when you slow down.</p>
             <p>That is the spirit behind BEZERU.</p>
+            <div class="credentials-strip">
+              <div class="credential">
+                <span class="cred-label">Background</span>
+                <span class="cred-value">Richemont Intern</span>
+              </div>
+              <div class="credential">
+                <span class="cred-label">Focus</span>
+                <span class="cred-value">Independent & Vintage</span>
+              </div>
+              <div class="credential">
+                <span class="cred-label">Based</span>
+                <span class="cred-value">Geneva</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -164,32 +201,41 @@
 
 
   <!-- FOOTER -->
-  <footer class="footer-pro">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">BEZERU</div>
-          <div class="footer-text">
-            Modern + vintage watch editorial focused on design, proportion, culture, and the underdogs
-            shaping modern taste.
-          </div>
-        </div>
-<div class="footer-col">
-          <h4>Contact me</h4>
-          <div class="footer-links">
-            <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a>
-            <a href="#" aria-disabled="true">Instagram</a>
-            <span class="coming-soon">X (Coming soon)</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>© <span id="year"></span> BEZERU</div>
-        <div>Design-first watch writing • Culture and wearability • Independents & vintage</div>
-      </div>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <span class="footer-logo">BEZERU</span>
+      <p>Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
     </div>
-  </footer>
+    <div class="footer-col">
+      <span class="footer-col-title">Navigate</span>
+      <a href="/index.html">Home</a>
+      <a href="/articles.html">Read</a>
+      <a href="/types.html">Types</a>
+      <a href="/brands.html">Brands</a>
+      <a href="/about.html">About</a>
+      <a href="/shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Policies</span>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/contributors-policy.html">Contributors</a>
+      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-policy.html">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 
 <script>
 // ── Active nav link ──────────────────────────
@@ -247,7 +293,6 @@ function openMenu() {
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
-  document.body.classList.add('bz-menu-open');
   hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
@@ -257,17 +302,15 @@ function closeMenu() {
   document.body.style.overflow = '';
   document.body.style.position = '';
   document.body.style.width = '';
-  document.body.classList.remove('bz-menu-open');
   hamburger.setAttribute('aria-expanded', 'false');
-  hamburger.setAttribute('aria-expanded', 'false');
-  document.body.classList.add('menu-open');
-  hamburger.setAttribute('aria-expanded', 'true');
 }
 function closeMenu() {
   menu.classList.remove('open');
   backdrop.classList.remove('visible');
   hamburger.classList.remove('open');
-  document.body.classList.remove('menu-open');
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
   hamburger.setAttribute('aria-expanded', 'false');
 }
 

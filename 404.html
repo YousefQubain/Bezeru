@@ -4,10 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BEZERU — 404</title>
-  <meta name="description" content="BEZERU page not found." />
-  <link rel="canonical" href="https://bezeru.com/404.html" />
+  <meta name="description" content="BEZERU editorial page: BEZERU — 404.">
+  <link rel="canonical" href="https://bezeru.com/404.html">
+  <meta property="og:site_name" content="BEZERU">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BEZERU — 404">
+  <meta property="og:description" content="BEZERU editorial page: BEZERU — 404.">
+  <meta property="og:image" content="https://bezeru.com/images/bezeru-og.jpg">
+  <meta property="og:url" content="https://bezeru.com/404.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BEZERU — 404">
+  <meta name="twitter:description" content="BEZERU editorial page: BEZERU — 404.">
+  <meta name="twitter:image" content="https://bezeru.com/images/bezeru-og.jpg">
+  <!-- TODO: create 1200x630px OG image and upload to /images/bezeru-og.jpg -->
   <link rel="icon" type="image/png" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="bezeru-core.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="bezeru-system.css" />
   <link rel="stylesheet" href="/bezeru-mobile.css">
@@ -29,6 +41,40 @@
       </div>
     </section>
   </main>
-  <footer class="footer-pro"></footer>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <span class="footer-logo">BEZERU</span>
+      <p>Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Navigate</span>
+      <a href="/index.html">Home</a>
+      <a href="/articles.html">Read</a>
+      <a href="/types.html">Types</a>
+      <a href="/brands.html">Brands</a>
+      <a href="/about.html">About</a>
+      <a href="/shop.html">Shop</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
+      <a href="#">Instagram</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title">Policies</span>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/contributors-policy.html">Contributors</a>
+      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-policy.html">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>
