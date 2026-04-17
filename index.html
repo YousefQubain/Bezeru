@@ -48,6 +48,7 @@
   <link rel="stylesheet" href="/bezeru-mobile.css">
   <style>
 
+
 .hero-clock { width: 200px; height: 200px; flex-shrink: 0; }
 .clock-face { width: 100%; height: 100%; }
 .hero-section-inner { display: flex; align-items: center; gap: 60px; max-width: 1100px; padding: 100px 48px 90px; border-bottom: 1px solid #E0DDD8; }
@@ -246,9 +247,10 @@
 </div>
 
 <main>
-  <section class="home-hero">
-    <div class="container hero-section-inner">
-      <div class="hero-left">
+    <section style="padding:100px 0 90px;background:#ffffff;border-bottom:1px solid #E0DDD8;">
+    <div style="max-width:1100px;margin:0 auto;padding:0 48px;display:flex;align-items:center;gap:60px;">
+
+      <div style="flex:0 0 55%;min-width:0;">
         <span class="hero-eyebrow">Independent Watch Journal</span>
         <h1>A calmer editorial lens on modern watch culture.</h1>
         <p class="hero-subhead">Design, wearability, and collecting context — written with clarity, not hype.</p>
@@ -257,29 +259,20 @@
           <a class="btn-outline" href="/about.html">About BEZERU</a>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="hero-clock">
-          <svg id="bezeruClock" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:200px;height:200px;">
-            <circle cx="100" cy="100" r="96" fill="none" stroke="#111111" stroke-width="2"/>
-            <g id="bzClockTicks"></g>
-            <line id="bzHourHand"   x1="100" y1="100" x2="100" y2="55" stroke="#111111" stroke-width="5"   stroke-linecap="round"/>
-            <line id="bzMinuteHand" x1="100" y1="100" x2="100" y2="30" stroke="#111111" stroke-width="3"   stroke-linecap="round"/>
-            <line id="bzSecondHand" x1="100" y1="115" x2="100" y2="26" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="100" cy="100" r="5" fill="#111111"/>
-            <circle cx="100" cy="100" r="2.5" fill="#C0392B"/>
-            <text x="100" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="10" font-weight="700" letter-spacing="3" fill="#111111">BEZERU</text>
-          <svg class="clock-face" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="96" fill="none" stroke="#111111" stroke-width="2"/>
-            <g id="clockMinuteMarkers"></g>
-            <line id="clockHourHand" x1="100" y1="100" x2="100" y2="45" stroke="#111111" stroke-width="4" stroke-linecap="round"/>
-            <line id="clockMinuteHand" x1="100" y1="100" x2="100" y2="28" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
-            <line id="clockSecondHand" x1="100" y1="112" x2="100" y2="24" stroke="#C0392B" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="100" cy="100" r="4" fill="#111111"/>
-            <circle cx="100" cy="100" r="2" fill="#C0392B"/>
-            <text x="100" y="148" text-anchor="middle" font-family="Georgia, serif" font-size="10" font-weight="700" letter-spacing="0.2em" fill="#111111">BEZERU</text>
-          </svg>
-        </div>
+
+      <div style="flex:0 0 45%;display:flex;align-items:center;justify-content:center;">
+        <svg id="bzClock" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:200px;height:200px;display:block;flex-shrink:0;">
+          <circle cx="100" cy="100" r="96" fill="none" stroke="#111111" stroke-width="1.5"/>
+          <g id="bzTicks"></g>
+          <line id="bzHour"   x1="100" y1="100" x2="100" y2="60"  stroke="#111111" stroke-width="4"   stroke-linecap="round"/>
+          <line id="bzMin"    x1="100" y1="100" x2="100" y2="32"  stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
+          <line id="bzSec"    x1="100" y1="118" x2="100" y2="28"  stroke="#C0392B" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="4"   fill="#111111"/>
+          <circle cx="100" cy="100" r="2"   fill="#C0392B"/>
+          <text x="100" y="152" text-anchor="middle" font-family="Georgia,serif" font-size="9" font-weight="700" letter-spacing="3" fill="#111111">BEZERU</text>
+        </svg>
       </div>
+
     </div>
   </section>
 
@@ -342,13 +335,55 @@
         target="popupwindow"
         onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')"
         class="bzr-subscribe-form"
-      >
         <input type="email" name="email" placeholder="Your email address" required>
         <input type="submit" value="Subscribe">
       </form>
     </div>
   </section>
 </main>
+<footer style="background:#0a0a0a;color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;margin-top:0;padding:0;">
+  <div style="max-width:1100px;margin:0 auto;padding:60px 48px 48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;border-bottom:1px solid rgba(255,255,255,0.07);">
+
+    <div>
+      <span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;display:block;margin-bottom:12px;">BEZERU</span>
+      <p style="font-size:13px;line-height:1.7;max-width:240px;margin:0;color:rgba(255,255,255,0.5);">Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Navigate</span>
+      <a href="/index.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Home</a>
+      <a href="/articles.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Read</a>
+      <a href="/types.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Types</a>
+      <a href="/brands.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Brands</a>
+      <a href="/about.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">About</a>
+      <a href="/shop.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Shop</a>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">yousef.qubain@gmail.com</a>
+      <a href="#" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Instagram</a>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Policies</span>
+      <a href="/editorial-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Editorial Policy</a>
+      <a href="/contributors-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Contributors</a>
+      <a href="/affiliate-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Privacy Policy</a>
+      <a href="/terms-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Terms</a>
+    </div>
+
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:18px 48px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.22);">
+    <span>© <span id="bzFooterYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>
+  var bfy = document.getElementById('bzFooterYear');
+  if (bfy) bfy.textContent = new Date().getFullYear();
+</script>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -392,193 +427,56 @@
 </div>
 
 <script>
-(function() {
-  const popup = document.querySelector('.subscribe-popup[data-cta-bar], .subscribe-popup, .popup');
-  if (!popup) return;
-  popup.style.display = 'none';
-  if (sessionStorage.getItem('bezeru_popup_dismissed')) return;
-  let shown = false;
-  function showPopup() {
-    if (shown) return;
-    shown = true;
-    popup.style.display = '';
-    popup.style.animation = 'fadeInUp 300ms ease forwards';
-  }
-  setTimeout(showPopup, 45000);
-  document.addEventListener('mouseleave', function(e) {
-    if (e.clientY <= 0) showPopup();
-  });
-  const closeBtn = popup.querySelector('[class*="close"], button');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      sessionStorage.setItem('bezeru_popup_dismissed', '1');
-    });
-  }
-})();
-</script>
-
-<script>
-document.querySelectorAll('.bz-nav-link, .bz-mm-link').forEach(function(link) {
-  if (link.href === window.location.href) link.classList.add('active');
-});
-
-window.addEventListener('scroll', function() {
-  document.getElementById('bzHeader').classList.toggle('scrolled', window.scrollY > 8);
-}, { passive: true });
-
-function updateTimes() {
-  document.querySelectorAll('.bz-city-time').forEach(function(el) {
-    var tz = el.getAttribute('data-tz');
-    el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
-  });
-}
-updateTimes();
-setInterval(updateTimes, 1000);
-
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-var hamburger = document.getElementById('bzHamburger');
-var menu = document.getElementById('bzMobileMenu');
-var backdrop = document.getElementById('bzBackdrop');
-var closeBtn = document.getElementById('bzMenuClose');
-
-function openMenu() {
-  menu.classList.add('open');
-  backdrop.classList.add('visible');
-  hamburger.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.body.style.position = 'fixed';
-  document.body.style.width = '100%';
-  hamburger.setAttribute('aria-expanded', 'true');
-}
-function closeMenu() {
-  menu.classList.remove('open');
-  backdrop.classList.remove('visible');
-  hamburger.classList.remove('open');
-  document.body.style.overflow = '';
-  document.body.style.position = '';
-  document.body.style.width = '';
-  hamburger.setAttribute('aria-expanded', 'false');
-}
-
-if (hamburger) hamburger.addEventListener('click', openMenu);
-if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-if (backdrop) backdrop.addEventListener('click', closeMenu);
-document.querySelectorAll('.bz-mm-link').forEach(function(link) {
-  link.addEventListener('click', closeMenu);
-});
-
-var searchToggle = document.getElementById('bzSearchToggle');
-var searchBar = document.getElementById('bzSearchBar');
-var searchClose = document.getElementById('bzSearchClose');
-var searchInput = document.getElementById('bzSearchInput');
-var searchResults = document.getElementById('bzSearchResults');
-
-var ARTICLES = [
-  { title: 'Independents That Are Quietly Replacing Hype', desc: 'Four names collectors are watching — often before anyone else catches on.', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs' },
-  { title: 'Time Reimagined: Watchmaking Innovations of 2025–26', desc: 'Materials, mechanics, and independent energy reshaping watchmaking.', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation' },
-  { title: 'Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul', desc: 'How two maisons treat regional culture as treasure, not trend.', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East' },
-  { title: 'Year of the Fire Horse: 2026 Lunar New Year Watches', desc: 'Which zodiac releases will still feel right years from now.', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design' }
-];
-
-function openSearch() {
-  searchBar.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(function() { searchInput.focus(); }, 50);
-}
-function closeSearch() {
-  searchBar.classList.remove('open');
-  document.body.style.overflow = '';
-  searchInput.value = '';
-  searchResults.innerHTML = '';
-}
-function runSearch(q) {
-  if (!q || q.length < 2) { searchResults.innerHTML = ''; return; }
-  var matches = ARTICLES.filter(function(a) {
-    return (a.title + a.desc + a.tag).toLowerCase().indexOf(q.toLowerCase()) > -1;
-  });
-  if (!matches.length) {
-    searchResults.innerHTML = '<p class="bz-search-empty">No results for "' + q + '"</p>';
-    return;
-  }
-  searchResults.innerHTML = matches.map(function(a) {
-    return '<a class="bz-search-result" href="' + a.url + '"><strong>' + a.title + '</strong><span>' + a.tag + ' — ' + a.desc + '</span></a>';
-  }).join('');
-}
-
-if (searchToggle) searchToggle.addEventListener('click', openSearch);
-if (searchClose) searchClose.addEventListener('click', closeSearch);
-if (searchInput) searchInput.addEventListener('input', function() { runSearch(this.value); });
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeMenu(); closeSearch(); }
-});
-</script>
-<script>
-(function() {
+(function(){
+  var svg = document.getElementById('bzClock');
+  if(!svg) return;
   var ns = 'http://www.w3.org/2000/svg';
-  var tickGroup = document.getElementById('bzClockTicks');
-  if (!tickGroup) return;
+  var tg = document.getElementById('bzTicks');
 
-  for (var i = 0; i < 60; i++) {
-    var rad = (i * 6 - 90) * Math.PI / 180;
-    var isHour = (i % 5 === 0);
-    var r1 = isHour ? 76 : 85;
-    var r2 = 92;
-    var tick = document.createElementNS(ns, 'line');
-    tick.setAttribute('x1', 100 + r1 * Math.cos(rad));
-    tick.setAttribute('y1', 100 + r1 * Math.sin(rad));
-    tick.setAttribute('x2', 100 + r2 * Math.cos(rad));
-    tick.setAttribute('y2', 100 + r2 * Math.sin(rad));
-    tick.setAttribute('stroke', '#111111');
-    tick.setAttribute('stroke-width', isHour ? '2' : '1');
-    tick.setAttribute('stroke-linecap', 'round');
-    tick.setAttribute('opacity', isHour ? '1' : '0.25');
-    tickGroup.appendChild(tick);
+  for(var i=0;i<60;i++){
+    var a = (i*6-90)*Math.PI/180;
+    var isH = i%5===0;
+    var r1 = isH ? 75 : 85;
+    var l = document.createElementNS(ns,'line');
+    l.setAttribute('x1', (100+r1*Math.cos(a)).toFixed(3));
+    l.setAttribute('y1', (100+r1*Math.sin(a)).toFixed(3));
+    l.setAttribute('x2', (100+92*Math.cos(a)).toFixed(3));
+    l.setAttribute('y2', (100+92*Math.sin(a)).toFixed(3));
+    l.setAttribute('stroke','#111111');
+    l.setAttribute('stroke-width', isH?'2':'0.8');
+    l.setAttribute('stroke-linecap','round');
+    l.setAttribute('opacity', isH?'1':'0.2');
+    tg.appendChild(l);
   }
 
-  function deg(angle, len) {
-    return {
-      x: 100 + len * Math.cos((angle - 90) * Math.PI / 180),
-      y: 100 + len * Math.sin((angle - 90) * Math.PI / 180)
-    };
-  }
-
-  function tick() {
-    var now  = new Date();
-    var h    = now.getHours() % 12;
-    var m    = now.getMinutes();
-    var s    = now.getSeconds();
-    var ms   = now.getMilliseconds();
-
-    var hDeg = (h * 30) + (m * 0.5);
-    var mDeg = (m * 6)  + (s * 0.1);
-    var sDeg = (s * 6)  + (ms * 0.006);
-
-    var hPos = deg(hDeg, 52);
-    var mPos = deg(mDeg, 68);
-    var sPos = deg(sDeg, 72);
-    var sTail = deg(sDeg + 180, 14);
-
-    var hh = document.getElementById('bzHourHand');
-    var mh = document.getElementById('bzMinuteHand');
-    var sh = document.getElementById('bzSecondHand');
-
-    if (hh) { hh.setAttribute('x2', hPos.x); hh.setAttribute('y2', hPos.y); }
-    if (mh) { mh.setAttribute('x2', mPos.x); mh.setAttribute('y2', mPos.y); }
-    if (sh) {
-      sh.setAttribute('x2', sPos.x);
-      sh.setAttribute('y2', sPos.y);
-      sh.setAttribute('x1', sTail.x);
-      sh.setAttribute('y1', sTail.y);
+  function setHand(id, angleDeg, len, tailLen){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var a = (angleDeg-90)*Math.PI/180;
+    el.setAttribute('x2', (100+len*Math.cos(a)).toFixed(3));
+    el.setAttribute('y2', (100+len*Math.sin(a)).toFixed(3));
+    if(tailLen){
+      el.setAttribute('x1', (100-tailLen*Math.cos(a)).toFixed(3));
+      el.setAttribute('y1', (100-tailLen*Math.sin(a)).toFixed(3));
+    } else {
+      el.setAttribute('x1','100');
+      el.setAttribute('y1','100');
     }
   }
 
-  tick();
-  setInterval(tick, 50);
+  function draw(){
+    var now = new Date();
+    var h = now.getHours()%12;
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ms = now.getMilliseconds();
+    setHand('bzHour',  (h*30)+(m*0.5),        52, 0);
+    setHand('bzMin',   (m*6)+(s*0.1),          68, 0);
+    setHand('bzSec',   (s*6)+(ms*0.006),       72, 16);
+  }
+
+  draw();
+  setInterval(draw, 50);
 })();
 </script>
 </body>
