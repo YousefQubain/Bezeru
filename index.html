@@ -56,9 +56,7 @@
 .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C0392B; display: block; margin-bottom: 20px; }
 .hero-subhead { font-family: 'Inter', sans-serif; font-size: 18px; color: #555555; line-height: 1.65; max-width: 460px; margin-bottom: 40px; }
 .hero-cta-row { display: flex; gap: 14px; }
-.home-featured { background: #F7F5F2; padding: 70px 0; }
-.featured-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
-.featured-side { display: flex; flex-direction: column; gap: 24px; }
+
 .home-latest { background: #fff; padding: 70px 0; }
 .latest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .latest-cta { text-align: center; margin-top: 48px; }
@@ -80,6 +78,48 @@
 .bzr-subscribe-form input[type="email"]::placeholder { color: #999999; }
 .bzr-subscribe-form input[type="submit"] { background: #111111; color: #ffffff; border: none; padding: 14px 24px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: opacity 150ms; flex-shrink: 0; }
 .bzr-subscribe-form input[type="submit"]:hover { opacity: 0.8; }
+
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #111111;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 30px;
+  text-decoration: none;
+  border-radius: 3px;
+  border: 1px solid #111111;
+  cursor: pointer;
+  transition: all 150ms;
+  white-space: nowrap;
+}
+.btn-dark:hover { background: transparent; color: #111111; }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #111111;
+  border: 1px solid #111111;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 30px;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 150ms;
+  white-space: nowrap;
+}
+.btn-outline:hover { background: #111111; color: #ffffff; }
 
   </style>
 </head>
@@ -243,41 +283,6 @@
     </div>
   </section>
 
-  <section class="home-featured">
-    <div class="container">
-      <div class="section-strip"><span class="section-strip-label">Featured</span></div>
-      <div class="featured-grid">
-        <a class="article-card article-card-featured" href="/articles/independents-that-are-quietly-replacing-hype.html">
-          <div class="article-card-img"></div>
-          <div class="article-card-body">
-            <div class="article-card-top"><span class="tag tag-underdogs">Underdogs</span><span class="article-card-meta">Jan 2026 · 6 min read</span></div>
-            <h3 class="article-card-title">Independents That Are Quietly Replacing Hype</h3>
-            <p class="article-card-desc">Four names collectors are watching — often before anyone else catches on. Small-scale makers with real design conviction and long-term relevance.</p>
-            <span class="article-card-read">Read article →</span>
-          </div>
-        </a>
-        <div class="featured-side">
-          <a class="article-card" href="/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html">
-            <div class="article-card-img"></div>
-            <div class="article-card-body">
-              <div class="article-card-top"><span class="tag tag-middleeast">Middle East</span><span class="article-card-meta">Jan 2026 · 5 min</span></div>
-              <h3 class="article-card-title">Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul</h3>
-              <p class="article-card-desc">How two maisons treat regional culture as treasure, not trend.</p>
-            </div>
-          </a>
-          <a class="article-card" href="/articles/year-of-the-fire-horse-2026.html">
-            <div class="article-card-img"></div>
-            <div class="article-card-body">
-              <div class="article-card-top"><span class="tag tag-design">Design</span><span class="article-card-meta">Feb 2026 · 6 min</span></div>
-              <h3 class="article-card-title">Year of the Fire Horse: 2026 Lunar New Year Watches That Actually Matter</h3>
-              <p class="article-card-desc">Which zodiac releases will still feel right years from now.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="home-latest">
     <div class="container">
       <div class="section-strip"><span class="section-strip-label">Latest Stories</span><a class="section-strip-link" href="/articles.html">See all articles →</a></div>
@@ -366,13 +371,6 @@
       <a href="#">Instagram</a>
     </div>
     <div class="footer-col">
-    </div>
-    <div class="footer-col">
-      <span class="footer-col-title">Contact</span>
-      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
-      <a href="#">Instagram</a>
-    </div>
-    <div class="footer-col">
       <span class="footer-col-title">Policies</span>
       <a href="/editorial-policy.html">Editorial Policy</a>
       <a href="/contributors-policy.html">Contributors</a>
@@ -380,32 +378,6 @@
       <a href="/privacy-policy.html">Privacy Policy</a>
       <a href="/terms-policy.html">Terms</a>
     </div>
-    <div class="footer-col">
-      <span class="footer-col-title">Navigate</span>
-      <a href="/index.html">Home</a>
-      <a href="/articles.html">Read</a>
-      <a href="/types.html">Types</a>
-      <a href="/brands.html">Brands</a>
-      <a href="/about.html">About</a>
-      <a href="/shop.html">Shop</a>
-    </div>
-    <div class="footer-col">
-      <span class="footer-col-title">Contact</span>
-      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a>
-      <a href="#">Instagram</a>
-    </div>
-    <div class="footer-col">
-      <span class="footer-col-title">Policies</span>
-      <a href="/editorial-policy.html">Editorial Policy</a>
-      <a href="/contributors-policy.html">Contributors</a>
-      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
-      <a href="/privacy-policy.html">Privacy Policy</a>
-      <a href="/terms-policy.html">Terms</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
-    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
   </div>
   <div class="footer-bottom">
     <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
@@ -413,7 +385,6 @@
   </div>
 </footer>
 <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
-
 <div class="mobile-cta subscribe-popup" data-cta-bar aria-hidden="true">
   <span class="mobile-cta-text">Get new articles by email.</span>
   <button class="mobile-cta-button" type="button" data-cta-action>Subscribe</button>
