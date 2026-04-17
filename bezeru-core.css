@@ -231,6 +231,19 @@ img { max-width: 100%; height: auto; display: block; }
 }
 main { animation: pageEnter 320ms ease forwards; }
 
+
+.article-card.hidden { display: none; }
+
+
+.site-footer { background: #0a0a0a; color: rgba(255,255,255,0.6); font-family: 'Inter', sans-serif; margin-top: 0; }
+.footer-inner { max-width: 1100px; margin: 0 auto; padding: 64px 48px 52px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.footer-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ffffff; display: block; margin-bottom: 12px; }
+.footer-brand p { font-size: 13px; line-height: 1.7; max-width: 240px; margin: 0; }
+.footer-col-title { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+.footer-col { display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 150ms; }
+.footer-col a:hover { color: #C0392B; }
+.footer-bottom { max-width: 1100px; margin: 0 auto; padding: 20px 48px; display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.25); }
 /* ── Divider ── */
 .divider {
   border: none;
