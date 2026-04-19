@@ -142,6 +142,103 @@ function initUnifiedFooter(){
 
 initUnifiedFooter();
 
+
+function initTopbarDateAndTimes(){
+  const dateEl = document.getElementById("bzDate");
+  const cityNodes = Array.from(document.querySelectorAll(".bz-city-time[data-tz]"));
+  if(!dateEl && cityNodes.length === 0) return;
+
+  const dateFormatter = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+  const formatCityTime = (tz)=> new Intl.DateTimeFormat("en-GB", {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(new Date());
+
+  const paint = ()=>{
+    const now = new Date();
+    if(dateEl) dateEl.textContent = dateFormatter.format(now);
+    cityNodes.forEach((node)=>{
+      const tz = node.dataset.tz;
+      if(!tz) return;
+      node.textContent = formatCityTime(tz);
+    });
+  };
+
+  paint();
+  setInterval(paint, 30000);
+}
+
+function initHomeAnalogClock(){
+  const svg = document.getElementById("bzClock");
+  if(!svg) return;
+
+  const ticks = document.getElementById("bzTicks");
+  if(ticks && ticks.childElementCount === 0){
+    for(let i = 0; i < 60; i += 1){
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      const angle = ((i * 6) - 90) * Math.PI / 180;
+      const major = i % 5 === 0;
+      const inner = major ? 75 : 85;
+      line.setAttribute("x1", (100 + inner * Math.cos(angle)).toFixed(3));
+      line.setAttribute("y1", (100 + inner * Math.sin(angle)).toFixed(3));
+      line.setAttribute("x2", (100 + 92 * Math.cos(angle)).toFixed(3));
+      line.setAttribute("y2", (100 + 92 * Math.sin(angle)).toFixed(3));
+      line.setAttribute("stroke", "#111111");
+      line.setAttribute("stroke-width", major ? "2" : "0.8");
+      line.setAttribute("stroke-linecap", "round");
+      line.setAttribute("opacity", major ? "1" : "0.2");
+      ticks.appendChild(line);
+    }
+  }
+
+  const setHand = (id, angleDeg, len, tailLen)=>{
+    const hand = document.getElementById(id);
+    if(!hand) return;
+    const angle = (angleDeg - 90) * Math.PI / 180;
+    hand.setAttribute("x2", (100 + len * Math.cos(angle)).toFixed(3));
+    hand.setAttribute("y2", (100 + len * Math.sin(angle)).toFixed(3));
+    if(tailLen){
+      hand.setAttribute("x1", (100 - tailLen * Math.cos(angle)).toFixed(3));
+      hand.setAttribute("y1", (100 - tailLen * Math.sin(angle)).toFixed(3));
+    }else{
+      hand.setAttribute("x1", "100");
+      hand.setAttribute("y1", "100");
+    }
+  };
+
+  const draw = ()=>{
+    const now = new Date();
+    const hours = now.getHours() % 12;
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const ms = now.getMilliseconds();
+    setHand("bzHour", (hours * 30) + (minutes * 0.5), 52, 0);
+    setHand("bzMin", (minutes * 6) + (seconds * 0.1), 68, 0);
+    setHand("bzSec", (seconds * 6) + (ms * 0.006), 72, 16);
+  };
+
+  draw();
+  setInterval(draw, 50);
+}
+
+function dedupePageFooters(){
+  const footers = Array.from(document.querySelectorAll("body > footer, main + footer, .site-footer"));
+  const unique = [];
+  footers.forEach((footer)=>{
+    if(!unique.includes(footer)) unique.push(footer);
+  });
+  if(unique.length <= 1) return;
+  unique.slice(1).forEach((footer)=> footer.remove());
+}
+
 function initDropdowns(){
   const dropdowns = document.querySelectorAll(".dropdown");
 
@@ -809,6 +906,8 @@ function initArticleProgressBar(){
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+  initTopbarDateAndTimes();
+  dedupePageFooters();
   initClockStrip();
   initLanguageMenu();
   initDropdowns();
@@ -816,6 +915,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initStickyHeader();
   initMobileCta();
   initHeroWatchFace();
+  initHomeAnalogClock();
   initBrandsTeaser();
   initArticleProgressBar();
   enhanceStaticCardMeta();
@@ -827,9 +927,10 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   });
 
   // footer year (site started in 2026)
-  if (document.getElementById("footer-year")) {
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
-  }
+  ["footer-year", "footerYear", "bzFooterYear"].forEach((id)=>{
+    const yearEl = document.getElementById(id);
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+  });
 
   // page-specific rendering
   const page = document.body.getAttribute("data-page");
@@ -870,6 +971,16 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
   }
 
+
+  function normalizeAudioUrl(audioUrl) {
+    if (!audioUrl || typeof audioUrl !== "string") return "";
+    const trimmed = audioUrl.trim();
+    if (!trimmed) return "";
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    if (trimmed.startsWith("/")) return trimmed;
+    return `/${trimmed.replace(/^\.\//, "")}`;
+  }
+
   async function loadPosts() {
     const res = await fetch("/posts.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`Failed to load posts.json: ${res.status}`);
@@ -889,69 +1000,60 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     return posts.find(p => (p.url || "").includes(slug)) || null;
   }
 
-  function buildPlayer({ title, category, dateLabel, audioUrl, slug, hasAudio }) {
+  function buildPlayer({ title, category, dateLabel, audioUrl, slug }) {
     const wrap = document.createElement("section");
-    wrap.className = "audio-bar";
-    if (!hasAudio) wrap.classList.add("is-disabled");
+    wrap.className = "bezeru-audio-bar";
     wrap.innerHTML = `
-      <div class="audio-bar__left">
-        <button class="audio-bar__btn audio-bar__play" type="button" aria-label="Play" ${hasAudio ? "" : "disabled"}>
-          <span class="audio-bar__icon" data-icon="play">▶</span>
+      <div class="bezeru-audio-bar__left">
+        <button class="bezeru-audio-bar__btn bezeru-audio-bar__play" type="button" aria-label="Play">
+          <span class="bezeru-audio-bar__icon" data-icon="play">▶</span>
         </button>
       </div>
 
-      <div class="audio-bar__mid">
-        <div class="audio-bar__meta">
-          <div class="audio-bar__kicker">Listen</div>
-          <div class="audio-bar__title"></div>
-          <div class="audio-bar__sub"></div>
+      <div class="bezeru-audio-bar__mid">
+        <div class="bezeru-audio-bar__meta">
+          <div class="bezeru-audio-bar__kicker">Listen</div>
+          <div class="bezeru-audio-bar__title"></div>
+          <div class="bezeru-audio-bar__sub"></div>
         </div>
 
-        <div class="audio-bar__timeline" role="slider" aria-label="Audio progress" tabindex="0">
-          <div class="audio-bar__track"></div>
-          <div class="audio-bar__fill"></div>
-          <div class="audio-bar__thumb"></div>
+        <div class="bezeru-audio-bar__timeline" role="slider" aria-label="Audio progress" tabindex="0">
+          <div class="bezeru-audio-bar__track"></div>
+          <div class="bezeru-audio-bar__fill"></div>
+          <div class="bezeru-audio-bar__thumb"></div>
         </div>
 
-        <div class="audio-bar__time">
-          <span class="audio-bar__current">0:00</span>
-          <span class="audio-bar__sep">/</span>
-          <span class="audio-bar__duration">0:00</span>
+        <div class="bezeru-audio-bar__time">
+          <span class="bezeru-audio-bar__current">0:00</span>
+          <span class="bezeru-audio-bar__sep">/</span>
+          <span class="bezeru-audio-bar__duration">0:00</span>
         </div>
       </div>
 
-      <div class="audio-bar__right">
-        <button class="audio-bar__btn audio-bar__speed" type="button" aria-label="Playback speed" ${hasAudio ? "" : "disabled"}>1x</button>
+      <div class="bezeru-audio-bar__right">
+        <button class="bezeru-audio-bar__btn bezeru-audio-bar__speed" type="button" aria-label="Playback speed">1x</button>
       </div>
 
-      <audio class="audio-bar__audio" preload="metadata"></audio>
+      <audio class="bezeru-audio-bar__audio" preload="metadata"></audio>
     `;
 
-    wrap.querySelector(".audio-bar__title").textContent = title || "Listen to this article";
-    wrap.querySelector(".audio-bar__sub").textContent = hasAudio
-      ? `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim()
-      : "Audio version coming soon";
+    wrap.querySelector(".bezeru-audio-bar__title").textContent = title || "Listen to this article";
+    wrap.querySelector(".bezeru-audio-bar__sub").textContent = `${category || ""}${dateLabel ? " · " + dateLabel : ""}`.trim();
 
-    const audio = wrap.querySelector(".audio-bar__audio");
-    if (hasAudio && audioUrl) audio.src = audioUrl;
+    const audio = wrap.querySelector(".bezeru-audio-bar__audio");
+    audio.src = normalizeAudioUrl(audioUrl);
 
-    const playBtn = wrap.querySelector(".audio-bar__play");
-    const icon = wrap.querySelector(".audio-bar__icon");
-    const currentEl = wrap.querySelector(".audio-bar__current");
-    const durationEl = wrap.querySelector(".audio-bar__duration");
-    const timeline = wrap.querySelector(".audio-bar__timeline");
-    const fill = wrap.querySelector(".audio-bar__fill");
-    const thumb = wrap.querySelector(".audio-bar__thumb");
-    const speedBtn = wrap.querySelector(".audio-bar__speed");
+    const playBtn = wrap.querySelector(".bezeru-audio-bar__play");
+    const icon = wrap.querySelector(".bezeru-audio-bar__icon");
+    const currentEl = wrap.querySelector(".bezeru-audio-bar__current");
+    const durationEl = wrap.querySelector(".bezeru-audio-bar__duration");
+    const timeline = wrap.querySelector(".bezeru-audio-bar__timeline");
+    const fill = wrap.querySelector(".bezeru-audio-bar__fill");
+    const thumb = wrap.querySelector(".bezeru-audio-bar__thumb");
+    const speedBtn = wrap.querySelector(".bezeru-audio-bar__speed");
 
     let speedIndex = 0;
 
-    if (!hasAudio) {
-      timeline.setAttribute("aria-disabled", "true");
-      timeline.tabIndex = -1;
-      durationEl.textContent = "--:--";
-      return wrap;
-    }
 
     // Resume progress
     const saved = localStorage.getItem(storageKey(slug));
@@ -1041,13 +1143,18 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   async function initPremiumAudioBar() {
+    // Audio player injection disabled - handled per-page with inline HTML
+    return;
     const pageType = document.body?.getAttribute("data-page");
     const isArticle = pageType === "static-article" || pageType === "article" || location.pathname.includes("/articles/");
     if (!isArticle) return;
 
     const article = document.querySelector(".article-shell") || document.querySelector("article") || document.querySelector("main");
     if (!article) return;
-    if (article.querySelector(".audio-bar")) return;
+    article.querySelectorAll(".audio-bar").forEach((legacy)=>{
+      if (legacy.querySelector(".audio-play-btn") || legacy.querySelector("#audioPlayer")) legacy.remove();
+    });
+    if (article.querySelector(".bezeru-audio-bar")) return;
 
     let posts;
     try {
@@ -1059,16 +1166,19 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const post = findPostForCurrentPage(posts);
     if (!post) return;
 
+    const normalizedAudioUrl = normalizeAudioUrl(post.audioUrl);
+    if (!normalizedAudioUrl) return;
+
     const slug = getSlugFromUrl();
     const player = buildPlayer({
       title: post.title,
       category: post.category,
       dateLabel: formatMonthYear(post.date),
-      audioUrl: post.audioUrl,
+      audioUrl: normalizedAudioUrl,
       slug,
-      hasAudio: Boolean(post.audioUrl)
     });
 
+    if (!player) return;
     article.insertBefore(player, article.firstElementChild);
   }
 
@@ -1097,14 +1207,6 @@ document.addEventListener("DOMContentLoaded", () => {
       backLink.setAttribute("href", location.pathname.includes("/articles/") ? "../articles.html" : "articles.html");
     }
     const shell = document.querySelector(".article-shell");
-    if (shell && !shell.querySelector(".article-hero-image")) {
-      const heroImage = document.createElement("div");
-      heroImage.className = "article-hero-image";
-      heroImage.style.cssText = "width:100%;aspect-ratio:16/9;background:var(--color-surface);display:flex;align-items:center;justify-content:center;color:var(--color-text-secondary);font-size:14px;margin-bottom:32px;";
-      heroImage.textContent = "[Article hero image]";
-      const title = shell.querySelector(".article-title");
-      if (title) shell.insertBefore(heroImage, title);
-    }
 
     if (shell && !shell.querySelector(".article-share")) {
       const share = document.createElement("div");
@@ -1129,7 +1231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    if (shell && !shell.querySelector(".article-subscribe")) {
+    if (false && shell && !shell.querySelector(".article-subscribe")) { // Article subscribe injection disabled
       const subscribe = document.createElement("section");
       subscribe.className = "article-subscribe";
       subscribe.innerHTML = `
