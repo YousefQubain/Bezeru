@@ -254,6 +254,9 @@
         <span><em>DXB</em><b class="bz-city-time" data-tz="Asia/Dubai"></b></span>
       </div>
     </div>
+    <a href="/articles.html" class="bz-logo">
+      <span class="bz-logo-wordmark">BEZERU</span>
+    </a>
     <button class="bz-mm-close" id="bzMenuClose" aria-label="Close menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
@@ -439,6 +442,7 @@
 })();
 </script>
 
+          <div class="article-hero-img" style="width:100%;aspect-ratio:21/9;background:linear-gradient(135deg,#1c1c1c,#2e2e2e,#1c1c1c);margin-bottom:32px;"></div>
 <h1 class="article-title">Independents That Are Quietly Replacing Hype</h1>
           <p class="article-excerpt">
             Four independent brands collectors are watching, not for hype, but for design, intention, and long-term appeal.
@@ -906,6 +910,60 @@ window.addEventListener('scroll', function() {
 }, { passive: true });
 
 // Live city times
+// Reading progress
+window.addEventListener('scroll', function() {
+  var a = document.querySelector('article, main');
+  if (!a) return;
+  var p = Math.min(100, Math.max(0, (window.scrollY - a.offsetTop) / a.offsetHeight * 100));
+  var bar = document.getElementById('readProgress');
+  if (bar) bar.style.width = p + '%';
+}, { passive: true });
+
+// Audio player
+(function() {
+  var player = document.getElementById('audioPlayer');
+  var playBtn = document.getElementById('audioPlayBtn');
+  var playIcon = document.getElementById('audioPlayIcon');
+  var scrubber = document.getElementById('audioScrubber');
+  var curTime = document.getElementById('audioCurrent');
+  var durTime = document.getElementById('audioDuration');
+  var speedBtn = document.getElementById('audioSpeedBtn');
+  if (!player || !playBtn) return;
+  var speeds = [1, 1.25, 1.5, 2];
+  var speedIdx = 0;
+  function fmt(s) {
+    s = Math.floor(s);
+    return Math.floor(s/60) + ':' + (s%60 < 10 ? '0' : '') + (s%60);
+  }
+  player.addEventListener('loadedmetadata', function() {
+    if (durTime) durTime.textContent = fmt(player.duration);
+    if (scrubber) scrubber.max = Math.floor(player.duration);
+  });
+  player.addEventListener('timeupdate', function() {
+    if (curTime) curTime.textContent = fmt(player.currentTime);
+    if (scrubber) scrubber.value = Math.floor(player.currentTime);
+  });
+  player.addEventListener('ended', function() {
+    if (playIcon) playIcon.innerHTML = '<polygon points="5,3 19,12 5,21" fill="#ffffff"/>';
+  });
+  playBtn.addEventListener('click', function() {
+    if (player.paused) {
+      player.play();
+      if (playIcon) playIcon.innerHTML = '<rect x="5" y="3" width="4" height="18" fill="#ffffff"/><rect x="15" y="3" width="4" height="18" fill="#ffffff"/>';
+    } else {
+      player.pause();
+      if (playIcon) playIcon.innerHTML = '<polygon points="5,3 19,12 5,21" fill="#ffffff"/>';
+    }
+  });
+  if (scrubber) scrubber.addEventListener('input', function() { player.currentTime = this.value; });
+  if (speedBtn) speedBtn.addEventListener('click', function() {
+    speedIdx = (speedIdx + 1) % speeds.length;
+    player.playbackRate = speeds[speedIdx];
+    this.textContent = speeds[speedIdx] + 'x';
+  });
+})();
+
+// Nav JS — city times, hamburger, search
 function updateTimes() {
   document.querySelectorAll('.bz-city-time').forEach(function(el) {
     var tz = el.getAttribute('data-tz');
@@ -913,6 +971,7 @@ function updateTimes() {
     el.textContent = new Date().toLocaleTimeString('en-GB', {
       hour: '2-digit', minute: '2-digit', timeZone: tz
     });
+    el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
   });
 }
 updateTimes();
@@ -927,6 +986,8 @@ if (dateEl) {
 }
 
 // Mobile menu
+var dateEl = document.getElementById('bzDate');
+if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 var hamburger = document.getElementById('bzHamburger');
 var menu = document.getElementById('bzMobileMenu');
 var backdrop = document.getElementById('bzBackdrop');
@@ -1010,6 +1071,14 @@ if (searchInput) searchInput.addEventListener('input', function() { runSearch(th
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { closeMenu(); closeSearch(); }
 });
+if (hamburger) hamburger.addEventListener('click', openMenu);
+if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+if (backdrop) backdrop.addEventListener('click', closeMenu);
+document.querySelectorAll('.bz-mm-link').forEach(function(a) { a.addEventListener('click', closeMenu); });
+window.addEventListener('scroll', function() {
+  var h = document.getElementById('bzHeader');
+  if (h) h.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
 </script>
 </body>
 </html>
