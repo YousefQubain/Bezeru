@@ -1,6 +1,6 @@
 :root {
   --color-bg: #FFFFFF;
-  --color-surface: #F7F5F2;
+  --color-surface: #FFFFFF;
   --color-text-primary: #111111;
   --color-text-secondary: #555555;
   --color-accent: #C0392B;
@@ -353,4 +353,12 @@ footer.footer-pro a:focus-visible,
     color: var(--color-text-secondary);
     opacity: .7;
   }
+}
+
+
+/* Editorial cleanup */
+.archive-intro,
+.article-hero,
+.featured-hero {
+  background: #FFFFFF;
 }
