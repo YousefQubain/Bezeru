@@ -255,16 +255,107 @@
             <span class="article-meta-item">6 min read</span>
           </div>
 
-<div style="background:#111111;padding:20px 48px;display:flex;align-items:center;gap:20px;border-bottom:1px solid rgba(255,255,255,0.06);">
-  <div style="width:48px;height:48px;border-radius:50%;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="6,3 20,12 6,21"/></svg>
+<div class="bz-audio-bar" data-audio-src="" style="background:#111111;padding:16px 48px;display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(255,255,255,0.08);">
+  <button type="button" class="bz-audio-play" aria-label="Play audio" style="width:40px;height:40px;border-radius:50%;background:#C0392B;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity 150ms;">
+    <svg class="bz-audio-icon" width="14" height="14" viewBox="0 0 24 24" fill="#ffffff" aria-hidden="true"><polygon points="6,4 19,12 6,20"></polygon></svg>
+  </button>
+  <div style="min-width:140px;max-width:220px;display:flex;flex-direction:column;gap:2px;">
+    <span style="font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);">Listen to article</span>
+    <span class="bz-audio-title" style="font-family:'Playfair Display',Georgia,serif;font-size:13px;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Article audio</span>
   </div>
-  <div style="display:flex;flex-direction:column;gap:3px;">
-    <span style="font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Listen to article</span>
-    <span style="font-family:'Playfair Display',Georgia,serif;font-size:13px;color:rgba(255,255,255,0.3);">Audio coming soon</span>
+  <div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;">
+    <input class="bz-audio-progress" type="range" min="0" max="100" value="0" step="0.01" aria-label="Audio progress" style="width:100%;height:3px;accent-color:#C0392B;cursor:pointer;">
+    <div style="display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,0.45);">
+      <span class="bz-audio-current">0:00</span>
+      <span class="bz-audio-duration">--:--</span>
+    </div>
   </div>
-  <div style="flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;"></div>
+  <button type="button" class="bz-audio-speed" style="font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);background:none;border:1px solid rgba(255,255,255,0.25);padding:5px 10px;border-radius:3px;cursor:pointer;flex-shrink:0;">1×</button>
+  <audio class="bz-audio-element" preload="metadata"></audio>
 </div>
+<script>
+(function(){
+  var bar = document.currentScript.previousElementSibling;
+  if (!bar || !bar.classList.contains('bz-audio-bar')) return;
+
+  var audio = bar.querySelector('.bz-audio-element');
+  var playBtn = bar.querySelector('.bz-audio-play');
+  var icon = bar.querySelector('.bz-audio-icon');
+  var progress = bar.querySelector('.bz-audio-progress');
+  var current = bar.querySelector('.bz-audio-current');
+  var duration = bar.querySelector('.bz-audio-duration');
+  var speedBtn = bar.querySelector('.bz-audio-speed');
+  var titleEl = bar.querySelector('.bz-audio-title');
+  var articleTitle = document.querySelector('.article-title');
+  var src = (bar.getAttribute('data-audio-src') || '').trim();
+
+  if (articleTitle && titleEl) titleEl.textContent = articleTitle.textContent.trim();
+
+  function fmt(seconds) {
+    seconds = Math.floor(seconds || 0);
+    return Math.floor(seconds / 60) + ':' + String(seconds % 60).padStart(2, '0');
+  }
+
+  function setPausedIcon() {
+    if (icon) icon.innerHTML = '<polygon points="6,4 19,12 6,20"></polygon>';
+  }
+
+  function setPlayingIcon() {
+    if (icon) icon.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect>';
+  }
+
+  if (!src) {
+    playBtn.disabled = true;
+    progress.disabled = true;
+    speedBtn.disabled = true;
+    playBtn.style.opacity = '0.45';
+    playBtn.style.cursor = 'default';
+    speedBtn.style.opacity = '0.45';
+    speedBtn.style.cursor = 'default';
+    if (titleEl) titleEl.textContent = 'Audio source pending';
+    return;
+  }
+
+  audio.src = src;
+  var speeds = [1, 1.25, 1.5, 2];
+  var speedIdx = 0;
+
+  audio.addEventListener('loadedmetadata', function() {
+    if (duration) duration.textContent = fmt(audio.duration);
+  });
+
+  audio.addEventListener('timeupdate', function() {
+    if (current) current.textContent = fmt(audio.currentTime);
+    if (progress && audio.duration) progress.value = (audio.currentTime / audio.duration) * 100;
+  });
+
+  audio.addEventListener('ended', function() {
+    setPausedIcon();
+    if (progress) progress.value = 100;
+  });
+
+  playBtn.addEventListener('click', function() {
+    if (audio.paused) {
+      audio.play();
+      setPlayingIcon();
+    } else {
+      audio.pause();
+      setPausedIcon();
+    }
+  });
+
+  progress.addEventListener('input', function() {
+    if (!audio.duration) return;
+    audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+  });
+
+  speedBtn.addEventListener('click', function() {
+    speedIdx = (speedIdx + 1) % speeds.length;
+    audio.playbackRate = speeds[speedIdx];
+    speedBtn.textContent = speeds[speedIdx] + '×';
+  });
+})();
+</script>
 
           <h1 class="article-title">Best Luxury Watch Marketing Campaigns: What Rolex and Patek Philippe Get Right</h1>
           <p class="article-excerpt">
