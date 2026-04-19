@@ -590,14 +590,9 @@
 </div>
 
 
-</div>
-
 </article>
             </div>
           </section>
-        </article>
-      </div>
-    </section>
   </main>
 
   
@@ -619,22 +614,6 @@ function updateTimes() {
     var tz = el.getAttribute('data-tz');
     el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
   });
-}
-updateTimes();
-setInterval(updateTimes, 30000);
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
-updateTimes();
-setInterval(updateTimes, 30000);
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 updateTimes();
 setInterval(updateTimes, 30000);
