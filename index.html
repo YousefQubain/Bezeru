@@ -351,6 +351,9 @@
     </div>
 
     <div style="display:flex;flex-direction:column;gap:10px;">
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
       <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Navigate</span>
       <a href="/index.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Home</a>
       <a href="/articles.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Read</a>
@@ -434,6 +437,14 @@
   if (bfy) bfy.textContent = new Date().getFullYear();
 </script>
 
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>
+  var bfy = document.getElementById('bzFooterYear');
+  if (bfy) bfy.textContent = new Date().getFullYear();
+</script>
+
   <div class="footer-bottom">
     <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
     <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
@@ -482,6 +493,19 @@
       el.setAttribute('x1','100');
       el.setAttribute('y1','100');
     }
+  }
+
+  function draw(){
+    var now = new Date();
+    var h = now.getHours()%12;
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ms = now.getMilliseconds();
+    setHand('bzHour',  (h*30)+(m*0.5),        52, 0);
+    setHand('bzMin',   (m*6)+(s*0.1),          68, 0);
+    setHand('bzSec',   (s*6)+(ms*0.006),       72, 16);
+  }
+
   }
 
   function draw(){
@@ -612,6 +636,28 @@ if (searchInput) searchInput.addEventListener('input', function() { runSearch(th
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { closeMenu(); closeSearch(); }
 });
+
+// Subscribe popup — only after 45 seconds or exit intent, never on load
+(function() {
+  var popup = document.querySelector('.mobile-cta[data-cta-bar]');
+  if (!popup) return;
+  popup.setAttribute('aria-hidden', 'true');
+  popup.style.display = 'none';
+  if (sessionStorage.getItem('bzr_popup_dismissed')) return;
+  var shown = false;
+  function show() {
+    if (shown) return;
+    shown = true;
+    popup.style.display = '';
+    popup.setAttribute('aria-hidden', 'false');
+  }
+  setTimeout(show, 45000);
+  document.addEventListener('mouseleave', function(e) { if (e.clientY < 10) show(); });
+  var closePopup = popup.querySelector('[data-cta-close]');
+  if (closePopup) closePopup.addEventListener('click', function() {
+    popup.style.display = 'none';
+    sessionStorage.setItem('bzr_popup_dismissed', '1');
+  });
 
 // Subscribe popup — only after 45 seconds or exit intent, never on load
 (function() {
