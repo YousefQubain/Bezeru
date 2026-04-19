@@ -49,6 +49,14 @@
   <style>
 
 
+.hero-clock { width: 200px; height: 200px; flex-shrink: 0; }
+.clock-face { width: 100%; height: 100%; }
+.hero-section-inner { display: flex; align-items: center; gap: 60px; max-width: 1100px; padding: 100px 48px 90px; border-bottom: 1px solid #E0DDD8; }
+.hero-left { flex: 0 0 60%; }
+.hero-right { flex: 0 0 40%; display: flex; align-items: center; justify-content: center; }
+.hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #C0392B; display: block; margin-bottom: 20px; }
+.hero-subhead { font-family: 'Inter', sans-serif; font-size: 18px; color: #555555; line-height: 1.65; max-width: 460px; margin-bottom: 40px; }
+.hero-cta-row { display: flex; gap: 14px; }
 
 .home-latest { background: #fff; padding: 70px 0; }
 .latest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
@@ -327,6 +335,7 @@
         target="popupwindow"
         onsubmit="window.open('https://buttondown.com/qubain', 'popupwindow')"
         class="bzr-subscribe-form">
+        class="bzr-subscribe-form"
         <input type="email" name="email" placeholder="Your email address" required>
         <input type="submit" value="Subscribe">
       </form>
@@ -339,6 +348,9 @@
     <div>
       <span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;display:block;margin-bottom:12px;">BEZERU</span>
       <p style="font-size:13px;line-height:1.7;max-width:240px;margin:0;color:rgba(255,255,255,0.5);">Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
     </div>
 
     <div style="display:flex;flex-direction:column;gap:10px;">
@@ -377,6 +389,68 @@
   if (bfy) bfy.textContent = new Date().getFullYear();
 </script>
 
+    <div>
+      <span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffffff;display:block;margin-bottom:12px;">BEZERU</span>
+      <p style="font-size:13px;line-height:1.7;max-width:240px;margin:0;color:rgba(255,255,255,0.5);">Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Navigate</span>
+      <a href="/index.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Home</a>
+      <a href="/articles.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Read</a>
+      <a href="/types.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Types</a>
+      <a href="/brands.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Brands</a>
+      <a href="/about.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">About</a>
+      <a href="/shop.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Shop</a>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Contact</span>
+      <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">yousef.qubain@gmail.com</a>
+      <a href="#" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Instagram</a>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:4px;">Policies</span>
+      <a href="/editorial-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Editorial Policy</a>
+      <a href="/contributors-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Contributors</a>
+      <a href="/affiliate-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Privacy Policy</a>
+      <a href="/terms-policy.html" style="font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;">Terms</a>
+    <div class="footer-col">
+      <span class="footer-col-title">Policies</span>
+      <a href="/editorial-policy.html">Editorial Policy</a>
+      <a href="/contributors-policy.html">Contributors</a>
+      <a href="/affiliate-policy.html">Affiliate Disclosure</a>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-policy.html">Terms</a>
+    </div>
+
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:18px 48px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.22);">
+    <span>© <span id="bzFooterYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>
+  var bfy = document.getElementById('bzFooterYear');
+  if (bfy) bfy.textContent = new Date().getFullYear();
+</script>
+
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>
+  var bfy = document.getElementById('bzFooterYear');
+  if (bfy) bfy.textContent = new Date().getFullYear();
+</script>
+
+  <div class="footer-bottom">
+    <span>© <span id="footerYear"></span> BEZERU. All rights reserved.</span>
+    <span>Design-first watch writing · Culture and wearability · Independents & vintage</span>
+  </div>
+</footer>
+<script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 <div class="mobile-cta subscribe-popup" data-cta-bar aria-hidden="true">
   <span class="mobile-cta-text">Get new articles by email.</span>
   <button class="mobile-cta-button" type="button" data-cta-action>Subscribe</button>
@@ -419,6 +493,19 @@
       el.setAttribute('x1','100');
       el.setAttribute('y1','100');
     }
+  }
+
+  function draw(){
+    var now = new Date();
+    var h = now.getHours()%12;
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ms = now.getMilliseconds();
+    setHand('bzHour',  (h*30)+(m*0.5),        52, 0);
+    setHand('bzMin',   (m*6)+(s*0.1),          68, 0);
+    setHand('bzSec',   (s*6)+(ms*0.006),       72, 16);
+  }
+
   }
 
   function draw(){
@@ -571,6 +658,57 @@ document.addEventListener('keydown', function(e) {
     popup.style.display = 'none';
     sessionStorage.setItem('bzr_popup_dismissed', '1');
   });
+
+// Subscribe popup — only after 45 seconds or exit intent, never on load
+(function() {
+  var popup = document.querySelector('.mobile-cta[data-cta-bar]');
+  if (!popup) return;
+  popup.setAttribute('aria-hidden', 'true');
+  popup.style.display = 'none';
+  if (sessionStorage.getItem('bzr_popup_dismissed')) return;
+  var shown = false;
+  function show() {
+    if (shown) return;
+    shown = true;
+    popup.style.display = '';
+    popup.setAttribute('aria-hidden', 'false');
+  }
+  setTimeout(show, 45000);
+  document.addEventListener('mouseleave', function(e) { if (e.clientY < 10) show(); });
+  var closePopup = popup.querySelector('[data-cta-close]');
+  if (closePopup) closePopup.addEventListener('click', function() {
+    popup.style.display = 'none';
+    sessionStorage.setItem('bzr_popup_dismissed', '1');
+  });
+
+  function setHand(id, angleDeg, len, tailLen){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var a = (angleDeg-90)*Math.PI/180;
+    el.setAttribute('x2', (100+len*Math.cos(a)).toFixed(3));
+    el.setAttribute('y2', (100+len*Math.sin(a)).toFixed(3));
+    if(tailLen){
+      el.setAttribute('x1', (100-tailLen*Math.cos(a)).toFixed(3));
+      el.setAttribute('y1', (100-tailLen*Math.sin(a)).toFixed(3));
+    } else {
+      el.setAttribute('x1','100');
+      el.setAttribute('y1','100');
+    }
+  }
+
+  function draw(){
+    var now = new Date();
+    var h = now.getHours()%12;
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ms = now.getMilliseconds();
+    setHand('bzHour',  (h*30)+(m*0.5),        52, 0);
+    setHand('bzMin',   (m*6)+(s*0.1),          68, 0);
+    setHand('bzSec',   (s*6)+(ms*0.006),       72, 16);
+  }
+
+  draw();
+  setInterval(draw, 50);
 })();
 </script>
 </body>
