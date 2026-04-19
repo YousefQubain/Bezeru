@@ -47,7 +47,7 @@
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 .type-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
-.type-card-img { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #1c1c1c, #2e2e2e, #1c1c1c); }
+.type-card-img { display: none; }
 .type-card-body { padding: 22px 24px 28px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .type-card-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #C0392B; }
 .type-card-title { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; margin: 0; }
@@ -202,13 +202,13 @@
   <section class="tb-grid-sec">
     <div class="container">
       <div class="tb-grid">
-        <a class="type-card" href="/articles.html?brand=rolex"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Rolex</span><h3 class="type-card-title">Rolex</h3><p class="type-card-desc">Tool-first icons turned global benchmarks. Focus on proportion, dial era, and condition quality over hype cycles.</p><span class="type-card-link">Read related articles →</span></div></a>
-        <a class="type-card" href="/articles.html?brand=omega"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Omega</span><h3 class="type-card-title">Omega</h3><p class="type-card-desc">Space history, diver credibility, and strong movement development. Speedmaster and Seamaster remain core references.</p><span class="type-card-link">Read related articles →</span></div></a>
-        <a class="type-card" href="/articles.html?brand=patek-philippe"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Patek Philippe</span><h3 class="type-card-title">Patek Philippe</h3><p class="type-card-desc">High-end complications with restraint and continuity. A benchmark for long-horizon collecting and legacy value.</p><span class="type-card-link">Read related articles →</span></div></a>
-        <a class="type-card" href="/articles.html?brand=audemars-piguet"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Audemars Piguet</span><h3 class="type-card-title">Audemars Piguet</h3><p class="type-card-desc">Royal Oak architecture that reshaped sporty luxury. Case finishing and bracelet execution are central to the appeal.</p><span class="type-card-link">Read related articles →</span></div></a>
-        <a class="type-card" href="/articles.html?brand=cartier"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Cartier</span><h3 class="type-card-title">Cartier</h3><p class="type-card-desc">Shape-led watchmaking with historic clarity. Tank and Santos remain best-in-class for elegant everyday wear.</p><span class="type-card-link">Read related articles →</span></div></a>
-        <a class="type-card" href="/articles.html?brand=seiko"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Seiko</span><h3 class="type-card-title">Seiko</h3><p class="type-card-desc">From reliable entry points to Grand Seiko finishing, Seiko anchors value and depth in one ecosystem.</p><span class="type-card-link">Read related articles →</span></div></a>
-        <a class="type-card" href="/articles.html?brand=tudor"><div class="type-card-img"></div><div class="type-card-body"><span class="type-card-label">Tudor</span><h3 class="type-card-title">Tudor</h3><p class="type-card-desc">Robust, vintage-informed sports watches with modern sizing and strong day-to-day practicality.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=rolex"><div class="type-card-body"><span class="type-card-label">Rolex</span><h3 class="type-card-title">Rolex</h3><p class="type-card-desc">Tool-first icons turned global benchmarks. Focus on proportion, dial era, and condition quality over hype cycles.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=omega"><div class="type-card-body"><span class="type-card-label">Omega</span><h3 class="type-card-title">Omega</h3><p class="type-card-desc">Space history, diver credibility, and strong movement development. Speedmaster and Seamaster remain core references.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=patek-philippe"><div class="type-card-body"><span class="type-card-label">Patek Philippe</span><h3 class="type-card-title">Patek Philippe</h3><p class="type-card-desc">High-end complications with restraint and continuity. A benchmark for long-horizon collecting and legacy value.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=audemars-piguet"><div class="type-card-body"><span class="type-card-label">Audemars Piguet</span><h3 class="type-card-title">Audemars Piguet</h3><p class="type-card-desc">Royal Oak architecture that reshaped sporty luxury. Case finishing and bracelet execution are central to the appeal.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=cartier"><div class="type-card-body"><span class="type-card-label">Cartier</span><h3 class="type-card-title">Cartier</h3><p class="type-card-desc">Shape-led watchmaking with historic clarity. Tank and Santos remain best-in-class for elegant everyday wear.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=seiko"><div class="type-card-body"><span class="type-card-label">Seiko</span><h3 class="type-card-title">Seiko</h3><p class="type-card-desc">From reliable entry points to Grand Seiko finishing, Seiko anchors value and depth in one ecosystem.</p><span class="type-card-link">Read related articles →</span></div></a>
+        <a class="type-card" href="/articles.html?brand=tudor"><div class="type-card-body"><span class="type-card-label">Tudor</span><h3 class="type-card-title">Tudor</h3><p class="type-card-desc">Robust, vintage-informed sports watches with modern sizing and strong day-to-day practicality.</p><span class="type-card-link">Read related articles →</span></div></a>
       </div>
     </div>
   </section>
@@ -389,6 +389,9 @@ document.addEventListener('keydown', function(e) {
 
 
 
+
+<footer style="background:#0a0a0a;color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;">
+  <div style="max-width:1100px;margin:0 auto;padding:48px 48px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;border-bottom:1px solid rgba(255,255,255,0.08);">
 <footer style="background:#0a0a0a;color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;">
   <div style="max-width:1100px;margin:0 auto;padding:60px 48px 48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;border-bottom:1px solid rgba(255,255,255,0.08);">
     <div>

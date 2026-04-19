@@ -1143,6 +1143,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   async function initPremiumAudioBar() {
+    // Audio player injection disabled - handled per-page with inline HTML
+    return;
     const pageType = document.body?.getAttribute("data-page");
     const isArticle = pageType === "static-article" || pageType === "article" || location.pathname.includes("/articles/");
     if (!isArticle) return;
@@ -1229,7 +1231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    if (shell && !shell.querySelector(".article-subscribe")) {
+    if (false && shell && !shell.querySelector(".article-subscribe")) { // Article subscribe injection disabled
       const subscribe = document.createElement("section");
       subscribe.className = "article-subscribe";
       subscribe.innerHTML = `
