@@ -3487,3 +3487,10 @@ footer.footer-pro a:hover{ color: var(--color-accent); }
     border-radius: 0;
   }
 }
+
+
+/* BEZERU cleanup patch */
+body, .page-shell, .page-surface { background: #FFFFFF; }
+.archive-intro, .article-hero, .featured-hero, .home-subscribe { background: #FFFFFF !important; }
+.archive-intro, .article-hero, .featured-hero { border-block: 1px solid #E0DDD8; }
+.article-hero-image { display: none !important; }

@@ -142,6 +142,103 @@ function initUnifiedFooter(){
 
 initUnifiedFooter();
 
+
+function initTopbarDateAndTimes(){
+  const dateEl = document.getElementById("bzDate");
+  const cityNodes = Array.from(document.querySelectorAll(".bz-city-time[data-tz]"));
+  if(!dateEl && cityNodes.length === 0) return;
+
+  const dateFormatter = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+  const formatCityTime = (tz)=> new Intl.DateTimeFormat("en-GB", {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(new Date());
+
+  const paint = ()=>{
+    const now = new Date();
+    if(dateEl) dateEl.textContent = dateFormatter.format(now);
+    cityNodes.forEach((node)=>{
+      const tz = node.dataset.tz;
+      if(!tz) return;
+      node.textContent = formatCityTime(tz);
+    });
+  };
+
+  paint();
+  setInterval(paint, 30000);
+}
+
+function initHomeAnalogClock(){
+  const svg = document.getElementById("bzClock");
+  if(!svg) return;
+
+  const ticks = document.getElementById("bzTicks");
+  if(ticks && ticks.childElementCount === 0){
+    for(let i = 0; i < 60; i += 1){
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      const angle = ((i * 6) - 90) * Math.PI / 180;
+      const major = i % 5 === 0;
+      const inner = major ? 75 : 85;
+      line.setAttribute("x1", (100 + inner * Math.cos(angle)).toFixed(3));
+      line.setAttribute("y1", (100 + inner * Math.sin(angle)).toFixed(3));
+      line.setAttribute("x2", (100 + 92 * Math.cos(angle)).toFixed(3));
+      line.setAttribute("y2", (100 + 92 * Math.sin(angle)).toFixed(3));
+      line.setAttribute("stroke", "#111111");
+      line.setAttribute("stroke-width", major ? "2" : "0.8");
+      line.setAttribute("stroke-linecap", "round");
+      line.setAttribute("opacity", major ? "1" : "0.2");
+      ticks.appendChild(line);
+    }
+  }
+
+  const setHand = (id, angleDeg, len, tailLen)=>{
+    const hand = document.getElementById(id);
+    if(!hand) return;
+    const angle = (angleDeg - 90) * Math.PI / 180;
+    hand.setAttribute("x2", (100 + len * Math.cos(angle)).toFixed(3));
+    hand.setAttribute("y2", (100 + len * Math.sin(angle)).toFixed(3));
+    if(tailLen){
+      hand.setAttribute("x1", (100 - tailLen * Math.cos(angle)).toFixed(3));
+      hand.setAttribute("y1", (100 - tailLen * Math.sin(angle)).toFixed(3));
+    }else{
+      hand.setAttribute("x1", "100");
+      hand.setAttribute("y1", "100");
+    }
+  };
+
+  const draw = ()=>{
+    const now = new Date();
+    const hours = now.getHours() % 12;
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const ms = now.getMilliseconds();
+    setHand("bzHour", (hours * 30) + (minutes * 0.5), 52, 0);
+    setHand("bzMin", (minutes * 6) + (seconds * 0.1), 68, 0);
+    setHand("bzSec", (seconds * 6) + (ms * 0.006), 72, 16);
+  };
+
+  draw();
+  setInterval(draw, 50);
+}
+
+function dedupePageFooters(){
+  const footers = Array.from(document.querySelectorAll("body > footer, main + footer, .site-footer"));
+  const unique = [];
+  footers.forEach((footer)=>{
+    if(!unique.includes(footer)) unique.push(footer);
+  });
+  if(unique.length <= 1) return;
+  unique.slice(1).forEach((footer)=> footer.remove());
+}
+
 function initDropdowns(){
   const dropdowns = document.querySelectorAll(".dropdown");
 
@@ -809,6 +906,8 @@ function initArticleProgressBar(){
 }
 
 document.addEventListener("DOMContentLoaded", async ()=>{
+  initTopbarDateAndTimes();
+  dedupePageFooters();
   initClockStrip();
   initLanguageMenu();
   initDropdowns();
@@ -816,6 +915,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initStickyHeader();
   initMobileCta();
   initHeroWatchFace();
+  initHomeAnalogClock();
   initBrandsTeaser();
   initArticleProgressBar();
   enhanceStaticCardMeta();
@@ -827,9 +927,10 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   });
 
   // footer year (site started in 2026)
-  if (document.getElementById("footer-year")) {
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
-  }
+  ["footer-year", "footerYear", "bzFooterYear"].forEach((id)=>{
+    const yearEl = document.getElementById(id);
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+  });
 
   // page-specific rendering
   const page = document.body.getAttribute("data-page");
@@ -1097,14 +1198,6 @@ document.addEventListener("DOMContentLoaded", () => {
       backLink.setAttribute("href", location.pathname.includes("/articles/") ? "../articles.html" : "articles.html");
     }
     const shell = document.querySelector(".article-shell");
-    if (shell && !shell.querySelector(".article-hero-image")) {
-      const heroImage = document.createElement("div");
-      heroImage.className = "article-hero-image";
-      heroImage.style.cssText = "width:100%;aspect-ratio:16/9;background:var(--color-surface);display:flex;align-items:center;justify-content:center;color:var(--color-text-secondary);font-size:14px;margin-bottom:32px;";
-      heroImage.textContent = "[Article hero image]";
-      const title = shell.querySelector(".article-title");
-      if (title) shell.insertBefore(heroImage, title);
-    }
 
     if (shell && !shell.querySelector(".article-share")) {
       const share = document.createElement("div");
