@@ -1143,6 +1143,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   }
 
   async function initPremiumAudioBar() {
+    if (document.getElementById('bzAudio') || document.getElementById('bzPlayBtn')) return;
     // Audio player injection disabled - handled per-page with inline HTML
     return;
     const pageType = document.body?.getAttribute("data-page");

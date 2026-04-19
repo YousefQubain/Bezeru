@@ -209,13 +209,13 @@
   </div>
   <div class="bz-nav-row">
     <nav class="bz-nav-left">
-      <a href="/articles.html" class="bz-nav-link">Home</a>
+      <a href="/index.html" class="bz-nav-link">Home</a>
       <a href="/articles.html" class="bz-nav-link">Read</a>
       <a href="/types.html" class="bz-nav-link">Types</a>
       <a href="/brands.html" class="bz-nav-link">Brands</a>
       <a href="/about.html" class="bz-nav-link">About</a>
     </nav>
-    <a href="/articles.html" class="bz-logo">
+    <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
       <span class="bz-logo-sub">Independent Watch Journal</span>
     </a>
@@ -244,7 +244,7 @@
 <div class="bz-mobile-menu" id="bzMobileMenu" style="display:none;">
   <div class="bz-mm-header">
     <div class="bz-mm-header-left">
-      <a href="/articles.html" class="bz-logo">
+      <a href="/index.html" class="bz-logo">
         <span class="bz-logo-wordmark">BEZERU</span>
       </a>
       <div class="bz-mm-header-divider"></div>
@@ -254,7 +254,7 @@
         <span><em>DXB</em><b class="bz-city-time" data-tz="Asia/Dubai"></b></span>
       </div>
     </div>
-    <a href="/articles.html" class="bz-logo">
+    <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
     </a>
     <button class="bz-mm-close" id="bzMenuClose" aria-label="Close menu">
@@ -268,7 +268,7 @@
     <button class="bz-mm-lang-opt soon">DE</button>
   </div>
   <nav class="bz-mm-nav">
-    <a href="/articles.html" class="bz-mm-link">
+    <a href="/index.html" class="bz-mm-link">
       <span class="bz-mm-num">01</span>
       <span class="bz-mm-label">Home</span>
       <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -590,14 +590,9 @@
 </div>
 
 
-</div>
-
 </article>
             </div>
           </section>
-        </article>
-      </div>
-    </section>
   </main>
 
   
@@ -619,22 +614,6 @@ function updateTimes() {
     var tz = el.getAttribute('data-tz');
     el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
   });
-}
-updateTimes();
-setInterval(updateTimes, 30000);
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
-updateTimes();
-setInterval(updateTimes, 30000);
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 }
 updateTimes();
 setInterval(updateTimes, 30000);
