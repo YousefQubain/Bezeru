@@ -611,17 +611,50 @@ body.menu-open {
 
   /* Mobile menu */
   .bz-mobile-menu {
+    height: 100dvh !important;
+    overflow: hidden !important;
+  }
+  .bz-mm-header {
+    min-height: 64px;
+    padding: 0 18px !important;
+    align-items: center;
+  }
+  .bz-mm-header-left {
+    gap: 10px !important;
+    min-width: 0;
+  }
+  .bz-mm-header-cities {
+    gap: 8px !important;
+    flex-wrap: nowrap;
+  }
+  .bz-mm-lang-bar {
+    padding: 12px 18px !important;
+    gap: 8px !important;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .bz-mm-nav {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+  }
+  .bz-mm-link {
+    padding: 8px 18px !important;
+    min-height: 60px !important;
+  }
+  .bz-mm-num {
+    align-self: center;
+  }
+  .bz-mm-label {
+    font-size: 24px !important;
+    line-height: 1.05;
   }
   .bz-mm-footer {
     margin-top: auto;
     flex-shrink: 0;
     padding-bottom: env(safe-area-inset-bottom, 20px);
   }
-  .bz-mm-link { min-height: 60px !important; }
-  .bz-mm-label { font-size: 24px !important; }
-  .bz-mm-lang-bar { padding: 12px 18px !important; gap: 8px !important; }
   .bz-mm-lang-opt { padding: 7px 14px !important; font-size: 12px !important; }
   .bz-mm-cities { font-size: 11px !important; gap: 16px !important; }
 
