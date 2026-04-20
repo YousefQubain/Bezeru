@@ -634,8 +634,8 @@ body.menu-open {
     align-items: center;
   }
   .bz-mm-nav {
-    flex: 1 1 auto;
-    min-height: 0;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
   }

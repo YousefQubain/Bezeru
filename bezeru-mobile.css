@@ -8,7 +8,7 @@ html {
   /* ── Base ── */
   html, body { overflow-x: hidden; }
   * { box-sizing: border-box; max-width: 100%; }
-  body { padding-top: 98px !important; }
+  body { padding-top: 90px !important; }
   input, textarea, select, button { font-size: 16px !important; }
   img { max-width: 100%; height: auto; }
 
@@ -153,7 +153,7 @@ html {
 
   .archive-filter-sticky {
     position: sticky !important;
-    top: 98px !important;
+    top: 90px !important;
     background: #ffffff !important;
     z-index: 99 !important;
     border-bottom: 1px solid #E0DDD8 !important;
