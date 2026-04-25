@@ -140,7 +140,9 @@ function normalizeBzMobileMenuLayout(){
   }
 
   if(!headerLeft.contains(divider)) headerLeft.appendChild(divider);
+  divider.style.display = 'none';
   if(!headerLeft.contains(cities)) headerLeft.appendChild(cities);
+  cities.style.display = 'none';
 
   menu.querySelectorAll(".bz-mm-cities").forEach((el)=>{
     if(!header.contains(el)) el.remove();
@@ -204,7 +206,7 @@ function initBzMobileMenu(){
       e.preventDefault();
       e.stopImmediatePropagation();
     }
-    if(!isMobileViewport() || isOpen) return;
+    if(isOpen) return;
     isOpen = true;
     menu.style.display = "flex";
     requestAnimationFrame(()=>{
@@ -247,7 +249,7 @@ function initBzMobileMenu(){
   });
 
   window.addEventListener("resize", ()=>{
-    if(!isMobileViewport()) closeMenu();
+    if(window.innerWidth > 900) closeMenu();
   });
 }
 
@@ -573,6 +575,8 @@ function initStickyHeader(){
 }
 
 function initClockStrip(){
+  const existingStrip = document.querySelector('.clock-strip');
+  if(existingStrip) existingStrip.remove();
   const nodes = {
     ny: document.querySelector('[data-city-time="ny"]'),
     london: document.querySelector('[data-city-time="london"]'),
