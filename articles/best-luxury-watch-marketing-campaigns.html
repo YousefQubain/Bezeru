@@ -415,151 +415,7 @@
 
   
 
-<script>
-// ── Active nav link ──────────────────────────
-document.querySelectorAll('.bz-nav-link, .bz-mm-link').forEach(function(link) {
-  if (link.href === window.location.href) link.classList.add('active');
-});
 
-// ── Scroll shadow on header ──────────────────
-window.addEventListener('scroll', function() {
-  document.getElementById('bzHeader').classList.toggle('scrolled', window.scrollY > 8);
-}, { passive: true });
-
-// ── Live city times ──────────────────────────
-function updateTimes() {
-  document.querySelectorAll('.bz-city-time').forEach(function(el) {
-    var tz = el.getAttribute('data-tz');
-    el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
-  });
-}
-updateTimes();
-setInterval(updateTimes, 30000);
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-
-
-// ── Topbar date ──────────────────────────────
-var dateEl = document.getElementById('bzDate');
-if (dateEl) {
-  dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-// ── Mobile menu ──────────────────────────────
-var hamburger = document.getElementById('bzHamburger');
-var menu = document.getElementById('bzMobileMenu');
-var backdrop = document.getElementById('bzBackdrop');
-var closeBtn = document.getElementById('bzMenuClose');
-
-function openMenu() {
-  if (!menu) return;
-  menu.style.display = 'flex';
-  setTimeout(function() { menu.classList.add('open'); }, 10);
-  if (backdrop) backdrop.classList.add('visible');
-  if (hamburger) hamburger.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  document.body.style.position = 'fixed';
-  document.body.style.width = '100%';
-}
-function closeMenu() {
-  if (!menu) return;
-  menu.classList.remove('open');
-  setTimeout(function() { menu.style.display = 'none'; }, 350);
-  if (backdrop) backdrop.classList.remove('visible');
-  if (hamburger) hamburger.classList.remove('open');
-  document.body.style.overflow = '';
-  document.body.style.position = '';
-  document.body.style.width = '';
-}
-
-if (hamburger) hamburger.addEventListener('click', openMenu);
-if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-if (backdrop) backdrop.addEventListener('click', closeMenu);
-document.querySelectorAll('.bz-mm-link').forEach(function(link) {
-  link.addEventListener('click', closeMenu);
-});
-
-// ── Search ───────────────────────────────────
-var searchToggle = document.getElementById('bzSearchToggle');
-var searchBar = document.getElementById('bzSearchBar');
-var searchClose = document.getElementById('bzSearchClose');
-var searchInput = document.getElementById('bzSearchInput');
-var searchResults = document.getElementById('bzSearchResults');
-
-var ARTICLES = [
-  { title: 'Independents That Are Quietly Replacing Hype', desc: 'Four names collectors are watching — often before anyone else catches on.', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs' },
-  { title: 'Time Reimagined: Watchmaking Innovations of 2025–26', desc: 'Materials, mechanics, and independent energy reshaping watchmaking.', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation' },
-  { title: 'Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul', desc: 'How two maisons treat regional culture as treasure, not trend.', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East' },
-  { title: 'Year of the Fire Horse: 2026 Lunar New Year Watches', desc: 'Which zodiac releases will still feel right years from now.', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design' }
-];
-
-if (hamburger) hamburger.addEventListener('click', openMenu);
-if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-if (backdrop) backdrop.addEventListener('click', closeMenu);
-document.querySelectorAll('.bz-mm-link').forEach(function(link) {
-  link.addEventListener('click', closeMenu);
-});
-
-// ── Search ───────────────────────────────────
-var searchToggle = document.getElementById('bzSearchToggle');
-var searchBar = document.getElementById('bzSearchBar');
-var searchClose = document.getElementById('bzSearchClose');
-var searchInput = document.getElementById('bzSearchInput');
-var searchResults = document.getElementById('bzSearchResults');
-
-var ARTICLES = [
-  { title: 'Independents That Are Quietly Replacing Hype', desc: 'Four names collectors are watching — often before anyone else catches on.', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs' },
-  { title: 'Time Reimagined: Watchmaking Innovations of 2025–26', desc: 'Materials, mechanics, and independent energy reshaping watchmaking.', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation' },
-  { title: 'Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul', desc: 'How two maisons treat regional culture as treasure, not trend.', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East' },
-  { title: 'Year of the Fire Horse: 2026 Lunar New Year Watches', desc: 'Which zodiac releases will still feel right years from now.', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design' }
-];
-
-function openSearch() {
-  searchBar.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(function() { searchInput.focus(); }, 50);
-}
-function closeSearch() {
-  searchBar.classList.remove('open');
-  document.body.style.overflow = '';
-  searchInput.value = '';
-  searchResults.innerHTML = '';
-}
-function runSearch(q) {
-  if (!q || q.length < 2) { searchResults.innerHTML = ''; return; }
-  var matches = ARTICLES.filter(function(a) {
-    return (a.title + a.desc + a.tag).toLowerCase().indexOf(q.toLowerCase()) > -1;
-  });
-  if (!matches.length) {
-    searchResults.innerHTML = '<p class="bz-search-empty">No results for "' + q + '"</p>';
-    return;
-  }
-  searchResults.innerHTML = matches.map(function(a) {
-    return '<a class="bz-search-result" href="' + a.url + '"><strong>' + a.title + '</strong><span>' + a.tag + ' — ' + a.desc + '</span></a>';
-  }).join('');
-}
-
-if (searchToggle) searchToggle.addEventListener('click', openSearch);
-if (searchClose) searchClose.addEventListener('click', closeSearch);
-if (searchInput) searchInput.addEventListener('input', function() { runSearch(this.value); });
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { closeMenu(); closeSearch(); }
-});
-</script>
 
 <script>
 window.addEventListener('scroll', function() {
@@ -614,6 +470,101 @@ window.addEventListener('scroll', function() {
 <script>
   var bfy = document.getElementById('bzFooterYear');
   if (bfy) bfy.textContent = new Date().getFullYear();
+</script>
+
+<script>
+// ── Nav JS ──────────────────────────────────
+(function() {
+  document.querySelectorAll('.bz-nav-link, .bz-mm-link').forEach(function(link) {
+    if (link.href === window.location.href) link.classList.add('active');
+  });
+  window.addEventListener('scroll', function() {
+    var h = document.getElementById('bzHeader');
+    if (h) h.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
+  function updateTimes() {
+    document.querySelectorAll('.bz-city-time').forEach(function(el) {
+      var tz = el.getAttribute('data-tz');
+      if (!tz) return;
+      el.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz });
+    });
+  }
+  updateTimes();
+  setInterval(updateTimes, 30000);
+  var dateEl = document.getElementById('bzDate');
+  if (dateEl) dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  var hamburger = document.getElementById('bzHamburger');
+  var menu = document.getElementById('bzMobileMenu');
+  var backdrop = document.getElementById('bzBackdrop');
+  var closeBtn = document.getElementById('bzMenuClose');
+  function openMenu() {
+    if (!menu) return;
+    menu.style.display = 'flex';
+    setTimeout(function() { menu.classList.add('open'); }, 10);
+    if (backdrop) backdrop.classList.add('visible');
+    if (hamburger) hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+  }
+  function closeMenu() {
+    if (!menu) return;
+    menu.classList.remove('open');
+    setTimeout(function() { menu.style.display = 'none'; }, 350);
+    if (backdrop) backdrop.classList.remove('visible');
+    if (hamburger) hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+  }
+  if (hamburger) hamburger.addEventListener('click', openMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  if (backdrop) backdrop.addEventListener('click', closeMenu);
+  document.querySelectorAll('.bz-mm-link').forEach(function(a) { a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+  var searchToggle = document.getElementById('bzSearchToggle');
+  var searchBar = document.getElementById('bzSearchBar');
+  var searchClose = document.getElementById('bzSearchClose');
+  var searchInput = document.getElementById('bzSearchInput');
+  var searchResults = document.getElementById('bzSearchResults');
+  var BEZERU_INDEX = [
+    { title: 'Independents That Are Quietly Replacing Hype', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs', desc: 'Four names collectors are watching.' },
+    { title: 'Time Reimagined: Watchmaking Innovations of 2025-26', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation', desc: 'Materials and mechanics reshaping watchmaking.' },
+    { title: 'Timeless Stories in Timepieces', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East', desc: 'How two maisons treat regional culture as treasure.' },
+    { title: 'Year of the Fire Horse', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design', desc: 'Which zodiac releases will still feel right.' },
+    { title: 'Before Watches and Wonders 2026 Opens', url: '/articles/before-watches-and-wonders-2026-opens-the-mood-of-the-watch-world-already-feels-different.html', tag: 'Guides', desc: 'The mood of the watch world already feels different.' },
+    { title: 'Best Luxury Watch Marketing Campaigns', url: '/articles/best-luxury-watch-marketing-campaigns.html', tag: 'Design', desc: 'Campaigns that actually changed collector behavior.' },
+    { title: 'COSC New Standard Signals a New Era', url: '/articles/cosc-new-standard-signals-a-new-era-for-swiss-watchmaking.html', tag: 'Innovation', desc: 'How the latest COSC update influences Swiss brands.' },
+    { title: 'The Gulf Is No Longer Just a Market', url: '/articles/the-gulf-is-no-longer-just-a-market-for-luxury-watches-its-becoming-a-filter.html', tag: 'Middle East', desc: 'Gulf collectors are shaping global watch narratives.' }
+  ];
+  function openSearch() {
+    if (!searchBar) return;
+    searchBar.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { if (searchInput) searchInput.focus(); }, 50);
+  }
+  function closeSearch() {
+    if (!searchBar) return;
+    searchBar.classList.remove('open');
+    document.body.style.overflow = '';
+    if (searchInput) searchInput.value = '';
+    if (searchResults) searchResults.innerHTML = '';
+  }
+  function runSearch(q) {
+    if (!searchResults) return;
+    if (!q || q.length < 2) { searchResults.innerHTML = ''; return; }
+    var matches = BEZERU_INDEX.filter(function(a) {
+      return (a.title + a.desc + a.tag).toLowerCase().indexOf(q.toLowerCase()) > -1;
+    });
+    searchResults.innerHTML = matches.length
+      ? matches.map(function(a) { return '<a class="bz-search-result" href="' + a.url + '"><strong>' + a.title + '</strong><span>' + a.tag + ' — ' + a.desc + '</span></a>'; }).join('')
+      : '<p class="bz-search-empty">No results found.</p>';
+  }
+  if (searchToggle) searchToggle.addEventListener('click', openSearch);
+  if (searchClose) searchClose.addEventListener('click', closeSearch);
+  if (searchInput) searchInput.addEventListener('input', function() { runSearch(this.value); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSearch(); });
+})();
 </script>
 </body>
 </html>
