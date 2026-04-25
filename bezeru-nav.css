@@ -571,7 +571,7 @@ body.menu-open {
 /* ─── MOBILE ─── */
 @media (max-width: 767px) {
 
-  /* Topbar */
+  /* ── Topbar ── */
   .bz-topbar {
     background: #111111 !important;
     padding: 7px 18px !important;
@@ -582,86 +582,203 @@ body.menu-open {
   }
   .bz-topbar::-webkit-scrollbar { display: none; }
   .bz-topbar-date { display: none !important; }
-  .bz-topbar-cities { gap: 16px !important; font-size: 10px !important; }
+  .bz-topbar-cities { gap: 16px !important; font-size: 10px !important; white-space: nowrap; }
   .bz-topbar-cities span { color: rgba(255,255,255,0.55) !important; }
   .bz-city-time { color: #ffffff !important; font-weight: 600 !important; }
 
-  /* Nav row */
-  .bz-header { height: auto; }
+  /* ── Nav bar ── */
+  .bz-header { height: auto !important; }
   .bz-nav-row {
     grid-template-columns: auto 1fr auto !important;
-    padding: 0 18px !important;
+    padding: 0 20px !important;
     height: 56px !important;
+    gap: 0 !important;
   }
-
-  /* Hide desktop elements */
   .bz-nav-left { display: none !important; }
   .bz-nav-right .bz-lang-wrap { display: none !important; }
   .bz-nav-right .bz-shop-btn { display: none !important; }
   .bz-nav-right .bz-subscribe-btn { display: none !important; }
   .bz-nav-right .bz-icon-btn { display: none !important; }
-
-  /* Show hamburger */
+  .bz-nav-right #bzSearchToggle { display: flex !important; }
   .bz-hamburger { display: flex !important; }
-
-  /* Logo */
-  .bz-logo { justify-self: center; }
+  .bz-logo { justify-self: center !important; }
   .bz-logo-sub { display: none !important; }
   .bz-logo-wordmark { font-size: 18px !important; }
 
-  /* Mobile menu */
+  /* ── Overlay: full screen, dark, column layout ── */
   .bz-mobile-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
     height: 100dvh !important;
+    background: #111111 !important;
+    display: flex !important;
+    flex-direction: column !important;
     overflow: hidden !important;
+    z-index: 1001 !important;
+    transform: translateX(100%);
+    transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+  .bz-mobile-menu.open {
+    transform: translateX(0) !important;
+  }
+
+  /* ── Overlay header: BEZERU logo left, X right. Nothing else. ── */
   .bz-mm-header {
-    min-height: 64px;
-    padding: 0 18px !important;
-    align-items: center;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 24px !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    flex-shrink: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
   }
+  /* Hide the city times from the header */
+  .bz-mm-header-divider { display: none !important; }
+  .bz-mm-header-cities { display: none !important; }
   .bz-mm-header-left {
-    gap: 10px !important;
-    min-width: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    flex: 1 !important;
   }
-  .bz-mm-header-cities {
-    gap: 8px !important;
-    flex-wrap: nowrap;
+  .bz-mm-close {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    color: rgba(255,255,255,0.7) !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
   }
+
+  /* ── Language bar: compact, below header ── */
   .bz-mm-lang-bar {
-    padding: 12px 18px !important;
+    display: flex !important;
+    flex-direction: row !important;
     gap: 8px !important;
-    flex-wrap: wrap;
-    align-items: center;
+    padding: 12px 24px !important;
+    flex-shrink: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
   }
+  .bz-mm-lang-opt {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    padding: 5px 12px !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    border-radius: 3px !important;
+    background: none !important;
+    color: rgba(255,255,255,0.5) !important;
+    cursor: pointer !important;
+  }
+  .bz-mm-lang-opt.active {
+    border-color: #ffffff !important;
+    color: #111111 !important;
+    background: #ffffff !important;
+  }
+  .bz-mm-lang-opt.soon { opacity: 0.25 !important; cursor: default !important; }
+
+  /* ── Nav links: large, full width, Hodinkee-style spacing ── */
   .bz-mm-nav {
     flex: 1 1 auto !important;
     min-height: 0 !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 8px 0 !important;
   }
   .bz-mm-link {
-    padding: 8px 18px !important;
-    min-height: 60px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 0 24px !important;
+    min-height: 68px !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    transition: background 150ms !important;
+    position: relative !important;
   }
+  .bz-mm-link:active { background: rgba(255,255,255,0.05) !important; }
+  .bz-mm-link::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 3px !important;
+    background: #C0392B !important;
+    transform: scaleY(0) !important;
+    transition: transform 200ms ease !important;
+  }
+  .bz-mm-link.active::before { transform: scaleY(1) !important; }
   .bz-mm-num {
-    align-self: center;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em !important;
+    color: rgba(255,255,255,0.3) !important;
+    min-width: 20px !important;
+    flex-shrink: 0 !important;
   }
   .bz-mm-label {
-    font-size: 24px !important;
-    line-height: 1.05;
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: 28px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.01em !important;
+    color: #ffffff !important;
+    line-height: 1 !important;
+    flex: 1 !important;
   }
-  .bz-mm-footer {
-    margin-top: auto;
-    flex-shrink: 0;
-    padding-bottom: env(safe-area-inset-bottom, 20px);
+  .bz-mm-link.shop .bz-mm-label { color: #C0392B !important; }
+  .bz-mm-arrow {
+    color: rgba(255,255,255,0.3) !important;
+    flex-shrink: 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
-  .bz-mm-lang-opt { padding: 7px 14px !important; font-size: 12px !important; }
-  .bz-mm-cities { font-size: 11px !important; gap: 16px !important; }
 
-  /* Search */
-  .bz-search-inner { padding: 0 18px !important; height: 56px !important; }
+  /* ── Footer: city times + secondary info ── */
+  .bz-mm-footer {
+    flex-shrink: 0 !important;
+    padding: 20px 24px !important;
+    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+    border-top: 1px solid rgba(255,255,255,0.08) !important;
+    background: #111111 !important;
+  }
+  .bz-mm-cities {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 10px !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: rgba(255,255,255,0.35) !important;
+  }
+  .bz-mm-cities .bz-city-time {
+    color: rgba(255,255,255,0.65) !important;
+    font-weight: 600 !important;
+    margin-left: 4px !important;
+  }
+
+  /* ── Search overlay ── */
+  .bz-search-inner { padding: 0 20px !important; height: 56px !important; }
   .bz-search-input { font-size: 17px !important; }
-  .bz-search-result { padding: 14px 18px !important; }
-  .bz-search-empty { padding: 20px 18px !important; }
+  .bz-search-result { padding: 14px 20px !important; }
+  .bz-search-empty { padding: 20px 20px !important; }
 
 }
+
