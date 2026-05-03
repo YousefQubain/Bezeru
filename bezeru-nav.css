@@ -616,7 +616,6 @@ body.menu-open {
     width: 100% !important;
     height: 100dvh !important;
     background: #111111 !important;
-    display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
     z-index: 1001 !important;
