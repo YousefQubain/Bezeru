@@ -187,18 +187,11 @@ function initBzMobileMenu(){
   let isOpen = false;
 
   function lockBody(){
-    const scrollY = window.scrollY || window.pageYOffset || 0;
-    document.body.dataset.menuScrollY = String(scrollY);
     document.body.classList.add("menu-open");
-    document.body.style.top = `-${scrollY}px`;
   }
 
   function unlockBody(){
-    const stored = Number(document.body.dataset.menuScrollY || "0");
     document.body.classList.remove("menu-open");
-    document.body.style.top = "";
-    delete document.body.dataset.menuScrollY;
-    window.scrollTo(0, Number.isFinite(stored) ? stored : 0);
   }
 
   function openMenu(e){
@@ -208,7 +201,7 @@ function initBzMobileMenu(){
     }
     if(isOpen) return;
     isOpen = true;
-    menu.style.display = "flex";
+    menu.removeAttribute("style");
     requestAnimationFrame(()=>{
       menu.classList.add("open");
       backdrop.classList.add("visible");
@@ -230,11 +223,7 @@ function initBzMobileMenu(){
     hamburger.classList.remove("open");
     hamburger.setAttribute("aria-expanded", "false");
     unlockBody();
-    window.setTimeout(()=>{
-      if(!menu.classList.contains("open")){
-        menu.style.display = "none";
-      }
-    }, 360);
+    // display handled by CSS visibility + transform
   }
 
   hamburger.addEventListener("click", openMenu, true);
