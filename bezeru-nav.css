@@ -545,10 +545,11 @@
 
 /* ─── BODY OFFSET ─── */
 body { padding-top: 0; }
+@media (max-width: 767px) {
+  body { padding-top: 90px !important; }
+}
 body.menu-open {
   overflow: hidden;
-  position: fixed;
-  width: 100%;
 }
 
 /* ─── DARK MODE ─── */
@@ -615,7 +616,6 @@ body.menu-open {
     width: 100% !important;
     height: 100dvh !important;
     background: #111111 !important;
-    display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
     z-index: 1001 !important;
@@ -781,4 +781,3 @@ body.menu-open {
   .bz-search-empty { padding: 20px 20px !important; }
 
 }
-
