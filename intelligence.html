@@ -162,6 +162,26 @@
     .intel-select {
       padding-right: 36px;
       cursor: pointer;
+      color-scheme: dark;
+    }
+
+    .intel-select option,
+    .intel-select optgroup {
+      background-color: #151515;
+      color: #f0ede7;
+    }
+
+    .intel-select optgroup {
+      font-weight: 600;
+    }
+
+    .intel-select option:checked {
+      background-color: #e05c1a;
+      color: #ffffff;
+    }
+
+    .intel-select option:disabled {
+      color: rgba(240,237,231,0.45);
     }
 
     .intel-input::placeholder {
