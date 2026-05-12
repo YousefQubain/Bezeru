@@ -17,7 +17,6 @@
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
-    /* NAVIGATION */
     .bezeru-nav {
       width: 100%;
       border-bottom: 0.5px solid rgba(255,255,255,0.08);
@@ -143,7 +142,8 @@
     }
 
     .intel-input,
-    .intel-select {
+    .intel-select,
+    .brand-trigger {
       width: 100%;
       background: rgba(255,255,255,0.03);
       border: 0.5px solid rgba(255,255,255,0.09);
@@ -155,33 +155,6 @@
       outline: none;
       transition: border-color .2s, background .2s;
       box-sizing: border-box;
-      appearance: none;
-      -webkit-appearance: none;
-    }
-
-    .intel-select {
-      padding-right: 36px;
-      cursor: pointer;
-      color-scheme: dark;
-    }
-
-    .intel-select option,
-    .intel-select optgroup {
-      background-color: #151515;
-      color: #f0ede7;
-    }
-
-    .intel-select optgroup {
-      font-weight: 600;
-    }
-
-    .intel-select option:checked {
-      background-color: #e05c1a;
-      color: #ffffff;
-    }
-
-    .intel-select option:disabled {
-      color: rgba(240,237,231,0.45);
     }
 
     .intel-input::placeholder {
@@ -189,18 +162,35 @@
     }
 
     .intel-input:focus,
-    .intel-select:focus {
+    .intel-select:focus,
+    .brand-trigger:focus {
       border-color: rgba(224,92,26,0.55);
       background: rgba(224,92,26,0.04);
     }
 
     .intel-input:hover,
-    .intel-select:hover {
+    .intel-select:hover,
+    .brand-trigger:hover {
       border-color: rgba(255,255,255,0.16);
     }
 
-    .select-wrap {
+    .select-wrap,
+    .brand-dropdown {
       position: relative;
+    }
+
+    .intel-select {
+      padding-right: 36px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      color-scheme: dark;
+    }
+
+    .intel-select option,
+    .intel-select optgroup {
+      background-color: #151515;
+      color: #f0ede7;
     }
 
     .select-arrow {
@@ -211,6 +201,65 @@
       color: rgba(255,255,255,0.2);
       font-size: 10px;
       pointer-events: none;
+    }
+
+    .brand-trigger {
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-placeholder {
+      color: rgba(255,255,255,0.22);
+    }
+
+    .brand-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      z-index: 30;
+      max-height: 320px;
+      overflow-y: auto;
+      background: #151515;
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+      padding: 8px;
+    }
+
+    .brand-menu.active {
+      display: block;
+    }
+
+    .brand-group {
+      padding: 10px 8px 6px;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .brand-option {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: rgba(240,237,231,0.72);
+      text-align: left;
+      padding: 9px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .brand-option:hover,
+    .brand-option.selected {
+      background: rgba(224,92,26,0.14);
+      color: #ffffff;
     }
 
     .intel-btn {
@@ -293,6 +342,7 @@
       font-size: 13px;
       color: #e06060;
       margin-bottom: 24px;
+      line-height: 1.55;
     }
 
     .intel-error.active {
@@ -318,29 +368,11 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .fu {
-      animation: fadeUp .4s ease forwards;
-    }
-
-    .fu2 {
-      animation: fadeUp .4s .09s ease forwards;
-      opacity: 0;
-    }
-
-    .fu3 {
-      animation: fadeUp .4s .18s ease forwards;
-      opacity: 0;
-    }
-
-    .fu4 {
-      animation: fadeUp .4s .27s ease forwards;
-      opacity: 0;
-    }
-
-    .fu5 {
-      animation: fadeUp .4s .36s ease forwards;
-      opacity: 0;
-    }
+    .fu { animation: fadeUp .4s ease forwards; }
+    .fu2 { animation: fadeUp .4s .09s ease forwards; opacity: 0; }
+    .fu3 { animation: fadeUp .4s .18s ease forwards; opacity: 0; }
+    .fu4 { animation: fadeUp .4s .27s ease forwards; opacity: 0; }
+    .fu5 { animation: fadeUp .4s .36s ease forwards; opacity: 0; }
 
     .value-block {
       background: linear-gradient(180deg, rgba(224,92,26,0.05) 0%, transparent 100%);
@@ -398,30 +430,10 @@
       gap: 2px;
     }
 
-    .trend-arrow {
-      font-size: 24px;
-      line-height: 1;
-    }
-
-    .trend-word {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .trend-pct {
-      font-size: 18px;
-      font-family: Georgia, serif;
-      font-weight: 300;
-    }
-
-    .trend-tf {
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: .6;
-    }
+    .trend-arrow { font-size: 24px; line-height: 1; }
+    .trend-word { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+    .trend-pct { font-size: 18px; font-family: Georgia, serif; font-weight: 300; }
+    .trend-tf { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; opacity: .6; }
 
     .grad-rule {
       height: 0.5px;
@@ -488,30 +500,13 @@
       white-space: nowrap;
     }
 
-    .card-title.accent {
-      color: #e05c1a;
-    }
+    .card-title.accent { color: #e05c1a; }
+    .card-title.warn { color: rgba(224,96,96,0.65); }
 
-    .card-title.warn {
-      color: rgba(224,96,96,0.65);
-    }
-
-    .card-line {
-      flex: 1;
-      height: 0.5px;
-    }
-
-    .card-line.accent {
-      background: linear-gradient(90deg, rgba(224,92,26,0.35), rgba(255,255,255,0.03));
-    }
-
-    .card-line.warn {
-      background: linear-gradient(90deg, rgba(224,96,96,0.28), rgba(255,255,255,0.03));
-    }
-
-    .card-line.neutral {
-      background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-    }
+    .card-line { flex: 1; height: 0.5px; }
+    .card-line.accent { background: linear-gradient(90deg, rgba(224,92,26,0.35), rgba(255,255,255,0.03)); }
+    .card-line.warn { background: linear-gradient(90deg, rgba(224,96,96,0.28), rgba(255,255,255,0.03)); }
+    .card-line.neutral { background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); }
 
     .card-item {
       display: flex;
@@ -523,10 +518,6 @@
       margin-top: 12px;
       padding-top: 12px;
       border-top: 0.5px solid rgba(255,255,255,0.04);
-    }
-
-    .intel-card.danger .card-item + .card-item {
-      border-color: rgba(224,96,96,0.07);
     }
 
     .item-num {
@@ -716,130 +707,15 @@
     <div class="intel-form">
 
       <div class="form-row">
-        <label class="intel-label" for="brand">Brand</label>
-        <div class="select-wrap">
-          <select id="brand" class="intel-select">
-            <option value="" disabled selected>Select manufacturer</option>
+        <label class="intel-label">Brand</label>
 
-            <optgroup label="Swiss — Prestige independent">
-              <option>Patek Philippe</option>
-              <option>Audemars Piguet</option>
-              <option>Vacheron Constantin</option>
-              <option>F.P. Journe</option>
-              <option>Greubel Forsey</option>
-              <option>Philippe Dufour</option>
-              <option>Laurent Ferrier</option>
-              <option>De Bethune</option>
-              <option>Romain Gauthier</option>
-              <option>Christophe Claret</option>
-              <option>H. Moser & Cie</option>
-              <option>MB&F</option>
-              <option>Urwerk</option>
-              <option>Ressence</option>
-              <option>HYT</option>
-              <option>Speake-Marin</option>
-              <option>Czapek & Cie</option>
-              <option>Voutilainen</option>
-              <option>MCT</option>
-            </optgroup>
+        <div class="brand-dropdown" id="brand-dropdown">
+          <button type="button" class="brand-trigger" id="brand-trigger">
+            <span id="brand-label" class="brand-placeholder">Select manufacturer</span>
+            <span>▾</span>
+          </button>
 
-            <optgroup label="Swiss — Rolex Group">
-              <option>Rolex</option>
-              <option>Tudor</option>
-            </optgroup>
-
-            <optgroup label="Swiss — Richemont Group">
-              <option>Cartier</option>
-              <option>IWC Schaffhausen</option>
-              <option>Jaeger-LeCoultre</option>
-              <option>Panerai</option>
-              <option>Piaget</option>
-              <option>Baume & Mercier</option>
-              <option>Roger Dubuis</option>
-            </optgroup>
-
-            <optgroup label="Swiss — Swatch Group">
-              <option>Omega</option>
-              <option>Breguet</option>
-              <option>Blancpain</option>
-              <option>Longines</option>
-              <option>Tissot</option>
-              <option>Hamilton</option>
-              <option>Rado</option>
-              <option>Mido</option>
-              <option>Certina</option>
-              <option>Harry Winston</option>
-            </optgroup>
-
-            <optgroup label="Swiss — LVMH Group">
-              <option>TAG Heuer</option>
-              <option>Zenith</option>
-              <option>Hublot</option>
-              <option>Bulgari</option>
-              <option>Louis Vuitton</option>
-            </optgroup>
-
-            <optgroup label="Swiss — Independent">
-              <option>Chopard</option>
-              <option>Richard Mille</option>
-              <option>Girard-Perregaux</option>
-              <option>Ulysse Nardin</option>
-              <option>Oris</option>
-              <option>Frederique Constant</option>
-              <option>Alpina</option>
-              <option>Maurice Lacroix</option>
-              <option>Doxa</option>
-              <option>Franck Muller</option>
-              <option>Parmigiani Fleurier</option>
-              <option>Corum</option>
-              <option>Bell & Ross</option>
-              <option>Fortis</option>
-              <option>Eterna</option>
-              <option>Movado</option>
-              <option>Ebel</option>
-              <option>DeWitt</option>
-              <option>Arnold & Son</option>
-              <option>Porsche Design</option>
-              <option>Montblanc</option>
-              <option>Raymond Weil</option>
-              <option>Perrelet</option>
-              <option>Vulcain</option>
-              <option>Revue Thommen</option>
-              <option>Edox</option>
-              <option>Glycine</option>
-            </optgroup>
-
-            <optgroup label="German">
-              <option>A. Lange & Söhne</option>
-              <option>Nomos Glashütte</option>
-              <option>Glashütte Original</option>
-              <option>Sinn</option>
-              <option>Junghans</option>
-              <option>Hanhart</option>
-              <option>Laco</option>
-              <option>Stowa</option>
-              <option>Archimede</option>
-              <option>Union Glashütte</option>
-              <option>Tutima</option>
-              <option>Mühle-Glashütte</option>
-            </optgroup>
-
-            <optgroup label="Japanese — Seiko">
-              <option>Seiko</option>
-              <option>Grand Seiko</option>
-              <option>Credor</option>
-              <option>Orient</option>
-              <option>Orient Star</option>
-            </optgroup>
-
-            <optgroup label="Japanese — Other">
-              <option>Citizen</option>
-              <option>Bulova</option>
-              <option>Casio</option>
-              <option>G-Shock</option>
-            </optgroup>
-          </select>
-          <span class="select-arrow">▾</span>
+          <div class="brand-menu" id="brand-menu"></div>
         </div>
       </div>
 
@@ -898,7 +774,7 @@
 
     <div class="intel-results" id="results">
 
-      <div class="value-block fu" id="value-block">
+      <div class="value-block fu">
         <div>
           <p class="value-label">Market value estimate</p>
           <div class="value-usd" id="value-usd"></div>
@@ -966,7 +842,137 @@
   <script>
     const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev";
 
-    const brandEl = document.getElementById("brand");
+    const brandGroups = [
+      {
+        group: "Swiss — Prestige independent",
+        brands: [
+          "Patek Philippe",
+          "Audemars Piguet",
+          "Vacheron Constantin",
+          "F.P. Journe",
+          "Greubel Forsey",
+          "Philippe Dufour",
+          "Laurent Ferrier",
+          "De Bethune",
+          "Romain Gauthier",
+          "Christophe Claret",
+          "H. Moser & Cie",
+          "MB&F",
+          "Urwerk",
+          "Ressence",
+          "HYT",
+          "Speake-Marin",
+          "Czapek & Cie",
+          "Voutilainen",
+          "MCT"
+        ]
+      },
+      {
+        group: "Swiss — Rolex Group",
+        brands: ["Rolex", "Tudor"]
+      },
+      {
+        group: "Swiss — Richemont Group",
+        brands: [
+          "Cartier",
+          "IWC Schaffhausen",
+          "Jaeger-LeCoultre",
+          "Panerai",
+          "Piaget",
+          "Baume & Mercier",
+          "Roger Dubuis"
+        ]
+      },
+      {
+        group: "Swiss — Swatch Group",
+        brands: [
+          "Omega",
+          "Breguet",
+          "Blancpain",
+          "Longines",
+          "Tissot",
+          "Hamilton",
+          "Rado",
+          "Mido",
+          "Certina",
+          "Harry Winston"
+        ]
+      },
+      {
+        group: "Swiss — LVMH Group",
+        brands: [
+          "TAG Heuer",
+          "Zenith",
+          "Hublot",
+          "Bulgari",
+          "Louis Vuitton"
+        ]
+      },
+      {
+        group: "Swiss — Independent",
+        brands: [
+          "Chopard",
+          "Richard Mille",
+          "Girard-Perregaux",
+          "Ulysse Nardin",
+          "Oris",
+          "Frederique Constant",
+          "Alpina",
+          "Maurice Lacroix",
+          "Doxa",
+          "Franck Muller",
+          "Parmigiani Fleurier",
+          "Corum",
+          "Bell & Ross",
+          "Fortis",
+          "Eterna",
+          "Movado",
+          "Ebel",
+          "DeWitt",
+          "Arnold & Son",
+          "Porsche Design",
+          "Montblanc",
+          "Raymond Weil",
+          "Perrelet",
+          "Vulcain",
+          "Revue Thommen",
+          "Edox",
+          "Glycine"
+        ]
+      },
+      {
+        group: "German",
+        brands: [
+          "A. Lange & Söhne",
+          "Nomos Glashütte",
+          "Glashütte Original",
+          "Sinn",
+          "Junghans",
+          "Hanhart",
+          "Laco",
+          "Stowa",
+          "Archimede",
+          "Union Glashütte",
+          "Tutima",
+          "Mühle-Glashütte"
+        ]
+      },
+      {
+        group: "Japanese — Seiko",
+        brands: ["Seiko", "Grand Seiko", "Credor", "Orient", "Orient Star"]
+      },
+      {
+        group: "Japanese — Other",
+        brands: ["Citizen", "Bulova", "Casio", "G-Shock"]
+      }
+    ];
+
+    let selectedBrand = "";
+
+    const brandTrigger = document.getElementById("brand-trigger");
+    const brandLabel = document.getElementById("brand-label");
+    const brandMenu = document.getElementById("brand-menu");
+
     const refEl = document.getElementById("ref");
     const yearEl = document.getElementById("year");
     const condEl = document.getElementById("cond");
@@ -976,11 +982,58 @@
     const errEl = document.getElementById("error-msg");
     const results = document.getElementById("results");
 
-    function checkReady() {
-      runBtn.disabled = !(brandEl.value && refEl.value.trim());
+    function buildBrandMenu() {
+      brandMenu.innerHTML = "";
+
+      brandGroups.forEach(section => {
+        const groupTitle = document.createElement("div");
+        groupTitle.className = "brand-group";
+        groupTitle.textContent = section.group;
+        brandMenu.appendChild(groupTitle);
+
+        section.brands.forEach(brand => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "brand-option";
+          btn.textContent = brand;
+          btn.dataset.brand = brand;
+
+          btn.addEventListener("click", () => {
+            selectedBrand = brand;
+            brandLabel.textContent = brand;
+            brandLabel.classList.remove("brand-placeholder");
+            brandMenu.classList.remove("active");
+
+            document.querySelectorAll(".brand-option").forEach(option => {
+              option.classList.toggle("selected", option.dataset.brand === brand);
+            });
+
+            checkReady();
+          });
+
+          brandMenu.appendChild(btn);
+        });
+      });
     }
 
-    brandEl.addEventListener("change", checkReady);
+    buildBrandMenu();
+
+    brandTrigger.addEventListener("click", () => {
+      brandMenu.classList.toggle("active");
+    });
+
+    document.addEventListener("click", event => {
+      const dropdown = document.getElementById("brand-dropdown");
+
+      if (!dropdown.contains(event.target)) {
+        brandMenu.classList.remove("active");
+      }
+    });
+
+    function checkReady() {
+      runBtn.disabled = !(selectedBrand && refEl.value.trim());
+    }
+
     refEl.addEventListener("input", checkReady);
 
     const fmt = n => n ? Math.round(n).toLocaleString() : "—";
@@ -1063,7 +1116,7 @@
     }
 
     runBtn.addEventListener("click", async () => {
-      const brand = brandEl.value;
+      const brand = selectedBrand;
       const ref = refEl.value.trim();
 
       if (!brand || !ref) return;
@@ -1071,6 +1124,7 @@
       loader.classList.add("active");
       results.classList.remove("active");
       errEl.classList.remove("active");
+      errEl.textContent = "";
 
       runBtn.disabled = true;
       runBtn.textContent = "Analysing market data...";
@@ -1093,7 +1147,15 @@
         const data = await res.json();
 
         if (!res.ok || data.error) {
-          throw new Error(data.detail || data.error || "Analysis failed");
+          const apiMessage =
+            data?.detail?.error?.message ||
+            data?.detail?.message ||
+            data?.detail?.error?.type ||
+            (typeof data?.detail === "string" ? data.detail : "") ||
+            data?.error ||
+            "Analysis failed";
+
+          throw new Error(apiMessage);
         }
 
         loader.classList.remove("active");
@@ -1101,8 +1163,9 @@
         results.classList.add("active");
 
       } catch (e) {
+        console.error(e);
         loader.classList.remove("active");
-        errEl.textContent = "Analysis failed — verify the reference and try again.";
+        errEl.textContent = e.message || "Analysis failed";
         errEl.classList.add("active");
       }
 
