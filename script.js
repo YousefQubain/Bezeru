@@ -31,6 +31,7 @@ function initUnifiedHeader(){
         <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
         <a class="nav-link" href="${link("/types.html")}">Types</a>
         <a class="nav-link" href="${link("/brands.html")}">Brands</a>
+        <a class="nav-link" href="${link("/intelligence.html")}">Intelligence</a>
         <a class="nav-link" href="${link("/about.html")}">About</a>
         <a class="nav-shop" href="${link("/shop.html")}">Shop</a>
       </div>
@@ -56,6 +57,7 @@ function initUnifiedHeader(){
             <a class="nav-link" href="${link("/articles.html#latest")}">Read</a>
             <a class="nav-link" href="${link("/types.html")}">Types</a>
             <a class="nav-link" href="${link("/brands.html")}">Brands</a>
+            <a class="nav-link" href="${link("/intelligence.html")}">Intelligence</a>
             <a class="nav-link" href="${link("/about.html")}">About</a>
             <a class="nav-shop" href="${link("/shop.html")}">Shop</a>
           </div>
@@ -80,6 +82,12 @@ function initUnifiedHeader(){
       </div>
     </div>
   `;
+
+  const currentPath = window.location.pathname === "/" ? "/index.html" : window.location.pathname;
+  header.querySelectorAll(".nav-link, .nav-shop").forEach((anchor) => {
+    const anchorPath = new URL(anchor.href, window.location.origin).pathname;
+    if(anchorPath === currentPath) anchor.classList.add("active");
+  });
 
   header.dataset.sharedHeader = "true";
 }
