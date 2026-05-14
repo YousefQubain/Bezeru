@@ -162,6 +162,26 @@
     .intel-select {
       padding-right: 36px;
       cursor: pointer;
+      color-scheme: dark;
+    }
+
+    .intel-select option,
+    .intel-select optgroup {
+      background-color: #151515;
+      color: #f0ede7;
+    }
+
+    .intel-select optgroup {
+      font-weight: 600;
+    }
+
+    .intel-select option:checked {
+      background-color: #e05c1a;
+      color: #ffffff;
+    }
+
+    .intel-select option:disabled {
+      color: rgba(240,237,231,0.45);
     }
 
     .intel-input::placeholder {
@@ -659,6 +679,49 @@
         padding: 40px 16px 80px;
       }
     }
+.nav-intel {
+  position: relative;
+}
+
+.nav-intel-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #151515;
+  border: 0.5px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  padding: 6px;
+  min-width: 170px;
+  z-index: 200;
+}
+
+.nav-intel:hover .nav-intel-menu {
+  display: block;
+}
+
+.nav-intel-menu a {
+  display: block;
+  padding: 9px 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5) !important;
+  border-radius: 3px;
+  transition: all .15s;
+}
+
+.nav-intel-menu a:hover {
+  background: rgba(224,92,26,0.12);
+  color: #f0ede7 !important;
+}
+
+.nav-intel-menu a.active {
+  color: #f0ede7 !important;
+}
+
   </style>
 </head>
 
@@ -673,7 +736,13 @@
         <a href="/articles.html">Articles</a>
         <a href="/types.html">Types</a>
         <a href="/brands.html">Brands</a>
-        <a href="/intelligence.html" class="active">Intelligence</a>
+        <div class="nav-intel">
+          <a href="/intelligence.html" class="active">Intelligence ▾</a>
+          <div class="nav-intel-menu">
+            <a href="/intelligence.html" class="active">Market Analysis</a>
+            <a href="/flip.html">Flip Calculator</a>
+          </div>
+        </div>
         <a href="/about.html">About</a>
       </nav>
     </div>
