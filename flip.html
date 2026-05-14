@@ -7,6 +7,67 @@
   <meta name="description" content="Calculate your real net profit on a watch flip — fees, tax by country, and AI deal assessment."/>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    html,
+    body {
+      margin: 0;
+      background: #0b0b0b;
+      color: #f0ede7;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .flip-wrap,
+    .intel-wrap,
+    main {
+      background: transparent;
+    }
+
+    .nav-wrap {
+      background: rgba(11,11,11,0.92);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .nav-panel,
+    .dd-menu {
+      background: #111110;
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.45);
+    }
+
+    .nav-overlay {
+      background: rgba(0,0,0,0.58);
+    }
+
+    .nav-link,
+    .dd-btn,
+    .dd-menu a {
+      color: #f0ede7;
+    }
+
+    .nav-link:hover,
+    .dd-btn:hover,
+    .dd-menu a:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .flip-form,
+    .calculator-card,
+    .intel-form {
+      background: rgba(255,255,255,0.02);
+      border: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    input,
+    select,
+    textarea {
+      background: rgba(255,255,255,0.03);
+      color: #f0ede7;
+      border: 0.5px solid rgba(255,255,255,0.09);
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.18);
+    }
+
     .flip-wrap { max-width: 1100px; margin: 0 auto; padding: 0 0 80px; }
     .flip-intro { padding: 48px 28px 0; }
     .flip-intro h1 { font-size: 26px; font-weight: 300; letter-spacing: -0.025em; font-family: 'Georgia','Times New Roman',serif; color: #f0ede7; margin-bottom: 6px; }
