@@ -1,341 +1,1257 @@
-<script>
-  const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flip Calculator — BEZERU</title>
+  <meta name="description" content="Calculate your real net profit on a watch flip — fees, tax by country, and AI deal assessment."/>
+  <link rel="stylesheet" href="style.css"/>
 
-  const $ = id => document.getElementById(id);
-  const brandEl       = $("brand");
-  const refEl         = $("ref");
-  const purchaseEl    = $("purchase");
-  const premiumEl     = $("premium");
-  const serviceEl     = $("service");
-  const shippingInEl  = $("shipping-in");
-  const salePriceEl   = $("sale-price");
-  const platformEl    = $("platform");
-  const feeCustomEl   = $("fee-custom");
-  const shippingOutEl = $("shipping-out");
-  const countryEl     = $("country");
-  const holdEl        = $("hold");
-  const aiBtn         = $("ai-btn");
-
-  const fmt  = n => Math.abs(Math.round(n || 0)).toLocaleString("en-CH");
-  const fmtN = n => (n < 0 ? "−" : "") + "CHF " + fmt(n);
-
-  function escapeHTML(value) {
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  platformEl.addEventListener("change", () => {
-    const v = platformEl.value;
-
-    if (v === "custom") {
-      $("fee-display").style.display = "none";
-      $("fee-custom-wrap").style.display = "block";
-    } else {
-      $("fee-display").style.display = "block";
-      $("fee-custom-wrap").style.display = "none";
-      $("fee-display").textContent = v + "%";
+  <style>
+    html,
+    body {
+      margin: 0;
+      background: #0b0b0b;
+      color: #f0ede7;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
-    recalc();
-  });
-
-  countryEl.addEventListener("change", () => {
-    $("country-note").textContent = countryEl.options[countryEl.selectedIndex].dataset.note || "";
-    recalc();
-  });
-
-  holdEl.addEventListener("input", () => {
-    const v = parseInt(holdEl.value);
-    $("hold-lbl").textContent = `Hold time — ${v} month${v !== 1 ? "s" : ""}`;
-    recalc();
-  });
-
-  function checkAiReady() {
-    const ready =
-      brandEl.value &&
-      refEl.value.trim() &&
-      parseFloat(purchaseEl.value) > 0 &&
-      parseFloat(salePriceEl.value) > 0;
-
-    aiBtn.disabled = !ready;
-    $("ai-hint").style.display = ready ? "none" : "block";
-  }
-
-  document.querySelectorAll(".f-inp, .f-sel, .hold-slider").forEach(el => {
-    el.addEventListener("input", () => {
-      recalc();
-      checkAiReady();
-    });
-
-    el.addEventListener("change", () => {
-      recalc();
-      checkAiReady();
-    });
-  });
-
-  function getPlatformFee() {
-    const v = platformEl.value;
-    return v === "custom" ? (parseFloat(feeCustomEl.value) || 0) : (parseFloat(v) || 0);
-  }
-
-  function getCountry() {
-    const opt = countryEl.options[countryEl.selectedIndex];
-
-    return {
-      code: countryEl.value,
-      shortRate: parseFloat(opt.dataset.sr) || 0,
-      longRate: parseFloat(opt.dataset.lr) || 0,
-      longTermMonths: opt.dataset.lt ? parseInt(opt.dataset.lt) : null,
-      allowance: parseFloat(opt.dataset.al) || 0,
-      note: opt.dataset.note || "",
-      flag: opt.textContent.split(" ")[0],
-      name: opt.textContent.split(" ").slice(1).join(" ")
-    };
-  }
-
-  function recalc() {
-    const p    = parseFloat(purchaseEl.value)    || 0;
-    const prem = (parseFloat(premiumEl.value)    || 0) / 100;
-    const svc  = parseFloat(serviceEl.value)     || 0;
-    const sIn  = parseFloat(shippingInEl.value)  || 0;
-    const sale = parseFloat(salePriceEl.value)   || 0;
-    const pFee = getPlatformFee() / 100;
-    const sOut = parseFloat(shippingOutEl.value) || 0;
-    const hold = parseInt(holdEl.value)           || 0;
-    const c    = getCountry();
-
-    if (p === 0 && sale === 0) {
-      $("empty-state").style.display = "block";
-      $("fin-result").style.display  = "none";
-      return;
+    .bezeru-nav {
+      width: 100%;
+      border-bottom: 0.5px solid rgba(255,255,255,0.08);
+      background: rgba(11,11,11,0.92);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    $("empty-state").style.display = "none";
+    .bezeru-nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
 
-    const costBasis   = p * (1 + prem) + svc + sIn;
-    const netProceeds = sale * (1 - pFee) - sOut;
-    const grossProfit = netProceeds - costBasis;
-    const breakEven   = pFee < 1 ? (costBasis + sOut) / (1 - pFee) : 0;
+    .bezeru-logo {
+      color: #e05c1a;
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 0.22em;
+      font-weight: 700;
+    }
 
-    const isLongTerm = c.longTermMonths ? hold >= c.longTermMonths : false;
-    const taxRate    = isLongTerm ? c.longRate : c.shortRate;
-    const taxable    = c.code === "GB" ? Math.max(0, grossProfit - c.allowance) : Math.max(0, grossProfit);
-    const taxOwed    = Math.max(0, taxable * taxRate);
-    const netProfit  = grossProfit - taxOwed;
-    const roi        = costBasis > 0 ? (netProfit / costBasis) * 100 : 0;
-    const annRoi     = hold > 0 ? (roi / hold) * 12 : null;
+    .bezeru-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
 
-    let holdRec = null;
+    .bezeru-links a {
+      color: rgba(255,255,255,0.46);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+    }
 
-    if (c.longTermMonths && hold < c.longTermMonths && grossProfit > 0) {
-      const mLeft  = c.longTermMonths - hold;
-      const ftax   = Math.max(0, taxable * c.longRate);
-      const saving = taxOwed - ftax;
+    .bezeru-links a:hover,
+    .bezeru-links a.active {
+      color: #f0ede7;
+    }
 
-      if (saving > 10) {
-        holdRec = {
-          months: Math.ceil(mLeft),
-          saving: Math.round(saving)
-        };
+    .nav-intel {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav-intel-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #151515;
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      padding: 6px;
+      min-width: 190px;
+      z-index: 200;
+    }
+
+    .nav-intel:hover .nav-intel-menu {
+      display: block;
+    }
+
+    .nav-intel-menu a {
+      display: block;
+      padding: 10px 14px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5) !important;
+      border-radius: 3px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .nav-intel-menu a:hover {
+      background: rgba(224,92,26,0.12);
+      color: #f0ede7 !important;
+    }
+
+    .nav-intel-menu a.active {
+      color: #f0ede7 !important;
+      background: rgba(224,92,26,0.08);
+    }
+
+    .flip-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 0 80px;
+      background: transparent;
+    }
+
+    .flip-intro {
+      padding: 48px 28px 0;
+    }
+
+    .flip-intro h1 {
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #f0ede7;
+      margin-bottom: 6px;
+    }
+
+    .flip-intro p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.28);
+      line-height: 1.55;
+      margin-bottom: 0;
+    }
+
+    .flip-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 70vh;
+    }
+
+    .flip-left {
+      padding: 28px;
+      border-right: 0.5px solid rgba(255,255,255,0.05);
+    }
+
+    .flip-right {
+      padding: 28px;
+    }
+
+    .f-lbl {
+      display: block;
+      font-size: 9px;
+      color: rgba(255,255,255,0.28);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .f-inp,
+    .f-sel {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(255,255,255,0.09);
+      color: #f0ede7;
+      padding: 10px 13px;
+      font-size: 14px;
+      border-radius: 2px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+      color-scheme: dark;
+    }
+
+    .f-inp::placeholder {
+      color: rgba(255,255,255,0.18);
+    }
+
+    .f-inp:focus,
+    .f-sel:focus {
+      border-color: rgba(224,92,26,0.55);
+      background: rgba(224,92,26,0.04);
+    }
+
+    .f-inp:hover,
+    .f-sel:hover {
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .f-sel {
+      padding-right: 32px;
+      cursor: pointer;
+    }
+
+    .f-sel option,
+    .f-sel optgroup {
+      background: #111110;
+      color: #f0ede7;
+    }
+
+    .f-sel-wrap {
+      position: relative;
+    }
+
+    .f-sel-arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.2);
+      font-size: 10px;
+      pointer-events: none;
+    }
+
+    .f-pfx,
+    .f-sfx {
+      position: relative;
+    }
+
+    .f-pfx-label {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      pointer-events: none;
+    }
+
+    .f-pfx .f-inp {
+      padding-left: 44px;
+    }
+
+    .f-sfx-label {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      pointer-events: none;
+    }
+
+    .f-sfx .f-inp {
+      padding-right: 28px;
+    }
+
+    .f-grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .f-row {
+      margin-bottom: 14px;
+    }
+
+    .f-divider {
+      height: 0.5px;
+      background: rgba(255,255,255,0.05);
+      margin: 20px 0;
+    }
+
+    .f-sec,
+    .r-sec {
+      font-size: 9px;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .f-sec-line,
+    .r-sec-line {
+      flex: 1;
+      height: 0.5px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent);
+    }
+
+    .hold-slider {
+      width: 100%;
+      accent-color: #e05c1a;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+
+    .hold-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .ai-btn {
+      width: 100%;
+      background: #e05c1a;
+      color: #fff;
+      border: none;
+      padding: 13px;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      font-weight: 500;
+      font-family: inherit;
+      box-shadow: 0 4px 18px rgba(224,92,26,0.2);
+      transition: all .18s;
+      margin-top: 4px;
+    }
+
+    .ai-btn:hover:not(:disabled) {
+      background: #c94f14;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(224,92,26,0.28);
+    }
+
+    .ai-btn:disabled {
+      opacity: .32;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .ai-hint {
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .sweep-track {
+      position: relative;
+      height: 1px;
+      background: rgba(255,255,255,0.05);
+      overflow: hidden;
+      border-radius: 1px;
+      margin-bottom: 10px;
+    }
+
+    .sweep-bar {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 55%;
+      background: linear-gradient(90deg, transparent, #e05c1a, transparent);
+      animation: sweep 1.1s ease-in-out infinite;
+    }
+
+    @keyframes sweep {
+      0% { left: -60%; }
+      100% { left: 110%; }
+    }
+
+    .loader-wrap {
+      padding: 24px 0;
+      text-align: center;
+    }
+
+    .loader-txt {
+      font-size: 10px;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .r-card {
+      background: rgba(255,255,255,0.025);
+      border: 0.5px solid rgba(255,255,255,0.07);
+      border-radius: 3px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+
+    .r-label {
+      font-size: 9px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .r-val {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 200;
+    }
+
+    .grad-rule {
+      height: 0.5px;
+      background: linear-gradient(90deg, transparent, rgba(224,92,26,0.3), rgba(255,255,255,0.04), transparent);
+      margin-bottom: 16px;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.04);
+      font-size: 12px;
+    }
+
+    .metric-row .ml {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .metric-row .mv {
+      font-family: Georgia, 'Times New Roman', serif;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.06em;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 0.5px solid rgba(255,255,255,0.08);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      opacity: .25;
+    }
+
+    .empty-txt {
+      font-size: 12px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.7;
+    }
+
+    .narrative-block {
+      border-left: 2px solid #e05c1a;
+      padding-left: 14px;
+      margin-bottom: 10px;
+    }
+
+    .narrative-text {
+      font-size: 13px;
+      color: rgba(240,237,231,0.7);
+      line-height: 1.65;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 300;
+    }
+
+    .error-box {
+      padding: 12px;
+      background: rgba(224,96,96,0.06);
+      border: 0.5px solid rgba(224,96,96,0.18);
+      border-radius: 2px;
+      font-size: 12px;
+      color: #e06060;
+      margin-bottom: 14px;
+      line-height: 1.55;
+    }
+
+    .hold-rec {
+      background: rgba(200,160,96,0.07);
+      border: 0.5px solid rgba(200,160,96,0.18);
+      border-radius: 3px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .hold-rec-lbl {
+      font-size: 9px;
+      color: rgba(200,160,96,0.5);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .hold-rec-txt {
+      font-size: 12px;
+      color: rgba(200,160,96,0.85);
+      line-height: 1.55;
+    }
+
+    .tax-note {
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.02);
+      border: 0.5px solid rgba(255,255,255,0.05);
+      border-radius: 3px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      line-height: 1.5;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fu {
+      animation: fadeUp .35s ease forwards;
+    }
+
+    .site-footer {
+      border-top: 0.5px solid rgba(255,255,255,0.08);
+      padding: 28px 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.18);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    @media (max-width: 720px) {
+      .bezeru-nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .bezeru-links {
+        gap: 14px;
+      }
+
+      .nav-intel {
+        display: block;
+      }
+
+      .nav-intel-menu {
+        position: static;
+        display: block;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 4px 0 0 12px;
+        min-width: auto;
+      }
+
+      .nav-intel-menu a {
+        padding: 6px 0;
+        font-size: 10px;
       }
     }
 
-    const pc = netProfit > 0 ? "#52c47a" : netProfit < 0 ? "#e06060" : "rgba(255,255,255,0.4)";
-    const taxLabel = `Tax (${(taxRate * 100).toFixed(1)}%${isLongTerm ? " · long-term" : taxRate > 0 ? " · short-term" : ""})`;
+    @media (max-width: 680px) {
+      .flip-body {
+        grid-template-columns: 1fr;
+      }
 
-    $("fin-result").innerHTML = `
-      <div class="fu">
-        <div class="r-sec"><span>Your numbers</span><div class="r-sec-line"></div></div>
+      .flip-left {
+        border-right: none;
+        border-bottom: 0.5px solid rgba(255,255,255,0.05);
+      }
 
-        <div style="margin-bottom:1.25rem">
-          <p class="r-label">${netProfit > 0 ? "Net profit" : netProfit < 0 ? "Net loss" : "Break-even"}</p>
+      .flip-intro {
+        padding: 32px 20px 0;
+      }
 
-          <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap">
-            <span style="font-family:'Georgia','Times New Roman',serif;font-size:42px;font-weight:200;letter-spacing:-0.03em;color:${pc};line-height:1">
-              ${netProfit < 0 ? "−" : ""}CHF ${fmt(Math.abs(netProfit))}
-            </span>
+      .flip-left,
+      .flip-right {
+        padding: 20px;
+      }
 
-            <div style="display:flex;gap:6px;padding-bottom:5px">
-              <span class="badge" style="background:${netProfit > 0 ? "rgba(82,196,122,0.1)" : netProfit < 0 ? "rgba(224,96,96,0.1)" : "rgba(255,255,255,0.05)"};color:${pc}">
-                ${netProfit > 0 ? "+" : ""}${roi.toFixed(1)}% ROI
-              </span>
+      .two-col,
+      .f-grid2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
 
-              ${annRoi !== null ? `<span class="badge" style="background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.35)">${annRoi.toFixed(1)}% ann.</span>` : ""}
+<body>
+
+  <header class="bezeru-nav">
+    <div class="bezeru-nav-inner">
+      <a href="/index.html" class="bezeru-logo">BEZERU</a>
+
+      <nav class="bezeru-links">
+        <a href="/index.html">Home</a>
+        <a href="/articles.html">Articles</a>
+        <a href="/types.html">Types</a>
+        <a href="/brands.html">Brands</a>
+
+        <div class="nav-intel">
+          <a href="/intelligence.html" class="active">Intelligence ▾</a>
+          <div class="nav-intel-menu">
+            <a href="/intelligence.html">Market Analysis</a>
+            <a href="/flip.html" class="active">Flip Calculator</a>
+          </div>
+        </div>
+
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="flip-wrap">
+    <div class="flip-intro">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="color:#e05c1a;font-weight:700;font-size:13px;letter-spacing:0.22em">BEZERU</span>
+        <span style="width:1px;height:14px;background:rgba(255,255,255,0.1);display:inline-block"></span>
+        <span style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.22);border:0.5px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:2px">Flip Calculator</span>
+      </div>
+
+      <h1>Watch flip calculator</h1>
+      <p>Add the brand and reference for an AI deal assessment — plus real-time profit calculation with fees and tax by country.</p>
+    </div>
+
+    <div class="flip-body">
+      <div class="flip-left">
+
+        <div class="f-sec" style="margin-top:8px">
+          <span>Watch identification</span>
+          <div class="f-sec-line"></div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl" for="brand">Brand</label>
+          <div class="f-sel-wrap">
+            <select id="brand" class="f-sel">
+              <option value="" disabled selected>Select brand</option>
+
+              <optgroup label="Swiss — Prestige">
+                <option>Patek Philippe</option>
+                <option>Audemars Piguet</option>
+                <option>Vacheron Constantin</option>
+                <option>F.P. Journe</option>
+                <option>Greubel Forsey</option>
+                <option>De Bethune</option>
+                <option>H. Moser &amp; Cie</option>
+                <option>MB&amp;F</option>
+                <option>Urwerk</option>
+                <option>Ressence</option>
+                <option>Laurent Ferrier</option>
+                <option>Czapek &amp; Cie</option>
+              </optgroup>
+
+              <optgroup label="Swiss — Rolex Group">
+                <option>Rolex</option>
+                <option>Tudor</option>
+              </optgroup>
+
+              <optgroup label="Swiss — Richemont">
+                <option>Cartier</option>
+                <option>IWC Schaffhausen</option>
+                <option>Jaeger-LeCoultre</option>
+                <option>Panerai</option>
+                <option>Piaget</option>
+                <option>Baume &amp; Mercier</option>
+                <option>Roger Dubuis</option>
+                <option>A. Lange &amp; Söhne</option>
+              </optgroup>
+
+              <optgroup label="Swiss — Swatch Group">
+                <option>Omega</option>
+                <option>Breguet</option>
+                <option>Blancpain</option>
+                <option>Longines</option>
+                <option>Tissot</option>
+                <option>Hamilton</option>
+                <option>Rado</option>
+                <option>Harry Winston</option>
+              </optgroup>
+
+              <optgroup label="Swiss — LVMH">
+                <option>TAG Heuer</option>
+                <option>Zenith</option>
+                <option>Hublot</option>
+                <option>Bulgari</option>
+              </optgroup>
+
+              <optgroup label="Swiss — Independent">
+                <option>Chopard</option>
+                <option>Richard Mille</option>
+                <option>Girard-Perregaux</option>
+                <option>Ulysse Nardin</option>
+                <option>Oris</option>
+                <option>Frederique Constant</option>
+                <option>Maurice Lacroix</option>
+                <option>Doxa</option>
+                <option>Franck Muller</option>
+                <option>Parmigiani Fleurier</option>
+                <option>Corum</option>
+                <option>Bell &amp; Ross</option>
+                <option>Fortis</option>
+                <option>Movado</option>
+                <option>DeWitt</option>
+                <option>Montblanc</option>
+              </optgroup>
+
+              <optgroup label="German">
+                <option>Nomos Glashütte</option>
+                <option>Glashütte Original</option>
+                <option>Sinn</option>
+                <option>Junghans</option>
+                <option>Hanhart</option>
+                <option>Laco</option>
+                <option>Stowa</option>
+              </optgroup>
+
+              <optgroup label="Japanese — Seiko">
+                <option>Seiko</option>
+                <option>Grand Seiko</option>
+                <option>Credor</option>
+                <option>Orient</option>
+                <option>Orient Star</option>
+              </optgroup>
+
+              <optgroup label="Japanese — Other">
+                <option>Citizen</option>
+                <option>Bulova</option>
+                <option>Casio</option>
+                <option>G-Shock</option>
+              </optgroup>
+            </select>
+            <span class="f-sel-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl" for="ref">Reference no.</label>
+          <input type="text" id="ref" class="f-inp" placeholder="e.g. 126710BLNR"/>
+        </div>
+
+        <div class="f-divider"></div>
+
+        <div class="f-sec">
+          <span>Acquisition costs</span>
+          <div class="f-sec-line"></div>
+        </div>
+
+        <div class="f-grid2">
+          <div>
+            <label class="f-lbl" for="purchase">Purchase price</label>
+            <div class="f-pfx">
+              <span class="f-pfx-label">CHF</span>
+              <input type="number" id="purchase" class="f-inp" placeholder="0"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="f-lbl" for="premium">Buyer’s premium</label>
+            <div class="f-sfx">
+              <input type="number" id="premium" class="f-inp" placeholder="0"/>
+              <span class="f-sfx-label">%</span>
             </div>
           </div>
         </div>
 
-        <div class="grad-rule"></div>
-
-        <div class="metric-row"><span class="ml">Total cost basis</span><span class="mv">CHF ${fmt(costBasis)}</span></div>
-        <div class="metric-row"><span class="ml">Net sale proceeds</span><span class="mv">CHF ${fmt(netProceeds)}</span></div>
-        <div class="metric-row"><span class="ml">Gross profit</span><span class="mv" style="color:${grossProfit >= 0 ? "rgba(255,255,255,0.8)" : "#e06060"};font-weight:500">${fmtN(grossProfit)}</span></div>
-        <div class="metric-row"><span class="ml">${taxLabel}</span><span class="mv" style="color:${taxOwed > 0 ? "#e06060" : "#52c47a"}">${taxOwed > 0 ? "− CHF " + fmt(taxOwed) : "None"}</span></div>
-
-        <div style="display:flex;justify-content:space-between;padding:12px 0 16px">
-          <span style="font-size:12px;color:rgba(255,255,255,0.55);font-weight:500">Net profit</span>
-          <span style="font-size:16px;font-family:'Georgia','Times New Roman',serif;font-weight:500;color:${pc}">${netProfit < 0 ? "−" : ""}CHF ${fmt(Math.abs(netProfit))}</span>
-        </div>
-
-        <div class="r-card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="f-grid2">
           <div>
-            <p class="r-label">Break-even sale price</p>
-            <p class="r-val" style="font-size:17px;color:rgba(255,255,255,0.7)">CHF ${fmt(breakEven)}</p>
+            <label class="f-lbl" for="service">Service / polish</label>
+            <div class="f-pfx">
+              <span class="f-pfx-label">CHF</span>
+              <input type="number" id="service" class="f-inp" placeholder="0"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="f-lbl" for="shipping-in">Inbound shipping</label>
+            <div class="f-pfx">
+              <span class="f-pfx-label">CHF</span>
+              <input type="number" id="shipping-in" class="f-inp" placeholder="0"/>
+            </div>
           </div>
         </div>
 
-        ${holdRec ? `<div class="hold-rec"><p class="hold-rec-lbl">⏱ Hold recommendation</p><p class="hold-rec-txt">Hold <strong style="color:#c8a060">${holdRec.months} more month${holdRec.months !== 1 ? "s" : ""}</strong> to save <strong style="color:#c8a060">CHF ${fmt(holdRec.saving)}</strong> in tax.</p></div>` : ""}
+        <div class="f-divider"></div>
 
-        <div class="tax-note">${c.flag} ${c.name}: ${c.note}. Tax estimates only — consult a specialist.</div>
+        <div class="f-sec">
+          <span>Sale details</span>
+          <div class="f-sec-line"></div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl" for="sale-price">Expected sale price</label>
+          <div class="f-pfx">
+            <span class="f-pfx-label">CHF</span>
+            <input type="number" id="sale-price" class="f-inp" placeholder="0"/>
+          </div>
+        </div>
+
+        <div class="f-grid2">
+          <div>
+            <label class="f-lbl" for="platform">Platform</label>
+            <div class="f-sel-wrap">
+              <select id="platform" class="f-sel">
+                <option value="6.5">Chrono24 (6.5%)</option>
+                <option value="10">WatchBox (10%)</option>
+                <option value="12">Watchfinder (12%)</option>
+                <option value="12.9">eBay (12.9%)</option>
+                <option value="0">Private sale (0%)</option>
+                <option value="custom">Custom</option>
+              </select>
+              <span class="f-sel-arrow">▾</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="f-lbl">Platform fee</label>
+            <div id="fee-display" style="padding:10px 13px;font-size:14px;color:rgba(255,255,255,0.4);border:0.5px solid rgba(255,255,255,0.09);border-radius:2px">6.5%</div>
+            <div class="f-sfx" id="fee-custom-wrap" style="display:none">
+              <input type="number" id="fee-custom" class="f-inp" placeholder="0"/>
+              <span class="f-sfx-label">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl" for="shipping-out">Outbound shipping</label>
+          <div class="f-pfx">
+            <span class="f-pfx-label">CHF</span>
+            <input type="number" id="shipping-out" class="f-inp" placeholder="0"/>
+          </div>
+        </div>
+
+        <div class="f-divider"></div>
+
+        <div class="f-sec">
+          <span>Tax & hold period</span>
+          <div class="f-sec-line"></div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl" for="country">Country of residence</label>
+          <div class="f-sel-wrap">
+            <select id="country" class="f-sel">
+              <option value="CH" data-sr="0" data-lr="0" data-lt="" data-al="0" data-note="No CGT for private individuals">🇨🇭 Switzerland</option>
+              <option value="AE" data-sr="0" data-lr="0" data-lt="" data-al="0" data-note="No capital gains tax">🇦🇪 UAE</option>
+              <option value="SG" data-sr="0" data-lr="0" data-lt="" data-al="0" data-note="No capital gains tax">🇸🇬 Singapore</option>
+              <option value="HK" data-sr="0" data-lr="0" data-lt="" data-al="0" data-note="No capital gains tax">🇭🇰 Hong Kong</option>
+              <option value="DE" data-sr="0.42" data-lr="0" data-lt="12" data-al="0" data-note="0% after 12 months">🇩🇪 Germany</option>
+              <option value="US" data-sr="0.37" data-lr="0.20" data-lt="12" data-al="0" data-note="20% long-term / up to 37% short-term">🇺🇸 United States</option>
+              <option value="GB" data-sr="0.20" data-lr="0.20" data-lt="" data-al="3000" data-note="20% CGT above annual allowance">🇬🇧 United Kingdom</option>
+              <option value="FR" data-sr="0.362" data-lr="0.362" data-lt="" data-al="0" data-note="36.2% flat tax estimate">🇫🇷 France</option>
+              <option value="IT" data-sr="0.26" data-lr="0.26" data-lt="" data-al="0" data-note="26% capital gains tax estimate">🇮🇹 Italy</option>
+              <option value="JP" data-sr="0.2031" data-lr="0.2031" data-lt="" data-al="0" data-note="20.315% capital gains estimate">🇯🇵 Japan</option>
+            </select>
+            <span class="f-sel-arrow">▾</span>
+          </div>
+          <p id="country-note" style="font-size:10px;color:rgba(255,255,255,0.22);margin-top:6px">No CGT for private individuals</p>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl" id="hold-lbl">Hold time — 6 months</label>
+          <input type="range" id="hold" class="hold-slider" min="0" max="36" value="6"/>
+          <div class="hold-ticks">
+            <span>0m</span><span>6m</span><span>12m</span><span>18m</span><span>24m</span><span>30m</span><span>36m</span>
+          </div>
+        </div>
+
+        <div class="f-divider"></div>
+
+        <button id="ai-btn" class="ai-btn" disabled>Assess this flip with AI</button>
+        <p class="ai-hint" id="ai-hint">Add brand, reference, purchase price and target sale to run AI assessment</p>
+
       </div>
-    `;
 
-    $("fin-result").style.display = "block";
-  }
+      <div class="flip-right" id="results-panel">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">◎</div>
+          <p class="empty-txt">Enter a brand, reference and your<br/>numbers to get started.</p>
+        </div>
 
-  aiBtn.addEventListener("click", async () => {
-    const brand    = brandEl.value;
-    const ref      = refEl.value.trim();
-    const purchase = purchaseEl.value;
-    const sale     = salePriceEl.value;
+        <div id="ai-loader" style="display:none" class="loader-wrap">
+          <div class="sweep-track"><div class="sweep-bar"></div></div>
+          <p class="loader-txt">Assessing deal intelligence</p>
+        </div>
 
-    if (!brand || !ref || !purchase || !sale) return;
+        <div id="ai-error" class="error-box" style="display:none"></div>
+        <div id="ai-result" style="display:none"></div>
+        <div id="fin-result" style="display:none"></div>
+      </div>
+    </div>
+  </div>
 
-    $("ai-loader").style.display = "block";
-    $("ai-result").style.display = "none";
-    $("ai-error").style.display  = "none";
-    $("ai-error").textContent = "";
+  <footer class="site-footer">
+    BEZERU · Independent watch journal
+  </footer>
 
-    aiBtn.disabled = true;
-    aiBtn.textContent = "Assessing deal...";
+  <script>
+    const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev";
 
-    const platformName = platformEl.options[platformEl.selectedIndex].text.split(" (")[0];
+    const $ = id => document.getElementById(id);
 
-    try {
-      const res = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          tool: "flip",
-          brand: brand,
-          reference: ref,
-          purchasePrice: purchase,
-          salePrice: sale,
-          platform: platformName,
-          condition: "Excellent"
-        })
+    const brandEl = $("brand");
+    const refEl = $("ref");
+    const purchaseEl = $("purchase");
+    const premiumEl = $("premium");
+    const serviceEl = $("service");
+    const shippingInEl = $("shipping-in");
+    const salePriceEl = $("sale-price");
+    const platformEl = $("platform");
+    const feeCustomEl = $("fee-custom");
+    const shippingOutEl = $("shipping-out");
+    const countryEl = $("country");
+    const holdEl = $("hold");
+    const aiBtn = $("ai-btn");
+
+    const fmt = n => Math.abs(Math.round(n || 0)).toLocaleString("en-CH");
+    const fmtN = n => (n < 0 ? "−" : "") + "CHF " + fmt(n);
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    platformEl.addEventListener("change", () => {
+      const v = platformEl.value;
+
+      if (v === "custom") {
+        $("fee-display").style.display = "none";
+        $("fee-custom-wrap").style.display = "block";
+      } else {
+        $("fee-display").style.display = "block";
+        $("fee-custom-wrap").style.display = "none";
+        $("fee-display").textContent = v + "%";
+      }
+
+      recalc();
+    });
+
+    countryEl.addEventListener("change", () => {
+      $("country-note").textContent = countryEl.options[countryEl.selectedIndex].dataset.note || "";
+      recalc();
+    });
+
+    holdEl.addEventListener("input", () => {
+      const v = parseInt(holdEl.value);
+      $("hold-lbl").textContent = `Hold time — ${v} month${v !== 1 ? "s" : ""}`;
+      recalc();
+    });
+
+    function checkAiReady() {
+      const ready =
+        brandEl.value &&
+        refEl.value.trim() &&
+        parseFloat(purchaseEl.value) > 0 &&
+        parseFloat(salePriceEl.value) > 0;
+
+      aiBtn.disabled = !ready;
+      $("ai-hint").style.display = ready ? "none" : "block";
+    }
+
+    document.querySelectorAll(".f-inp, .f-sel, .hold-slider").forEach(el => {
+      el.addEventListener("input", () => {
+        recalc();
+        checkAiReady();
       });
 
-      const d = await res.json();
+      el.addEventListener("change", () => {
+        recalc();
+        checkAiReady();
+      });
+    });
 
-      if (!res.ok || d.error) {
-        const apiMessage =
-          d?.detail?.error?.message ||
-          d?.detail?.message ||
-          d?.detail?.error?.status ||
-          d?.detail?.error?.code ||
-          (typeof d?.detail === "string" ? d.detail : "") ||
-          d?.error ||
-          "AI assessment failed";
+    function getPlatformFee() {
+      const v = platformEl.value;
+      return v === "custom" ? (parseFloat(feeCustomEl.value) || 0) : (parseFloat(v) || 0);
+    }
 
-        throw new Error(apiMessage);
+    function getCountry() {
+      const opt = countryEl.options[countryEl.selectedIndex];
+
+      return {
+        code: countryEl.value,
+        shortRate: parseFloat(opt.dataset.sr) || 0,
+        longRate: parseFloat(opt.dataset.lr) || 0,
+        longTermMonths: opt.dataset.lt ? parseInt(opt.dataset.lt) : null,
+        allowance: parseFloat(opt.dataset.al) || 0,
+        note: opt.dataset.note || "",
+        flag: opt.textContent.split(" ")[0],
+        name: opt.textContent.split(" ").slice(1).join(" ")
+      };
+    }
+
+    function recalc() {
+      const p = parseFloat(purchaseEl.value) || 0;
+      const prem = (parseFloat(premiumEl.value) || 0) / 100;
+      const svc = parseFloat(serviceEl.value) || 0;
+      const sIn = parseFloat(shippingInEl.value) || 0;
+      const sale = parseFloat(salePriceEl.value) || 0;
+      const pFee = getPlatformFee() / 100;
+      const sOut = parseFloat(shippingOutEl.value) || 0;
+      const hold = parseInt(holdEl.value) || 0;
+      const c = getCountry();
+
+      if (p === 0 && sale === 0) {
+        $("empty-state").style.display = "block";
+        $("fin-result").style.display = "none";
+        return;
       }
 
-      const viab = {
-        strong:   { color:"#52c47a", bg:"rgba(82,196,122,0.1)", border:"rgba(82,196,122,0.2)", label:"Strong flip" },
-        moderate: { color:"#c8a060", bg:"rgba(200,160,96,0.1)", border:"rgba(200,160,96,0.2)", label:"Moderate" },
-        weak:     { color:"#e09040", bg:"rgba(224,144,64,0.1)", border:"rgba(224,144,64,0.2)", label:"Weak flip" },
-        avoid:    { color:"#e06060", bg:"rgba(224,96,96,0.1)", border:"rgba(224,96,96,0.2)", label:"Avoid" }
-      };
+      $("empty-state").style.display = "none";
 
-      const verd = {
-        fair:             { color:"#c8a060", label:"Fair price" },
-        overpaying:       { color:"#e06060", label:"Overpaying" },
-        good_deal:        { color:"#52c47a", label:"Good deal" },
-        unrealistic_sale: { color:"#e06060", label:"Unrealistic target" }
-      };
+      const costBasis = p * (1 + prem) + svc + sIn;
+      const netProceeds = sale * (1 - pFee) - sOut;
+      const grossProfit = netProceeds - costBasis;
+      const breakEven = pFee < 1 ? (costBasis + sOut) / (1 - pFee) : 0;
 
-      const v  = viab[d.flipViability] || viab.moderate;
-      const pv = verd[d.priceVerdict] || verd.fair;
-      const dc = d.demandLevel === "high" ? "#52c47a" : d.demandLevel === "medium" ? "#c8a060" : "#e06060";
+      const isLongTerm = c.longTermMonths ? hold >= c.longTermMonths : false;
+      const taxRate = isLongTerm ? c.longRate : c.shortRate;
+      const taxable = c.code === "GB" ? Math.max(0, grossProfit - c.allowance) : Math.max(0, grossProfit);
+      const taxOwed = Math.max(0, taxable * taxRate);
+      const netProfit = grossProfit - taxOwed;
+      const roi = costBasis > 0 ? (netProfit / costBasis) * 100 : 0;
+      const annRoi = hold > 0 ? (roi / hold) * 12 : null;
 
-      $("ai-result").innerHTML = `
-        <div class="fu" style="margin-bottom:1.5rem">
-          <div class="r-sec" style="margin-bottom:10px"><span>AI deal assessment</span><div class="r-sec-line"></div></div>
+      let holdRec = null;
 
-          <div class="two-col">
-            <div style="background:${v.bg};border:0.5px solid ${v.border};border-radius:3px;padding:14px 16px">
-              <p class="r-label" style="color:${v.color}99">Flip viability</p>
-              <p style="font-size:18px;color:${v.color};font-weight:500">${v.label}</p>
-            </div>
+      if (c.longTermMonths && hold < c.longTermMonths && grossProfit > 0) {
+        const mLeft = c.longTermMonths - hold;
+        const ftax = Math.max(0, taxable * c.longRate);
+        const saving = taxOwed - ftax;
 
-            <div class="r-card" style="margin-bottom:0">
-              <p class="r-label">Purchase price</p>
-              <p style="font-size:18px;color:${pv.color};font-weight:500">${pv.label}</p>
+        if (saving > 10) {
+          holdRec = {
+            months: Math.ceil(mLeft),
+            saving: Math.round(saving)
+          };
+        }
+      }
+
+      const pc = netProfit > 0 ? "#52c47a" : netProfit < 0 ? "#e06060" : "rgba(255,255,255,0.4)";
+      const taxLabel = `Tax (${(taxRate * 100).toFixed(1)}%${isLongTerm ? " · long-term" : taxRate > 0 ? " · short-term" : ""})`;
+
+      $("fin-result").innerHTML = `
+        <div class="fu">
+          <div class="r-sec"><span>Your numbers</span><div class="r-sec-line"></div></div>
+
+          <div style="margin-bottom:1.25rem">
+            <p class="r-label">${netProfit > 0 ? "Net profit" : netProfit < 0 ? "Net loss" : "Break-even"}</p>
+
+            <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap">
+              <span style="font-family:Georgia,'Times New Roman',serif;font-size:42px;font-weight:200;letter-spacing:-0.03em;color:${pc};line-height:1">
+                ${netProfit < 0 ? "−" : ""}CHF ${fmt(Math.abs(netProfit))}
+              </span>
+
+              <div style="display:flex;gap:6px;padding-bottom:5px">
+                <span class="badge" style="background:${netProfit > 0 ? "rgba(82,196,122,0.1)" : netProfit < 0 ? "rgba(224,96,96,0.1)" : "rgba(255,255,255,0.05)"};color:${pc}">
+                  ${netProfit > 0 ? "+" : ""}${roi.toFixed(1)}% ROI
+                </span>
+
+                ${annRoi !== null ? `<span class="badge" style="background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.35)">${annRoi.toFixed(1)}% ann.</span>` : ""}
+              </div>
             </div>
           </div>
 
-          <div class="r-card" style="display:flex;justify-content:space-between;align-items:center">
+          <div class="grad-rule"></div>
+
+          <div class="metric-row"><span class="ml">Total cost basis</span><span class="mv">CHF ${fmt(costBasis)}</span></div>
+          <div class="metric-row"><span class="ml">Net sale proceeds</span><span class="mv">CHF ${fmt(netProceeds)}</span></div>
+          <div class="metric-row"><span class="ml">Gross profit</span><span class="mv" style="color:${grossProfit >= 0 ? "rgba(255,255,255,0.8)" : "#e06060"};font-weight:500">${fmtN(grossProfit)}</span></div>
+          <div class="metric-row"><span class="ml">${taxLabel}</span><span class="mv" style="color:${taxOwed > 0 ? "#e06060" : "#52c47a"}">${taxOwed > 0 ? "− CHF " + fmt(taxOwed) : "None"}</span></div>
+
+          <div style="display:flex;justify-content:space-between;padding:12px 0 16px">
+            <span style="font-size:12px;color:rgba(255,255,255,0.55);font-weight:500">Net profit</span>
+            <span style="font-size:16px;font-family:Georgia,'Times New Roman',serif;font-weight:500;color:${pc}">${netProfit < 0 ? "−" : ""}CHF ${fmt(Math.abs(netProfit))}</span>
+          </div>
+
+          <div class="r-card" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
             <div>
-              <p class="r-label">Realistic sale range</p>
-              <p class="r-val" style="font-size:20px;color:rgba(255,255,255,0.85)">CHF ${fmt(d.realisticRangeCHF?.low)} – ${fmt(d.realisticRangeCHF?.high)}</p>
-            </div>
-
-            <div style="text-align:right">
-              <p class="r-label">Demand</p>
-              <p style="font-size:13px;color:${dc};font-weight:500;text-transform:capitalize">${escapeHTML(d.demandLevel)}</p>
+              <p class="r-label">Break-even sale price</p>
+              <p class="r-val" style="font-size:17px;color:rgba(255,255,255,0.7)">CHF ${fmt(breakEven)}</p>
             </div>
           </div>
 
-          <div class="narrative-block">
-            <p class="narrative-text">${escapeHTML(d.verdictSummary)}</p>
-          </div>
+          ${holdRec ? `<div class="hold-rec"><p class="hold-rec-lbl">⏱ Hold recommendation</p><p class="hold-rec-txt">Hold <strong style="color:#c8a060">${holdRec.months} more month${holdRec.months !== 1 ? "s" : ""}</strong> to save <strong style="color:#c8a060">CHF ${fmt(holdRec.saving)}</strong> in tax.</p></div>` : ""}
 
-          <p style="font-size:11px;color:rgba(255,255,255,0.3);line-height:1.5;margin-bottom:10px;font-style:italic">${escapeHTML(d.liquidityNote)}</p>
-
-          <div class="two-col">
-            <div style="background:rgba(224,96,96,0.05);border:0.5px solid rgba(224,96,96,0.1);border-radius:3px;padding:14px">
-              <p class="r-label" style="color:rgba(224,96,96,0.5)">Risk factors</p>
-              ${(d.riskFactors || []).map(r => `<div style="display:flex;gap:8px;margin-bottom:8px"><span style="color:#e06060;font-size:9px;opacity:.6;padding-top:2px;flex-shrink:0">⚠</span><span style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5">${escapeHTML(r)}</span></div>`).join("")}
-            </div>
-
-            <div style="background:rgba(82,196,122,0.05);border:0.5px solid rgba(82,196,122,0.1);border-radius:3px;padding:14px">
-              <p class="r-label" style="color:rgba(82,196,122,0.5)">Flip tips</p>
-              ${(d.flipTips || []).map(t => `<div style="display:flex;gap:8px;margin-bottom:8px"><span style="color:#52c47a;font-size:10px;opacity:.7;padding-top:1px;flex-shrink:0">→</span><span style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5">${escapeHTML(t)}</span></div>`).join("")}
-            </div>
-          </div>
-
-          <div style="padding:10px 14px;background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.06);border-radius:3px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-            <span style="font-size:11px;color:rgba(255,255,255,0.3)">Best platform for this reference</span>
-            <span style="font-size:12px;color:rgba(255,255,255,0.75);font-weight:500">${escapeHTML(d.bestPlatform)}</span>
-          </div>
-
-          <div style="height:0.5px;background:rgba(255,255,255,0.05);margin-bottom:16px"></div>
+          <div class="tax-note">${c.flag} ${c.name}: ${c.note}. Tax estimates only — consult a specialist.</div>
         </div>
       `;
 
-      $("ai-result").style.display = "block";
-
-    } catch(e) {
-      console.error(e);
-      $("ai-error").textContent = e.message || "AI assessment failed";
-      $("ai-error").style.display = "block";
+      $("fin-result").style.display = "block";
     }
 
-    $("ai-loader").style.display = "none";
-    aiBtn.disabled = false;
-    aiBtn.textContent = "Assess this flip with AI";
+    aiBtn.addEventListener("click", async () => {
+      const brand = brandEl.value;
+      const ref = refEl.value.trim();
+      const purchase = purchaseEl.value;
+      const sale = salePriceEl.value;
 
-    checkAiReady();
+      if (!brand || !ref || !purchase || !sale) return;
+
+      $("ai-loader").style.display = "block";
+      $("ai-result").style.display = "none";
+      $("ai-error").style.display = "none";
+      $("ai-error").textContent = "";
+
+      aiBtn.disabled = true;
+      aiBtn.textContent = "Assessing deal...";
+
+      const platformName = platformEl.options[platformEl.selectedIndex].text.split(" (")[0];
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            tool: "flip",
+            brand: brand,
+            reference: ref,
+            purchasePrice: purchase,
+            salePrice: sale,
+            platform: platformName,
+            condition: "Excellent"
+          })
+        });
+
+        const d = await res.json();
+
+        if (!res.ok || d.error) {
+          const apiMessage =
+            d?.detail?.error?.message ||
+            d?.detail?.message ||
+            d?.detail?.error?.status ||
+            d?.detail?.error?.code ||
+            (typeof d?.detail === "string" ? d.detail : "") ||
+            d?.error ||
+            "AI assessment failed";
+
+          throw new Error(apiMessage);
+        }
+
+        const viab = {
+          strong: { color:"#52c47a", bg:"rgba(82,196,122,0.1)", border:"rgba(82,196,122,0.2)", label:"Strong flip" },
+          moderate: { color:"#c8a060", bg:"rgba(200,160,96,0.1)", border:"rgba(200,160,96,0.2)", label:"Moderate" },
+          weak: { color:"#e09040", bg:"rgba(224,144,64,0.1)", border:"rgba(224,144,64,0.2)", label:"Weak flip" },
+          avoid: { color:"#e06060", bg:"rgba(224,96,96,0.1)", border:"rgba(224,96,96,0.2)", label:"Avoid" }
+        };
+
+        const verd = {
+          fair: { color:"#c8a060", label:"Fair price" },
+          overpaying: { color:"#e06060", label:"Overpaying" },
+          good_deal: { color:"#52c47a", label:"Good deal" },
+          unrealistic_sale: { color:"#e06060", label:"Unrealistic target" }
+        };
+
+        const v = viab[d.flipViability] || viab.moderate;
+        const pv = verd[d.priceVerdict] || verd.fair;
+        const dc = d.demandLevel === "high" ? "#52c47a" : d.demandLevel === "medium" ? "#c8a060" : "#e06060";
+
+        $("ai-result").innerHTML = `
+          <div class="fu" style="margin-bottom:1.5rem">
+            <div class="r-sec" style="margin-bottom:10px"><span>AI deal assessment</span><div class="r-sec-line"></div></div>
+
+            <div class="two-col">
+              <div style="background:${v.bg};border:0.5px solid ${v.border};border-radius:3px;padding:14px 16px">
+                <p class="r-label" style="color:${v.color}99">Flip viability</p>
+                <p style="font-size:18px;color:${v.color};font-weight:500">${v.label}</p>
+              </div>
+
+              <div class="r-card" style="margin-bottom:0">
+                <p class="r-label">Purchase price</p>
+                <p style="font-size:18px;color:${pv.color};font-weight:500">${pv.label}</p>
+              </div>
+            </div>
+
+            <div class="r-card" style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <p class="r-label">Realistic sale range</p>
+                <p class="r-val" style="font-size:20px;color:rgba(255,255,255,0.85)">CHF ${fmt(d.realisticRangeCHF?.low)} – ${fmt(d.realisticRangeCHF?.high)}</p>
+              </div>
+
+              <div style="text-align:right">
+                <p class="r-label">Demand</p>
+                <p style="font-size:13px;color:${dc};font-weight:500;text-transform:capitalize">${escapeHTML(d.demandLevel)}</p>
+              </div>
+            </div>
+
+            <div class="narrative-block">
+              <p class="narrative-text">${escapeHTML(d.verdictSummary)}</p>
+            </div>
+
+            <p style="font-size:11px;color:rgba(255,255,255,0.3);line-height:1.5;margin-bottom:10px;font-style:italic">${escapeHTML(d.liquidityNote)}</p>
+
+            <div class="two-col">
+              <div style="background:rgba(224,96,96,0.05);border:0.5px solid rgba(224,96,96,0.1);border-radius:3px;padding:14px">
+                <p class="r-label" style="color:rgba(224,96,96,0.5)">Risk factors</p>
+                ${(d.riskFactors || []).map(r => `<div style="display:flex;gap:8px;margin-bottom:8px"><span style="color:#e06060;font-size:9px;opacity:.6;padding-top:2px;flex-shrink:0">⚠</span><span style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5">${escapeHTML(r)}</span></div>`).join("")}
+              </div>
+
+              <div style="background:rgba(82,196,122,0.05);border:0.5px solid rgba(82,196,122,0.1);border-radius:3px;padding:14px">
+                <p class="r-label" style="color:rgba(82,196,122,0.5)">Flip tips</p>
+                ${(d.flipTips || []).map(t => `<div style="display:flex;gap:8px;margin-bottom:8px"><span style="color:#52c47a;font-size:10px;opacity:.7;padding-top:1px;flex-shrink:0">→</span><span style="font-size:12px;color:rgba(255,255,255,0.45);line-height:1.5">${escapeHTML(t)}</span></div>`).join("")}
+              </div>
+            </div>
+
+            <div style="padding:10px 14px;background:rgba(255,255,255,0.02);border:0.5px solid rgba(255,255,255,0.06);border-radius:3px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+              <span style="font-size:11px;color:rgba(255,255,255,0.3)">Best platform for this reference</span>
+              <span style="font-size:12px;color:rgba(255,255,255,0.75);font-weight:500">${escapeHTML(d.bestPlatform)}</span>
+            </div>
+
+            <div style="height:0.5px;background:rgba(255,255,255,0.05);margin-bottom:16px"></div>
+          </div>
+        `;
+
+        $("ai-result").style.display = "block";
+
+      } catch(e) {
+        console.error(e);
+        $("ai-error").textContent = e.message || "AI assessment failed";
+        $("ai-error").style.display = "block";
+      }
+
+      $("ai-loader").style.display = "none";
+      aiBtn.disabled = false;
+      aiBtn.textContent = "Assess this flip with AI";
+
+      checkAiReady();
+      recalc();
+    });
+
     recalc();
-  });
+    checkAiReady();
+  </script>
 
-  recalc();
-  checkAiReady();
-</script>
+</body>
+</html>
