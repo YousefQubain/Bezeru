@@ -7,6 +7,12 @@
   <meta name="description" content="AI-generated watch listing descriptions in English, French, and Arabic. For dealers on Chrono24, WatchBox, and beyond."/>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    body {
+      margin: 0;
+      background: #0b0b0b;
+      color: #f0ede7;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
     .lo-wrap { max-width: 1100px; margin: 0 auto; padding: 0 0 80px; }
     .lo-intro { padding: 48px 28px 0; }
     .lo-intro h1 { font-size: 26px; font-weight: 300; letter-spacing: -0.025em; font-family: 'Georgia','Times New Roman',serif; color: #f0ede7; margin-bottom: 6px; }
@@ -144,6 +150,34 @@
     .empty-txt   { font-size: 12px; color: rgba(255,255,255,0.2); line-height: 1.7; }
 
     select option   { background: #111110; color: #f0ede7; }
+    .nav-intel { position: relative; }
+    .nav-intel-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #151515;
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      padding: 6px;
+      min-width: 170px;
+      z-index: 200;
+    }
+    .nav-intel:hover .nav-intel-menu { display: block; }
+    .nav-intel-menu a {
+      display: block;
+      padding: 9px 14px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5) !important;
+      border-radius: 3px;
+      transition: all .15s;
+    }
+    .nav-intel-menu a:hover { background: rgba(224,92,26,0.12); color: #f0ede7 !important; }
+    .nav-intel-menu a.active { color: #f0ede7 !important; }
     select optgroup { background: #0e0e0c; color: rgba(255,255,255,0.3); }
 
     @media(max-width:760px) {
