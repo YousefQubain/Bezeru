@@ -35,10 +35,16 @@ html {
 
   .bz-header { height: auto !important; }
   .bz-nav-row {
-    grid-template-columns: auto 1fr auto !important;
+    grid-template-columns: 44px minmax(0, 1fr) auto !important;
     padding: 0 18px !important;
     height: 56px !important;
     gap: 0 !important;
+  }
+  .bz-nav-row::before {
+    content: '';
+    display: block;
+    width: 44px;
+    grid-column: 1;
   }
   .bz-nav-left { display: none !important; }
   .bz-nav-right .bz-lang-wrap { display: none !important; }
@@ -47,7 +53,8 @@ html {
   .bz-nav-right .bz-icon-btn { display: none !important; }
   .bz-nav-right #bzSearchToggle { display: flex !important; }
   .bz-hamburger { display: flex !important; }
-  .bz-logo { justify-self: center; }
+  .bz-logo { grid-column: 2; justify-self: center; }
+  .bz-nav-right { grid-column: 3; }
   .bz-logo-sub { display: none !important; }
   .bz-logo-wordmark { font-size: 18px !important; }
 
