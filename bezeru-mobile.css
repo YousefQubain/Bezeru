@@ -3,11 +3,11 @@ html {
   text-size-adjust: 100%;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 899px) {
 
   html, body { overflow-x: hidden !important; }
   * { box-sizing: border-box; }
-  body { padding-top: 90px !important; }
+  body { padding-top: 0 !important; }
   input, textarea, select { font-size: 16px !important; }
   img { max-width: 100%; height: auto; }
   .container { padding-left: 20px !important; padding-right: 20px !important; }
@@ -19,27 +19,34 @@ html {
     .btn-outline:hover { background: transparent !important; color: #111111 !important; }
   }
 
-  .bz-topbar {
+  .bz-topbar,
+  .topbar {
     background: #111111 !important;
-    padding: 7px 18px !important;
-    height: auto !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  .bz-topbar::-webkit-scrollbar { display: none; }
+  .topbar-inner {
+    height: auto !important;
+    min-height: 36px !important;
+    padding: 7px 18px !important;
+  }
+  .bz-topbar::-webkit-scrollbar,
+  .topbar::-webkit-scrollbar { display: none; }
   .bz-topbar-date { display: none !important; }
   .bz-topbar-cities { gap: 16px !important; font-size: 10px !important; white-space: nowrap; }
   .bz-topbar-cities span { color: rgba(255,255,255,0.55) !important; }
   .bz-city-time { color: #ffffff !important; font-weight: 600 !important; }
 
   .bz-header { height: auto !important; }
+  .site-header-inner,
   .bz-nav-row {
     grid-template-columns: 44px minmax(0, 1fr) auto !important;
     padding: 0 18px !important;
     height: 56px !important;
     gap: 0 !important;
   }
+  .site-header-inner::before,
   .bz-nav-row::before {
     content: '';
     display: block;

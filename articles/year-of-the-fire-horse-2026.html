@@ -115,16 +115,19 @@
 <div id="readProgress" style="position:fixed;top:0;left:0;height:3px;width:0%;background:#C0392B;z-index:9999;transition:width 80ms linear;pointer-events:none;"></div>
 
 <header class="bz-header" id="bzHeader" data-shared-header="true">
-  <div class="bz-topbar">
-    <span class="bz-topbar-date" id="bzDate"></span>
-    <div class="bz-topbar-cities">
-      <span>GVA <span class="bz-city-time" data-tz="Europe/Zurich"></span></span>
-      <span>NYC <span class="bz-city-time" data-tz="America/New_York"></span></span>
-      <span>TYO <span class="bz-city-time" data-tz="Asia/Tokyo"></span></span>
-      <span>DXB <span class="bz-city-time" data-tz="Asia/Dubai"></span></span>
+  <div class="topbar bz-topbar">
+    <div class="topbar-inner">
+      <span class="bz-topbar-date" id="bzDate"></span>
+      <div class="bz-topbar-cities">
+        <span>GVA <span class="bz-city-time" data-tz="Europe/Zurich"></span></span>
+        <span>NYC <span class="bz-city-time" data-tz="America/New_York"></span></span>
+        <span>TYO <span class="bz-city-time" data-tz="Asia/Tokyo"></span></span>
+        <span>DXB <span class="bz-city-time" data-tz="Asia/Dubai"></span></span>
+      </div>
     </div>
   </div>
-  <div class="bz-nav-row">
+  <div class="site-header">
+    <div class="site-header-inner bz-nav-row">
     <nav class="bz-nav-left">
       <a href="/index.html" class="bz-nav-link">Home</a>
       <a href="/articles.html" class="bz-nav-link">Read</a>
@@ -155,6 +158,7 @@
       <button class="bz-hamburger" id="bzHamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
+    </div>
     </div>
   </div>
 </header>

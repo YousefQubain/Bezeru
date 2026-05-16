@@ -13,6 +13,39 @@
   --nav-sans: 'Inter', system-ui, sans-serif;
 }
 
+/* ─── HEADER SHELL ─── */
+.bz-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: transparent;
+  transition: box-shadow 250ms ease;
+}
+.bz-header.scrolled {
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+}
+
+/* ─── TOP BLACK BAR ─── */
+.topbar,
+.bz-topbar {
+  width: 100%;
+  background: #0b0b0b;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.topbar-inner,
+.site-header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+.topbar-inner {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  color: rgba(255,255,255,0.72);
 /* ─── TOPBAR / TIMEZONE STRIP ─── */
 .bz-topbar {
   grid-column: 1;
@@ -25,10 +58,37 @@
   background: var(--nav-ink);
   color: rgba(255,255,255,0.5);
   font-family: var(--nav-sans);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: visible;
+}
+.bz-topbar-date {
+  color: rgba(255,255,255,0.42);
+  flex: 0 0 auto;
+  margin-right: 8px;
+}
+.bz-topbar-cities {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+.bz-topbar-cities span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: rgba(255,255,255,0.58);
+  flex: 0 0 auto;
+}
+.bz-city-time { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+/* ─── WHITE NAVIGATION BAR ─── */
+.site-header {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -77,16 +137,15 @@
   padding: 0 40px;
   background: var(--nav-bg);
   border-bottom: 1px solid var(--nav-border);
-  transition: box-shadow 250ms ease;
 }
-.bz-header.scrolled {
-  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
-}
+.site-header-inner,
 .bz-nav-row {
+  height: 86px;
   display: contents;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
+  column-gap: 32px;
   height: 64px;
   padding: 0 40px;
   column-gap: 28px;
@@ -94,6 +153,14 @@
 
 /* ─── LEFT LINKS ─── */
 .bz-nav-left {
+  grid-column: 1;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  min-width: 0;
+  flex-wrap: nowrap;
+  overflow: visible;
   grid-column: 2;
   display: flex;
   align-items: center;
@@ -115,7 +182,7 @@
   text-transform: uppercase;
   color: var(--nav-muted);
   text-decoration: none;
-  padding: 6px 10px;
+  padding: 6px 0;
   border-radius: 3px;
   transition: color 150ms, background 150ms;
   position: relative;
@@ -126,8 +193,8 @@
   content: '';
   position: absolute;
   bottom: 2px;
-  left: 10px;
-  right: 10px;
+  left: 0;
+  right: 0;
   height: 1px;
   background: var(--nav-accent);
   transform: scaleX(0);
@@ -141,11 +208,16 @@
 
 /* ─── CENTER LOGO ─── */
 .bz-logo {
+  grid-column: 2;
+  justify-self: center;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1px;
+  flex: 0 0 auto;
+  min-width: max-content;
+  white-space: nowrap;
   justify-self: center;
   flex: 0 0 auto;
   min-width: max-content;
@@ -173,9 +245,15 @@
 
 /* ─── RIGHT ACTIONS ─── */
 .bz-nav-right {
+  grid-column: 3;
+  justify-self: end;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 16px;
+  min-width: max-content;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   gap: 12px;
   min-width: max-content;
   flex-wrap: nowrap;
@@ -607,6 +685,7 @@
 /* ─── BODY OFFSET ─── */
 body { padding-top: 0; }
 @media (max-width: 899px) {
+  body { padding-top: 0 !important; }
   body { padding-top: 90px !important; }
 }
 body.menu-open {
@@ -630,6 +709,22 @@ body.menu-open {
   .bz-hamburger { display: none !important; }
 }
 
+/* ─── NARROW DESKTOP ─── */
+@media (max-width: 1199px) and (min-width: 900px) {
+  .topbar-inner,
+  .site-header-inner { padding: 0 20px; }
+  .topbar-inner { gap: 20px; }
+  .bz-topbar-cities { gap: 18px; }
+  .bz-topbar-cities > span:nth-child(4) { display: none; }
+  .site-header-inner,
+  .bz-nav-row {
+    height: 76px;
+    column-gap: 20px;
+  }
+  .bz-nav-left { gap: 18px; }
+  .bz-nav-link { font-size: 11px; }
+  .bz-logo-sub { display: none; }
+  .bz-nav-right { gap: 10px; }
 
 /* ─── NARROW DESKTOP ─── */
 @media (max-width: 1399px) and (min-width: 1200px) {
@@ -648,6 +743,12 @@ body.menu-open {
   .bz-shop-btn { padding-left: 14px; padding-right: 14px; }
 }
 
+@media (max-width: 1040px) and (min-width: 900px) {
+  .bz-topbar-date,
+  .bz-topbar-cities > span:nth-child(n+3) { display: none; }
+  .bz-nav-left { gap: 14px; }
+  .bz-nav-right { gap: 8px; }
+  .bz-lang-btn { padding-left: 8px; padding-right: 8px; }
 @media (max-width: 1199px) and (min-width: 900px) {
   .bz-header {
     grid-template-columns: minmax(120px, 160px) auto minmax(120px, 1fr) auto;
@@ -732,24 +833,32 @@ body.menu-open {
     min-height: 0 !important;
     padding: 0 !important;
   }
+  .bz-topbar,
+  .topbar {
   .bz-topbar {
     display: flex !important;
     width: 100% !important;
     max-width: none !important;
     background: #111111 !important;
-    padding: 7px 18px !important;
-    height: auto !important;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
-  .bz-topbar::-webkit-scrollbar { display: none; }
+  .topbar-inner {
+    height: auto !important;
+    min-height: 36px !important;
+    padding: 7px 18px !important;
+    gap: 16px !important;
+  }
+  .bz-topbar::-webkit-scrollbar,
+  .topbar::-webkit-scrollbar { display: none; }
   .bz-topbar-date { display: none !important; }
   .bz-topbar-cities { gap: 16px !important; font-size: 10px !important; white-space: nowrap; }
   .bz-topbar-cities span { color: rgba(255,255,255,0.55) !important; }
   .bz-city-time { color: #ffffff !important; font-weight: 600 !important; }
 
   /* ── Nav bar ── */
+  .site-header-inner,
   .bz-nav-row {
     display: grid !important;
     grid-template-columns: 44px minmax(0, 1fr) auto !important;
@@ -757,6 +866,7 @@ body.menu-open {
     height: 56px !important;
     gap: 0 !important;
   }
+  .site-header-inner::before,
   .bz-nav-row::before {
     content: '';
     display: block;
