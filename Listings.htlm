@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Listing Optimizer — BEZERU</title>
+  <meta name="description" content="AI-generated watch listing descriptions in English, French, and Arabic. For dealers on Chrono24, WatchBox, and beyond."/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .lo-wrap { max-width: 1100px; margin: 0 auto; padding: 0 0 80px; }
+    .lo-intro { padding: 48px 28px 0; }
+    .lo-intro h1 { font-size: 26px; font-weight: 300; letter-spacing: -0.025em; font-family: 'Georgia','Times New Roman',serif; color: #f0ede7; margin-bottom: 6px; }
+    .lo-intro p  { font-size: 13px; color: rgba(255,255,255,0.28); line-height: 1.55; }
+    .lo-body { display: grid; grid-template-columns: 420px 1fr; min-height: 70vh; }
+    .lo-left  { padding: 28px; border-right: 0.5px solid rgba(255,255,255,0.05); }
+    .lo-right { padding: 28px; }
+
+    /* Form */
+    .f-lbl { display: block; font-size: 9px; color: rgba(255,255,255,0.28); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 7px; }
+    .f-inp, .f-sel, .f-textarea {
+      width: 100%; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.09);
+      color: #f0ede7; padding: 10px 13px; font-size: 14px; border-radius: 2px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; outline: none;
+      transition: border-color .2s, background .2s; box-sizing: border-box; appearance: none;
+    }
+    .f-inp::placeholder, .f-textarea::placeholder { color: rgba(255,255,255,0.18); }
+    .f-inp:focus, .f-sel:focus, .f-textarea:focus { border-color: rgba(224,92,26,0.55); background: rgba(224,92,26,0.04); }
+    .f-sel { padding-right: 32px; cursor: pointer; }
+    .f-sel-wrap { position: relative; }
+    .f-sel-arr { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.2); font-size: 10px; pointer-events: none; }
+    .f-textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+    .f-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .f-row { margin-bottom: 14px; }
+    .f-divider { height: 0.5px; background: rgba(255,255,255,0.05); margin: 20px 0; }
+    .f-sec { font-size: 9px; color: rgba(255,255,255,0.22); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .f-sec-line { flex: 1; height: 0.5px; background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent); }
+
+    /* Language checkboxes */
+    .lang-grid { display: flex; gap: 10px; margin-bottom: 20px; }
+    .lang-opt {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px; border: 0.5px solid rgba(255,255,255,0.09); border-radius: 3px;
+      cursor: pointer; transition: all .15s; background: rgba(255,255,255,0.02);
+      font-size: 12px; color: rgba(255,255,255,0.5); user-select: none;
+    }
+    .lang-opt.selected { border-color: #e05c1a; background: rgba(224,92,26,0.08); color: #f0ede7; }
+    .lang-flag { font-size: 16px; }
+
+    /* Generate button */
+    .gen-btn {
+      width: 100%; background: #e05c1a; color: #fff; border: none;
+      padding: 13px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      border-radius: 2px; cursor: pointer; font-weight: 500; font-family: inherit;
+      box-shadow: 0 4px 18px rgba(224,92,26,0.2); transition: all .18s;
+    }
+    .gen-btn:hover:not(:disabled) { background: #c94f14; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(224,92,26,0.28); }
+    .gen-btn:disabled { opacity: .32; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* Loader */
+    .sweep-track { position: relative; height: 1px; background: rgba(255,255,255,0.05); overflow: hidden; border-radius: 1px; margin-bottom: 10px; }
+    .sweep-bar   { position: absolute; top: 0; height: 100%; width: 55%; background: linear-gradient(90deg,transparent,#e05c1a,transparent); animation: sweep 1.1s ease-in-out infinite; }
+    @keyframes sweep { 0%{left:-60%;} 100%{left:110%;} }
+    .loader-wrap { padding: 40px 0; text-align: center; display: none; }
+    .loader-wrap.active { display: block; }
+    .loader-txt  { font-size: 10px; color: rgba(255,255,255,0.18); letter-spacing: 0.2em; text-transform: uppercase; }
+
+    /* Error */
+    .lo-error { display: none; padding: 12px; background: rgba(224,96,96,0.06); border: 0.5px solid rgba(224,96,96,0.18); border-radius: 2px; font-size: 12px; color: #e06060; margin-bottom: 16px; }
+    .lo-error.active { display: block; }
+
+    /* Results */
+    .lo-results { display: none; }
+    .lo-results.active { display: block; animation: fadeIn .4s ease; }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+
+    /* Language tabs */
+    .lang-tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+    .lang-tab {
+      padding: 10px 20px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); cursor: pointer; border-bottom: 2px solid transparent;
+      transition: all .15s; margin-bottom: -0.5px;
+    }
+    .lang-tab.active { color: #f0ede7; border-bottom-color: #e05c1a; }
+    .lang-tab:hover:not(.active) { color: rgba(255,255,255,0.6); }
+
+    .lang-panel { display: none; padding-top: 24px; }
+    .lang-panel.active { display: block; animation: fadeUp .3s ease forwards; }
+
+    /* Listing output */
+    .lo-title-block {
+      margin-bottom: 20px;
+    }
+    .lo-field-lbl { font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .copy-btn {
+      font-size: 9px; color: rgba(255,255,255,0.3); background: none; border: 0.5px solid rgba(255,255,255,0.1);
+      padding: 3px 8px; border-radius: 3px; cursor: pointer; font-family: inherit;
+      letter-spacing: 0.1em; text-transform: uppercase; transition: all .15s;
+    }
+    .copy-btn:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
+    .copy-btn.copied { color: #52c47a; border-color: rgba(82,196,122,0.3); }
+
+    .lo-title-text {
+      font-size: 16px; font-weight: 500; color: #f0ede7; line-height: 1.4;
+      padding: 14px 16px; background: rgba(255,255,255,0.025);
+      border: 0.5px solid rgba(255,255,255,0.07); border-radius: 3px;
+      font-family: 'Georgia','Times New Roman',serif;
+    }
+    .lo-desc-text {
+      font-size: 13px; color: rgba(240,237,231,0.72); line-height: 1.75;
+      padding: 16px; background: rgba(255,255,255,0.02);
+      border: 0.5px solid rgba(255,255,255,0.06); border-radius: 3px;
+      white-space: pre-wrap; font-family: 'Georgia','Times New Roman',serif;
+    }
+    .lo-desc-text[dir="rtl"] { text-align: right; }
+
+    .bullets-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+    .bullet-item {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 10px 14px; background: rgba(255,255,255,0.02);
+      border: 0.5px solid rgba(255,255,255,0.05); border-radius: 3px;
+    }
+    .bullet-dot { color: #e05c1a; font-size: 10px; padding-top: 2px; flex-shrink: 0; }
+    .bullet-txt { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.45; }
+
+    .keywords-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .kw-tag {
+      font-size: 11px; color: rgba(255,255,255,0.45); padding: 4px 10px;
+      border: 0.5px solid rgba(255,255,255,0.08); border-radius: 2px;
+      background: rgba(255,255,255,0.02); letter-spacing: 0.04em;
+    }
+
+    .copy-all-btn {
+      width: 100%; margin-top: 16px;
+      background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5);
+      border: 0.5px solid rgba(255,255,255,0.09); padding: 11px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      border-radius: 2px; cursor: pointer; font-family: inherit; transition: all .15s;
+    }
+    .copy-all-btn:hover { background: rgba(255,255,255,0.07); color: #fff; }
+
+    .empty-state { padding: 60px 20px; text-align: center; }
+    .empty-icon  { font-size: 32px; opacity: .15; margin-bottom: 16px; }
+    .empty-txt   { font-size: 12px; color: rgba(255,255,255,0.2); line-height: 1.7; }
+
+    select option   { background: #111110; color: #f0ede7; }
+    select optgroup { background: #0e0e0c; color: rgba(255,255,255,0.3); }
+
+    @media(max-width:760px) {
+      .lo-body { grid-template-columns: 1fr; }
+      .lo-left { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.05); }
+      .lo-intro, .lo-left, .lo-right { padding: 20px; }
+      .f-grid2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PASTE YOUR NAV HERE -->
+
+  <div class="lo-wrap">
+    <div class="lo-intro">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="color:#e05c1a;font-weight:700;font-size:13px;letter-spacing:0.22em">BEZERU</span>
+        <span style="width:1px;height:14px;background:rgba(255,255,255,0.1);display:inline-block"></span>
+        <span style="font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.22);border:0.5px solid rgba(255,255,255,0.1);padding:3px 8px;border-radius:2px">Listing Optimizer</span>
+      </div>
+      <h1>Dealer listing generator</h1>
+      <p>Enter your watch details and get a platform-ready listing in English, French, and Arabic — instantly.</p>
+    </div>
+
+    <div class="lo-body">
+
+      <!-- LEFT: Form -->
+      <div class="lo-left">
+
+        <div class="f-sec" style="margin-top:8px"><span>Watch details</span><div class="f-sec-line"></div></div>
+
+        <div class="f-row">
+          <label class="f-lbl">Brand</label>
+          <div class="f-sel-wrap">
+            <select id="brand" class="f-sel" style="color:rgba(255,255,255,0.2)">
+              <option value="" disabled selected>Select brand</option>
+              <optgroup label="Swiss — Prestige">
+                <option>Patek Philippe</option><option>Audemars Piguet</option><option>Vacheron Constantin</option>
+                <option>F.P. Journe</option><option>Greubel Forsey</option><option>De Bethune</option>
+                <option>H. Moser &amp; Cie</option><option>MB&amp;F</option><option>Urwerk</option><option>Ressence</option>
+              </optgroup>
+              <optgroup label="Swiss — Rolex Group">
+                <option>Rolex</option><option>Tudor</option>
+              </optgroup>
+              <optgroup label="Swiss — Richemont">
+                <option>Cartier</option><option>IWC Schaffhausen</option><option>Jaeger-LeCoultre</option>
+                <option>Panerai</option><option>Piaget</option><option>Baume &amp; Mercier</option><option>Roger Dubuis</option><option>A. Lange &amp; Söhne</option>
+              </optgroup>
+              <optgroup label="Swiss — Swatch Group">
+                <option>Omega</option><option>Breguet</option><option>Blancpain</option><option>Longines</option>
+                <option>Tissot</option><option>Hamilton</option><option>Rado</option><option>Harry Winston</option>
+              </optgroup>
+              <optgroup label="Swiss — LVMH">
+                <option>TAG Heuer</option><option>Zenith</option><option>Hublot</option><option>Bulgari</option>
+              </optgroup>
+              <optgroup label="Swiss — Independent">
+                <option>Chopard</option><option>Richard Mille</option><option>Girard-Perregaux</option>
+                <option>Ulysse Nardin</option><option>Oris</option><option>Frederique Constant</option>
+                <option>Maurice Lacroix</option><option>Doxa</option><option>Franck Muller</option>
+                <option>Parmigiani Fleurier</option><option>Corum</option><option>Bell &amp; Ross</option>
+                <option>Fortis</option><option>Movado</option><option>Montblanc</option>
+              </optgroup>
+              <optgroup label="German">
+                <option>Nomos Glashütte</option><option>Glashütte Original</option><option>Sinn</option>
+                <option>Junghans</option><option>Laco</option><option>Stowa</option>
+              </optgroup>
+              <optgroup label="Japanese — Seiko">
+                <option>Seiko</option><option>Grand Seiko</option><option>Credor</option><option>Orient</option>
+              </optgroup>
+              <optgroup label="Japanese — Other">
+                <option>Citizen</option><option>Casio</option><option>G-Shock</option>
+              </optgroup>
+            </select>
+            <span class="f-sel-arr">▾</span>
+          </div>
+        </div>
+
+        <div class="f-grid2">
+          <div>
+            <label class="f-lbl">Reference no.</label>
+            <input type="text" id="ref" class="f-inp" placeholder="e.g. 126610LN"/>
+          </div>
+          <div>
+            <label class="f-lbl">Year</label>
+            <input type="text" id="year" class="f-inp" placeholder="e.g. 2022"/>
+          </div>
+        </div>
+
+        <div class="f-grid2">
+          <div>
+            <label class="f-lbl">Condition</label>
+            <div class="f-sel-wrap">
+              <select id="cond" class="f-sel">
+                <option value="Mint / Unworn">Mint / Unworn</option>
+                <option value="Excellent" selected>Excellent</option>
+                <option value="Very Good">Very Good</option>
+                <option value="Good">Good</option>
+              </select>
+              <span class="f-sel-arr">▾</span>
+            </div>
+          </div>
+          <div>
+            <label class="f-lbl">Documentation</label>
+            <div class="f-sel-wrap">
+              <select id="docs" class="f-sel">
+                <option value="Full set (box &amp; papers)">Full set</option>
+                <option value="Box only">Box only</option>
+                <option value="Papers only">Papers only</option>
+                <option value="Watch only">Watch only</option>
+              </select>
+              <span class="f-sel-arr">▾</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="f-grid2">
+          <div>
+            <label class="f-lbl">Dial</label>
+            <input type="text" id="dial" class="f-inp" placeholder="e.g. Black, sunburst"/>
+          </div>
+          <div>
+            <label class="f-lbl">Case material</label>
+            <input type="text" id="case-mat" class="f-inp" placeholder="e.g. Stainless steel"/>
+          </div>
+        </div>
+
+        <div class="f-divider"></div>
+
+        <div class="f-sec"><span>Pricing &amp; platform</span><div class="f-sec-line"></div></div>
+
+        <div class="f-grid2">
+          <div>
+            <label class="f-lbl">Asking price</label>
+            <input type="number" id="price" class="f-inp" placeholder="e.g. 12500"/>
+          </div>
+          <div>
+            <label class="f-lbl">Currency</label>
+            <div class="f-sel-wrap">
+              <select id="currency" class="f-sel">
+                <option value="CHF" selected>CHF</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="AED">AED</option>
+              </select>
+              <span class="f-sel-arr">▾</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl">Target platform</label>
+          <div class="f-sel-wrap">
+            <select id="platform" class="f-sel">
+              <option>Chrono24</option>
+              <option>WatchBox</option>
+              <option>Watchfinder</option>
+              <option>eBay</option>
+              <option>Private sale</option>
+            </select>
+            <span class="f-sel-arr">▾</span>
+          </div>
+        </div>
+
+        <div class="f-row">
+          <label class="f-lbl">Additional notes (optional)</label>
+          <textarea id="notes" class="f-textarea" placeholder="e.g. Recently serviced, original bracelet, no scratches on crystal..."></textarea>
+        </div>
+
+        <div class="f-divider"></div>
+
+        <div class="f-sec"><span>Languages</span><div class="f-sec-line"></div></div>
+
+        <div class="lang-grid">
+          <div class="lang-opt selected" data-lang="en" onclick="toggleLang(this)">
+            <span class="lang-flag">🇬🇧</span> English
+          </div>
+          <div class="lang-opt selected" data-lang="fr" onclick="toggleLang(this)">
+            <span class="lang-flag">🇫🇷</span> French
+          </div>
+          <div class="lang-opt selected" data-lang="ar" onclick="toggleLang(this)">
+            <span class="lang-flag">🇦🇪</span> Arabic
+          </div>
+        </div>
+
+        <button id="gen-btn" class="gen-btn" disabled>Generate listing</button>
+
+      </div>
+
+      <!-- RIGHT: Results -->
+      <div class="lo-right">
+
+        <div class="loader-wrap" id="loader">
+          <div class="sweep-track"><div class="sweep-bar"></div></div>
+          <p class="loader-txt">Generating your listing...</p>
+        </div>
+
+        <div class="lo-error" id="lo-error"></div>
+
+        <div class="lo-results" id="lo-results">
+          <div class="lang-tabs" id="lang-tabs"></div>
+          <div id="lang-panels"></div>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">✍️</div>
+          <p class="empty-txt">Fill in your watch details<br/>and click Generate listing.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PASTE YOUR FOOTER HERE -->
+
+  <script>
+    const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev/";
+
+    // Enable button when brand + ref filled
+    const brandEl = document.getElementById("brand");
+    const refEl   = document.getElementById("ref");
+    const genBtn  = document.getElementById("gen-btn");
+
+    function checkReady() {
+      genBtn.disabled = !(brandEl.value && refEl.value.trim() && getSelectedLangs().length > 0);
+    }
+    brandEl.addEventListener("change", checkReady);
+    refEl.addEventListener("input", checkReady);
+
+    // Language toggle
+    function toggleLang(el) {
+      el.classList.toggle("selected");
+      checkReady();
+    }
+
+    function getSelectedLangs() {
+      return [...document.querySelectorAll(".lang-opt.selected")].map(el => el.dataset.lang);
+    }
+
+    // Copy helpers
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = "Copied!";
+        btn.classList.add("copied");
+        setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 2000);
+      });
+    }
+
+    // Render a language panel
+    function renderPanel(lang, data, isRTL) {
+      const dir = isRTL ? 'dir="rtl"' : '';
+
+      const bullets = (data.bulletPoints || []).map(b =>
+        `<div class="bullet-item">
+          <span class="bullet-dot">—</span>
+          <span class="bullet-txt" ${dir}>${b}</span>
+        </div>`
+      ).join("");
+
+      const keywords = (data.keywords || []).map(k =>
+        `<span class="kw-tag">${k}</span>`
+      ).join("");
+
+      const fullText = `${data.title}\n\n${data.description}\n\n${(data.bulletPoints||[]).map(b=>'• '+b).join('\n')}\n\nKeywords: ${(data.keywords||[]).join(', ')}`;
+
+      return `
+        <div class="lo-title-block">
+          <div class="lo-field-lbl">
+            <span>Title</span>
+            <button class="copy-btn" onclick="copyText(${JSON.stringify(data.title)}, this)">Copy</button>
+          </div>
+          <div class="lo-title-text" ${dir}>${data.title || ''}</div>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <div class="lo-field-lbl">
+            <span>Description</span>
+            <button class="copy-btn" onclick="copyText(${JSON.stringify(data.description)}, this)">Copy</button>
+          </div>
+          <div class="lo-desc-text" ${dir}>${(data.description || '').replace(/\n/g, '<br/>')}</div>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <div class="lo-field-lbl"><span>Key selling points</span></div>
+          <div class="bullets-grid">${bullets}</div>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <div class="lo-field-lbl"><span>Platform keywords</span></div>
+          <div class="keywords-row">${keywords}</div>
+        </div>
+
+        <button class="copy-all-btn" onclick="copyText(${JSON.stringify(fullText)}, this)">
+          Copy complete listing
+        </button>
+      `;
+    }
+
+    // Generate
+    genBtn.addEventListener("click", async () => {
+      const langs = getSelectedLangs();
+      if (!langs.length) return;
+
+      document.getElementById("empty-state").style.display = "none";
+      document.getElementById("lo-results").classList.remove("active");
+      document.getElementById("lo-error").classList.remove("active");
+      document.getElementById("loader").classList.add("active");
+      genBtn.disabled = true;
+      genBtn.textContent = "Generating...";
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tool:         "listing",
+            brand:        brandEl.value,
+            reference:    refEl.value.trim(),
+            year:         document.getElementById("year").value.trim(),
+            condition:    document.getElementById("cond").value,
+            documentation:document.getElementById("docs").value,
+            dial:         document.getElementById("dial").value.trim(),
+            caseMaterial: document.getElementById("case-mat").value.trim(),
+            price:        document.getElementById("price").value.trim(),
+            currency:     document.getElementById("currency").value,
+            platform:     document.getElementById("platform").value,
+            notes:        document.getElementById("notes").value.trim(),
+            languages:    langs
+          })
+        });
+
+        const data = await res.json();
+        if (data.error) throw new Error(data.detail || data.error);
+
+        // Build tabs and panels
+        const langMeta = {
+          en: { label: "English",  flag: "🇬🇧", rtl: false },
+          fr: { label: "French",   flag: "🇫🇷", rtl: false },
+          ar: { label: "Arabic",   flag: "🇦🇪", rtl: true  },
+        };
+
+        const tabsEl   = document.getElementById("lang-tabs");
+        const panelsEl = document.getElementById("lang-panels");
+        tabsEl.innerHTML   = "";
+        panelsEl.innerHTML = "";
+
+        langs.forEach((lang, i) => {
+          if (!data[lang]) return;
+          const meta = langMeta[lang];
+
+          // Tab
+          const tab = document.createElement("div");
+          tab.className = "lang-tab" + (i === 0 ? " active" : "");
+          tab.textContent = `${meta.flag} ${meta.label}`;
+          tab.dataset.lang = lang;
+          tab.addEventListener("click", () => {
+            document.querySelectorAll(".lang-tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".lang-panel").forEach(p => p.classList.remove("active"));
+            tab.classList.add("active");
+            document.getElementById(`panel-${lang}`).classList.add("active");
+          });
+          tabsEl.appendChild(tab);
+
+          // Panel
+          const panel = document.createElement("div");
+          panel.className = "lang-panel" + (i === 0 ? " active" : "");
+          panel.id = `panel-${lang}`;
+          panel.innerHTML = renderPanel(lang, data[lang], meta.rtl);
+          panelsEl.appendChild(panel);
+        });
+
+        document.getElementById("loader").classList.remove("active");
+        document.getElementById("lo-results").classList.add("active");
+
+      } catch(e) {
+        document.getElementById("loader").classList.remove("active");
+        const errEl = document.getElementById("lo-error");
+        errEl.textContent = e.message || "Generation failed — try again.";
+        errEl.classList.add("active");
+        document.getElementById("empty-state").style.display = "block";
+      }
+
+      genBtn.disabled = false;
+      genBtn.textContent = "Generate listing";
+      checkReady();
+    });
+  </script>
+</body>
+</html>
