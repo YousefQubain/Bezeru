@@ -839,6 +839,8 @@
 }
 
   </style>
+  <link rel="stylesheet" href="intelligence-nav.css" />
+  <script src="intelligence-nav.js" defer></script>
 </head>
 
 <body>
@@ -1018,22 +1020,6 @@
   </footer>
 
   <script>
-    const navHeader = document.getElementById("bzHeader");
-    const navToggle = document.querySelector(".bezeru-nav-toggle");
-
-    navToggle.addEventListener("click", () => {
-      const isOpen = navHeader.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-      navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key !== "Escape" || !navHeader.classList.contains("is-open")) return;
-      navHeader.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.setAttribute("aria-label", "Open navigation menu");
-    });
-
     const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev";
 
     const brandGroups = [
