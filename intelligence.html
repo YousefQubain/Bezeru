@@ -671,10 +671,31 @@
       .bezeru-nav-inner {
         align-items: flex-start;
         flex-direction: column;
+        gap: 14px;
+        padding: 14px 16px 12px;
       }
 
       .bezeru-links {
+        position: static;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        padding: 0 0 2px;
+        background: transparent;
+        z-index: auto;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
         gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .bezeru-links > a,
+      .nav-intel {
+        flex-shrink: 0;
       }
     }
 
