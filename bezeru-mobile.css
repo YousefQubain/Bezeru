@@ -209,7 +209,7 @@ html {
   .archive-page-head p { font-size: 14px !important; }
   .archive-filter-sticky {
     position: sticky !important;
-    top: 90px !important;
+    top: 92px !important;
     z-index: 98 !important;
     background: #ffffff !important;
     border-bottom: 1px solid #E0DDD8 !important;

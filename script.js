@@ -2,6 +2,8 @@ function initUnifiedHeader(){
   const header = document.querySelector("header");
   if(!header) return;
   if(header.dataset.sharedHeader === "true") return;
+  if(header.classList.contains("bz-header")) return;
+  if(document.getElementById("bzHeader")) return;
 
   const link = (path)=> {
     const params = new URLSearchParams(window.location.search);
@@ -195,11 +197,11 @@ function initBzMobileMenu(){
   let isOpen = false;
 
   function lockBody(){
-    document.body.classList.add("menu-open");
+    document.body.classList.add("bz-menu-open");
   }
 
   function unlockBody(){
-    document.body.classList.remove("menu-open");
+    document.body.classList.remove("bz-menu-open");
   }
 
   function openMenu(e){
@@ -220,9 +222,8 @@ function initBzMobileMenu(){
   }
 
   function closeMenu(e){
-    if(e){
+    if(e && e.type === "keydown"){
       e.preventDefault();
-      e.stopImmediatePropagation();
     }
     if(!isOpen) return;
     isOpen = false;
@@ -238,7 +239,18 @@ function initBzMobileMenu(){
   closeBtn.addEventListener("click", closeMenu, true);
   backdrop.addEventListener("click", closeMenu, true);
   menu.querySelectorAll(".bz-mm-link").forEach((link)=>{
-    link.addEventListener("click", closeMenu, true);
+    link.addEventListener("click", function(e){
+      const href = link.getAttribute("href");
+      closeMenu();
+      if(href && !href.startsWith("#")){
+        setTimeout(function(){ window.location.href = href; }, 50);
+      } else if(href && href.startsWith("#")){
+        setTimeout(function(){
+          const target = document.querySelector(href);
+          if(target) target.scrollIntoView({ behavior: "smooth" });
+        }, 400);
+      }
+    }, false);
   });
 
   document.addEventListener("keydown", (e)=>{
