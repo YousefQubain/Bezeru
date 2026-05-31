@@ -581,6 +581,14 @@ body.bz-menu-open {
 }
 
 /* ---------- SEARCH OVERLAY ---------- */
+.bz-search-bar {
+  display: none !important;
+}
+
+.bz-search-bar.open {
+  display: block !important;
+}
+
 .bz-search-overlay {
   position: fixed !important;
   inset: 0 !important;
