@@ -45,6 +45,10 @@
       font-weight: 700;
     }
 
+    .bezeru-nav-toggle {
+      display: none;
+    }
+
     .bezeru-links {
       display: flex;
       align-items: center;
@@ -669,33 +673,106 @@
 
     @media (max-width: 720px) {
       .bezeru-nav-inner {
+        position: relative;
         align-items: flex-start;
         flex-direction: column;
         gap: 14px;
         padding: 14px 16px 12px;
       }
 
+      .bezeru-nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 7px;
+        right: 10px;
+        width: 42px;
+        height: 42px;
+        border: 0;
+        background: transparent;
+        color: #f0ede7;
+        cursor: pointer;
+      }
+
+      .bezeru-nav-toggle span,
+      .bezeru-nav-toggle::before,
+      .bezeru-nav-toggle::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 1px;
+        background: currentColor;
+        transition: transform .2s ease, opacity .2s ease;
+      }
+
+      .bezeru-nav-toggle::before {
+        transform: translateY(-6px);
+      }
+
+      .bezeru-nav-toggle::after {
+        transform: translateY(6px);
+      }
+
+      .bezeru-nav.is-open .bezeru-nav-toggle span {
+        opacity: 0;
+      }
+
+      .bezeru-nav.is-open .bezeru-nav-toggle::before {
+        transform: rotate(45deg);
+      }
+
+      .bezeru-nav.is-open .bezeru-nav-toggle::after {
+        transform: rotate(-45deg);
+      }
+
       .bezeru-links {
+        display: none;
         position: static;
         inset: auto;
         width: 100%;
         height: auto;
-        padding: 0 0 2px;
+        padding: 4px 0 2px;
         background: transparent;
         z-index: auto;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: flex-start;
         flex-wrap: nowrap;
-        gap: 14px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+        align-items: stretch;
+        gap: 0;
+        overflow: visible;
+        white-space: normal;
+      }
+
+      .bezeru-nav.is-open .bezeru-links {
+        display: flex;
       }
 
       .bezeru-links > a,
       .nav-intel {
         flex-shrink: 0;
+      }
+
+      .bezeru-links > a,
+      .nav-intel > a {
+        padding: 12px 0;
+        border-top: 0.5px solid rgba(255,255,255,0.08);
+      }
+
+      .bezeru-nav .bezeru-links .nav-intel-menu {
+        display: grid;
+        position: static;
+        transform: none;
+        min-width: 0;
+        padding: 0 0 8px 14px;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+      }
+
+      .bezeru-nav .bezeru-links .nav-intel-menu a {
+        padding: 8px 0;
       }
     }
 
@@ -769,6 +846,9 @@
   <header class="bezeru-nav" data-shared-header="true" id="bzHeader">
     <div class="bezeru-nav-inner">
       <a href="/index.html" class="bezeru-logo">BEZERU</a>
+      <button class="bezeru-nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+      </button>
 
       <nav class="bezeru-links">
         <a href="/index.html">Home</a>
@@ -938,6 +1018,22 @@
   </footer>
 
   <script>
+    const navHeader = document.getElementById("bzHeader");
+    const navToggle = document.querySelector(".bezeru-nav-toggle");
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navHeader.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape" || !navHeader.classList.contains("is-open")) return;
+      navHeader.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Open navigation menu");
+    });
+
     const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev";
 
     const brandGroups = [
