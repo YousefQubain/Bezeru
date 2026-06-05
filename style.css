@@ -3678,3 +3678,166 @@ body, .page-shell, .page-surface { background: #FFFFFF; }
 .archive-intro, .article-hero, .featured-hero, .home-subscribe { background: #FFFFFF !important; }
 .archive-intro, .article-hero, .featured-hero { border-block: 1px solid #E0DDD8; }
 .article-hero-image { display: none !important; }
+
+/* Article readability pass */
+body[data-page="article"] .article-shell,
+body[data-page="static-article"] .article-shell{
+  max-width: min(1040px, calc(100vw - 48px));
+  padding: clamp(38px, 5vw, 64px) clamp(28px, 6vw, 76px) clamp(54px, 7vw, 82px);
+  border-radius: 28px;
+}
+
+body[data-page="article"] .article-title,
+body[data-page="static-article"] .article-title{
+  max-width: 860px;
+  font-size: clamp(34px, 4.6vw, 58px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+body[data-page="article"] .article-excerpt,
+body[data-page="static-article"] .article-excerpt{
+  max-width: 760px;
+  font-size: clamp(17px, 1.7vw, 20px);
+  line-height: 1.75;
+  margin-top: 20px;
+}
+
+body[data-page="article"] .article-divider,
+body[data-page="static-article"] .article-divider{
+  margin: 34px 0 8px;
+}
+
+body[data-page="article"] .article-body,
+body[data-page="static-article"] .article-body,
+body[data-page="static-article"] .article-body.article-content{
+  max-width: 760px;
+  margin: 32px auto 0;
+  padding: clamp(30px, 4vw, 44px) 0 clamp(46px, 5vw, 66px);
+  font-size: clamp(17px, 1.35vw, 18.5px);
+  line-height: 1.92;
+}
+
+body[data-page="article"] .article-body p,
+body[data-page="static-article"] .article-body p,
+body[data-page="static-article"] .article-body.article-content p{
+  max-width: 68ch;
+  margin: 0 0 30px;
+  font-size: inherit;
+  line-height: inherit;
+  color: rgba(17,17,17,0.82);
+}
+
+body[data-page="article"] .article-body p:first-of-type,
+body[data-page="static-article"] .article-body p:first-of-type,
+body[data-page="static-article"] .article-body.article-content > p:first-of-type{
+  font-size: clamp(18px, 1.5vw, 20px);
+  line-height: 1.88;
+}
+
+body[data-page="static-article"] .article-body.article-content > p:first-of-type::first-letter{
+  float: none;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+  font-weight: inherit;
+}
+
+body[data-page="article"] .article-body h2,
+body[data-page="static-article"] .article-body h2,
+body[data-page="static-article"] .article-body.article-content h2{
+  margin: 56px 0 20px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.18;
+}
+
+body[data-page="static-article"] .article-body.article-content h2{
+  font-family: "Fraunces", "Iowan Old Style", "Times New Roman", serif;
+}
+
+body[data-page="article"] .article-body h2::before,
+body[data-page="static-article"] .article-body h2::before{
+  width: 44px;
+  height: 2px;
+  margin-bottom: 16px;
+  background: rgba(177,15,31,0.45);
+}
+
+body[data-page="article"] .article-engagement,
+body[data-page="static-article"] .article-engagement{
+  max-width: 760px;
+}
+
+@media (max-width: 720px){
+  body[data-page="article"] .page,
+  body[data-page="static-article"] .page{
+    padding-top: 18px;
+  }
+
+  body[data-page="article"] .article-hero,
+  body[data-page="static-article"] .article-hero{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body[data-page="article"] .article-hero > .container,
+  body[data-page="static-article"] .article-hero > .container{
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  body[data-page="article"] .article-shell,
+  body[data-page="static-article"] .article-shell{
+    max-width: 100% !important;
+    padding: 28px 18px 42px !important;
+    border-radius: 18px !important;
+  }
+
+  body[data-page="article"] .article-title,
+  body[data-page="static-article"] .article-title{
+    font-size: clamp(30px, 8.4vw, 38px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  body[data-page="article"] .article-excerpt,
+  body[data-page="static-article"] .article-excerpt{
+    font-size: 17px;
+    line-height: 1.68;
+  }
+
+  body[data-page="article"] .article-body,
+  body[data-page="static-article"] .article-body,
+  body[data-page="static-article"] .article-body.article-content{
+    max-width: 100% !important;
+    padding: 24px 0 42px !important;
+    font-size: 17px !important;
+    line-height: 1.82 !important;
+  }
+
+  body[data-page="article"] .article-body p,
+  body[data-page="static-article"] .article-body p,
+  body[data-page="static-article"] .article-body.article-content p{
+    margin-bottom: 25px !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  body[data-page="article"] .article-body p:first-of-type,
+  body[data-page="static-article"] .article-body p:first-of-type,
+  body[data-page="static-article"] .article-body.article-content > p:first-of-type{
+    font-size: 17.5px;
+    line-height: 1.82;
+  }
+
+  body[data-page="article"] .article-body h2,
+  body[data-page="static-article"] .article-body h2,
+  body[data-page="static-article"] .article-body.article-content h2{
+    margin-top: 42px;
+    font-size: 25px;
+  }
+}
