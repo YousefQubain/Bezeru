@@ -55,30 +55,33 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  margin: -12px 0;
+  padding: 12px 0;
 }
 
 .nav-intel-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: #151515;
   border: 0.5px solid rgba(255,255,255,0.1);
   border-radius: 4px;
   box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-  padding: 6px;
-  min-width: 190px;
+  padding: 8px;
+  min-width: 230px;
   z-index: 200;
 }
 
-.nav-intel:hover .nav-intel-menu {
+.nav-intel:hover .nav-intel-menu,
+.nav-intel:focus-within .nav-intel-menu {
   display: block;
 }
 
 .nav-intel-menu a {
   display: block;
-  padding: 10px 14px;
+  padding: 13px 16px;
   border-radius: 3px;
   white-space: nowrap;
   transition: all 0.15s ease;
@@ -173,6 +176,8 @@
 
   .bezeru-links > a,
   .nav-intel {
+    margin: 0 !important;
+    padding: 0 !important;
     flex-shrink: 0;
   }
 
