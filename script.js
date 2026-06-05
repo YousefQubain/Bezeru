@@ -978,6 +978,181 @@ function initArticleProgressBar(){
   window.addEventListener("resize", update);
 }
 
+function initArticleEngagement(){
+  const isArticlePage = document.body?.getAttribute("data-page") === "static-article"
+    || document.body?.getAttribute("data-page") === "article"
+    || location.pathname.includes("/articles/");
+  if(!isArticlePage) return;
+
+  const shell = document.querySelector(".article-shell");
+  if(!shell || shell.querySelector(".article-engagement")) return;
+
+  shell.querySelectorAll(".comment-section").forEach(section => section.remove());
+
+  const params = new URLSearchParams(location.search);
+  const articleId = params.get("id") || location.pathname.split("/").pop()?.replace(".html", "") || "article";
+  const storageBase = `bezeru_article_engagement:${articleId}`;
+  const likeKey = `${storageBase}:liked`;
+  const commentsKey = `${storageBase}:comments`;
+  const maxCommentLength = 420;
+
+  let liked = localStorage.getItem(likeKey) === "true";
+  let comments = [];
+  const savedComments = localStorage.getItem(commentsKey);
+  if(savedComments){
+    try{
+      const parsed = JSON.parse(savedComments);
+      if(Array.isArray(parsed)) comments = parsed;
+    }catch(_){}
+  }
+
+  const section = document.createElement("section");
+  section.className = "article-engagement";
+  section.setAttribute("aria-labelledby", "article-engagement-title");
+  section.innerHTML = `
+    <div class="article-engagement__head">
+      <span class="article-engagement__kicker">Collector response</span>
+      <h2 id="article-engagement-title">Like and discuss this article</h2>
+      <p>Leave a considered note for other BEZERU readers, or save a quiet like if this piece was useful.</p>
+    </div>
+
+    <button class="article-like-button" type="button" aria-pressed="false">
+      <span class="article-like-button__label">Like article</span>
+      <span class="article-like-button__count">0</span>
+    </button>
+
+    <form class="article-comment-form" novalidate>
+      <div class="article-comment-form__grid">
+        <label>
+          <span>Name</span>
+          <input class="article-comment-name" type="text" maxlength="60" placeholder="Collector name" autocomplete="name">
+        </label>
+        <label>
+          <span>Comment</span>
+          <textarea class="article-comment-text" maxlength="${maxCommentLength}" placeholder="Share a thoughtful comment about the article."></textarea>
+        </label>
+      </div>
+      <div class="article-comment-form__meta">
+        <span>Be respectful and avoid sharing private contact details.</span>
+        <span><span class="article-comment-count">0</span>/${maxCommentLength}</span>
+      </div>
+      <p class="article-comment-error" aria-live="polite"></p>
+      <button class="article-comment-submit" type="submit">Post comment</button>
+    </form>
+
+    <div class="article-comments" aria-live="polite"></div>
+  `;
+
+  const articleBody = shell.querySelector(".article-body");
+  const related = shell.querySelector(".related-stories");
+  if(articleBody){
+    articleBody.insertAdjacentElement("afterend", section);
+  }else if(related){
+    shell.insertBefore(section, related);
+  }else{
+    shell.appendChild(section);
+  }
+
+  const likeButton = section.querySelector(".article-like-button");
+  const likeCount = section.querySelector(".article-like-button__count");
+  const form = section.querySelector(".article-comment-form");
+  const nameInput = section.querySelector(".article-comment-name");
+  const commentInput = section.querySelector(".article-comment-text");
+  const commentCount = section.querySelector(".article-comment-count");
+  const errorEl = section.querySelector(".article-comment-error");
+  const commentsEl = section.querySelector(".article-comments");
+
+  function escapeHtml(value){
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function formatCommentTime(value){
+    const date = new Date(value);
+    if(Number.isNaN(date.getTime())) return "";
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(date);
+  }
+
+  function renderLike(){
+    likeButton.classList.toggle("is-liked", liked);
+    likeButton.setAttribute("aria-pressed", String(liked));
+    likeButton.querySelector(".article-like-button__label").textContent = liked ? "Liked" : "Like article";
+    likeCount.textContent = liked ? "1" : "0";
+  }
+
+  function renderComments(){
+    if(!comments.length){
+      commentsEl.innerHTML = `<div class="article-comments__empty">No comments yet. Be the first to add a thoughtful note.</div>`;
+      return;
+    }
+
+    commentsEl.innerHTML = comments.map(comment => `
+      <article class="article-comment-card">
+        <div class="article-comment-card__meta">
+          <strong>${escapeHtml(comment.name || "Guest Collector")}</strong>
+          <time>${escapeHtml(formatCommentTime(comment.timestamp))}</time>
+        </div>
+        <p>${escapeHtml(comment.text || "")}</p>
+      </article>
+    `).join("");
+  }
+
+  function setError(message){
+    errorEl.textContent = message;
+    errorEl.classList.toggle("is-visible", Boolean(message));
+  }
+
+  likeButton.addEventListener("click", ()=>{
+    liked = !liked;
+    localStorage.setItem(likeKey, String(liked));
+    renderLike();
+  });
+
+  commentInput.addEventListener("input", ()=>{
+    commentCount.textContent = String(commentInput.value.length);
+    if(commentInput.value.trim()) setError("");
+  });
+
+  form.addEventListener("submit", (event)=>{
+    event.preventDefault();
+    const text = commentInput.value.trim();
+    if(!text){
+      setError("Please write a comment before posting.");
+      commentInput.focus();
+      return;
+    }
+    if(text.length > maxCommentLength){
+      setError(`Comments must stay under ${maxCommentLength} characters.`);
+      commentInput.focus();
+      return;
+    }
+
+    comments = [{
+      name: nameInput.value.trim() || "Guest Collector",
+      timestamp: new Date().toISOString(),
+      text
+    }, ...comments];
+    localStorage.setItem(commentsKey, JSON.stringify(comments));
+    commentInput.value = "";
+    commentCount.textContent = "0";
+    setError("");
+    renderComments();
+  });
+
+  renderLike();
+  renderComments();
+}
+
 document.addEventListener("DOMContentLoaded", async ()=>{
   initBzMobileMenu();
   initTopbarDateAndTimes();
@@ -991,6 +1166,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initHomeAnalogClock();
   initBrandsTeaser();
   initArticleProgressBar();
+  initArticleEngagement();
   enhanceStaticCardMeta();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
