@@ -176,9 +176,12 @@
 
   .bezeru-links > a,
   .nav-intel {
+    flex-shrink: 0;
+  }
+
+  .nav-intel {
     margin: 0 !important;
     padding: 0 !important;
-    flex-shrink: 0;
   }
 
   .bezeru-links > a,
