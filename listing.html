@@ -149,6 +149,282 @@
     .empty-icon  { font-size: 32px; opacity: .15; margin-bottom: 16px; }
     .empty-txt   { font-size: 12px; color: rgba(255,255,255,0.2); line-height: 1.7; }
 
+    .collector-engagement {
+      margin: 28px;
+      padding: clamp(22px, 4vw, 34px);
+      border: 0.5px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top right, rgba(224,92,26,0.10), transparent 34%),
+        linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+      box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+    }
+
+    .ce-heading {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .ce-kicker {
+      display: block;
+      margin-bottom: 8px;
+      color: #e05c1a;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .ce-title {
+      margin: 0 0 8px;
+      color: #f0ede7;
+      font-family: 'Georgia','Times New Roman',serif;
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 300;
+      letter-spacing: -0.035em;
+    }
+
+    .ce-subtitle {
+      max-width: 520px;
+      margin: 0;
+      color: rgba(240,237,231,0.52);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .ce-trust-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 8px 12px;
+      border: 0.5px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      color: rgba(240,237,231,0.62);
+      background: rgba(255,255,255,0.035);
+      font-size: 9px;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ce-reactions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0 0 24px;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+
+    .ce-reaction {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 0.5px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.025);
+      color: rgba(240,237,231,0.64);
+      padding: 9px 12px;
+      font-family: inherit;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .ce-reaction:hover {
+      transform: translateY(-1px);
+      border-color: rgba(224,92,26,0.34);
+      color: #f0ede7;
+    }
+
+    .ce-reaction.is-active {
+      border-color: rgba(224,92,26,0.62);
+      background: rgba(224,92,26,0.12);
+      color: #f0ede7;
+      box-shadow: inset 0 0 0 1px rgba(224,92,26,0.10);
+    }
+
+    .ce-count {
+      min-width: 24px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.055);
+      color: rgba(240,237,231,0.54);
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .ce-reaction.is-active .ce-count {
+      background: rgba(224,92,26,0.20);
+      color: #f0ede7;
+    }
+
+    .ce-comment-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: clamp(22px, 4vw, 34px);
+      padding-top: 26px;
+    }
+
+    .ce-form {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .ce-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .ce-label {
+      color: rgba(240,237,231,0.42);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .ce-input,
+    .ce-textarea {
+      width: 100%;
+      border: 0.5px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.035);
+      color: #f0ede7;
+      padding: 12px 13px;
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .18s ease, background .18s ease;
+    }
+
+    .ce-input::placeholder,
+    .ce-textarea::placeholder {
+      color: rgba(240,237,231,0.22);
+    }
+
+    .ce-input:focus,
+    .ce-textarea:focus {
+      border-color: rgba(224,92,26,0.55);
+      background: rgba(224,92,26,0.045);
+    }
+
+    .ce-textarea {
+      min-height: 118px;
+      resize: vertical;
+      line-height: 1.65;
+    }
+
+    .ce-note-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: rgba(240,237,231,0.38);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .ce-error {
+      display: none;
+      color: #ff8c7a;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .ce-error.is-visible {
+      display: block;
+    }
+
+    .ce-submit {
+      justify-self: start;
+      border: 0.5px solid rgba(224,92,26,0.46);
+      border-radius: 999px;
+      background: rgba(224,92,26,0.13);
+      color: #f0ede7;
+      padding: 11px 16px;
+      font-family: inherit;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .ce-submit:hover {
+      transform: translateY(-1px);
+      border-color: rgba(224,92,26,0.72);
+      background: rgba(224,92,26,0.20);
+    }
+
+    .ce-comments {
+      display: grid;
+      gap: 12px;
+    }
+
+    .ce-comment {
+      border: 0.5px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.026);
+      padding: 16px;
+    }
+
+    .ce-comment-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .ce-comment-name {
+      color: rgba(240,237,231,0.84);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .ce-badge {
+      display: inline-flex;
+      margin-left: 8px;
+      padding: 3px 7px;
+      border: 0.5px solid rgba(224,92,26,0.28);
+      border-radius: 999px;
+      color: rgba(240,237,231,0.62);
+      font-size: 8px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    .ce-comment-time {
+      color: rgba(240,237,231,0.32);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ce-comment-text {
+      margin: 0;
+      color: rgba(240,237,231,0.60);
+      font-family: 'Georgia','Times New Roman',serif;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .ce-empty {
+      border: 0.5px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.018);
+      color: rgba(240,237,231,0.42);
+      padding: 22px;
+      font-family: 'Georgia','Times New Roman',serif;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
     select option   { background: #111110; color: #f0ede7; }
     .nav-intel { position: relative; }
     .nav-intel-menu {
@@ -185,6 +461,11 @@
       .lo-left { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.05); }
       .lo-intro, .lo-left, .lo-right { padding: 20px; }
       .f-grid2 { grid-template-columns: 1fr; }
+      .collector-engagement { margin: 20px; }
+      .ce-heading,
+      .ce-comment-panel { grid-template-columns: 1fr; }
+      .ce-trust-pill { justify-self: start; }
+      .ce-note-row { flex-direction: column; gap: 6px; }
     }
   </style>
   <link rel="stylesheet" href="intelligence-nav.css" />
@@ -415,6 +696,56 @@
 
       </div>
     </div>
+
+    <section class="collector-engagement" data-listing-id="listing-optimizer-preview-v2" aria-labelledby="collectorEngagementTitle">
+      <div class="ce-heading">
+        <div>
+          <span class="ce-kicker">Collector trust</span>
+          <h2 class="ce-title" id="collectorEngagementTitle">Collector Engagement</h2>
+          <p class="ce-subtitle">See how other collectors are responding to this piece.</p>
+        </div>
+        <span class="ce-trust-pill">Verified-first notes</span>
+      </div>
+
+      <div class="ce-reactions" role="group" aria-label="Collector reactions">
+        <button class="ce-reaction" type="button" data-reaction="interested" aria-pressed="false">
+          <span>Interested</span><span class="ce-count">0</span>
+        </button>
+        <button class="ce-reaction" type="button" data-reaction="rare-find" aria-pressed="false">
+          <span>Rare Find</span><span class="ce-count">0</span>
+        </button>
+        <button class="ce-reaction" type="button" data-reaction="great-price" aria-pressed="false">
+          <span>Great Price</span><span class="ce-count">0</span>
+        </button>
+        <button class="ce-reaction" type="button" data-reaction="collector-pick" aria-pressed="false">
+          <span>Collector Pick</span><span class="ce-count">0</span>
+        </button>
+        <button class="ce-reaction" type="button" data-reaction="verified" aria-pressed="false">
+          <span>Verified</span><span class="ce-count">0</span>
+        </button>
+      </div>
+
+      <div class="ce-comment-panel">
+        <form class="ce-form" id="collectorCommentForm" novalidate>
+          <div class="ce-field">
+            <label class="ce-label" for="collectorName">Name</label>
+            <input class="ce-input" id="collectorName" name="collectorName" type="text" maxlength="60" placeholder="Collector name" autocomplete="name" />
+          </div>
+          <div class="ce-field">
+            <label class="ce-label" for="collectorComment">Collector note</label>
+            <textarea class="ce-textarea" id="collectorComment" name="collectorComment" maxlength="320" placeholder="Share a thoughtful note about rarity, condition, price, or provenance."></textarea>
+          </div>
+          <div class="ce-note-row">
+            <span>Be respectful and avoid sharing private contact details.</span>
+            <span><span id="collectorCommentCount">0</span>/320</span>
+          </div>
+          <p class="ce-error" id="collectorCommentError" aria-live="polite"></p>
+          <button class="ce-submit" type="submit">Post note</button>
+        </form>
+
+        <div class="ce-comments" id="collectorComments" aria-live="polite"></div>
+      </div>
+    </section>
   </div>
 
   <footer class="site-footer">
@@ -592,6 +923,163 @@
       genBtn.textContent = "Generate listing";
       checkReady();
     });
+
+    function initCollectorEngagement(){
+      const section = document.querySelector(".collector-engagement");
+      if(!section) return;
+
+      // Frontend-only state until listing reactions/comments are backed by an API.
+      const listingId = section.dataset.listingId || "listing";
+      const selectedKey = `bezeru_engagement_reaction:${listingId}`;
+      const commentsKey = `bezeru_engagement_comments:${listingId}`;
+      const maxCommentLength = 320;
+      const reactionBase = {
+        "interested": 18,
+        "rare-find": 7,
+        "great-price": 11,
+        "collector-pick": 9,
+        "verified": 4
+      };
+      const fallbackComments = [
+        {
+          name: "Gulf Collector",
+          verified: true,
+          timestamp: "2026-05-28T12:20:00.000Z",
+          text: "Strong appeal if the watch presents honestly and the paperwork is complete. Condition notes will matter more than marketing language here."
+        },
+        {
+          name: "Private Desk",
+          verified: false,
+          timestamp: "2026-05-30T16:45:00.000Z",
+          text: "The best listings make the service history and ownership story easy to understand. That is what turns interest into trust."
+        }
+      ];
+
+      let selectedReaction = localStorage.getItem(selectedKey) || "";
+      let comments = fallbackComments;
+      const savedComments = localStorage.getItem(commentsKey);
+      if(savedComments){
+        try {
+          const parsed = JSON.parse(savedComments);
+          if(Array.isArray(parsed)) comments = parsed;
+        } catch(_) {}
+      }
+
+      const reactionButtons = Array.from(section.querySelectorAll(".ce-reaction[data-reaction]"));
+      const commentsEl = document.getElementById("collectorComments");
+      const form = document.getElementById("collectorCommentForm");
+      const nameInput = document.getElementById("collectorName");
+      const commentInput = document.getElementById("collectorComment");
+      const countEl = document.getElementById("collectorCommentCount");
+      const errorEl = document.getElementById("collectorCommentError");
+
+      function formatCommentTime(value){
+        const date = new Date(value);
+        if(Number.isNaN(date.getTime())) return "";
+        return new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }).format(date);
+      }
+
+      function escapeHtml(value){
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function renderReactions(){
+        reactionButtons.forEach((button)=>{
+          const key = button.dataset.reaction;
+          const count = (reactionBase[key] || 0) + (selectedReaction === key ? 1 : 0);
+          const isActive = selectedReaction === key;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+          const countEl = button.querySelector(".ce-count");
+          if(countEl) countEl.textContent = String(count);
+        });
+      }
+
+      function renderComments(){
+        if(!commentsEl) return;
+        if(!comments.length){
+          commentsEl.innerHTML = `<div class="ce-empty">No collector notes yet. Be the first to share your thoughts.</div>`;
+          return;
+        }
+
+        commentsEl.innerHTML = comments.map((comment)=>`
+          <article class="ce-comment">
+            <div class="ce-comment-head">
+              <div class="ce-comment-name">
+                ${escapeHtml(comment.name || "Guest Collector")}
+                ${comment.verified ? '<span class="ce-badge">Verified</span>' : ''}
+              </div>
+              <time class="ce-comment-time">${escapeHtml(formatCommentTime(comment.timestamp))}</time>
+            </div>
+            <p class="ce-comment-text">${escapeHtml(comment.text || "")}</p>
+          </article>
+        `).join("");
+      }
+
+      function setError(message){
+        if(!errorEl) return;
+        errorEl.textContent = message;
+        errorEl.classList.toggle("is-visible", Boolean(message));
+      }
+
+      reactionButtons.forEach((button)=>{
+        button.addEventListener("click", ()=>{
+          const nextReaction = button.dataset.reaction;
+          if(!nextReaction || selectedReaction === nextReaction) return;
+          selectedReaction = nextReaction;
+          localStorage.setItem(selectedKey, selectedReaction);
+          renderReactions();
+        });
+      });
+
+      commentInput?.addEventListener("input", ()=>{
+        if(countEl) countEl.textContent = String(commentInput.value.length);
+        if(commentInput.value.trim()) setError("");
+      });
+
+      form?.addEventListener("submit", (event)=>{
+        event.preventDefault();
+        const text = commentInput.value.trim();
+        if(!text){
+          setError("Please add a collector note before posting.");
+          commentInput.focus();
+          return;
+        }
+        if(text.length > maxCommentLength){
+          setError(`Collector notes must stay under ${maxCommentLength} characters.`);
+          commentInput.focus();
+          return;
+        }
+
+        comments = [{
+          name: nameInput.value.trim() || "Guest Collector",
+          verified: false,
+          timestamp: new Date().toISOString(),
+          text
+        }, ...comments];
+        localStorage.setItem(commentsKey, JSON.stringify(comments));
+        commentInput.value = "";
+        if(countEl) countEl.textContent = "0";
+        setError("");
+        renderComments();
+      });
+
+      renderReactions();
+      renderComments();
+    }
+
+    initCollectorEngagement();
   </script>
 </body>
 </html>
