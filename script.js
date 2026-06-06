@@ -1,9 +1,231 @@
 const BEZERU_WHATSAPP_NUMBER = "+41000000000"; // TODO: replace with real number
 const BEZERU_WHATSAPP_CONCIERGE_MESSAGE = "Hi Bezeru, I’m looking for help finding a watch.";
+const BEZERU_GA_MEASUREMENT_ID = "G-312HY6RE8D";
+const BEZERU_COOKIE_CONSENT_KEY = "bezeruCookieConsent";
+
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
+window.gtag("consent", "default", {
+  analytics_storage: "denied"
+});
+
+function hasBezeruAnalyticsConsent(){
+  try {
+    return JSON.parse(localStorage.getItem(BEZERU_COOKIE_CONSENT_KEY) || "null")?.analytics === true;
+  } catch (_) {
+    return false;
+  }
+}
 
 function buildBezeruWhatsAppUrl(message){
   const phone = BEZERU_WHATSAPP_NUMBER.replace(/\D/g, "");
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+}
+
+function loadGoogleAnalytics(){
+  if(!BEZERU_GA_MEASUREMENT_ID || window.__bezeruGoogleAnalyticsLoaded) return;
+  window.__bezeruGoogleAnalyticsLoaded = true;
+  window.gtag("consent", "update", {
+    analytics_storage: "granted"
+  });
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(BEZERU_GA_MEASUREMENT_ID)}`;
+  document.head.appendChild(script);
+
+  window.gtag("js", new Date());
+  window.gtag("config", BEZERU_GA_MEASUREMENT_ID);
+}
+
+function initCookieConsent(){
+  if(document.getElementById("bzCookieConsent")) return;
+
+  const getStoredConsent = () => {
+    try {
+      return JSON.parse(localStorage.getItem(BEZERU_COOKIE_CONSENT_KEY) || "null");
+    } catch (_) {
+      return null;
+    }
+  };
+
+  const saveConsent = (analytics) => {
+    const consent = {
+      analytics: Boolean(analytics),
+      updatedAt: new Date().toISOString()
+    };
+    try {
+      localStorage.setItem(BEZERU_COOKIE_CONSENT_KEY, JSON.stringify(consent));
+    } catch (_) {}
+    window.gtag("consent", "update", {
+      analytics_storage: consent.analytics ? "granted" : "denied"
+    });
+    if(consent.analytics) loadGoogleAnalytics();
+    return consent;
+  };
+
+  const applyStoredConsent = () => {
+    const consent = getStoredConsent();
+    if(!consent) return false;
+    window.gtag("consent", "update", {
+      analytics_storage: consent.analytics ? "granted" : "denied"
+    });
+    if(consent.analytics) loadGoogleAnalytics();
+    return true;
+  };
+
+  const ensureStyles = () => {
+    if(document.getElementById("bzCookieConsentStyles")) return;
+    const style = document.createElement("style");
+    style.id = "bzCookieConsentStyles";
+    style.textContent = `
+      .bz-cookie-consent{position:fixed;left:50%;bottom:18px;z-index:1600;width:min(960px,calc(100vw - 32px));transform:translateX(-50%);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#171717}
+      .bz-cookie-card{border:1px solid #ded8cf;background:#f7f3ec;box-shadow:0 18px 44px rgba(17,17,17,.10);padding:18px 20px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;border-radius:6px}
+      .bz-cookie-label{display:block;margin-bottom:7px;font-size:10px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:#c0392b}
+      .bz-cookie-title{font-family:"Playfair Display",Georgia,serif;font-size:21px;line-height:1.15;font-weight:500;margin:0 0 6px;color:#111}
+      .bz-cookie-copy{font-size:13px;line-height:1.65;color:#606060;margin:0;max-width:620px}
+      .bz-cookie-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+      .bz-cookie-btn{min-height:42px;border-radius:3px;border:1px solid #d7d0c7;background:transparent;color:#333;padding:0 16px;font:750 11px/1 Inter,system-ui,sans-serif;letter-spacing:.09em;text-transform:uppercase;cursor:pointer}
+      .bz-cookie-btn:hover,.bz-cookie-btn:focus-visible{border-color:#111;color:#111;outline:none}
+      .bz-cookie-btn-primary{background:#c0392b;border-color:#c0392b;color:#fff}
+      .bz-cookie-btn-primary:hover,.bz-cookie-btn-primary:focus-visible{background:#a83225;border-color:#a83225;color:#fff}
+      .bz-cookie-panel{display:none;margin-top:10px;border:1px solid #ded8cf;background:#fffaf4;box-shadow:0 18px 44px rgba(17,17,17,.10);padding:20px;border-radius:6px}
+      .bz-cookie-consent.is-managing .bz-cookie-card{display:none}
+      .bz-cookie-consent.is-managing .bz-cookie-panel{display:block}
+      .bz-cookie-panel-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:14px}
+      .bz-cookie-panel h2{font-family:"Playfair Display",Georgia,serif;font-size:24px;font-weight:500;line-height:1.15;margin:0 0 8px;color:#111}
+      .bz-cookie-panel p{font-size:13px;line-height:1.65;color:#606060;margin:0}
+      .bz-cookie-close{border:0;background:transparent;color:#777;font-size:24px;line-height:1;cursor:pointer;padding:0 2px}
+      .bz-cookie-option{margin:18px 0;padding:16px;border:1px solid #ebe4da;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;border-radius:4px}
+      .bz-cookie-option strong{display:block;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#111;margin-bottom:5px}
+      .bz-cookie-switch{position:relative;display:inline-flex;align-items:center;width:52px;height:30px}
+      .bz-cookie-switch input{position:absolute;opacity:0;pointer-events:none}
+      .bz-cookie-slider{position:absolute;inset:0;border-radius:999px;background:#d8d2ca;border:1px solid #cfc7bd;transition:background .18s ease,border-color .18s ease}
+      .bz-cookie-slider::after{content:"";position:absolute;left:3px;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.16);transition:transform .18s ease}
+      .bz-cookie-switch input:checked + .bz-cookie-slider{background:#c0392b;border-color:#c0392b}
+      .bz-cookie-switch input:checked + .bz-cookie-slider::after{transform:translateX(22px)}
+      .bz-cookie-switch input:focus-visible + .bz-cookie-slider{outline:2px solid #111;outline-offset:3px}
+      .bz-cookie-preferences-link{display:inline-flex;margin-top:10px;border:0;background:transparent;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
+      @media(max-width:720px){.bz-cookie-consent{bottom:12px;width:calc(100vw - 24px)}.bz-cookie-card{grid-template-columns:1fr;padding:16px;gap:14px}.bz-cookie-actions{justify-content:stretch}.bz-cookie-btn{flex:1 1 100px;padding:0 12px}.bz-cookie-panel{padding:16px}.bz-cookie-option{grid-template-columns:1fr;gap:12px}.bz-cookie-title{font-size:19px}}
+    `;
+    document.head.appendChild(style);
+  };
+
+  const closeConsent = () => {
+    const root = document.getElementById("bzCookieConsent");
+    if(root) root.remove();
+  };
+
+  const openPreferences = () => {
+    ensureStyles();
+    let root = document.getElementById("bzCookieConsent");
+    const existing = getStoredConsent();
+    if(!root){
+      root = buildConsentUi(Boolean(existing?.analytics));
+      document.body.appendChild(root);
+    }
+    const toggle = root.querySelector("#bzAnalyticsCookies");
+    if(toggle) toggle.checked = Boolean(existing?.analytics);
+    root.classList.add("is-managing");
+  };
+
+  const buildConsentUi = (initialAnalytics) => {
+    const root = document.createElement("section");
+    root.id = "bzCookieConsent";
+    root.className = "bz-cookie-consent";
+    root.setAttribute("aria-label", "Cookie consent");
+    root.innerHTML = `
+      <div class="bz-cookie-card">
+        <div>
+          <span class="bz-cookie-label">Privacy</span>
+          <h2 class="bz-cookie-title">Your privacy matters</h2>
+          <p class="bz-cookie-copy">Bezeru uses cookies to understand site performance and improve the experience. You can accept, reject, or manage your preferences at any time.</p>
+        </div>
+        <div class="bz-cookie-actions" aria-label="Cookie consent actions">
+          <button type="button" class="bz-cookie-btn" data-cookie-reject>Reject</button>
+          <button type="button" class="bz-cookie-btn" data-cookie-manage>Manage</button>
+          <button type="button" class="bz-cookie-btn bz-cookie-btn-primary" data-cookie-accept>Accept</button>
+        </div>
+      </div>
+      <div class="bz-cookie-panel" role="dialog" aria-labelledby="bzCookiePanelTitle" aria-describedby="bzCookiePanelBody">
+        <div class="bz-cookie-panel-head">
+          <div>
+            <span class="bz-cookie-label">Privacy</span>
+            <h2 id="bzCookiePanelTitle">Cookie preferences</h2>
+            <p id="bzCookiePanelBody">Choose whether Bezeru can use analytics cookies to understand site performance.</p>
+          </div>
+          <button type="button" class="bz-cookie-close" aria-label="Back to cookie banner" data-cookie-back>×</button>
+        </div>
+        <div class="bz-cookie-option">
+          <div>
+            <strong>Analytics cookies</strong>
+            <p>Helps Bezeru understand visits, pages viewed, and site performance. This does not control strictly necessary cookies.</p>
+          </div>
+          <label class="bz-cookie-switch" for="bzAnalyticsCookies">
+            <input type="checkbox" id="bzAnalyticsCookies" ${initialAnalytics ? "checked" : ""}>
+            <span class="bz-cookie-slider" aria-hidden="true"></span>
+          </label>
+        </div>
+        <div class="bz-cookie-actions">
+          <button type="button" class="bz-cookie-btn" data-cookie-save>Save preferences</button>
+          <button type="button" class="bz-cookie-btn" data-cookie-reject-all>Reject all</button>
+          <button type="button" class="bz-cookie-btn bz-cookie-btn-primary" data-cookie-accept-all>Accept all</button>
+        </div>
+      </div>
+    `;
+
+    root.querySelector("[data-cookie-accept]")?.addEventListener("click", () => {
+      saveConsent(true);
+      closeConsent();
+    });
+    root.querySelector("[data-cookie-reject]")?.addEventListener("click", () => {
+      saveConsent(false);
+      closeConsent();
+    });
+    root.querySelector("[data-cookie-manage]")?.addEventListener("click", () => {
+      root.classList.add("is-managing");
+      root.querySelector("#bzAnalyticsCookies")?.focus();
+    });
+    root.querySelector("[data-cookie-back]")?.addEventListener("click", () => {
+      if(getStoredConsent()) closeConsent();
+      else root.classList.remove("is-managing");
+    });
+    root.querySelector("[data-cookie-save]")?.addEventListener("click", () => {
+      saveConsent(Boolean(root.querySelector("#bzAnalyticsCookies")?.checked));
+      closeConsent();
+    });
+    root.querySelector("[data-cookie-reject-all]")?.addEventListener("click", () => {
+      saveConsent(false);
+      closeConsent();
+    });
+    root.querySelector("[data-cookie-accept-all]")?.addEventListener("click", () => {
+      saveConsent(true);
+      closeConsent();
+    });
+    return root;
+  };
+
+  const addFooterLink = () => {
+    if(document.getElementById("bzCookiePreferencesLink")) return;
+    const footer = document.querySelector("footer");
+    if(!footer) return;
+    const button = document.createElement("button");
+    button.id = "bzCookiePreferencesLink";
+    button.type = "button";
+    button.className = "bz-cookie-preferences-link";
+    button.textContent = "Cookie Preferences";
+    button.addEventListener("click", openPreferences);
+
+    const target = footer.querySelector(".shop-footer-bottom, .footer-bottom") || footer.lastElementChild || footer;
+    target.appendChild(button);
+  };
+
+  ensureStyles();
+  const hasChoice = applyStoredConsent();
+  if(!hasChoice){
+    document.body.appendChild(buildConsentUi(false));
+  }
+  addFooterLink();
 }
 
 function initUnifiedHeader(){
@@ -164,6 +386,7 @@ function initBzWhatsAppForms(){
 
 initBzWhatsAppConcierge();
 initBzWhatsAppForms();
+initCookieConsent();
 
 function getRecommendationPool(){
   const standardCaution = "Compare size, condition, service history, and how the design feels on the intended wearer before deciding.";
@@ -1978,6 +2201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const locationLabel = form.dataset.location || "unknown";
 
     const ga = (eventName, extra = {}) => {
+      if (!hasBezeruAnalyticsConsent()) return;
       if (typeof window.gtag === "function") {
         window.gtag("event", eventName, {
           location: locationLabel,
