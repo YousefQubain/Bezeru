@@ -373,6 +373,33 @@ function initAiWatchConcierge(){
 
 initAiWatchConcierge();
 
+function repairBzHeaderRows(){
+  const header = document.getElementById("bzHeader");
+  if(!header || !header.classList.contains("bz-header")) return;
+  header.style.display = "block";
+  header.style.width = "100%";
+  header.style.minWidth = "100%";
+  header.style.padding = "0";
+  header.style.margin = "0";
+
+  header.querySelectorAll(":scope > .topbar, :scope > .bz-topbar, :scope > .site-header").forEach((section)=>{
+    section.style.display = "block";
+    section.style.width = "100%";
+    section.style.minWidth = "100%";
+    section.style.maxWidth = "none";
+    section.style.float = "none";
+    section.style.clear = "both";
+    section.style.position = "relative";
+    section.style.left = "auto";
+    section.style.right = "auto";
+    section.style.transform = "none";
+  });
+}
+
+repairBzHeaderRows();
+window.addEventListener("load", repairBzHeaderRows);
+window.addEventListener("resize", repairBzHeaderRows);
+
 function sanitizeBzMobileMenu(){
   const menu = document.getElementById("bzMobileMenu");
   if(!menu) return;
