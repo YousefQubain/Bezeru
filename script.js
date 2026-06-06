@@ -632,6 +632,7 @@ async function loadPosts(){
 function normalizeCategoryKey(category = ""){
   const value = category.trim().toLowerCase();
   if(value.includes("underdogs") || value.includes("indie") || value.includes("independents")) return "underdogs";
+  if(value.includes("collecting") || value.includes("provenance")) return "collecting";
   if(value.includes("design icons") || value.includes("vintage")) return "design-icons";
   if(value.includes("innovation") || value.includes("industry")) return "innovation";
   if(value === "design" || value.includes("marketing")) return "design-icons";
@@ -643,6 +644,7 @@ function normalizeCategoryKey(category = ""){
 function categoryLabelFromKey(key){
   const labels = {
     underdogs: "Underdogs",
+    collecting: "Collecting",
     "middle-east-stories": "Middle East Stories",
     innovation: "Innovation",
     "design-icons": "Design Icons"
@@ -689,6 +691,7 @@ function getCardMeta(post){
     underdogs: "INDEPENDENTS • UNDER-THE-RADAR • WEARABILITY",
     independents: "INDEPENDENTS • DESIGN • COLLECTORS",
     design: "DESIGN • PROPORTION • DETAILS",
+    collecting: "COLLECTING • PROVENANCE • CONTEXT",
     history: "MODERN • VINTAGE CONTEXT • COLLECTORS",
     "middle east": "REGIONAL • CULTURE • COLLECTORS"
   };
@@ -744,6 +747,11 @@ async function renderArticlesArchive(){
   const posts = await loadPosts();
   const chips = Array.from(document.querySelectorAll(".filter-chip[data-filter]"));
   const categoryBlueprint = [
+    {
+      key: "collecting",
+      heading: "Collecting",
+      descriptor: "Provenance, collector signals, and the details that shape long-term taste."
+    },
     {
       key: "underdogs",
       heading: "Underdogs",
