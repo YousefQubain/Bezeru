@@ -165,44 +165,76 @@ function initBzWhatsAppForms(){
 initBzWhatsAppConcierge();
 initBzWhatsAppForms();
 
-const watchRecommendationOptions = [
-  { model: "Rolex Datejust 36 or 41", styles: ["Understated daily watch", "Dress watch"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: true, bestFor: "daily elegance with strong recognition" },
-  { model: "Rolex Day-Date", styles: ["Statement piece", "Dress watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], resale: true, bestFor: "milestone collecting and regional presence" },
-  { model: "Rolex GMT-Master II", styles: ["Sports watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: true, bestFor: "travel, recognition, and versatile sports wear" },
-  { model: "Cartier Santos Medium", styles: ["Integrated bracelet", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "design-led daily wear with restrained confidence" },
-  { model: "Cartier Tank", styles: ["Dress watch", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "quiet elegance, gifting, and formal wear" },
-  { model: "Cartier Pasha Middle East Edition", styles: ["Statement piece", "Jewellery or gem-set"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "regional character and expressive Cartier design" },
-  { model: "Tudor Black Bay 54", styles: ["Diver", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "compact proportions and first serious sports watch energy" },
-  { model: "Tudor Black Bay 58", styles: ["Diver", "Sports watch"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "versatile diver style without excessive size" },
-  { model: "Jaeger-LeCoultre Reverso", styles: ["Dress watch", "Vintage or neo-vintage"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "heritage, occasion wear, and architectural taste" },
-  { model: "Jaeger-LeCoultre Master Control", styles: ["Dress watch", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "low-key refinement and daily horology" },
-  { model: "Vacheron Constantin Overseas", styles: ["Integrated bracelet", "Sports watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], resale: true, bestFor: "high-end sports collecting beyond the obvious" },
-  { model: "Vacheron Constantin Patrimony", styles: ["Dress watch"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], resale: false, bestFor: "formal restraint and maison-level heritage" },
-  { model: "IWC Ingenieur", styles: ["Integrated bracelet", "Sports watch"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "clean engineering-led sports design" },
-  { model: "IWC Pilot’s Watch", styles: ["Sports watch", "Understated daily watch"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "legibility, daily wear, and practical character" },
-  { model: "Omega Speedmaster", styles: ["Sports watch", "Vintage or neo-vintage"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: true, bestFor: "heritage sports watch collecting" },
-  { model: "Omega Seamaster Aqua Terra", styles: ["Understated daily watch", "Sports watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "clean everyday versatility" },
-  { model: "Patek Philippe Calatrava", styles: ["Dress watch"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], resale: true, bestFor: "traditional high watchmaking and legacy value" },
-  { model: "Patek Philippe Aquanaut", styles: ["Sports watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$50,000+"], resale: true, bestFor: "rare modern sports prestige" },
-  { model: "Audemars Piguet Royal Oak", styles: ["Integrated bracelet", "Statement piece"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], resale: true, bestFor: "architectural status and collector recognition" },
-  { model: "Breitling Chronomat GMT Middle East Edition", styles: ["Sports watch", "Statement piece"], presence: ["Noticeable", "Strong statement"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "regional detail and practical travel energy" },
-  { model: "Piaget Polo", styles: ["Integrated bracelet", "Understated daily watch"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "Gulf-friendly elegance with a softer sports profile" },
-  { model: "Piaget Altiplano", styles: ["Dress watch", "Jewellery or gem-set"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], resale: false, bestFor: "ultra-thin refinement and quiet luxury" },
-  { model: "Bulgari Octo Finissimo", styles: ["Integrated bracelet", "Statement piece"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "modern design confidence and slim architecture" }
-];
+function getRecommendationPool(){
+  const standardCaution = "Compare size, condition, service history, and how the design feels on the intended wearer before deciding.";
+  const regionalCaution = "Only pursue rare regional pieces with strong documentation, originality, and trusted review.";
+  return [
+    { model: "Rolex Datejust 36 or 41", wearer: ["stronger", "neutral"], styles: ["Classic and timeless", "Elegant and understated", "Gender-neutral"], occasions: ["Personal purchase", "Daily wear", "First luxury watch", "Collection upgrade"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: true, categories: ["everyday", "classic"], why: "A refined daily watch with strong recognition, flexible sizing, and a classic collector feel.", bestFor: "A safer starting point for a daily or milestone watch.", caution: standardCaution },
+    { model: "Rolex Datejust 31 or 36", wearer: ["refined", "neutral"], styles: ["Elegant and understated", "Jewellery-led", "Classic and timeless"], occasions: ["Personal purchase", "Birthday gift", "Anniversary gift", "Family gift"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: true, categories: ["everyday", "gift"], why: "A polished daily option with graceful proportions and enough versatility for formal or casual wear.", bestFor: "An elegant personal watch or milestone gift.", caution: "Consider bracelet fit, dial tone, and whether the wearer wants a quieter or more noticeable wrist presence." },
+    { model: "Rolex Oyster Perpetual 31, 34, or 36", wearer: ["refined", "neutral"], styles: ["Gender-neutral", "Elegant and understated", "Classic and timeless"], occasions: ["First luxury watch", "Daily wear", "Birthday gift"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: true, categories: ["entry", "everyday"], why: "A clean, design-led Rolex direction with approachable proportions and strong everyday utility.", bestFor: "A first luxury watch or refined daily piece.", caution: standardCaution },
+    { model: "Rolex GMT-Master II", wearer: ["stronger", "neutral"], styles: ["Sporty", "Bold and noticeable"], occasions: ["Personal purchase", "Business milestone", "Collection upgrade"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: true, categories: ["sports", "gmt"], why: "A travel-led sports watch with strong wrist presence and broad collector recognition.", bestFor: "A wearer who wants a practical sports-watch presence.", caution: "Worth comparing against less obvious GMT options if subtlety or budget flexibility matters." },
+    { model: "Rolex Day-Date", wearer: ["stronger", "neutral"], styles: ["Classic and timeless", "Bold and noticeable"], occasions: ["Business milestone", "Anniversary gift", "Collection upgrade", "Family gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, categories: ["classic", "collector"], why: "A prestige-led collector piece that can feel formal, symbolic, and highly memorable.", bestFor: "A milestone watch with status and long-term collector relevance.", caution: "Precious-metal condition, bracelet stretch, and provenance should be reviewed carefully." },
+    { model: "Rolex Day-Date with Eastern Arabic numerals", wearer: ["stronger", "neutral"], styles: ["Bold and noticeable", "Classic and timeless"], occasions: ["Business milestone", "Family gift", "Collection upgrade"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, regional: true, categories: ["regional", "arabic dial"], why: "A regionally relevant collector-led option that connects prestige, language, and Gulf collecting culture.", bestFor: "A collector who wants status with local relevance.", caution: regionalCaution },
+    { model: "Tudor Black Bay 54", wearer: ["stronger", "neutral"], styles: ["Sporty", "Gender-neutral", "Elegant and understated"], occasions: ["First luxury watch", "Daily wear", "Personal purchase"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["entry", "diver", "sports"], why: "A compact sports-watch direction with restrained proportions and strong everyday versatility.", bestFor: "A first serious watch or understated daily sports piece.", caution: standardCaution },
+    { model: "Tudor Black Bay 58", wearer: ["stronger", "neutral"], styles: ["Sporty", "Classic and timeless"], occasions: ["First luxury watch", "Daily wear"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["entry", "diver", "sports"], why: "A versatile diver-style watch with enough character for daily wear without feeling excessive.", bestFor: "A robust daily watch with vintage-leaning charm.", caution: standardCaution },
+    { model: "Omega Speedmaster", wearer: ["stronger", "neutral"], styles: ["Sporty", "Classic and timeless"], occasions: ["First luxury watch", "Collection upgrade", "Birthday gift"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: true, categories: ["sports", "collector"], why: "A heritage sports-watch direction with strong story, broad recognition, and collector depth.", bestFor: "A thoughtful sports watch with history rather than flash.", caution: "Compare manual-wind comfort, case size, and bracelet or strap preference." },
+    { model: "Omega Seamaster Aqua Terra", wearer: ["stronger", "neutral"], styles: ["Elegant and understated", "Sporty", "Gender-neutral"], occasions: ["Daily wear", "First luxury watch", "Personal purchase"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["everyday", "sports"], why: "A refined daily watch with enough sports-watch resilience for frequent wear.", bestFor: "A practical daily watch that does not feel overly loud.", caution: standardCaution },
+    { model: "Cartier Panthère", wearer: ["refined"], styles: ["Jewellery-led", "Elegant and understated"], occasions: ["Wedding or engagement gift", "Birthday gift", "Anniversary gift", "Personal purchase"], presence: ["Understated", "Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["jewellery", "gift"], why: "A refined jewellery-led option with strong design identity and elegant daily wear potential.", bestFor: "A milestone gift or elegant personal watch.", caution: "Consider size, bracelet fit, and whether the wearer prefers jewellery-led or sportier pieces." },
+    { model: "Cartier Tank", wearer: ["refined", "neutral", "stronger"], styles: ["Elegant and understated", "Gender-neutral", "Classic and timeless"], occasions: ["Personal purchase", "Wedding or engagement gift", "Anniversary gift", "Daily wear"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["dress", "design"], why: "A design-led classic that can work across many wearers depending on size, strap, and metal.", bestFor: "Quiet elegance, formal wear, or a tasteful gift.", caution: "Compare case size and strap choice carefully; the right proportions matter." },
+    { model: "Cartier Ballon Bleu", wearer: ["refined", "neutral"], styles: ["Jewellery-led", "Elegant and understated"], occasions: ["Birthday gift", "Anniversary gift", "Personal purchase"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["jewellery", "daily"], why: "A softer Cartier direction with polished presence and strong gift potential.", bestFor: "A refined daily watch with a rounded, elegant character.", caution: standardCaution },
+    { model: "Cartier Santos Medium", wearer: ["neutral", "refined", "stronger"], styles: ["Gender-neutral", "Classic and timeless", "Sporty"], occasions: ["Daily wear", "Personal purchase", "Collection upgrade"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["design", "everyday"], why: "A balanced design-led watch with integrated-bracelet energy and elegant geometry.", bestFor: "A refined daily watch with more personality than a simple dress watch.", caution: standardCaution },
+    { model: "Cartier Santos Middle East Edition", wearer: ["neutral", "refined", "stronger"], styles: ["Bold and noticeable", "Classic and timeless"], occasions: ["Collection upgrade", "Business milestone", "Family gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: false, regional: true, categories: ["regional", "design"], why: "A Cartier direction that may suit a collector who wants design identity with regional context.", bestFor: "A collector-led gift or regional design brief.", caution: regionalCaution },
+    { model: "Cartier Pasha Middle East Edition", wearer: ["neutral", "refined", "stronger"], styles: ["Bold and noticeable", "Jewellery-led"], occasions: ["Collection upgrade", "Family gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: false, regional: true, categories: ["regional", "statement"], why: "An expressive Cartier option that may be worth exploring for regional character and visual presence.", bestFor: "A wearer who wants a distinctive Cartier rather than a quiet classic.", caution: regionalCaution },
+    { model: "Bulgari Serpenti", wearer: ["refined"], styles: ["Jewellery-led", "Bold and noticeable"], occasions: ["Wedding or engagement gift", "Anniversary gift", "Birthday gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], value: false, categories: ["jewellery", "statement"], why: "A jewellery-led icon with sculptural presence and strong emotional gift potential.", bestFor: "A special occasion where design and jewellery character lead.", caution: "Confirm the wearer wants jewellery-led presence rather than a quieter daily watch." },
+    { model: "Bulgari Octo Finissimo", wearer: ["neutral", "stronger"], styles: ["Gender-neutral", "Bold and noticeable", "Sporty"], occasions: ["Collection upgrade", "Personal purchase"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: false, categories: ["integrated", "design"], why: "A modern design-led option with slim architecture and strong collector conversation value.", bestFor: "A wearer who wants something refined but less expected.", caution: standardCaution },
+    { model: "Jaeger-LeCoultre Reverso", wearer: ["neutral", "refined", "stronger"], styles: ["Classic and timeless", "Elegant and understated", "Gender-neutral"], occasions: ["Wedding or engagement gift", "Anniversary gift", "Family gift", "Collection upgrade"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["dress", "heritage"], why: "A classic collector piece with architectural design and strong emotional gifting potential.", bestFor: "A refined occasion watch or design-led daily piece.", caution: standardCaution },
+    { model: "Patek Philippe Twenty~4", wearer: ["refined"], styles: ["Jewellery-led", "Elegant and understated", "Classic and timeless"], occasions: ["Anniversary gift", "Family gift", "Personal purchase"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: true, categories: ["jewellery", "classic"], why: "A refined maison-led option with elegant proportions and stronger long-term collector context.", bestFor: "A polished personal watch or meaningful family gift.", caution: standardCaution },
+    { model: "Patek Philippe Calatrava", wearer: ["neutral", "stronger", "refined"], styles: ["Elegant and understated", "Classic and timeless"], occasions: ["Wedding or engagement gift", "Business milestone", "Family gift", "Collection upgrade"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], value: true, categories: ["dress", "collector"], why: "A formal dress-watch direction with maison heritage and strong legacy appeal.", bestFor: "A classic collector piece or refined milestone gift.", caution: "Condition, dial originality, and service history matter especially on pre-owned examples." },
+    { model: "Vacheron Constantin Overseas", wearer: ["stronger", "neutral"], styles: ["Sporty", "Bold and noticeable", "Classic and timeless"], occasions: ["Collection upgrade", "Business milestone"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, categories: ["sports", "integrated"], why: "A high-end sports-watch direction that is prestigious without feeling as obvious as some alternatives.", bestFor: "A collector-led sports watch with maison depth.", caution: standardCaution },
+    { model: "Vacheron Constantin Overseas 34.5mm", wearer: ["refined", "neutral"], styles: ["Sporty", "Elegant and understated", "Gender-neutral"], occasions: ["Personal purchase", "Anniversary gift", "Collection upgrade"], presence: ["Balanced", "Noticeable"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, categories: ["sports", "refined daily"], why: "A refined sports-watch direction with smaller proportions and high-end finishing.", bestFor: "A wearer who wants sports-watch quality without oversized presence.", caution: standardCaution },
+    { model: "Audemars Piguet Royal Oak", wearer: ["stronger", "neutral"], styles: ["Bold and noticeable", "Sporty"], occasions: ["Business milestone", "Collection upgrade"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, categories: ["integrated", "collector"], why: "An architectural collector-led option with strong recognition and status.", bestFor: "A bold milestone piece or collection upgrade.", caution: "Be careful with condition, polishing, and provenance on pre-owned examples." },
+    { model: "Audemars Piguet Royal Oak 34mm", wearer: ["refined", "neutral"], styles: ["Jewellery-led", "Sporty", "Bold and noticeable"], occasions: ["Anniversary gift", "Personal purchase", "Collection upgrade"], presence: ["Balanced", "Noticeable"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, categories: ["integrated", "jewellery"], why: "A compact high-end sports watch with jewellery-like finishing and strong design identity.", bestFor: "A refined sports-watch presence with collector weight.", caution: standardCaution },
+    { model: "IWC Pilot's Watch", wearer: ["stronger", "neutral"], styles: ["Sporty", "Elegant and understated"], occasions: ["Daily wear", "First luxury watch", "Birthday gift"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["everyday", "pilot"], why: "A legible, practical direction with honest daily-watch character.", bestFor: "A wearer who values function and restraint.", caution: standardCaution },
+    { model: "IWC Ingenieur", wearer: ["stronger", "neutral"], styles: ["Sporty", "Gender-neutral", "Classic and timeless"], occasions: ["Daily wear", "Collection upgrade"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["integrated", "sports"], why: "A clean engineering-led sports design that sits between practical and collector-minded.", bestFor: "A refined daily sports watch with modern architecture.", caution: standardCaution },
+    { model: "Grand Seiko Elegance", wearer: ["neutral", "refined", "stronger"], styles: ["Elegant and understated", "Gender-neutral", "Classic and timeless"], occasions: ["Daily wear", "Personal purchase", "First luxury watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["dress", "understated"], why: "A refined option for someone who values finishing, subtlety, and a quieter collector signal.", bestFor: "An understated daily or formal watch.", caution: standardCaution },
+    { model: "Grand Seiko sports models", wearer: ["stronger", "neutral"], styles: ["Sporty", "Elegant and understated"], occasions: ["Daily wear", "First luxury watch"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["sports", "daily"], why: "A strong alternative to more obvious Swiss sports watches, with excellent finishing and everyday utility.", bestFor: "A practical wearer who still wants collector quality.", caution: standardCaution },
+    { model: "Zenith Chronomaster", wearer: ["stronger", "neutral"], styles: ["Sporty", "Classic and timeless"], occasions: ["Collection upgrade", "Birthday gift"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["chronograph", "collector"], why: "A chronograph direction with real movement heritage and less obvious collector energy.", bestFor: "A wearer who wants sports history without the most predictable choice.", caution: standardCaution },
+    { model: "Panerai Luminor or Radiomir", wearer: ["stronger", "neutral"], styles: ["Bold and noticeable", "Sporty"], occasions: ["Personal purchase", "Collection upgrade"], presence: ["Noticeable", "Strong statement"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["statement", "sports"], why: "A stronger sports-watch presence with distinctive design language and strap versatility.", bestFor: "A wearer who wants bold character and wrist presence.", caution: "Size and comfort matter; compare case dimensions carefully." },
+    { model: "Piaget Altiplano", wearer: ["refined", "neutral"], styles: ["Elegant and understated", "Jewellery-led", "Classic and timeless"], occasions: ["Wedding or engagement gift", "Anniversary gift", "Personal purchase"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], value: false, categories: ["dress", "jewellery"], why: "An ultra-thin refined option with quiet luxury and strong formal elegance.", bestFor: "A discreet dress watch or elegant gift.", caution: standardCaution },
+    { model: "Piaget Limelight", wearer: ["refined"], styles: ["Jewellery-led", "Elegant and understated"], occasions: ["Anniversary gift", "Wedding or engagement gift", "Birthday gift"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: false, categories: ["jewellery", "gift"], why: "A jewellery-led direction with maison identity and elegant occasion potential.", bestFor: "A gift where jewellery character matters as much as watchmaking.", caution: standardCaution },
+    { model: "Chopard Alpine Eagle smaller sizes", wearer: ["refined", "neutral"], styles: ["Sporty", "Jewellery-led", "Gender-neutral"], occasions: ["Daily wear", "Birthday gift", "Personal purchase"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: false, categories: ["sports", "jewellery"], why: "A polished sports-watch option with refined finishing and less predictable branding.", bestFor: "A daily piece with jewellery-like finishing.", caution: standardCaution },
+    { model: "Van Cleef & Arpels jewellery watches", wearer: ["refined"], styles: ["Jewellery-led", "Bold and noticeable"], occasions: ["Wedding or engagement gift", "Anniversary gift", "Family gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], value: false, categories: ["jewellery", "gift"], why: "A jewellery-first direction that may suit a highly emotional gift brief.", bestFor: "A milestone gift where design, maison identity, and jewellery presence lead.", caution: "Confirm the wearer wants a jewellery-led watch rather than a daily collector piece." },
+    { model: "Chanel J12", wearer: ["refined", "neutral"], styles: ["Sporty", "Bold and noticeable", "Gender-neutral"], occasions: ["Birthday gift", "Daily wear", "Personal purchase"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, categories: ["sports", "design"], why: "A design-led ceramic sports direction with fashion-house confidence and daily wearability.", bestFor: "A wearer who likes clean, noticeable design.", caution: standardCaution },
+    { model: "Hermes Cape Cod or Heure H", wearer: ["refined", "neutral"], styles: ["Elegant and understated", "Gender-neutral", "Jewellery-led"], occasions: ["Birthday gift", "Daily wear", "Personal purchase"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["entry", "design"], why: "A refined design-led option with a softer, less conventional luxury signal.", bestFor: "A tasteful daily watch or thoughtful gift.", caution: standardCaution },
+    { model: "Hermes H08", wearer: ["neutral", "stronger"], styles: ["Gender-neutral", "Sporty", "Elegant and understated"], occasions: ["Daily wear", "First luxury watch"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["sports", "design"], why: "A modern design-led sports direction that feels refined without chasing hype.", bestFor: "A wearer who wants something practical, stylish, and less expected.", caution: standardCaution },
+    { model: "Dior Grand Bal or La D de Dior", wearer: ["refined"], styles: ["Jewellery-led", "Bold and noticeable"], occasions: ["Anniversary gift", "Birthday gift", "Wedding or engagement gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], value: false, categories: ["jewellery", "gift"], why: "A couture-led watch direction where design and jewellery presence are central.", bestFor: "A wearer who enjoys expressive, design-forward luxury.", caution: standardCaution },
+    { model: "Nomos Tangente", wearer: ["neutral", "refined", "stronger"], styles: ["Gender-neutral", "Elegant and understated", "Classic and timeless"], occasions: ["First luxury watch", "Daily wear", "Graduation gift"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["entry", "dress"], why: "A minimal design-led direction that works well when restraint and clarity matter.", bestFor: "A first luxury watch or understated daily piece.", caution: standardCaution },
+    { model: "Longines DolceVita", wearer: ["refined", "neutral"], styles: ["Elegant and understated", "Gender-neutral", "Classic and timeless"], occasions: ["Graduation gift", "Birthday gift", "First luxury watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], value: false, categories: ["entry", "dress"], why: "A refined rectangular dress-watch direction at a more accessible luxury level.", bestFor: "A tasteful first luxury watch or elegant gift.", caution: standardCaution },
+    { model: "Breitling Chronomat GMT Middle East Edition", wearer: ["stronger", "neutral"], styles: ["Sporty", "Bold and noticeable"], occasions: ["Business milestone", "Collection upgrade", "Personal purchase"], presence: ["Noticeable", "Strong statement"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], value: false, regional: true, categories: ["regional", "gmt", "sports"], why: "A sporty regional direction that could suit a travel or Gulf-context brief.", bestFor: "A wearer who wants practical sports-watch energy with regional detail.", caution: regionalCaution },
+    { model: "Carefully documented Khanjar or regional provenance pieces", wearer: ["neutral", "stronger", "refined"], styles: ["Classic and timeless", "Bold and noticeable"], occasions: ["Collection upgrade", "Family gift"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, regional: true, categories: ["regional", "vintage", "collector"], why: "A rare regional provenance direction may be worth exploring for a serious collector-led brief.", bestFor: "A collector who values documented Gulf or Middle East provenance.", caution: regionalCaution },
+    { model: "Independent watchmakers such as F.P. Journe, H. Moser & Cie., Laurent Ferrier, or Czapek", wearer: ["neutral", "stronger", "refined"], styles: ["Elegant and understated", "Classic and timeless", "Bold and noticeable"], occasions: ["Collection upgrade", "Personal purchase"], presence: ["Balanced", "Noticeable"], budgets: ["$25,000–$50,000", "$50,000+"], value: true, categories: ["independent", "collector"], why: "An independent direction may suit a collector who wants refinement beyond the most common prestige names.", bestFor: "A collection upgrade with individuality and deeper collector interest.", caution: "Availability, service network, condition, and long-term liquidity should be considered carefully." },
+    { model: "Entry luxury alternatives from TAG Heuer, Oris, Longines, Baume & Mercier, or Frederique Constant", wearer: ["neutral", "stronger", "refined"], styles: ["Sporty", "Classic and timeless", "Elegant and understated"], occasions: ["First luxury watch", "Graduation gift", "Daily wear"], presence: ["Understated", "Balanced", "Noticeable"], budgets: ["Under $5,000"], value: false, categories: ["entry", "daily"], why: "A broader entry-luxury direction can keep the search practical while still matching the preferred style.", bestFor: "A first luxury watch or refined daily option.", caution: "Consider exploring similar references from this brand or category, especially pieces that match the preferred size, budget, and style direction." },
+    { model: "Statement alternatives from Hublot, Franck Muller, Gerald Charles, MB&F, Ressence, or Ulysse Nardin", wearer: ["neutral", "stronger", "refined"], styles: ["Bold and noticeable"], occasions: ["Personal purchase", "Collection upgrade", "Business milestone"], presence: ["Strong statement", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], value: false, categories: ["statement", "independent"], why: "A broader statement category may suit someone who wants design impact rather than a conventional classic.", bestFor: "A wearer who wants a stronger visual point of view.", caution: "Compare long-term wearability, service needs, and resale expectations before committing." }
+  ];
+}
 
 function normalizeWatchAnswer(type, value){
   const raw = value || "";
   const lower = raw.toLowerCase();
   if(type === "style"){
-    if(lower.includes("dress")) return "Dress watch";
-    if(lower.includes("sports")) return "Sports watch";
-    if(lower.includes("diver")) return "Diver";
-    if(lower.includes("integrated")) return "Integrated bracelet";
-    if(lower.includes("vintage") || lower.includes("neo-vintage")) return "Vintage or neo-vintage";
-    if(lower.includes("jewellery") || lower.includes("gem")) return "Jewellery or gem-set";
-    if(lower.includes("statement")) return "Statement piece";
-    if(lower.includes("understated") || lower.includes("daily")) return "Understated daily watch";
+    if(lower.includes("masculine")) return "More masculine";
+    if(lower.includes("feminine")) return "More feminine";
+    if(lower.includes("gender-neutral")) return "Gender-neutral";
+    if(lower.includes("understated")) return "Elegant and understated";
+    if(lower.includes("jewellery")) return "Jewellery-led";
+    if(lower.includes("sporty") || lower.includes("sports")) return "Sporty";
+    if(lower.includes("bold") || lower.includes("statement")) return "Bold and noticeable";
+    if(lower.includes("classic") || lower.includes("timeless")) return "Classic and timeless";
+    if(lower.includes("dress")) return "Elegant and understated";
+    if(lower.includes("diver")) return "Sporty";
+    if(lower.includes("integrated")) return "Sporty";
+    if(lower.includes("vintage")) return "Classic and timeless";
+    if(lower.includes("daily")) return "Elegant and understated";
   }
   if(type === "presence"){
     if(lower.includes("very understated") || lower.includes("understated")) return "Understated";
@@ -211,15 +243,16 @@ function normalizeWatchAnswer(type, value){
     if(lower.includes("strong statement")) return "Strong statement";
   }
   if(type === "occasion"){
+    if(lower.includes("personal")) return "Personal purchase";
+    if(lower.includes("wedding") || lower.includes("engagement")) return "Wedding or engagement gift";
+    if(lower.includes("graduation")) return "Graduation gift";
+    if(lower.includes("birthday")) return "Birthday gift";
+    if(lower.includes("business")) return "Business milestone";
+    if(lower.includes("anniversary")) return "Anniversary gift";
+    if(lower.includes("family")) return "Family gift";
+    if(lower.includes("upgrade")) return "Collection upgrade";
     if(lower.includes("first")) return "First luxury watch";
     if(lower.includes("daily")) return "Daily wear";
-    if(lower.includes("wedding") || lower.includes("engagement")) return "Wedding or engagement";
-    if(lower.includes("graduation")) return "Graduation";
-    if(lower.includes("business") || lower.includes("professional")) return "Business milestone";
-    if(lower.includes("gift")) return "Gift";
-    if(lower.includes("investment")) return "Investment-minded purchase";
-    if(lower.includes("upgrade")) return "Collection upgrade";
-    if(lower.includes("legacy")) return "Family legacy piece";
   }
   if(type === "preference"){
     if(lower.includes("new")) return "New";
@@ -235,67 +268,168 @@ function normalizeWatchAnswer(type, value){
   return raw;
 }
 
-function watchRecommendationProfiles(answers){
-  const style = normalizeWatchAnswer("style", answers.style);
+function getWearerDirection(answers){
+  const wearer = (answers.intendedWearer || answers.wearer || "").toLowerCase();
+  const refinedWearers = ["wife", "fiancee", "fiancée", "girlfriend", "mother", "sister", "female family"];
+  const strongerWearers = ["husband", "fiance", "fiancé", "boyfriend", "father", "brother", "male family"];
+  if(refinedWearers.some((term)=> wearer.includes(term))) return { key: "refined", label: "a refined or jewellery-aware style direction" };
+  if(strongerWearers.some((term)=> wearer.includes(term))) return { key: "stronger", label: "a stronger daily, sports, dress, or classic collector direction" };
+  if(wearer.includes("prefer not") || wearer.includes("not sure") || wearer.includes("someone else")) return { key: "neutral", label: "a flexible style direction that can be refined with sizing and taste" };
+  return { key: "neutral", label: "the intended wearer and preferred wrist presence" };
+}
+
+function getStyleDirection(answers){
+  return normalizeWatchAnswer("style", answers.styleDirection || answers.style);
+}
+
+function answerIncludesAny(answers, terms){
+  const haystack = [
+    answers.country,
+    answers.intendedWearer,
+    answers.styleDirection || answers.style,
+    answers.occasion,
+    answers.preference,
+    answers.presence,
+    answers.resale,
+    answers.wrist,
+    answers.brandsLike,
+    answers.brandsDislike,
+    answers.notes
+  ].join(" ").toLowerCase();
+  return terms.some((term)=> haystack.includes(term));
+}
+
+function isRegionalBrief(answers){
+  return answerIncludesAny(answers, [
+    "uae", "saudi", "qatar", "kuwait", "bahrain", "oman", "jordan", "dubai", "doha", "riyadh",
+    "gulf", "middle east", "arabic", "khanjar", "qaboos", "regional", "provenance", "crest",
+    "pre-owned", "vintage", "neo-vintage", "collector"
+  ]);
+}
+
+function getCollectorProfile(answers){
+  const style = getStyleDirection(answers);
   const occasion = normalizeWatchAnswer("occasion", answers.occasion);
   const presence = normalizeWatchAnswer("presence", answers.presence);
   const resale = normalizeWatchAnswer("resale", answers.resale);
-  if(resale === "Very important") return "Investment-Minded Collector";
-  if(occasion === "First luxury watch") return "First Serious Watch Buyer";
-  if(occasion === "Family legacy piece" || style === "Vintage or neo-vintage") return "Heritage Collector";
-  if(answers.country && answers.country !== "Other" && (style === "Jewellery or gem-set" || style === "Statement piece")) return "Regional Taste Collector";
-  if(presence === "Strong statement" || style === "Statement piece") return "Bold Presence Buyer";
-  if(style === "Understated daily watch" || occasion === "Daily wear") return "Daily Elegance Collector";
-  return "Quiet Statement Collector";
+  const wearer = getWearerDirection(answers);
+  if(isRegionalBrief(answers) && (style === "Bold and noticeable" || occasion === "Collection upgrade" || resale === "Very important")) return "Regional Collector Direction";
+  if(style === "Jewellery-led") return "Jewellery-Led Milestone Brief";
+  if(occasion && occasion.toLowerCase().includes("gift")) return "Considered Gift Shortlist";
+  if(occasion === "First luxury watch") return "First Luxury Watch Brief";
+  if(resale === "Very important") return "Collector-Led Value Brief";
+  if(style === "Gender-neutral" || wearer.key === "neutral") return "Balanced Design-Led Brief";
+  if(presence === "Strong statement" || style === "Bold and noticeable") return "Bold Presence Brief";
+  if(style === "Elegant and understated") return "Refined Daily Watch Brief";
+  return "Classic Collector Brief";
 }
 
 function scoreWatchOption(option, answers){
-  const style = normalizeWatchAnswer("style", answers.style);
+  const wearer = getWearerDirection(answers);
+  const style = getStyleDirection(answers);
   const presence = normalizeWatchAnswer("presence", answers.presence);
   const occasion = normalizeWatchAnswer("occasion", answers.occasion);
   const preference = normalizeWatchAnswer("preference", answers.preference);
   const resale = normalizeWatchAnswer("resale", answers.resale);
+  const regional = isRegionalBrief(answers);
+  const liked = (answers.brandsLike || "").toLowerCase();
+  const avoided = (answers.brandsDislike || "").toLowerCase();
+  const modelTokens = option.model.toLowerCase().split(/[,\s]+/)
+    .map((word)=> word.replace(/[^a-z0-9]/g, ""))
+    .filter((word)=> word.length > 2);
   let score = 0;
-  if(option.styles.includes(style)) score += 5;
-  if(option.presence.includes(presence)) score += 4;
-  if(option.budgets.includes(answers.budget)) score += 4;
-  if(resale === "Very important" && option.resale) score += 3;
-  if(preference === "Pre-owned" && (option.resale || option.styles.includes("Vintage or neo-vintage"))) score += 1;
-  if(occasion === "First luxury watch" && option.budgets.includes("Under $5,000")) score += 2;
-  if(occasion === "Wedding or engagement" && option.styles.includes("Dress watch")) score += 2;
-  if(occasion === "Business milestone" && option.presence.includes("Noticeable")) score += 2;
-  if(occasion === "Family legacy piece" && (option.model.includes("Patek") || option.model.includes("Vacheron") || option.model.includes("Day-Date"))) score += 2;
-  if(answers.brandsLike && option.model.toLowerCase().includes(answers.brandsLike.toLowerCase())) score += 3;
-  if(answers.brandsDislike && option.model.toLowerCase().includes(answers.brandsDislike.toLowerCase())) score -= 10;
+
+  if(option.wearer.includes(wearer.key)) score += 5;
+  if(style && option.styles.includes(style)) score += 6;
+  if(style === "More masculine" && option.wearer.includes("stronger")) score += 4;
+  if(style === "More feminine" && option.wearer.includes("refined")) score += 4;
+  if(style === "Gender-neutral" && option.wearer.includes("neutral")) score += 4;
+  if(presence && option.presence.includes(presence)) score += 4;
+  if(occasion && option.occasions.includes(occasion)) score += 5;
+  if(option.budgets.includes(answers.budget)) score += 5;
+  if(resale === "Very important" && option.value) score += 3;
+  if(preference === "Pre-owned" && (option.value || option.categories.includes("vintage") || option.regional)) score += 2;
+  if(preference === "New" && !option.categories.includes("vintage") && !option.regional) score += 1;
+  if(regional && option.regional) score += 4;
+  if(style === "Jewellery-led" && option.categories.includes("jewellery")) score += 5;
+  if(style === "Sporty" && option.categories.includes("sports")) score += 4;
+  if(style === "Elegant and understated" && (option.categories.includes("dress") || option.categories.includes("understated") || option.categories.includes("daily"))) score += 3;
+  if(style === "Bold and noticeable" && (option.categories.includes("statement") || option.presence.includes("Strong statement"))) score += 4;
+  if(occasion === "First luxury watch" && option.categories.includes("entry")) score += 5;
+  if(occasion && occasion.toLowerCase().includes("gift") && option.categories.includes("gift")) score += 4;
+  if(occasion === "Daily wear" && (option.categories.includes("daily") || option.categories.includes("everyday"))) score += 3;
+  if(occasion === "Collection upgrade" && (option.categories.includes("collector") || option.categories.includes("independent"))) score += 3;
+  if(liked && modelTokens.some((word)=> liked.includes(word))) score += 4;
+  if(avoided && modelTokens.some((word)=> avoided.includes(word))) score -= 12;
   return score;
 }
 
 function getWatchRecommendations(answers){
-  const profile = watchRecommendationProfiles(answers);
-  const style = normalizeWatchAnswer("style", answers.style);
+  const pool = getRecommendationPool();
+  const profile = getCollectorProfile(answers);
+  const wearer = getWearerDirection(answers);
+  const style = getStyleDirection(answers);
   const presence = normalizeWatchAnswer("presence", answers.presence);
   const occasion = normalizeWatchAnswer("occasion", answers.occasion);
   const preference = normalizeWatchAnswer("preference", answers.preference);
-  const resale = normalizeWatchAnswer("resale", answers.resale);
-  const recommended = watchRecommendationOptions
+  const regional = isRegionalBrief(answers);
+  const ranked = pool
     .map((option)=> ({ ...option, score: scoreWatchOption(option, answers) }))
-    .sort((a, b)=> b.score - a.score)
-    .slice(0, 5)
-    .map((option)=> ({
-      model: option.model,
-      reason: `${option.model} fits the ${style.toLowerCase()} direction while staying close to a ${presence.toLowerCase()} wrist presence.`,
-      bestFor: option.bestFor
-    }));
+    .sort((a, b)=> b.score - a.score);
 
-  const why = `Your shortlist is shaped around ${answers.budget}, a ${style.toLowerCase()} preference, ${presence.toLowerCase()} wrist presence, and the purpose of ${occasion.toLowerCase()}. ${answers.country && answers.country !== "Other" ? "Regional relevance also matters, so the suggestions avoid feeling generic for a Gulf or Middle East collecting context." : "The suggestions stay broad enough to refine with Bezeru before sourcing."} ${preference !== "Not sure yet" ? `Your ${preference.toLowerCase()} preference also affects how much condition, documentation, and availability should matter.` : "Because the new or pre-owned preference is still open, both boutique and carefully vetted secondary-market routes can remain on the table."}`;
+  const recommended = ranked.slice(0, 5).map((option)=> ({
+    model: option.model,
+    reason: option.why,
+    bestFor: option.bestFor,
+    caution: option.caution,
+    score: option.score
+  }));
 
-  let avoid = "Avoid buying only because of hype. Focus first on fit, condition, documentation, and whether the watch still feels right after the first impression.";
-  if(presence === "Understated") avoid = "Avoid oversized or overly loud watches if restraint is part of the brief. Proportion and comfort should lead the decision.";
-  if(resale === "Very important") avoid = "Avoid very niche pieces if resale importance is high. Also avoid high-value pre-owned watches without clear condition, service history, and provenance.";
-  if(preference === "Pre-owned") avoid = "Avoid rushing into pre-owned purchases without checking condition, service history, documentation, seller credibility, and provenance.";
-  if(style === "Vintage or neo-vintage") avoid = "Avoid vintage or neo-vintage pieces without strong documentation, condition clarity, and a realistic view of service needs.";
+  const lowestScore = recommended.reduce((min, watch)=> Math.min(min, watch.score), recommended[0]?.score || 0);
+  if(lowestScore < 8){
+    recommended[recommended.length - 1] = {
+      model: "Broader category search",
+      reason: "Consider exploring similar references from this brand or category, especially pieces that match the preferred size, budget, and style direction.",
+      bestFor: "A brief that needs refinement beyond the starter pool.",
+      caution: "Use this as a direction for comparison, not a final buying decision.",
+      score: 8
+    };
+  }
+
+  const why = `Based on the intended wearer, occasion, style direction, budget, and wrist presence, these watches may be worth exploring. The shortlist leans toward ${wearer.label}, a ${String(style || "not yet fixed").toLowerCase()} style direction, ${String(presence || "balanced").toLowerCase()} wrist presence, and ${String(occasion || "a flexible brief").toLowerCase()}. ${preference && preference !== "Not sure yet" ? `The ${preference.toLowerCase()} preference also shapes how much condition, documentation, and availability should matter.` : "Because the new or pre-owned route is still open, both boutique and carefully reviewed secondary-market options can remain on the table."}`;
+
+  let avoid = "This shortlist is a starting point, not a final buying decision. Bezeru can help refine the search further based on availability, condition, provenance, and budget.";
+  if(regional){
+    avoid += " For rare regional pieces, documentation is essential; only pursue examples with strong documentation, originality, and trusted review.";
+  }
+  if(preference === "Pre-owned"){
+    avoid += " For pre-owned watches, condition, service history, seller credibility, and provenance should be reviewed before any purchase.";
+  }
 
   return { profile, recommended, why, avoid };
+}
+
+function buildWhatsAppRecommendationMessage(answers, recommendation){
+  return [
+    "Hi Bezeru, I used the AI Watch Concierge and would like guidance.",
+    "",
+    `Name: ${answers.name || "—"}`,
+    `Country: ${answers.country || "—"}`,
+    `Intended wearer: ${answers.intendedWearer || answers.wearer || "—"}`,
+    `Style direction: ${answers.styleDirection || answers.style || "—"}`,
+    `Gift or occasion: ${answers.occasion || "—"}`,
+    `Budget: ${answers.budget || "—"}`,
+    `New/pre-owned preference: ${answers.preference || "—"}`,
+    `Wrist presence: ${answers.presence || "—"}`,
+    `Long-term value importance: ${answers.resale || "—"}`,
+    `Wrist size: ${answers.wrist || "—"}`,
+    `Brands liked: ${answers.brandsLike || "—"}`,
+    `Brands avoided: ${answers.brandsDislike || "—"}`,
+    `Notes: ${answers.notes || "—"}`,
+    "",
+    `Collector profile: ${recommendation.profile}`,
+    `Recommended watches: ${recommendation.recommended.map((watch)=> watch.model).join(", ")}`
+  ].join("\n");
 }
 
 function initAiWatchConcierge(){
@@ -312,9 +446,10 @@ function initAiWatchConcierge(){
     const answers = {
       name: getValue("name"),
       country: getValue("country"),
+      intendedWearer: getValue("intendedWearer") || getValue("wearer"),
       budget: getValue("budget"),
       preference: getValue("preference"),
-      style: getValue("style"),
+      styleDirection: getValue("styleDirection") || getValue("style"),
       occasion: getValue("occasion"),
       presence: getValue("presence"),
       resale: getValue("resale"),
@@ -324,17 +459,7 @@ function initAiWatchConcierge(){
       notes: getValue("notes")
     };
     const recommendation = getWatchRecommendations(answers);
-    const watches = recommendation.recommended.map((watch)=> watch.model).join(", ");
-    const message = [
-      "Hi Bezeru, I used the AI Watch Concierge and would like guidance.",
-      "",
-      `Name: ${answers.name}`,
-      `Country: ${answers.country}`,
-      `Budget: ${answers.budget}`,
-      `Preferences: ${answers.preference}; ${answers.style}; ${answers.presence}; ${answers.occasion}; resale importance: ${answers.resale}`,
-      `AI profile: ${recommendation.profile}`,
-      `Recommended watches: ${watches}`
-    ].join("\n");
+    const message = buildWhatsAppRecommendationMessage(answers, recommendation);
 
     result.innerHTML = `
       <div class="ai-result-card">
@@ -348,6 +473,7 @@ function initAiWatchConcierge(){
                 <h4>${watch.model}</h4>
                 <p>${watch.reason}</p>
                 <span>Best for: ${watch.bestFor}</span>
+                <span>Caution: ${watch.caution || "Use this as a starting point and compare condition, provenance, and budget carefully."}</span>
               </article>
             `).join("")}
           </div>
