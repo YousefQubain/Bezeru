@@ -163,6 +163,156 @@ function initBzWhatsAppForms(){
 initBzWhatsAppConcierge();
 initBzWhatsAppForms();
 
+const watchRecommendationOptions = [
+  { model: "Rolex Datejust 36 or 41", styles: ["Understated daily watch", "Dress watch"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: true, bestFor: "daily elegance with strong recognition" },
+  { model: "Rolex Day-Date", styles: ["Statement piece", "Dress watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], resale: true, bestFor: "milestone collecting and regional presence" },
+  { model: "Rolex GMT-Master II", styles: ["Sports watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: true, bestFor: "travel, recognition, and versatile sports wear" },
+  { model: "Cartier Santos Medium", styles: ["Integrated bracelet", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "design-led daily wear with restrained confidence" },
+  { model: "Cartier Tank", styles: ["Dress watch", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "quiet elegance, gifting, and formal wear" },
+  { model: "Cartier Pasha Middle East Edition", styles: ["Statement piece", "Jewellery or gem-set"], presence: ["Noticeable", "Strong statement"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "regional character and expressive Cartier design" },
+  { model: "Tudor Black Bay 54", styles: ["Diver", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "compact proportions and first serious sports watch energy" },
+  { model: "Tudor Black Bay 58", styles: ["Diver", "Sports watch"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "versatile diver style without excessive size" },
+  { model: "Jaeger-LeCoultre Reverso", styles: ["Dress watch", "Vintage or neo-vintage"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "heritage, occasion wear, and architectural taste" },
+  { model: "Jaeger-LeCoultre Master Control", styles: ["Dress watch", "Understated daily watch"], presence: ["Understated", "Balanced"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "low-key refinement and daily horology" },
+  { model: "Vacheron Constantin Overseas", styles: ["Integrated bracelet", "Sports watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], resale: true, bestFor: "high-end sports collecting beyond the obvious" },
+  { model: "Vacheron Constantin Patrimony", styles: ["Dress watch"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], resale: false, bestFor: "formal restraint and maison-level heritage" },
+  { model: "IWC Ingenieur", styles: ["Integrated bracelet", "Sports watch"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "clean engineering-led sports design" },
+  { model: "IWC Pilot’s Watch", styles: ["Sports watch", "Understated daily watch"], presence: ["Balanced", "Noticeable"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "legibility, daily wear, and practical character" },
+  { model: "Omega Speedmaster", styles: ["Sports watch", "Vintage or neo-vintage"], presence: ["Balanced", "Noticeable"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: true, bestFor: "heritage sports watch collecting" },
+  { model: "Omega Seamaster Aqua Terra", styles: ["Understated daily watch", "Sports watch"], presence: ["Understated", "Balanced"], budgets: ["Under $5,000", "$5,000–$10,000"], resale: false, bestFor: "clean everyday versatility" },
+  { model: "Patek Philippe Calatrava", styles: ["Dress watch"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], resale: true, bestFor: "traditional high watchmaking and legacy value" },
+  { model: "Patek Philippe Aquanaut", styles: ["Sports watch"], presence: ["Noticeable", "Strong statement"], budgets: ["$50,000+"], resale: true, bestFor: "rare modern sports prestige" },
+  { model: "Audemars Piguet Royal Oak", styles: ["Integrated bracelet", "Statement piece"], presence: ["Noticeable", "Strong statement"], budgets: ["$25,000–$50,000", "$50,000+"], resale: true, bestFor: "architectural status and collector recognition" },
+  { model: "Breitling Chronomat GMT Middle East Edition", styles: ["Sports watch", "Statement piece"], presence: ["Noticeable", "Strong statement"], budgets: ["$5,000–$10,000", "$10,000–$25,000"], resale: false, bestFor: "regional detail and practical travel energy" },
+  { model: "Piaget Polo", styles: ["Integrated bracelet", "Understated daily watch"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "Gulf-friendly elegance with a softer sports profile" },
+  { model: "Piaget Altiplano", styles: ["Dress watch", "Jewellery or gem-set"], presence: ["Understated", "Balanced"], budgets: ["$10,000–$25,000", "$25,000–$50,000", "$50,000+"], resale: false, bestFor: "ultra-thin refinement and quiet luxury" },
+  { model: "Bulgari Octo Finissimo", styles: ["Integrated bracelet", "Statement piece"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "modern design confidence and slim architecture" }
+];
+
+function watchRecommendationProfiles(answers){
+  if(answers.resale === "Very important") return "The Investment-Minded Collector";
+  if(answers.occasion === "First luxury watch") return "The First Serious Watch Buyer";
+  if(answers.occasion === "Family legacy piece" || answers.style === "Vintage or neo-vintage") return "The Heritage Collector";
+  if(answers.country && answers.country !== "Other" && (answers.style === "Jewellery or gem-set" || answers.style === "Statement piece")) return "The Regional Taste Collector";
+  if(answers.presence === "Strong statement" || answers.style === "Statement piece") return "The Bold Presence Buyer";
+  if(answers.style === "Understated daily watch" || answers.occasion === "Daily wear") return "The Daily Elegance Collector";
+  return "The Quiet Statement Collector";
+}
+
+function scoreWatchOption(option, answers){
+  let score = 0;
+  if(option.styles.includes(answers.style)) score += 5;
+  if(option.presence.includes(answers.presence)) score += 4;
+  if(option.budgets.includes(answers.budget)) score += 4;
+  if(answers.resale === "Very important" && option.resale) score += 3;
+  if(answers.preference === "Pre-owned" && (option.resale || option.styles.includes("Vintage or neo-vintage"))) score += 1;
+  if(answers.occasion === "First luxury watch" && option.budgets.includes("Under $5,000")) score += 2;
+  if(answers.occasion === "Wedding or engagement" && option.styles.includes("Dress watch")) score += 2;
+  if(answers.occasion === "Business milestone" && option.presence.includes("Noticeable")) score += 2;
+  if(answers.occasion === "Family legacy piece" && (option.model.includes("Patek") || option.model.includes("Vacheron") || option.model.includes("Day-Date"))) score += 2;
+  if(answers.brandsLike && option.model.toLowerCase().includes(answers.brandsLike.toLowerCase())) score += 3;
+  if(answers.brandsDislike && option.model.toLowerCase().includes(answers.brandsDislike.toLowerCase())) score -= 10;
+  return score;
+}
+
+function getWatchRecommendations(answers){
+  const profile = watchRecommendationProfiles(answers);
+  const recommended = watchRecommendationOptions
+    .map((option)=> ({ ...option, score: scoreWatchOption(option, answers) }))
+    .sort((a, b)=> b.score - a.score)
+    .slice(0, 5)
+    .map((option)=> ({
+      model: option.model,
+      reason: `${option.model} fits the ${answers.style.toLowerCase()} direction while staying close to a ${answers.presence.toLowerCase()} wrist presence.`,
+      bestFor: option.bestFor
+    }));
+
+  const why = `Your shortlist is shaped around ${answers.budget}, a ${answers.style.toLowerCase()} preference, ${answers.presence.toLowerCase()} wrist presence, and the purpose of ${answers.occasion.toLowerCase()}. ${answers.country && answers.country !== "Other" ? "Regional relevance also matters, so the suggestions avoid feeling generic for a Gulf or Middle East collecting context." : "The suggestions stay broad enough to refine with Bezeru before sourcing."} ${answers.preference !== "Not sure yet" ? `Your ${answers.preference.toLowerCase()} preference also affects how much condition, documentation, and availability should matter.` : "Because the new or pre-owned preference is still open, both boutique and carefully vetted secondary-market routes can remain on the table."}`;
+
+  let avoid = "Avoid buying only because of hype. Focus first on fit, condition, documentation, and whether the watch still feels right after the first impression.";
+  if(answers.presence === "Understated") avoid = "Avoid oversized or overly loud watches if restraint is part of the brief. Proportion and comfort should lead the decision.";
+  if(answers.resale === "Very important") avoid = "Avoid very niche pieces if resale importance is high. Also avoid high-value pre-owned watches without clear condition, service history, and provenance.";
+  if(answers.preference === "Pre-owned") avoid = "Avoid rushing into pre-owned purchases without checking condition, service history, documentation, seller credibility, and provenance.";
+  if(answers.style === "Vintage or neo-vintage") avoid = "Avoid vintage or neo-vintage pieces without strong documentation, condition clarity, and a realistic view of service needs.";
+
+  return { profile, recommended, why, avoid };
+}
+
+function initAiWatchConcierge(){
+  const form = document.getElementById("aiWatchConciergeForm");
+  const result = document.getElementById("aiWatchResult");
+  if(!form || !result) return;
+
+  const getValue = (name)=> (form.elements[name]?.value || "").trim();
+
+  form.addEventListener("submit", (event)=>{
+    event.preventDefault();
+    if(typeof form.reportValidity === "function" && !form.reportValidity()) return;
+
+    const answers = {
+      name: getValue("name"),
+      country: getValue("country"),
+      budget: getValue("budget"),
+      preference: getValue("preference"),
+      style: getValue("style"),
+      occasion: getValue("occasion"),
+      presence: getValue("presence"),
+      resale: getValue("resale"),
+      wrist: getValue("wrist"),
+      brandsLike: getValue("brandsLike"),
+      brandsDislike: getValue("brandsDislike"),
+      notes: getValue("notes")
+    };
+    const recommendation = getWatchRecommendations(answers);
+    const watches = recommendation.recommended.map((watch)=> watch.model).join(", ");
+    const message = [
+      "Hi Bezeru, I used the AI Watch Concierge and would like guidance.",
+      "",
+      `Name: ${answers.name}`,
+      `Country: ${answers.country}`,
+      `Budget: ${answers.budget}`,
+      `Preferences: ${answers.preference}; ${answers.style}; ${answers.presence}; ${answers.occasion}; resale importance: ${answers.resale}`,
+      `AI profile: ${recommendation.profile}`,
+      `Recommended watches: ${watches}`
+    ].join("\n");
+
+    result.innerHTML = `
+      <div class="ai-result-card">
+        <span class="service-eyebrow">Collector Profile</span>
+        <h2>Your Bezeru Profile: ${recommendation.profile}</h2>
+        <div class="ai-result-block">
+          <h3>Recommended Watches</h3>
+          <div class="ai-watch-list">
+            ${recommendation.recommended.map((watch)=> `
+              <article class="ai-watch-card">
+                <h4>${watch.model}</h4>
+                <p>${watch.reason}</p>
+                <span>Best for: ${watch.bestFor}</span>
+              </article>
+            `).join("")}
+          </div>
+        </div>
+        <div class="ai-result-block">
+          <h3>Why These Fit</h3>
+          <p>${recommendation.why}</p>
+        </div>
+        <div class="ai-result-block">
+          <h3>What to Avoid</h3>
+          <p>${recommendation.avoid}</p>
+        </div>
+        <div class="service-actions">
+          <a class="btn-dark" href="${buildBezeruWhatsAppUrl(message)}" target="_blank" rel="noopener">Send to Bezeru Concierge</a>
+          <a class="btn-outline" href="/source-a-watch.html">Source a Watch</a>
+        </div>
+      </div>
+    `;
+    result.hidden = false;
+    result.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
+initAiWatchConcierge();
+
 function forceBzHeaderStacking(){
   const header = document.getElementById("bzHeader");
   if(!header) return;
