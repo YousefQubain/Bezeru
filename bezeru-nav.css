@@ -133,7 +133,7 @@
   padding: 0 40px !important;
   height: 86px !important;
   display: grid !important;
-  grid-template-columns: max-content minmax(170px, 1fr) max-content !important;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
   align-items: center !important;
   column-gap: 32px !important;
   background: transparent !important;
@@ -694,7 +694,7 @@ body.bz-menu-open {
   .bz-header .site-header-inner,
   .bz-header .bz-nav-row {
     padding: 0 28px !important;
-    grid-template-columns: max-content minmax(140px, 1fr) max-content !important;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
     column-gap: 16px !important;
   }
 
@@ -722,6 +722,17 @@ body.bz-menu-open {
 
   .bz-logo-sub {
     font-size: 7px !important;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1320px) {
+  .bz-nav-left {
+    gap: 16px !important;
+  }
+
+  .bz-nav-right .bz-icon-btn,
+  .bz-nav-right .bz-subscribe-btn {
+    display: none !important;
   }
 }
 
@@ -830,4 +841,27 @@ body.bz-menu-open {
   .bz-mm-label {
     font-size: 22px !important;
   }
+}
+
+/* Sitewide guardrail: keep BEZERU header rows stacked in every browser. */
+html body .bz-header {
+  display: block !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: none !important;
+}
+
+html body .bz-header > .topbar,
+html body .bz-header > .bz-topbar,
+html body .bz-header > .site-header {
+  display: block !important;
+  float: none !important;
+  clear: both !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  flex: 0 0 100% !important;
+  grid-column: 1 / -1 !important;
 }
