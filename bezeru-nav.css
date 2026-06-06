@@ -129,7 +129,7 @@
   padding: 0 40px !important;
   height: 86px !important;
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+  grid-template-columns: max-content minmax(170px, 1fr) max-content !important;
   align-items: center !important;
   column-gap: 32px !important;
   background: transparent !important;
@@ -203,7 +203,7 @@
   justify-content: center !important;
   gap: 2px !important;
   flex: 0 0 auto !important;
-  min-width: max-content !important;
+  min-width: 0 !important;
   white-space: nowrap !important;
 }
 
@@ -690,15 +690,16 @@ body.bz-menu-open {
   .bz-header .site-header-inner,
   .bz-header .bz-nav-row {
     padding: 0 28px !important;
-    column-gap: 22px !important;
+    grid-template-columns: max-content minmax(140px, 1fr) max-content !important;
+    column-gap: 16px !important;
   }
 
   .bz-nav-left {
-    gap: 18px !important;
+    gap: 14px !important;
   }
 
   .bz-nav-link {
-    font-size: 11px !important;
+    font-size: 10px !important;
   }
 
   .bz-nav-right {
@@ -712,7 +713,26 @@ body.bz-menu-open {
   }
 
   .bz-logo-wordmark {
-    font-size: 20px !important;
+    font-size: 18px !important;
+  }
+
+  .bz-logo-sub {
+    font-size: 7px !important;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1080px) {
+  .bz-nav-left {
+    gap: 10px !important;
+  }
+
+  .bz-nav-link {
+    letter-spacing: 0.04em !important;
+  }
+
+  .bz-nav-right .bz-icon-btn,
+  .bz-nav-right .bz-subscribe-btn {
+    display: none !important;
   }
 }
 
