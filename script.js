@@ -1,3 +1,11 @@
+const BEZERU_WHATSAPP_NUMBER = "+000000000000";
+const BEZERU_WHATSAPP_CONCIERGE_MESSAGE = "Hi Bezeru, I’m looking for help finding a watch.";
+
+function buildBezeruWhatsAppUrl(message){
+  const phone = BEZERU_WHATSAPP_NUMBER.replace(/\D/g, "");
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+}
+
 function initUnifiedHeader(){
   const header = document.querySelector("header");
   if(!header) return;
@@ -95,6 +103,65 @@ function initUnifiedHeader(){
 }
 
 initUnifiedHeader();
+
+function initBzWhatsAppConcierge(){
+  if(document.getElementById("bzWhatsappConcierge")) return;
+  const button = document.createElement("a");
+  button.id = "bzWhatsappConcierge";
+  button.className = "bz-wa-concierge";
+  button.href = buildBezeruWhatsAppUrl(BEZERU_WHATSAPP_CONCIERGE_MESSAGE);
+  button.target = "_blank";
+  button.rel = "noopener";
+  button.textContent = "Speak to Bezeru";
+  Object.assign(button.style, {
+    position: "fixed",
+    right: "22px",
+    bottom: "22px",
+    zIndex: "1200",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "42px",
+    padding: "0 18px",
+    borderRadius: "999px",
+    background: "#173f32",
+    color: "#ffffff",
+    border: "1px solid rgba(255,255,255,0.18)",
+    boxShadow: "0 14px 34px rgba(17,17,17,0.16)",
+    fontFamily: "Inter, system-ui, sans-serif",
+    fontSize: "11px",
+    fontWeight: "700",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+    textDecoration: "none"
+  });
+  document.body.appendChild(button);
+}
+
+function initBzWhatsAppForms(){
+  document.querySelectorAll("form[data-bz-whatsapp-form]").forEach((form)=>{
+    if(form.dataset.bzWhatsappReady === "true") return;
+    form.dataset.bzWhatsappReady = "true";
+
+    form.addEventListener("submit", (event)=>{
+      event.preventDefault();
+      if(typeof form.reportValidity === "function" && !form.reportValidity()) return;
+
+      const intro = form.dataset.whatsappIntro || "Hi Bezeru, I would like to speak with you.";
+      const lines = [intro, ""];
+      form.querySelectorAll("[data-wa-label]").forEach((field)=>{
+        const label = field.dataset.waLabel;
+        const value = (field.value || "").trim();
+        lines.push(`${label}: ${value}`);
+      });
+
+      window.open(buildBezeruWhatsAppUrl(lines.join("\n")), "_blank", "noopener");
+    });
+  });
+}
+
+initBzWhatsAppConcierge();
+initBzWhatsAppForms();
 
 function forceBzHeaderStacking(){
   const header = document.getElementById("bzHeader");
