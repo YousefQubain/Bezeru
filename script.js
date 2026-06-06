@@ -1,4 +1,4 @@
-const BEZERU_WHATSAPP_NUMBER = "+000000000000";
+const BEZERU_WHATSAPP_NUMBER = "+41000000000"; // TODO: replace with real number
 const BEZERU_WHATSAPP_CONCIERGE_MESSAGE = "Hi Bezeru, I’m looking for help finding a watch.";
 
 function buildBezeruWhatsAppUrl(message){
@@ -43,6 +43,7 @@ function initUnifiedHeader(){
         <a class="nav-link" href="${link("/brands.html")}">Brands</a>
         <a class="nav-link" href="${link("/intelligence.html")}">Intelligence</a>
         <a class="nav-link" href="${link("/about.html")}">About</a>
+        <a class="nav-link" href="${link("/ai-watch-concierge.html")}">Concierge</a>
         <a class="nav-shop" href="${link("/shop.html")}">Shop</a>
       </div>
 
@@ -69,6 +70,7 @@ function initUnifiedHeader(){
             <a class="nav-link" href="${link("/brands.html")}">Brands</a>
             <a class="nav-link" href="${link("/intelligence.html")}">Intelligence</a>
             <a class="nav-link" href="${link("/about.html")}">About</a>
+            <a class="nav-link" href="${link("/ai-watch-concierge.html")}">Concierge</a>
             <a class="nav-shop" href="${link("/shop.html")}">Shop</a>
           </div>
           <div class="nav-mobile-footer">
@@ -189,27 +191,80 @@ const watchRecommendationOptions = [
   { model: "Bulgari Octo Finissimo", styles: ["Integrated bracelet", "Statement piece"], presence: ["Balanced", "Noticeable"], budgets: ["$10,000–$25,000", "$25,000–$50,000"], resale: false, bestFor: "modern design confidence and slim architecture" }
 ];
 
+function normalizeWatchAnswer(type, value){
+  const raw = value || "";
+  const lower = raw.toLowerCase();
+  if(type === "style"){
+    if(lower.includes("dress")) return "Dress watch";
+    if(lower.includes("sports")) return "Sports watch";
+    if(lower.includes("diver")) return "Diver";
+    if(lower.includes("integrated")) return "Integrated bracelet";
+    if(lower.includes("vintage") || lower.includes("neo-vintage")) return "Vintage or neo-vintage";
+    if(lower.includes("jewellery") || lower.includes("gem")) return "Jewellery or gem-set";
+    if(lower.includes("statement")) return "Statement piece";
+    if(lower.includes("understated") || lower.includes("daily")) return "Understated daily watch";
+  }
+  if(type === "presence"){
+    if(lower.includes("very understated") || lower.includes("understated")) return "Understated";
+    if(lower.includes("balanced")) return "Balanced";
+    if(lower.includes("noticeable")) return "Noticeable";
+    if(lower.includes("strong statement")) return "Strong statement";
+  }
+  if(type === "occasion"){
+    if(lower.includes("first")) return "First luxury watch";
+    if(lower.includes("daily")) return "Daily wear";
+    if(lower.includes("wedding") || lower.includes("engagement")) return "Wedding or engagement";
+    if(lower.includes("graduation")) return "Graduation";
+    if(lower.includes("business") || lower.includes("professional")) return "Business milestone";
+    if(lower.includes("gift")) return "Gift";
+    if(lower.includes("investment")) return "Investment-minded purchase";
+    if(lower.includes("upgrade")) return "Collection upgrade";
+    if(lower.includes("legacy")) return "Family legacy piece";
+  }
+  if(type === "preference"){
+    if(lower.includes("new")) return "New";
+    if(lower.includes("pre-owned")) return "Pre-owned";
+    if(lower.includes("both")) return "Open to both";
+  }
+  if(type === "resale"){
+    if(lower.includes("very important")) return "Very important";
+    if(lower.includes("somewhat")) return "Somewhat important";
+    if(lower.includes("not important")) return "Not important";
+    if(lower.includes("emotional")) return "I mainly want emotional value";
+  }
+  return raw;
+}
+
 function watchRecommendationProfiles(answers){
-  if(answers.resale === "Very important") return "The Investment-Minded Collector";
-  if(answers.occasion === "First luxury watch") return "The First Serious Watch Buyer";
-  if(answers.occasion === "Family legacy piece" || answers.style === "Vintage or neo-vintage") return "The Heritage Collector";
-  if(answers.country && answers.country !== "Other" && (answers.style === "Jewellery or gem-set" || answers.style === "Statement piece")) return "The Regional Taste Collector";
-  if(answers.presence === "Strong statement" || answers.style === "Statement piece") return "The Bold Presence Buyer";
-  if(answers.style === "Understated daily watch" || answers.occasion === "Daily wear") return "The Daily Elegance Collector";
-  return "The Quiet Statement Collector";
+  const style = normalizeWatchAnswer("style", answers.style);
+  const occasion = normalizeWatchAnswer("occasion", answers.occasion);
+  const presence = normalizeWatchAnswer("presence", answers.presence);
+  const resale = normalizeWatchAnswer("resale", answers.resale);
+  if(resale === "Very important") return "Investment-Minded Collector";
+  if(occasion === "First luxury watch") return "First Serious Watch Buyer";
+  if(occasion === "Family legacy piece" || style === "Vintage or neo-vintage") return "Heritage Collector";
+  if(answers.country && answers.country !== "Other" && (style === "Jewellery or gem-set" || style === "Statement piece")) return "Regional Taste Collector";
+  if(presence === "Strong statement" || style === "Statement piece") return "Bold Presence Buyer";
+  if(style === "Understated daily watch" || occasion === "Daily wear") return "Daily Elegance Collector";
+  return "Quiet Statement Collector";
 }
 
 function scoreWatchOption(option, answers){
+  const style = normalizeWatchAnswer("style", answers.style);
+  const presence = normalizeWatchAnswer("presence", answers.presence);
+  const occasion = normalizeWatchAnswer("occasion", answers.occasion);
+  const preference = normalizeWatchAnswer("preference", answers.preference);
+  const resale = normalizeWatchAnswer("resale", answers.resale);
   let score = 0;
-  if(option.styles.includes(answers.style)) score += 5;
-  if(option.presence.includes(answers.presence)) score += 4;
+  if(option.styles.includes(style)) score += 5;
+  if(option.presence.includes(presence)) score += 4;
   if(option.budgets.includes(answers.budget)) score += 4;
-  if(answers.resale === "Very important" && option.resale) score += 3;
-  if(answers.preference === "Pre-owned" && (option.resale || option.styles.includes("Vintage or neo-vintage"))) score += 1;
-  if(answers.occasion === "First luxury watch" && option.budgets.includes("Under $5,000")) score += 2;
-  if(answers.occasion === "Wedding or engagement" && option.styles.includes("Dress watch")) score += 2;
-  if(answers.occasion === "Business milestone" && option.presence.includes("Noticeable")) score += 2;
-  if(answers.occasion === "Family legacy piece" && (option.model.includes("Patek") || option.model.includes("Vacheron") || option.model.includes("Day-Date"))) score += 2;
+  if(resale === "Very important" && option.resale) score += 3;
+  if(preference === "Pre-owned" && (option.resale || option.styles.includes("Vintage or neo-vintage"))) score += 1;
+  if(occasion === "First luxury watch" && option.budgets.includes("Under $5,000")) score += 2;
+  if(occasion === "Wedding or engagement" && option.styles.includes("Dress watch")) score += 2;
+  if(occasion === "Business milestone" && option.presence.includes("Noticeable")) score += 2;
+  if(occasion === "Family legacy piece" && (option.model.includes("Patek") || option.model.includes("Vacheron") || option.model.includes("Day-Date"))) score += 2;
   if(answers.brandsLike && option.model.toLowerCase().includes(answers.brandsLike.toLowerCase())) score += 3;
   if(answers.brandsDislike && option.model.toLowerCase().includes(answers.brandsDislike.toLowerCase())) score -= 10;
   return score;
@@ -217,23 +272,28 @@ function scoreWatchOption(option, answers){
 
 function getWatchRecommendations(answers){
   const profile = watchRecommendationProfiles(answers);
+  const style = normalizeWatchAnswer("style", answers.style);
+  const presence = normalizeWatchAnswer("presence", answers.presence);
+  const occasion = normalizeWatchAnswer("occasion", answers.occasion);
+  const preference = normalizeWatchAnswer("preference", answers.preference);
+  const resale = normalizeWatchAnswer("resale", answers.resale);
   const recommended = watchRecommendationOptions
     .map((option)=> ({ ...option, score: scoreWatchOption(option, answers) }))
     .sort((a, b)=> b.score - a.score)
     .slice(0, 5)
     .map((option)=> ({
       model: option.model,
-      reason: `${option.model} fits the ${answers.style.toLowerCase()} direction while staying close to a ${answers.presence.toLowerCase()} wrist presence.`,
+      reason: `${option.model} fits the ${style.toLowerCase()} direction while staying close to a ${presence.toLowerCase()} wrist presence.`,
       bestFor: option.bestFor
     }));
 
-  const why = `Your shortlist is shaped around ${answers.budget}, a ${answers.style.toLowerCase()} preference, ${answers.presence.toLowerCase()} wrist presence, and the purpose of ${answers.occasion.toLowerCase()}. ${answers.country && answers.country !== "Other" ? "Regional relevance also matters, so the suggestions avoid feeling generic for a Gulf or Middle East collecting context." : "The suggestions stay broad enough to refine with Bezeru before sourcing."} ${answers.preference !== "Not sure yet" ? `Your ${answers.preference.toLowerCase()} preference also affects how much condition, documentation, and availability should matter.` : "Because the new or pre-owned preference is still open, both boutique and carefully vetted secondary-market routes can remain on the table."}`;
+  const why = `Your shortlist is shaped around ${answers.budget}, a ${style.toLowerCase()} preference, ${presence.toLowerCase()} wrist presence, and the purpose of ${occasion.toLowerCase()}. ${answers.country && answers.country !== "Other" ? "Regional relevance also matters, so the suggestions avoid feeling generic for a Gulf or Middle East collecting context." : "The suggestions stay broad enough to refine with Bezeru before sourcing."} ${preference !== "Not sure yet" ? `Your ${preference.toLowerCase()} preference also affects how much condition, documentation, and availability should matter.` : "Because the new or pre-owned preference is still open, both boutique and carefully vetted secondary-market routes can remain on the table."}`;
 
   let avoid = "Avoid buying only because of hype. Focus first on fit, condition, documentation, and whether the watch still feels right after the first impression.";
-  if(answers.presence === "Understated") avoid = "Avoid oversized or overly loud watches if restraint is part of the brief. Proportion and comfort should lead the decision.";
-  if(answers.resale === "Very important") avoid = "Avoid very niche pieces if resale importance is high. Also avoid high-value pre-owned watches without clear condition, service history, and provenance.";
-  if(answers.preference === "Pre-owned") avoid = "Avoid rushing into pre-owned purchases without checking condition, service history, documentation, seller credibility, and provenance.";
-  if(answers.style === "Vintage or neo-vintage") avoid = "Avoid vintage or neo-vintage pieces without strong documentation, condition clarity, and a realistic view of service needs.";
+  if(presence === "Understated") avoid = "Avoid oversized or overly loud watches if restraint is part of the brief. Proportion and comfort should lead the decision.";
+  if(resale === "Very important") avoid = "Avoid very niche pieces if resale importance is high. Also avoid high-value pre-owned watches without clear condition, service history, and provenance.";
+  if(preference === "Pre-owned") avoid = "Avoid rushing into pre-owned purchases without checking condition, service history, documentation, seller credibility, and provenance.";
+  if(style === "Vintage or neo-vintage") avoid = "Avoid vintage or neo-vintage pieces without strong documentation, condition clarity, and a realistic view of service needs.";
 
   return { profile, recommended, why, avoid };
 }
@@ -312,32 +372,6 @@ function initAiWatchConcierge(){
 }
 
 initAiWatchConcierge();
-
-function forceBzHeaderStacking(){
-  const header = document.getElementById("bzHeader");
-  if(!header) return;
-
-  header.style.display = "block";
-  header.style.width = "100%";
-  header.style.maxWidth = "none";
-  header.style.minWidth = "100%";
-  header.style.flexDirection = "column";
-
-  header.querySelectorAll(":scope > .topbar, :scope > .bz-topbar, :scope > .site-header").forEach((section)=>{
-    section.style.display = "block";
-    section.style.float = "none";
-    section.style.clear = "both";
-    section.style.width = "100%";
-    section.style.maxWidth = "none";
-    section.style.minWidth = "100%";
-    section.style.flex = "0 0 100%";
-    section.style.gridColumn = "1 / -1";
-  });
-}
-
-forceBzHeaderStacking();
-window.addEventListener("load", forceBzHeaderStacking);
-window.addEventListener("resize", forceBzHeaderStacking);
 
 function sanitizeBzMobileMenu(){
   const menu = document.getElementById("bzMobileMenu");
@@ -486,12 +520,12 @@ function initBzMobileMenu(){
       const href = link.getAttribute("href");
       closeMenu();
       if(href && !href.startsWith("#")){
-        setTimeout(function(){ window.location.href = href; }, 50);
+        setTimeout(function(){ window.location.href = href; }, 60);
       } else if(href && href.startsWith("#")){
         setTimeout(function(){
           const target = document.querySelector(href);
           if(target) target.scrollIntoView({ behavior: "smooth" });
-        }, 400);
+        }, 420);
       }
     }, false);
   });

@@ -49,6 +49,7 @@
       <a href="/brands.html" class="bz-nav-link">Brands</a>
       <a href="/intelligence.html" class="bz-nav-link">Intelligence</a>
       <a href="/about.html" class="bz-nav-link">About</a>
+      <a href="/ai-watch-concierge.html" class="bz-nav-link">Concierge</a>
     </nav>
     <a href="/index.html" class="bz-logo">
       <span class="bz-logo-wordmark">BEZERU</span>
@@ -133,6 +134,11 @@
       <span class="bz-mm-label">Shop</span>
       <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
+    <a href="/ai-watch-concierge.html" class="bz-mm-link">
+      <span class="bz-mm-num">08</span>
+      <span class="bz-mm-label">Concierge</span>
+      <svg class="bz-mm-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </nav>
   <div class="bz-mm-footer">
     <div class="bz-mm-lang">
@@ -154,28 +160,306 @@
 
 
 <main>
-  <section class="service-hero"><div class="container"><span class="service-eyebrow">AI Watch Concierge</span><h1>AI Watch Concierge</h1><p class="service-subtext">Find the watch that fits your taste, lifestyle, and collecting goals.</p></div></section>
-  <section class="service-panel"><div class="container service-grid"><div class="service-copy"><p>Bezeru&rsquo;s AI Watch Concierge helps you narrow your search before speaking to a specialist. It considers budget, wrist presence, style, occasion, region, and collector intent to suggest watches worth exploring.</p><p class="ai-disclaimer">The AI Watch Concierge is for guidance only. It does not provide authentication, valuation, financial advice, or guaranteed availability. Bezeru can review condition, provenance, and market context before any purchase decision.</p></div>
-    <form class="service-form" id="aiWatchConciergeForm">
-      <div class="service-form-grid">
-        <div class="service-field"><label for="name">Name</label><input id="name" name="name" type="text" required></div>
-        <div class="service-field"><label for="country">Country</label><select id="country" name="country" required><option value="">Select</option><option>UAE</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Bahrain</option><option>Oman</option><option>Jordan</option><option>Other</option></select></div>
-        <div class="service-field"><label for="budget">Budget range</label><select id="budget" name="budget" required><option value="">Select</option><option>Under $5,000</option><option>$5,000&ndash;$10,000</option><option>$10,000&ndash;$25,000</option><option>$25,000&ndash;$50,000</option><option>$50,000+</option><option>Not sure yet</option></select></div>
-        <div class="service-field"><label for="preference">New or pre-owned preference</label><select id="preference" name="preference" required><option value="">Select</option><option>New</option><option>Pre-owned</option><option>Open to both</option><option>Not sure yet</option></select></div>
-        <div class="service-field"><label for="style">Style preference</label><select id="style" name="style" required><option value="">Select</option><option>Dress watch</option><option>Sports watch</option><option>Diver</option><option>Integrated bracelet</option><option>Vintage or neo-vintage</option><option>Jewellery or gem-set</option><option>Understated daily watch</option><option>Statement piece</option><option>Not sure yet</option></select></div>
-        <div class="service-field"><label for="occasion">Occasion or purpose</label><select id="occasion" name="occasion" required><option value="">Select</option><option>First luxury watch</option><option>Daily wear</option><option>Wedding or engagement</option><option>Graduation</option><option>Business milestone</option><option>Gift</option><option>Investment-minded purchase</option><option>Collection upgrade</option><option>Family legacy piece</option><option>Not sure yet</option></select></div>
-        <div class="service-field"><label for="presence">Wrist presence preference</label><select id="presence" name="presence" required><option value="">Select</option><option>Understated</option><option>Balanced</option><option>Noticeable</option><option>Strong statement</option><option>Not sure yet</option></select></div>
-        <div class="service-field"><label for="resale">Investment/resale importance</label><select id="resale" name="resale" required><option value="">Select</option><option>Not important</option><option>Somewhat important</option><option>Very important</option><option>I mainly want emotional value</option><option>Not sure yet</option></select></div>
-        <div class="service-field"><label for="wrist">Wrist size</label><input id="wrist" name="wrist" type="text" ></div>
-        <div class="service-field"><label for="brandsLike">Brands they like</label><input id="brandsLike" name="brandsLike" type="text" ></div>
-        <div class="service-field"><label for="brandsDislike">Brands they dislike</label><input id="brandsDislike" name="brandsDislike" type="text" ></div>
-        <div class="service-field full"><label for="notes">Notes</label><textarea id="notes" name="notes"></textarea></div>
+
+  <!-- HERO -->
+  <section style="padding:clamp(72px,10vw,116px) 0 clamp(52px,7vw,78px);border-bottom:1px solid #e0ddd8;background:radial-gradient(ellipse at 80% 0%,rgba(192,57,43,.07),transparent 40%),#f7f5f2;">
+    <div class="container" style="max-width:800px;">
+      <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:750;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;display:block;margin-bottom:20px;">AI Watch Concierge</span>
+      <h1 style="font-size:clamp(34px,5.5vw,62px);line-height:1.08;letter-spacing:-.02em;margin-bottom:22px;max-width:700px;">Find the right watch<br>before speaking to anyone.</h1>
+      <p style="font-family:'Inter',sans-serif;font-size:clamp(15px,1.8vw,18px);line-height:1.75;color:#555555;max-width:560px;margin-bottom:32px;">Answer twelve questions. BEZERU builds your collector profile, suggests five watches worth exploring, and connects you directly with a specialist &mdash; no pressure, no forms, no marketplace noise.</p>
+      <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+        <button onclick="document.getElementById('bzConciergeSection').scrollIntoView({behavior:'smooth'})" style="font-family:'Inter',sans-serif;font-size:12px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;background:#111111;color:#ffffff;border:none;padding:15px 28px;cursor:pointer;border-radius:2px;">Start the Concierge &rarr;</button>
+        <span style="font-family:'Inter',sans-serif;font-size:13px;color:#999999;">Takes about 3 minutes</span>
       </div>
-      <div class="service-actions"><button class="btn-dark" type="submit">Generate Recommendations</button></div>
-    </form>
-  </div></section>
-  <section class="ai-result" id="aiWatchResult" hidden></section>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="padding:clamp(48px,6vw,72px) 0;border-bottom:1px solid #e0ddd8;background:#ffffff;">
+    <div class="container" style="max-width:960px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(24px,5vw,60px);">
+        <div>
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#C0392B;display:block;margin-bottom:14px;line-height:1;">01</span>
+          <h3 style="font-family:'Inter',sans-serif;font-size:13px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px;color:#111111;">Answer twelve questions</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:14px;color:#666666;line-height:1.7;margin:0;">Budget, occasion, style direction, wrist presence, collecting intent. One question at a time, no pressure.</p>
+        </div>
+        <div>
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#C0392B;display:block;margin-bottom:14px;line-height:1;">02</span>
+          <h3 style="font-family:'Inter',sans-serif;font-size:13px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px;color:#111111;">Receive your profile</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:14px;color:#666666;line-height:1.7;margin:0;">BEZERU's AI maps your answers to a collector archetype and suggests five watches that fit your brief.</p>
+        </div>
+        <div>
+          <span style="font-family:'Playfair Display',Georgia,serif;font-size:36px;color:#C0392B;display:block;margin-bottom:14px;line-height:1;">03</span>
+          <h3 style="font-family:'Inter',sans-serif;font-size:13px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;margin:0 0 10px;color:#111111;">Connect with Yousef</h3>
+          <p style="font-family:'Inter',sans-serif;font-size:14px;color:#666666;line-height:1.7;margin:0;">Send your profile directly to BEZERU for a personal follow-up. No marketplace, no pressure, just clarity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP-BY-STEP CONCIERGE -->
+  <section id="bzConciergeSection" style="padding:clamp(56px,8vw,96px) 0;background:#ffffff;border-bottom:1px solid #e0ddd8;">
+    <div class="container" style="max-width:680px;">
+
+      <!-- Progress bar -->
+      <div id="bzProgressBar" style="display:flex;gap:5px;margin-bottom:52px;" aria-label="Progress"></div>
+
+      <!-- Question -->
+      <div id="bzQuestionArea" style="min-height:300px;"></div>
+
+      <!-- Controls -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:28px;border-top:1px solid #e0ddd8;">
+        <button id="bzBackBtn" style="font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid #d9d5cf;color:#777777;padding:12px 22px;cursor:pointer;border-radius:2px;transition:all 150ms;opacity:0;pointer-events:none;">&larr; Back</button>
+        <button id="bzNextBtn" style="font-family:'Inter',sans-serif;font-size:12px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;background:#111111;border:none;color:#ffffff;padding:14px 28px;cursor:pointer;border-radius:2px;transition:opacity 150ms;">Continue &rarr;</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="bzResultSection" style="display:none;padding:clamp(56px,8vw,96px) 0;background:#f7f5f2;border-bottom:1px solid #e0ddd8;">
+    <div class="container" style="max-width:960px;" id="bzResultContent"></div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section style="padding:clamp(40px,5vw,60px) 0;background:#ffffff;">
+    <div class="container" style="max-width:840px;">
+      <p style="font-family:'Inter',sans-serif;font-size:13px;line-height:1.7;color:#999999;text-align:center;max-width:600px;margin:0 auto;">The AI Watch Concierge is for guidance only. It does not provide authentication, valuation, financial advice, or guaranteed availability. BEZERU can review condition, provenance, and market context before any purchase decision.</p>
+    </div>
+  </section>
+
 </main>
+
+<script>
+(function(){
+
+  var STEPS = [
+    { id:'name',         q:'What should we call you?',                         type:'text',     ph:'Your name' },
+    { id:'country',      q:'Where are you based?',                             type:'select',   opts:['UAE','Saudi Arabia','Qatar','Kuwait','Bahrain','Oman','Jordan','Switzerland','United Kingdom','United States','Other'] },
+    { id:'budget',       q:'What is your budget for this watch?',              type:'select',   opts:['Under $5,000','$5,000\u2013$10,000','$10,000\u2013$25,000','$25,000\u2013$50,000','$50,000+','Not sure yet'] },
+    { id:'preference',   q:'New from a boutique, or pre-owned?',               type:'select',   opts:['New only','Pre-owned only','Open to both','Not sure yet'] },
+    { id:'style',        q:'Which style direction fits you best?',             type:'select',   opts:['Dress watch \u2014 thin, quiet, refined','Sports watch \u2014 versatile and robust','Diver \u2014 tool-watch presence','Integrated bracelet \u2014 modern architecture','Vintage or neo-vintage \u2014 patina and character','Statement piece \u2014 unmistakable on the wrist','Understated daily \u2014 wears like nothing else'] },
+    { id:'occasion',     q:'What is this watch for?',                          type:'select',   opts:['First serious luxury watch','Daily wear across all contexts','Wedding or engagement gift','Graduation milestone','Business or professional marker','Gift for someone else','Investment-minded purchase','Collection upgrade','Family legacy piece','Not sure yet'] },
+    { id:'presence',     q:'How visible should it feel on the wrist?',        type:'select',   opts:['Very understated \u2014 people won\'t notice','Balanced \u2014 refined but present','Noticeable \u2014 earns a second look','Strong statement \u2014 the room should know'] },
+    { id:'resale',       q:'How important is resale or investment value?',     type:'select',   opts:['Not important at all','Somewhat \u2014 a nice secondary consideration','Very important \u2014 shapes the decision','Emotional value matters more than market value'] },
+    { id:'wrist',        q:'What is your wrist size? (optional)',              type:'text',     ph:'e.g. 17cm or 6.7 inches',                          optional:true },
+    { id:'brandsLike',   q:'Any brands or references you already love?',       type:'text',     ph:'e.g. Rolex, Patek Philippe, A. Lange & S\u00F6hne',     optional:true },
+    { id:'brandsDislike',q:'Anything you want to avoid?',                      type:'text',     ph:'e.g. Too sporty, no ceramic bezels, not Hublot',   optional:true },
+    { id:'notes',        q:'Last question \u2014 anything else we should know?',    type:'textarea', ph:'Previous watches, specific references, deal-breakers, timeline, gifting context...', optional:true },
+  ];
+
+  var answers = {};
+  var current = 0;
+
+  var progressBar  = document.getElementById('bzProgressBar');
+  var questionArea = document.getElementById('bzQuestionArea');
+  var backBtn      = document.getElementById('bzBackBtn');
+  var nextBtn      = document.getElementById('bzNextBtn');
+  var resultSection= document.getElementById('bzResultSection');
+  var resultContent= document.getElementById('bzResultContent');
+
+  function escapeHtml(value){
+    return String(value || '').replace(/[&<>"]/g, function(ch){
+      return ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[ch];
+    });
+  }
+
+  function renderProgress(){
+    progressBar.innerHTML = STEPS.map(function(_,i){
+      var bg = i < current ? '#111111' : i === current ? '#C0392B' : '#e0ddd8';
+      return '<div style="flex:1;height:2px;border-radius:1px;background:'+bg+';transition:background 400ms ease;"></div>';
+    }).join('');
+  }
+
+  function renderQuestion(){
+    var step = STEPS[current];
+    var saved = answers[step.id] || '';
+    var inner = '';
+
+    if(step.type === 'text'){
+      inner = '<input id="bzInput" type="text" value="'+escapeHtml(saved)+'" placeholder="'+escapeHtml(step.ph)+'" autocomplete="off" style="width:100%;border:none;border-bottom:1.5px solid #111111;padding:14px 0 12px;font-family:\'Playfair Display\',Georgia,serif;font-size:clamp(20px,3.5vw,30px);color:#111111;background:transparent;outline:none;caret-color:#C0392B;">';
+    } else if(step.type === 'textarea'){
+      inner = '<textarea id="bzInput" placeholder="'+escapeHtml(step.ph)+'" style="width:100%;border:none;border-bottom:1.5px solid #111111;padding:14px 0 12px;font-family:\'Inter\',sans-serif;font-size:16px;color:#111111;background:transparent;outline:none;resize:none;min-height:90px;line-height:1.6;caret-color:#C0392B;">'+escapeHtml(saved)+'</textarea>';
+    } else {
+      inner = '<div id="bzOptions" style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">'
+        + step.opts.map(function(opt){
+            var sel = saved === opt;
+            return '<button type="button" data-val="'+escapeHtml(opt)+'" style="text-align:left;padding:14px 18px;border:1px solid '+(sel?'#111111':'#e0ddd8')+';background:'+(sel?'#111111':'#ffffff')+';color:'+(sel?'#ffffff':'#333333')+';font-family:\'Inter\',sans-serif;font-size:14px;border-radius:2px;cursor:pointer;transition:all 150ms;">'+escapeHtml(opt)+'</button>';
+          }).join('')
+        + '</div>';
+    }
+
+    questionArea.style.opacity = '0';
+    questionArea.style.transform = 'translateY(12px)';
+    questionArea.style.transition = 'none';
+
+    questionArea.innerHTML =
+      '<div style="margin-bottom:32px;">'
+      + '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:16px;">'
+      + '<span style="font-family:\'Playfair Display\',Georgia,serif;font-size:13px;color:#C0392B;">'+(current+1)+'</span>'
+      + '<span style="font-family:\'Inter\',sans-serif;font-size:11px;color:#bbbbbb;letter-spacing:.06em;">/ '+STEPS.length+'</span>'
+      + '</div>'
+      + '<h2 style="font-family:\'Playfair Display\',Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:400;line-height:1.2;margin:0 0 28px;color:#111111;">'+escapeHtml(step.q)+'</h2>'
+      + inner
+      + (step.optional ? '<p style="font-family:\'Inter\',sans-serif;font-size:12px;color:#bbbbbb;margin-top:12px;line-height:1.5;">Optional &mdash; press Continue to skip</p>' : '')
+      + '</div>';
+
+    requestAnimationFrame(function(){
+      questionArea.style.transition = 'opacity 320ms ease, transform 320ms ease';
+      questionArea.style.opacity = '1';
+      questionArea.style.transform = 'translateY(0)';
+    });
+
+    var opts = questionArea.querySelectorAll('[data-val]');
+    opts.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        answers[step.id] = this.dataset.val;
+        opts.forEach(function(b){
+          var s = b === btn;
+          b.style.background = s ? '#111111' : '#ffffff';
+          b.style.color = s ? '#ffffff' : '#333333';
+          b.style.borderColor = s ? '#111111' : '#e0ddd8';
+        });
+        setTimeout(advance, 340);
+      });
+    });
+
+    var inp = document.getElementById('bzInput');
+    if(inp){
+      inp.addEventListener('input', function(){ answers[step.id] = this.value.trim(); });
+      inp.addEventListener('keydown', function(e){ if(e.key==='Enter' && step.type!=='textarea') advance(); });
+      setTimeout(function(){ inp.focus(); }, 380);
+    }
+
+    backBtn.style.opacity = current > 0 ? '1' : '0';
+    backBtn.style.pointerEvents = current > 0 ? 'auto' : 'none';
+
+    nextBtn.textContent = current === STEPS.length - 1 ? 'See My Profile \u2192' : 'Continue \u2192';
+
+    renderProgress();
+  }
+
+  function advance(){
+    var step = STEPS[current];
+    var val = answers[step.id] || '';
+    if(!step.optional && !val.trim()){
+      var inp = document.getElementById('bzInput');
+      if(inp){
+        inp.style.borderBottomColor = '#C0392B';
+        inp.style.transition = 'border-color 200ms';
+        setTimeout(function(){ inp.style.borderBottomColor = '#111111'; }, 900);
+      }
+      var opts = questionArea.querySelectorAll('[data-val]');
+      if(opts.length){
+        opts.forEach(function(b){ b.style.borderColor = '#C0392B'; });
+        setTimeout(function(){ opts.forEach(function(b){ b.style.borderColor = '#e0ddd8'; }); }, 900);
+      }
+      return;
+    }
+    if(current < STEPS.length - 1){
+      current++;
+      renderQuestion();
+      document.getElementById('bzConciergeSection').scrollIntoView({ behavior:'smooth', block:'start' });
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult(){
+    if(typeof getWatchRecommendations !== 'function') return;
+    var rec = getWatchRecommendations(answers);
+    var name = escapeHtml((answers.name || 'Collector').split(' ')[0]);
+
+    var message = [
+      'Hi Bezeru, I used the AI Watch Concierge and would like guidance.',
+      '',
+      'Name: '+(answers.name||'\u2014'),
+      'Country: '+(answers.country||'\u2014'),
+      'Budget: '+(answers.budget||'\u2014'),
+      'Style: '+(answers.style||'\u2014'),
+      'Occasion: '+(answers.occasion||'\u2014'),
+      'Wrist presence: '+(answers.presence||'\u2014'),
+      'New / pre-owned: '+(answers.preference||'\u2014'),
+      'Resale importance: '+(answers.resale||'\u2014'),
+      'Wrist size: '+(answers.wrist||'\u2014'),
+      'Brands liked: '+(answers.brandsLike||'\u2014'),
+      'Brands avoided: '+(answers.brandsDislike||'\u2014'),
+      'Notes: '+(answers.notes||'\u2014'),
+      '',
+      'Collector profile: '+rec.profile,
+      'Suggested watches: '+rec.recommended.map(function(w){ return w.model; }).join(', ')
+    ].join('\n');
+
+    var waUrl = typeof buildBezeruWhatsAppUrl === 'function' ? buildBezeruWhatsAppUrl(message) : '#';
+
+    var watchCards = rec.recommended.map(function(w, i){
+      return '<div style="border:1px solid #e0ddd8;background:#ffffff;padding:24px 22px;">'
+        + '<span style="font-family:\'Inter\',sans-serif;font-size:9px;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:#C0392B;display:block;margin-bottom:10px;">Pick '+(i+1)+'</span>'
+        + '<h3 style="font-family:\'Playfair Display\',Georgia,serif;font-size:20px;font-weight:500;margin:0 0 10px;line-height:1.2;color:#111111;">'+escapeHtml(w.model)+'</h3>'
+        + '<p style="font-family:\'Inter\',sans-serif;font-size:13px;color:#666666;line-height:1.65;margin:0 0 12px;">'+escapeHtml(w.reason)+'</p>'
+        + '<span style="font-family:\'Inter\',sans-serif;font-size:11px;color:#aaaaaa;letter-spacing:.04em;">Best for: '+escapeHtml(w.bestFor)+'</span>'
+        + '</div>';
+    }).join('');
+
+    resultContent.innerHTML =
+      '<div style="margin-bottom:16px;">'
+      + '<span style="font-family:\'Inter\',sans-serif;font-size:10px;font-weight:750;letter-spacing:.18em;text-transform:uppercase;color:#C0392B;">Your Collector Profile</span>'
+      + '</div>'
+      + '<h2 style="font-family:\'Playfair Display\',Georgia,serif;font-size:clamp(30px,5vw,52px);font-weight:400;letter-spacing:-.01em;margin:0 0 14px;line-height:1.1;color:#111111;">'
+      + name+', you are<br><em style="font-style:italic;">the '+escapeHtml(rec.profile)+'</em>.'
+      + '</h2>'
+      + '<p style="font-family:\'Inter\',sans-serif;font-size:15px;color:#666666;line-height:1.7;max-width:580px;margin:0 0 52px;">'+escapeHtml(rec.why)+'</p>'
+
+      + '<h3 style="font-family:\'Inter\',sans-serif;font-size:10px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:#777777;margin:0 0 20px;">Five watches worth exploring</h3>'
+      + '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:48px;">'
+      + watchCards
+      + '</div>'
+
+      + '<div style="border-top:1px solid #e0ddd8;padding-top:32px;margin-bottom:32px;">'
+      + '<h3 style="font-family:\'Inter\',sans-serif;font-size:10px;font-weight:750;letter-spacing:.16em;text-transform:uppercase;color:#777777;margin:0 0 14px;">What to be careful about</h3>'
+      + '<p style="font-family:\'Inter\',sans-serif;font-size:15px;color:#555555;line-height:1.75;max-width:660px;margin:0;">'+escapeHtml(rec.avoid)+'</p>'
+      + '</div>'
+
+      + '<div style="background:#111111;padding:clamp(32px,5vw,52px);margin-bottom:36px;">'
+      + '<h3 style="font-family:\'Playfair Display\',Georgia,serif;font-size:clamp(22px,3.5vw,32px);color:#ffffff;font-weight:400;margin:0 0 12px;line-height:1.2;">Take this further with Yousef.</h3>'
+      + '<p style="font-family:\'Inter\',sans-serif;font-size:14px;color:rgba(255,255,255,.55);margin:0 0 28px;max-width:460px;line-height:1.7;">Send your full profile directly to BEZERU. Yousef will review it and come back with practical next steps &mdash; no pressure, no obligation.</p>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:12px;">'
+      + '<a href="'+waUrl+'" target="_blank" rel="noopener" style="font-family:\'Inter\',sans-serif;font-size:12px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;background:#C0392B;color:#ffffff;padding:15px 26px;text-decoration:none;border-radius:2px;display:inline-block;">Send to BEZERU via WhatsApp &rarr;</a>'
+      + '<a href="/source-a-watch.html" style="font-family:\'Inter\',sans-serif;font-size:12px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.6);padding:14px 26px;text-decoration:none;border-radius:2px;border:1px solid rgba(255,255,255,.2);display:inline-block;">Source a Watch Instead</a>'
+      + '</div>'
+      + '</div>'
+
+      + '<div style="text-align:center;padding-bottom:8px;">'
+      + '<button id="bzRestartBtn" style="font-family:\'Inter\',sans-serif;font-size:12px;color:#aaaaaa;background:none;border:none;cursor:pointer;text-decoration:underline;padding:10px;">Start over with different answers</button>'
+      + '</div>';
+
+    resultSection.style.display = 'block';
+    resultSection.scrollIntoView({ behavior:'smooth', block:'start' });
+
+    document.getElementById('bzConciergeSection').style.display = 'none';
+
+    document.getElementById('bzRestartBtn').addEventListener('click', function(){
+      Object.keys(answers).forEach(function(k){ delete answers[k]; });
+      current = 0;
+      resultSection.style.display = 'none';
+      document.getElementById('bzConciergeSection').style.display = 'block';
+      renderQuestion();
+      document.getElementById('bzConciergeSection').scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+
+  nextBtn.addEventListener('click', advance);
+  backBtn.addEventListener('click', function(){
+    if(current > 0){
+      current--;
+      renderQuestion();
+    }
+  });
+
+  renderQuestion();
+
+})();
+</script>
 <footer class="shop-footer"><div class="shop-footer-inner"><div><span class="shop-footer-brand">BEZERU</span><p>Modern + vintage watch editorial. Design, culture, and the underdogs shaping collecting.</p></div><div class="shop-footer-column"><span class="shop-footer-label">Navigate</span><a href="/index.html">Home</a><a href="/articles.html">Read</a><a href="/types.html">Types</a><a href="/brands.html">Brands</a><a href="/intelligence.html">Intelligence</a><a href="/about.html">About</a><a href="/shop.html">Shop</a><a href="/source-a-watch.html">Source</a><a href="/sell-your-watch.html">Sell</a><a href="/how-it-works.html">How It Works</a><a href="/ai-watch-concierge.html">AI Concierge</a></div><div class="shop-footer-column"><span class="shop-footer-label">Contact</span><a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello">yousef.qubain@gmail.com</a><a href="#">Instagram</a></div><div class="shop-footer-column"><span class="shop-footer-label">Policies</span><a href="/editorial-policy.html">Editorial Policy</a><a href="/contributors.html">Contributors</a><a href="/affiliate-disclosure.html">Affiliate Disclosure</a><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms.html">Terms</a></div></div><div class="shop-footer-bottom">© BEZERU. All rights reserved. Design-first watch writing · Culture and wearability · Independents & vintage</div></footer>
 </body>
 </html>
