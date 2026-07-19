@@ -913,13 +913,47 @@
       el.className = `lo-notice${message ? " active" : ""}${type ? ` ${type}` : ""}`;
     }
 
-    async function parseResponseJson(res) {
-      const text = await res.text();
-      if(!text) return {};
+    function isListingDiagnosticsEnabled() {
+      return ["localhost", "127.0.0.1", ""].includes(window.location.hostname) || new URLSearchParams(window.location.search).has("debugListing");
+    }
+
+    function redactDiagnosticsValue(value) {
+      if(typeof value !== "string") return value;
+      return value
+        .replace(/sk_(live|test)_[A-Za-z0-9_]+/g, "[redacted_stripe_secret]")
+        .replace(/whsec_[A-Za-z0-9_]+/g, "[redacted_webhook_secret]")
+        .replace(/Bearer\s+[A-Za-z0-9._-]+/gi, "Bearer [redacted]")
+        .replace(/([A-Za-z0-9_-]*(?:SECRET|TOKEN|KEY)[A-Za-z0-9_-]*=)[^\s&]+/gi, "$1[redacted]");
+    }
+
+    function sanitizeDiagnosticsBody(body) {
+      if(body == null) return body;
+      if(typeof body === "string") return redactDiagnosticsValue(body);
       try {
-        return JSON.parse(text);
+        return JSON.parse(redactDiagnosticsValue(JSON.stringify(body)));
       } catch(_) {
-        return { message: text };
+        return "[unavailable]";
+      }
+    }
+
+    function logListingWorkerResponse(label, details) {
+      if(!isListingDiagnosticsEnabled()) return;
+      console.error(label, {
+        status: details.status,
+        contentType: details.contentType,
+        body: sanitizeDiagnosticsBody(details.body),
+        rawText: sanitizeDiagnosticsBody(details.rawText)
+      });
+    }
+
+    async function parseResponseJson(res) {
+      const contentType = res.headers.get("content-type") || "";
+      const text = await res.text();
+      if(!text) return { data: {}, rawText: "", contentType, parseError: null };
+      try {
+        return { data: JSON.parse(text), rawText: text, contentType, parseError: null };
+      } catch(error) {
+        return { data: { message: text }, rawText: text, contentType, parseError: error };
       }
     }
 
@@ -947,6 +981,7 @@
       if(code.includes("payment") || status === 402) return "Your free listing limit has been reached. Choose a plan to continue.";
       if(code.includes("subscription") && (code.includes("inactive") || code.includes("expired"))) return message || "Your subscription is inactive. Please choose a plan to continue.";
       if(code.includes("access") && (code.includes("inactive") || code.includes("denied"))) return message || "Listing access is not currently active for this email.";
+      if(status >= 500) return "The listing generator could not complete the request. Please try again in a moment.";
 
       return message || "Generation failed. Please try again in a moment.";
     }
@@ -1102,29 +1137,38 @@
       genBtn.textContent = "Generating...";
 
       try {
+        const payload = {
+          tool:         "listing",
+          email:        dealerEmail.value.trim().toLowerCase(),
+          brand:        brandEl.value,
+          reference:    refEl.value.trim(),
+          year:         document.getElementById("year").value.trim(),
+          condition:    document.getElementById("cond").value,
+          documentation:document.getElementById("docs").value,
+          dial:         document.getElementById("dial").value.trim(),
+          caseMaterial: document.getElementById("case-mat").value.trim(),
+          price:        document.getElementById("price").value.trim(),
+          currency:     document.getElementById("currency").value,
+          platform:     document.getElementById("platform").value,
+          notes:        document.getElementById("notes").value.trim(),
+          languages:    langs
+        };
+
         const res = await fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            tool:         "listing",
-            email:        dealerEmail.value.trim().toLowerCase(),
-            brand:        brandEl.value,
-            reference:    refEl.value.trim(),
-            year:         document.getElementById("year").value.trim(),
-            condition:    document.getElementById("cond").value,
-            documentation:document.getElementById("docs").value,
-            dial:         document.getElementById("dial").value.trim(),
-            caseMaterial: document.getElementById("case-mat").value.trim(),
-            price:        document.getElementById("price").value.trim(),
-            currency:     document.getElementById("currency").value,
-            platform:     document.getElementById("platform").value,
-            notes:        document.getElementById("notes").value.trim(),
-            languages:    langs
-          })
+          body: JSON.stringify(payload)
         });
 
-        const data = await parseResponseJson(res);
+        const parsedResponse = await parseResponseJson(res);
+        const data = parsedResponse.data;
         if (!res.ok || data.error || data.paymentRequired || data.requiresPayment) {
+          logListingWorkerResponse("Listing Worker response", {
+            status: res.status,
+            contentType: parsedResponse.contentType,
+            body: data,
+            rawText: parsedResponse.rawText
+          });
           throw new Error(getUserErrorMessage(data, res.status));
         }
         renderAccessFeedback(data);
@@ -1224,8 +1268,15 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-        const data = await parseResponseJson(res);
+        const parsedResponse = await parseResponseJson(res);
+        const data = parsedResponse.data;
         if(!res.ok || data.error) {
+          logListingWorkerResponse("Listing checkout Worker response", {
+            status: res.status,
+            contentType: parsedResponse.contentType,
+            body: data,
+            rawText: parsedResponse.rawText
+          });
           throw new Error(getUserErrorMessage(data, res.status));
         }
         const checkoutUrl = getCheckoutUrl(data);
