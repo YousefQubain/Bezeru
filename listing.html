@@ -37,6 +37,7 @@
     .f-textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
     .f-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .f-row { margin-bottom: 14px; }
+    .f-help { margin: 7px 0 0; font-size: 11px; line-height: 1.5; color: rgba(255,255,255,0.26); }
     .f-divider { height: 0.5px; background: rgba(255,255,255,0.05); margin: 20px 0; }
     .f-sec { font-size: 9px; color: rgba(255,255,255,0.22); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
     .f-sec-line { flex: 1; height: 0.5px; background: linear-gradient(90deg, rgba(255,255,255,0.08), transparent); }
@@ -73,6 +74,20 @@
     /* Error */
     .lo-error { display: none; padding: 12px; background: rgba(224,96,96,0.06); border: 0.5px solid rgba(224,96,96,0.18); border-radius: 2px; font-size: 12px; color: #e06060; margin-bottom: 16px; }
     .lo-error.active { display: block; }
+    .lo-notice {
+      display: none;
+      padding: 12px 14px;
+      border: 0.5px solid rgba(255,255,255,0.10);
+      border-radius: 3px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(240,237,231,0.62);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .lo-notice.active { display: block; }
+    .lo-notice.success { border-color: rgba(82,196,122,0.26); background: rgba(82,196,122,0.07); color: rgba(214,255,226,0.78); }
+    .lo-notice.warning { border-color: rgba(224,92,26,0.28); background: rgba(224,92,26,0.07); color: rgba(255,219,198,0.78); }
 
     /* Results */
     .lo-results { display: none; }
@@ -148,6 +163,46 @@
     .empty-state { padding: 60px 20px; text-align: center; }
     .empty-icon  { font-size: 32px; opacity: .15; margin-bottom: 16px; }
     .empty-txt   { font-size: 12px; color: rgba(255,255,255,0.2); line-height: 1.7; }
+
+    .lo-upgrade {
+      margin: 0 28px 28px;
+      padding: 24px;
+      border: 0.5px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.018));
+    }
+    .lo-upgrade-head { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; margin-bottom: 18px; }
+    .lo-upgrade-kicker { display: block; margin-bottom: 8px; color: #e05c1a; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+    .lo-upgrade-title { margin: 0 0 7px; color: #f0ede7; font-family: 'Georgia','Times New Roman',serif; font-size: 24px; font-weight: 300; letter-spacing: -0.03em; }
+    .lo-upgrade-copy { max-width: 560px; margin: 0; color: rgba(240,237,231,0.42); font-size: 12px; line-height: 1.65; }
+    .lo-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .lo-plan {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border: 0.5px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.025);
+    }
+    .lo-plan-name { color: #f0ede7; font-family: 'Georgia','Times New Roman',serif; font-size: 18px; }
+    .lo-plan-note { margin: 0; min-height: 36px; color: rgba(240,237,231,0.36); font-size: 11px; line-height: 1.6; }
+    .lo-plan-btn {
+      width: 100%;
+      border: 0.5px solid rgba(224,92,26,0.44);
+      border-radius: 999px;
+      background: rgba(224,92,26,0.12);
+      color: #f0ede7;
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .lo-plan-btn:hover:not(:disabled) { transform: translateY(-1px); border-color: rgba(224,92,26,0.72); background: rgba(224,92,26,0.18); }
+    .lo-plan-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+    .lo-billing-hint { margin: 12px 0 0; color: rgba(240,237,231,0.26); font-size: 11px; line-height: 1.55; }
 
     .collector-engagement {
       margin: 28px;
@@ -461,6 +516,9 @@
       .lo-left { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.05); }
       .lo-intro, .lo-left, .lo-right { padding: 20px; }
       .f-grid2 { grid-template-columns: 1fr; }
+      .lo-upgrade { margin: 0 20px 20px; padding: 20px; }
+      .lo-upgrade-head { display: block; }
+      .lo-plan-grid { grid-template-columns: 1fr; }
       .collector-engagement { margin: 20px; }
       .ce-heading,
       .ce-comment-panel { grid-template-columns: 1fr; }
@@ -656,6 +714,16 @@
 
         <div class="f-divider"></div>
 
+        <div class="f-sec"><span>Dealer access</span><div class="f-sec-line"></div></div>
+
+        <div class="f-row">
+          <label class="f-lbl" for="dealer-email">Dealer email</label>
+          <input type="email" id="dealer-email" class="f-inp" placeholder="dealer@example.com" autocomplete="email" required/>
+          <p class="f-help">Used privately to check free uses or paid access. It will not appear in the generated listing.</p>
+        </div>
+
+        <div class="f-divider"></div>
+
         <div class="f-sec"><span>Languages</span><div class="f-sec-line"></div></div>
 
         <div class="lang-grid">
@@ -682,6 +750,8 @@
           <p class="loader-txt">Generating your listing...</p>
         </div>
 
+        <div class="lo-notice" id="payment-notice" aria-live="polite"></div>
+        <div class="lo-notice" id="access-notice" aria-live="polite"></div>
         <div class="lo-error" id="lo-error"></div>
 
         <div class="lo-results" id="lo-results">
@@ -696,6 +766,34 @@
 
       </div>
     </div>
+
+    <section class="lo-upgrade" aria-labelledby="listingUpgradeTitle">
+      <div class="lo-upgrade-head">
+        <div>
+          <span class="lo-upgrade-kicker">Dealer plans</span>
+          <h2 class="lo-upgrade-title" id="listingUpgradeTitle">Upgrade listing access</h2>
+          <p class="lo-upgrade-copy">If your free listings are used, choose a plan and continue through secure Stripe Checkout. Prices and billing details are shown by the checkout flow.</p>
+        </div>
+      </div>
+      <div class="lo-plan-grid">
+        <article class="lo-plan">
+          <div class="lo-plan-name">Starter</div>
+          <p class="lo-plan-note">For occasional dealer listings and light optimisation needs.</p>
+          <button class="lo-plan-btn" type="button" data-plan="starter">Choose Starter</button>
+        </article>
+        <article class="lo-plan">
+          <div class="lo-plan-name">Pro</div>
+          <p class="lo-plan-note">For regular listing creation across multiple platforms.</p>
+          <button class="lo-plan-btn" type="button" data-plan="pro">Choose Pro</button>
+        </article>
+        <article class="lo-plan">
+          <div class="lo-plan-name">Boutique</div>
+          <p class="lo-plan-note">For higher-volume dealer and boutique workflows.</p>
+          <button class="lo-plan-btn" type="button" data-plan="boutique">Choose Boutique</button>
+        </article>
+      </div>
+      <p class="lo-billing-hint">Enter your dealer email above before starting checkout. BEZERU does not store payment details on this page.</p>
+    </section>
 
     <section class="collector-engagement" data-listing-id="listing-optimizer-preview-v2" aria-labelledby="collectorEngagementTitle">
       <div class="ce-heading">
@@ -753,18 +851,47 @@
   </footer>
 
   <script>
-    const WORKER_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev/";
+    const WORKER_BASE_URL = "https://bezeru-intelligence-api.yousef-qubain.workers.dev";
+    const WORKER_URL = `${WORKER_BASE_URL}/`;
+    const CHECKOUT_URL = `${WORKER_BASE_URL}/create-checkout-session`;
+    const DEALER_EMAIL_STORAGE_KEY = "bezeru_listing_dealer_email";
 
-    // Enable button when brand + ref filled
+    // Backend contract constants to confirm against the deployed Worker source.
+    const CHECKOUT_REQUEST_FIELDS = {
+      email: "email",
+      plan: "plan"
+    };
+    const BILLING_PLANS = {
+      starter: { label: "Starter", checkoutPlanId: "starter" },
+      pro: { label: "Pro", checkoutPlanId: "pro" },
+      boutique: { label: "Boutique", checkoutPlanId: "boutique" }
+    };
+
+    // Enable button when brand + ref + language + valid email are present.
     const brandEl = document.getElementById("brand");
     const refEl   = document.getElementById("ref");
+    const emailEl = document.getElementById("dealer-email");
     const genBtn  = document.getElementById("gen-btn");
 
+    function normalizeDealerEmail() {
+      return (emailEl?.value || "").trim().toLowerCase();
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
     function checkReady() {
-      genBtn.disabled = !(brandEl.value && refEl.value.trim() && getSelectedLangs().length > 0);
+      const email = normalizeDealerEmail();
+      genBtn.disabled = !(brandEl.value && refEl.value.trim() && getSelectedLangs().length > 0 && isValidEmail(email));
     }
     brandEl.addEventListener("change", checkReady);
     refEl.addEventListener("input", checkReady);
+    emailEl.addEventListener("input", () => {
+      emailEl.value = normalizeDealerEmail();
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, emailEl.value);
+      checkReady();
+    });
 
     // Language toggle
     function toggleLang(el) {
@@ -774,6 +901,117 @@
 
     function getSelectedLangs() {
       return [...document.querySelectorAll(".lang-opt.selected")].map(el => el.dataset.lang);
+    }
+
+    function escapeListingHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function setNotice(el, message, type = "") {
+      if(!el) return;
+      el.textContent = message || "";
+      el.className = `lo-notice${message ? " active" : ""}${type ? ` ${type}` : ""}`;
+    }
+
+    async function parseResponseJson(res) {
+      const text = await res.text();
+      if(!text) return {};
+      try {
+        return JSON.parse(text);
+      } catch(_) {
+        return { message: text };
+      }
+    }
+
+    function getBackendCode(data = {}) {
+      return String(data.code || data.status || data.type || data.reason || data.error || "").toLowerCase();
+    }
+
+    function cleanServerMessage(message) {
+      if(!message || typeof message !== "string") return "";
+      if(message.length > 220) return "";
+      if(/stack|trace|secret|token|key/i.test(message)) return "";
+      return message;
+    }
+
+    function getUserErrorMessage(data = {}, status = 0) {
+      const code = getBackendCode(data);
+      const message = cleanServerMessage(data.userMessage || data.message || data.error);
+
+      if(code.includes("email") || status === 400) return message || "Please enter a valid dealer email before continuing.";
+      if(code.includes("free") && (code.includes("limit") || code.includes("reached"))) return message || "Your free listing limit has been reached. Choose a plan to continue.";
+      if(code.includes("payment") || status === 402) return message || "Payment is required before generating more listings.";
+      if(code.includes("subscription") && (code.includes("inactive") || code.includes("expired"))) return message || "Your subscription is inactive. Please choose a plan to continue.";
+      if(code.includes("access") && (code.includes("inactive") || code.includes("denied"))) return message || "Listing access is not currently active for this email.";
+
+      return message || "Generation failed. Please try again in a moment.";
+    }
+
+    function renderAccessFeedback(data = {}) {
+      const notice = document.getElementById("access-notice");
+      const usage = data.usage || data.access || data.billing || data.limits || {};
+      const messages = [];
+
+      const remaining = usage.freeListingsRemaining ?? usage.freeUsesRemaining ?? usage.remainingFreeUses ?? data.freeListingsRemaining ?? data.freeUsesRemaining;
+      if(Number.isFinite(Number(remaining))) {
+        messages.push(`You have ${Number(remaining)} free listings remaining.`);
+      }
+
+      const plan = usage.plan || usage.tier || data.plan || data.tier;
+      const paidActive = usage.paidAccessActive ?? usage.accessActive ?? data.paidAccessActive ?? data.accessActive;
+      if(paidActive === true) {
+        messages.push(plan ? `Your ${String(plan)} access is active.` : "Your paid access is active.");
+      }
+
+      const subscriptionStatus = usage.subscriptionStatus || data.subscriptionStatus;
+      if(subscriptionStatus && String(subscriptionStatus).toLowerCase() !== "active") {
+        messages.push(`Subscription status: ${String(subscriptionStatus)}.`);
+      }
+
+      const limitReached = usage.freeLimitReached ?? data.freeLimitReached ?? data.limitReached;
+      if(limitReached === true) {
+        messages.push("Your free limit has been reached.");
+      }
+
+      setNotice(notice, messages.join(" "), messages.some(msg => msg.toLowerCase().includes("reached") || msg.toLowerCase().includes("inactive")) ? "warning" : "");
+    }
+
+    function getListingResponsePayload(data = {}) {
+      return data.result || data.listing || data.outputs || data;
+    }
+
+    function getCheckoutUrl(data = {}) {
+      const value = data.checkoutUrl || data.checkout_url || data.url;
+      return typeof value === "string" && /^https?:\/\//i.test(value) ? value : "";
+    }
+
+    function initPaymentReturnNotice() {
+      const params = new URLSearchParams(window.location.search);
+      const payment = params.get("payment");
+      const notice = document.getElementById("payment-notice");
+      const savedEmail = sessionStorage.getItem(DEALER_EMAIL_STORAGE_KEY);
+      if(savedEmail && emailEl && !emailEl.value) {
+        emailEl.value = savedEmail;
+      }
+      checkReady();
+
+      if(payment === "success") {
+        setNotice(notice, "Payment completed. Listing access will be confirmed by the Worker after Stripe webhook processing.", "success");
+      } else if(payment === "cancelled" || payment === "canceled") {
+        setNotice(notice, "Checkout was cancelled. No payment details are stored on this page.", "warning");
+      }
+
+      if(payment) {
+        params.delete("payment");
+        const cleanQuery = params.toString();
+        const cleanUrl = `${window.location.pathname}${cleanQuery ? `?${cleanQuery}` : ""}${window.location.hash}`;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
     }
 
     // Copy helpers
@@ -792,12 +1030,12 @@
       const bullets = (data.bulletPoints || []).map(b =>
         `<div class="bullet-item">
           <span class="bullet-dot">—</span>
-          <span class="bullet-txt" ${dir}>${b}</span>
+          <span class="bullet-txt" ${dir}>${escapeListingHtml(b)}</span>
         </div>`
       ).join("");
 
       const keywords = (data.keywords || []).map(k =>
-        `<span class="kw-tag">${k}</span>`
+        `<span class="kw-tag">${escapeListingHtml(k)}</span>`
       ).join("");
 
       const fullText = `${data.title}\n\n${data.description}\n\n${(data.bulletPoints||[]).map(b=>'• '+b).join('\n')}\n\nKeywords: ${(data.keywords||[]).join(', ')}`;
@@ -808,7 +1046,7 @@
             <span>Title</span>
             <button class="copy-btn" onclick="copyText(${JSON.stringify(data.title)}, this)">Copy</button>
           </div>
-          <div class="lo-title-text" ${dir}>${data.title || ''}</div>
+          <div class="lo-title-text" ${dir}>${escapeListingHtml(data.title || '')}</div>
         </div>
 
         <div style="margin-bottom:20px">
@@ -816,7 +1054,7 @@
             <span>Description</span>
             <button class="copy-btn" onclick="copyText(${JSON.stringify(data.description)}, this)">Copy</button>
           </div>
-          <div class="lo-desc-text" ${dir}>${(data.description || '').replace(/\n/g, '<br/>')}</div>
+          <div class="lo-desc-text" ${dir}>${escapeListingHtml(data.description || '').replace(/\n/g, '<br/>')}</div>
         </div>
 
         <div style="margin-bottom:20px">
@@ -839,10 +1077,20 @@
     genBtn.addEventListener("click", async () => {
       const langs = getSelectedLangs();
       if (!langs.length) return;
+      const dealerEmail = normalizeDealerEmail();
+      if(!isValidEmail(dealerEmail)) {
+        const errEl = document.getElementById("lo-error");
+        errEl.textContent = "Please enter a valid dealer email before generating.";
+        errEl.classList.add("active");
+        emailEl.focus();
+        return;
+      }
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail);
 
       document.getElementById("empty-state").style.display = "none";
       document.getElementById("lo-results").classList.remove("active");
       document.getElementById("lo-error").classList.remove("active");
+      setNotice(document.getElementById("access-notice"), "");
       document.getElementById("loader").classList.add("active");
       genBtn.disabled = true;
       genBtn.textContent = "Generating...";
@@ -853,6 +1101,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             tool:         "listing",
+            email:        dealerEmail,
             brand:        brandEl.value,
             reference:    refEl.value.trim(),
             year:         document.getElementById("year").value.trim(),
@@ -868,8 +1117,12 @@
           })
         });
 
-        const data = await res.json();
-        if (data.error) throw new Error(data.detail || data.error);
+        const data = await parseResponseJson(res);
+        if (!res.ok || data.error || data.paymentRequired || data.requiresPayment) {
+          throw new Error(getUserErrorMessage(data, res.status));
+        }
+        renderAccessFeedback(data);
+        const listingData = getListingResponsePayload(data);
 
         // Build tabs and panels
         const langMeta = {
@@ -884,7 +1137,7 @@
         panelsEl.innerHTML = "";
 
         langs.forEach((lang, i) => {
-          if (!data[lang]) return;
+          if (!listingData[lang]) return;
           const meta = langMeta[lang];
 
           // Tab
@@ -904,9 +1157,13 @@
           const panel = document.createElement("div");
           panel.className = "lang-panel" + (i === 0 ? " active" : "");
           panel.id = `panel-${lang}`;
-          panel.innerHTML = renderPanel(lang, data[lang], meta.rtl);
+          panel.innerHTML = renderPanel(lang, listingData[lang], meta.rtl);
           panelsEl.appendChild(panel);
         });
+
+        if(!panelsEl.children.length) {
+          throw new Error("The Worker returned no listing content for the selected languages.");
+        }
 
         document.getElementById("loader").classList.remove("active");
         document.getElementById("lo-results").classList.add("active");
@@ -923,6 +1180,60 @@
       genBtn.textContent = "Generate listing";
       checkReady();
     });
+
+    async function startCheckout(planKey, button) {
+      const dealerEmail = normalizeDealerEmail();
+      if(!isValidEmail(dealerEmail)) {
+        const errEl = document.getElementById("lo-error");
+        errEl.textContent = "Please enter a valid dealer email before starting checkout.";
+        errEl.classList.add("active");
+        emailEl.focus();
+        return;
+      }
+
+      const plan = BILLING_PLANS[planKey];
+      if(!plan) return;
+
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail);
+      const previousText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Opening checkout...";
+      document.getElementById("lo-error").classList.remove("active");
+      setNotice(document.getElementById("payment-notice"), "");
+
+      try {
+        const payload = {
+          [CHECKOUT_REQUEST_FIELDS.email]: dealerEmail,
+          [CHECKOUT_REQUEST_FIELDS.plan]: plan.checkoutPlanId
+        };
+        const res = await fetch(CHECKOUT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await parseResponseJson(res);
+        if(!res.ok || data.error) {
+          throw new Error(getUserErrorMessage(data, res.status));
+        }
+        const checkoutUrl = getCheckoutUrl(data);
+        if(!checkoutUrl) {
+          throw new Error("Checkout could not be started because the Worker did not return a checkout URL.");
+        }
+        window.location.href = checkoutUrl;
+      } catch(e) {
+        const errEl = document.getElementById("lo-error");
+        errEl.textContent = e.message || "Checkout could not be started. Please try again.";
+        errEl.classList.add("active");
+        button.disabled = false;
+        button.textContent = previousText;
+      }
+    }
+
+    document.querySelectorAll(".lo-plan-btn[data-plan]").forEach((button) => {
+      button.addEventListener("click", () => startCheckout(button.dataset.plan, button));
+    });
+
+    initPaymentReturnNotice();
 
     function initCollectorEngagement(){
       const section = document.querySelector(".collector-engagement");
