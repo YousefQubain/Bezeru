@@ -572,6 +572,14 @@
       <!-- LEFT: Form -->
       <div class="lo-left">
 
+        <div class="f-row">
+          <label class="f-lbl" for="dealerEmail">Dealer email</label>
+          <input type="email" id="dealerEmail" name="email" class="f-inp" placeholder="dealer@example.com" autocomplete="email" required/>
+          <p class="f-help">Used privately to check free uses or paid access. It will not appear in the generated listing.</p>
+        </div>
+
+        <div class="f-divider"></div>
+
         <div class="f-sec" style="margin-top:8px"><span>Watch details</span><div class="f-sec-line"></div></div>
 
         <div class="f-row">
@@ -711,18 +719,6 @@
           <label class="f-lbl">Additional notes (optional)</label>
           <textarea id="notes" class="f-textarea" placeholder="e.g. Recently serviced, original bracelet, no scratches on crystal..."></textarea>
         </div>
-
-        <div class="f-divider"></div>
-
-        <div class="f-sec"><span>Dealer access</span><div class="f-sec-line"></div></div>
-
-        <div class="f-row">
-          <label class="f-lbl" for="dealer-email">Dealer email</label>
-          <input type="email" id="dealer-email" class="f-inp" placeholder="dealer@example.com" autocomplete="email" required/>
-          <p class="f-help">Used privately to check free uses or paid access. It will not appear in the generated listing.</p>
-        </div>
-
-        <div class="f-divider"></div>
 
         <div class="f-sec"><span>Languages</span><div class="f-sec-line"></div></div>
 
@@ -867,14 +863,14 @@
       boutique: { label: "Boutique", checkoutPlanId: "boutique" }
     };
 
-    // Enable button when brand + ref + language + valid email are present.
+    // Enable button when brand + ref + language are present; validate the visible email on submit.
     const brandEl = document.getElementById("brand");
     const refEl   = document.getElementById("ref");
-    const emailEl = document.getElementById("dealer-email");
+    const dealerEmail = document.getElementById("dealerEmail");
     const genBtn  = document.getElementById("gen-btn");
 
     function normalizeDealerEmail() {
-      return (emailEl?.value || "").trim().toLowerCase();
+      return (dealerEmail?.value || "").trim().toLowerCase();
     }
 
     function isValidEmail(email) {
@@ -882,14 +878,13 @@
     }
 
     function checkReady() {
-      const email = normalizeDealerEmail();
-      genBtn.disabled = !(brandEl.value && refEl.value.trim() && getSelectedLangs().length > 0 && isValidEmail(email));
+      genBtn.disabled = !(brandEl.value && refEl.value.trim() && getSelectedLangs().length > 0);
     }
     brandEl.addEventListener("change", checkReady);
     refEl.addEventListener("input", checkReady);
-    emailEl.addEventListener("input", () => {
-      emailEl.value = normalizeDealerEmail();
-      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, emailEl.value);
+    dealerEmail.addEventListener("input", () => {
+      dealerEmail.value = normalizeDealerEmail();
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail.value);
       checkReady();
     });
 
@@ -936,6 +931,7 @@
       if(!message || typeof message !== "string") return "";
       if(message.length > 220) return "";
       if(/stack|trace|secret|token|key/i.test(message)) return "";
+      if(/^[a-z]+(?:_[a-z]+)+$/.test(message.trim())) return "";
       return message;
     }
 
@@ -943,9 +939,12 @@
       const code = getBackendCode(data);
       const message = cleanServerMessage(data.userMessage || data.message || data.error);
 
-      if(code.includes("email") || status === 400) return message || "Please enter a valid dealer email before continuing.";
+      if(code === "email_required" || code.includes("email_required")) return "Please enter your dealer email.";
+      if(code === "invalid_email" || code.includes("invalid_email")) return "Please enter a valid email address.";
+      if(code === "payment_required" || code.includes("payment_required")) return "Your free listing limit has been reached. Choose a plan to continue.";
+      if(code.includes("email") || status === 400) return message || "Please enter a valid email address.";
       if(code.includes("free") && (code.includes("limit") || code.includes("reached"))) return message || "Your free listing limit has been reached. Choose a plan to continue.";
-      if(code.includes("payment") || status === 402) return message || "Payment is required before generating more listings.";
+      if(code.includes("payment") || status === 402) return "Your free listing limit has been reached. Choose a plan to continue.";
       if(code.includes("subscription") && (code.includes("inactive") || code.includes("expired"))) return message || "Your subscription is inactive. Please choose a plan to continue.";
       if(code.includes("access") && (code.includes("inactive") || code.includes("denied"))) return message || "Listing access is not currently active for this email.";
 
@@ -995,8 +994,8 @@
       const payment = params.get("payment");
       const notice = document.getElementById("payment-notice");
       const savedEmail = sessionStorage.getItem(DEALER_EMAIL_STORAGE_KEY);
-      if(savedEmail && emailEl && !emailEl.value) {
-        emailEl.value = savedEmail;
+      if(savedEmail && dealerEmail && !dealerEmail.value) {
+        dealerEmail.value = savedEmail;
       }
       checkReady();
 
@@ -1077,15 +1076,22 @@
     genBtn.addEventListener("click", async () => {
       const langs = getSelectedLangs();
       if (!langs.length) return;
-      const dealerEmail = normalizeDealerEmail();
-      if(!isValidEmail(dealerEmail)) {
+      const dealerEmailValue = normalizeDealerEmail();
+      if(!dealerEmailValue) {
         const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter a valid dealer email before generating.";
+        errEl.textContent = "Please enter your dealer email.";
         errEl.classList.add("active");
-        emailEl.focus();
+        dealerEmail.focus();
         return;
       }
-      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail);
+      if(!isValidEmail(dealerEmailValue)) {
+        const errEl = document.getElementById("lo-error");
+        errEl.textContent = "Please enter a valid email address.";
+        errEl.classList.add("active");
+        dealerEmail.focus();
+        return;
+      }
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmailValue);
 
       document.getElementById("empty-state").style.display = "none";
       document.getElementById("lo-results").classList.remove("active");
@@ -1101,7 +1107,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             tool:         "listing",
-            email:        dealerEmail,
+            email:        dealerEmail.value.trim().toLowerCase(),
             brand:        brandEl.value,
             reference:    refEl.value.trim(),
             year:         document.getElementById("year").value.trim(),
@@ -1182,19 +1188,26 @@
     });
 
     async function startCheckout(planKey, button) {
-      const dealerEmail = normalizeDealerEmail();
-      if(!isValidEmail(dealerEmail)) {
+      const dealerEmailValue = normalizeDealerEmail();
+      if(!dealerEmailValue) {
         const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter a valid dealer email before starting checkout.";
+        errEl.textContent = "Please enter your dealer email.";
         errEl.classList.add("active");
-        emailEl.focus();
+        dealerEmail.focus();
+        return;
+      }
+      if(!isValidEmail(dealerEmailValue)) {
+        const errEl = document.getElementById("lo-error");
+        errEl.textContent = "Please enter a valid email address.";
+        errEl.classList.add("active");
+        dealerEmail.focus();
         return;
       }
 
       const plan = BILLING_PLANS[planKey];
       if(!plan) return;
 
-      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail);
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmailValue);
       const previousText = button.textContent;
       button.disabled = true;
       button.textContent = "Opening checkout...";
@@ -1203,7 +1216,7 @@
 
       try {
         const payload = {
-          [CHECKOUT_REQUEST_FIELDS.email]: dealerEmail,
+          [CHECKOUT_REQUEST_FIELDS.email]: dealerEmail.value.trim().toLowerCase(),
           [CHECKOUT_REQUEST_FIELDS.plan]: plan.checkoutPlanId
         };
         const res = await fetch(CHECKOUT_URL, {
