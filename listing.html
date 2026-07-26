@@ -775,17 +775,17 @@
         <article class="lo-plan">
           <div class="lo-plan-name">Starter</div>
           <p class="lo-plan-note">For occasional dealer listings and light optimisation needs.</p>
-          <button class="lo-plan-btn" type="button" data-plan="starter">Choose Starter</button>
+          <button class="lo-plan-btn" type="button" data-tier="starter">Choose Starter</button>
         </article>
         <article class="lo-plan">
           <div class="lo-plan-name">Pro</div>
           <p class="lo-plan-note">For regular listing creation across multiple platforms.</p>
-          <button class="lo-plan-btn" type="button" data-plan="pro">Choose Pro</button>
+          <button class="lo-plan-btn" type="button" data-tier="pro">Choose Pro</button>
         </article>
         <article class="lo-plan">
           <div class="lo-plan-name">Boutique</div>
           <p class="lo-plan-note">For higher-volume dealer and boutique workflows.</p>
-          <button class="lo-plan-btn" type="button" data-plan="boutique">Choose Boutique</button>
+          <button class="lo-plan-btn" type="button" data-tier="boutique">Choose Boutique</button>
         </article>
       </div>
       <p class="lo-billing-hint">Enter your dealer email above before starting checkout. BEZERU does not store payment details on this page.</p>
@@ -852,16 +852,7 @@
     const CHECKOUT_URL = `${WORKER_BASE_URL}/create-checkout-session`;
     const DEALER_EMAIL_STORAGE_KEY = "bezeru_listing_dealer_email";
 
-    // Backend contract constants to confirm against the deployed Worker source.
-    const CHECKOUT_REQUEST_FIELDS = {
-      email: "email",
-      plan: "plan"
-    };
-    const BILLING_PLANS = {
-      starter: { label: "Starter", checkoutPlanId: "starter" },
-      pro: { label: "Pro", checkoutPlanId: "pro" },
-      boutique: { label: "Boutique", checkoutPlanId: "boutique" }
-    };
+    const VALID_CHECKOUT_TIERS = new Set(["starter", "pro", "boutique"]);
 
     // Enable button when brand + ref + language are present; validate the visible email on submit.
     const brandEl = document.getElementById("brand");
@@ -1020,7 +1011,7 @@
     }
 
     function getCheckoutUrl(data = {}) {
-      const value = data.checkoutUrl || data.checkout_url || data.url;
+      const value = data.url;
       return typeof value === "string" && /^https?:\/\//i.test(value) ? value : "";
     }
 
@@ -1231,25 +1222,30 @@
       checkReady();
     });
 
-    async function startCheckout(planKey, button) {
+    function getCheckoutErrorMessage(data = {}) {
+      const code = getBackendCode(data);
+      if(code.includes("email")) return "Please enter a valid dealer email first.";
+      return "Unable to open checkout. Please try again.";
+    }
+
+    async function startCheckout(selectedTier, button) {
       const dealerEmailValue = normalizeDealerEmail();
       if(!dealerEmailValue) {
         const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter your dealer email.";
+        errEl.textContent = "Please enter a valid dealer email first.";
         errEl.classList.add("active");
         dealerEmail.focus();
         return;
       }
       if(!isValidEmail(dealerEmailValue)) {
         const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter a valid email address.";
+        errEl.textContent = "Please enter a valid dealer email first.";
         errEl.classList.add("active");
         dealerEmail.focus();
         return;
       }
 
-      const plan = BILLING_PLANS[planKey];
-      if(!plan) return;
+      if(!VALID_CHECKOUT_TIERS.has(selectedTier)) return;
 
       sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmailValue);
       const previousText = button.textContent;
@@ -1260,41 +1256,53 @@
 
       try {
         const payload = {
-          [CHECKOUT_REQUEST_FIELDS.email]: dealerEmail.value.trim().toLowerCase(),
-          [CHECKOUT_REQUEST_FIELDS.plan]: plan.checkoutPlanId
+          email: dealerEmail.value.trim().toLowerCase(),
+          tier: selectedTier
         };
-        const res = await fetch(CHECKOUT_URL, {
+        const response = await fetch(CHECKOUT_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-        const parsedResponse = await parseResponseJson(res);
+        const parsedResponse = await parseResponseJson(response);
         const data = parsedResponse.data;
-        if(!res.ok || data.error) {
-          logListingWorkerResponse("Listing checkout Worker response", {
-            status: res.status,
-            contentType: parsedResponse.contentType,
-            body: data,
-            rawText: parsedResponse.rawText
+        if(!response.ok) {
+          console.error("Checkout error", {
+            status: response.status,
+            body: sanitizeDiagnosticsBody(data)
           });
-          throw new Error(getUserErrorMessage(data, res.status));
+          const checkoutError = new Error(getCheckoutErrorMessage(data));
+          checkoutError.logged = true;
+          throw checkoutError;
         }
         const checkoutUrl = getCheckoutUrl(data);
         if(!checkoutUrl) {
-          throw new Error("Checkout could not be started because the Worker did not return a checkout URL.");
+          console.error("Checkout error", {
+            status: response.status,
+            body: sanitizeDiagnosticsBody(data)
+          });
+          const checkoutError = new Error("Unable to open checkout. Please try again.");
+          checkoutError.logged = true;
+          throw checkoutError;
         }
         window.location.href = checkoutUrl;
       } catch(e) {
+        if(!e?.logged) {
+          console.error("Checkout error", {
+            status: null,
+            body: sanitizeDiagnosticsBody(e?.message || e)
+          });
+        }
         const errEl = document.getElementById("lo-error");
-        errEl.textContent = e.message || "Checkout could not be started. Please try again.";
+        errEl.textContent = "Unable to open checkout. Please try again.";
         errEl.classList.add("active");
         button.disabled = false;
         button.textContent = previousText;
       }
     }
 
-    document.querySelectorAll(".lo-plan-btn[data-plan]").forEach((button) => {
-      button.addEventListener("click", () => startCheckout(button.dataset.plan, button));
+    document.querySelectorAll(".lo-plan-btn[data-tier]").forEach((button) => {
+      button.addEventListener("click", () => startCheckout(button.dataset.tier, button));
     });
 
     initPaymentReturnNotice();
