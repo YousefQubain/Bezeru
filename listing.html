@@ -868,6 +868,26 @@
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
+    function showError(message) {
+      const errEl = document.getElementById("lo-error");
+      errEl.textContent = message;
+      errEl.classList.add("active");
+    }
+
+    function getValidDealerEmail(message = "Please enter a valid email address.") {
+      const emailInput = document.getElementById("dealerEmail");
+      const email = emailInput.value.trim().toLowerCase();
+      emailInput.value = email;
+
+      if(!email || !emailInput.checkValidity() || !isValidEmail(email)) {
+        showError(message);
+        emailInput.focus();
+        return "";
+      }
+
+      return email;
+    }
+
     function checkReady() {
       genBtn.disabled = !(brandEl.value && refEl.value.trim() && getSelectedLangs().length > 0);
     }
@@ -1102,21 +1122,8 @@
     genBtn.addEventListener("click", async () => {
       const langs = getSelectedLangs();
       if (!langs.length) return;
-      const dealerEmailValue = normalizeDealerEmail();
-      if(!dealerEmailValue) {
-        const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter your dealer email.";
-        errEl.classList.add("active");
-        dealerEmail.focus();
-        return;
-      }
-      if(!isValidEmail(dealerEmailValue)) {
-        const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter a valid email address.";
-        errEl.classList.add("active");
-        dealerEmail.focus();
-        return;
-      }
+      const dealerEmailValue = getValidDealerEmail("Please enter a valid email address.");
+      if(!dealerEmailValue) return;
       sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmailValue);
 
       document.getElementById("empty-state").style.display = "none";
@@ -1229,21 +1236,8 @@
     }
 
     async function startCheckout(selectedTier, button) {
-      const dealerEmailValue = normalizeDealerEmail();
-      if(!dealerEmailValue) {
-        const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter a valid dealer email first.";
-        errEl.classList.add("active");
-        dealerEmail.focus();
-        return;
-      }
-      if(!isValidEmail(dealerEmailValue)) {
-        const errEl = document.getElementById("lo-error");
-        errEl.textContent = "Please enter a valid dealer email first.";
-        errEl.classList.add("active");
-        dealerEmail.focus();
-        return;
-      }
+      const dealerEmailValue = getValidDealerEmail("Please enter a valid dealer email first.");
+      if(!dealerEmailValue) return;
 
       if(!VALID_CHECKOUT_TIERS.has(selectedTier)) return;
 
