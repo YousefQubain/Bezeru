@@ -860,29 +860,32 @@
     const dealerEmail = document.getElementById("dealerEmail");
     const genBtn  = document.getElementById("gen-btn");
 
-    function normalizeDealerEmail() {
-      return (dealerEmail?.value || "").trim().toLowerCase();
-    }
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
     function showError(message) {
       const errEl = document.getElementById("lo-error");
       errEl.textContent = message;
       errEl.classList.add("active");
     }
 
-    function getValidDealerEmail(message = "Please enter a valid email address.") {
+    function getDealerEmail() {
       const emailInput = document.getElementById("dealerEmail");
       const email = emailInput.value.trim().toLowerCase();
-      emailInput.value = email;
+      const emailDomain = email.split("@")[1] || "";
 
-      if(!email || !emailInput.checkValidity() || !isValidEmail(email)) {
-        showError(message);
-        emailInput.focus();
-        return "";
+      console.log("Dealer email validation", {
+        value: emailInput.value,
+        trimmed: email,
+        type: emailInput.type,
+        pattern: emailInput.pattern,
+        validity: {
+          valid: emailInput.validity.valid,
+          valueMissing: emailInput.validity.valueMissing,
+          typeMismatch: emailInput.validity.typeMismatch,
+          patternMismatch: emailInput.validity.patternMismatch
+        }
+      });
+
+      if (!email || !emailInput.validity.valid || !emailDomain.includes(".")) {
+        throw new Error("invalid_email");
       }
 
       return email;
@@ -894,8 +897,7 @@
     brandEl.addEventListener("change", checkReady);
     refEl.addEventListener("input", checkReady);
     dealerEmail.addEventListener("input", () => {
-      dealerEmail.value = normalizeDealerEmail();
-      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail.value);
+      sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmail.value.trim().toLowerCase());
       checkReady();
     });
 
@@ -1122,8 +1124,17 @@
     genBtn.addEventListener("click", async () => {
       const langs = getSelectedLangs();
       if (!langs.length) return;
-      const dealerEmailValue = getValidDealerEmail("Please enter a valid email address.");
-      if(!dealerEmailValue) return;
+      let dealerEmailValue = "";
+      try {
+        dealerEmailValue = getDealerEmail();
+      } catch(e) {
+        if(e.message === "invalid_email") {
+          showError("Please enter a valid email address.");
+          dealerEmail.focus();
+          return;
+        }
+        throw e;
+      }
       sessionStorage.setItem(DEALER_EMAIL_STORAGE_KEY, dealerEmailValue);
 
       document.getElementById("empty-state").style.display = "none";
@@ -1236,8 +1247,17 @@
     }
 
     async function startCheckout(selectedTier, button) {
-      const dealerEmailValue = getValidDealerEmail("Please enter a valid dealer email first.");
-      if(!dealerEmailValue) return;
+      let dealerEmailValue = "";
+      try {
+        dealerEmailValue = getDealerEmail();
+      } catch(e) {
+        if(e.message === "invalid_email") {
+          showError("Please enter a valid dealer email first.");
+          dealerEmail.focus();
+          return;
+        }
+        throw e;
+      }
 
       if(!VALID_CHECKOUT_TIERS.has(selectedTier)) return;
 
