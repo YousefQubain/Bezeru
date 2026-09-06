@@ -8,13 +8,13 @@
   <meta http-equiv="Expires" content="0" />
   <title>BEZERU</title>
   <meta name="description" content="BEZERU is an independent watch journal covering design, wearability, and collecting — written with clarity, not hype.">
-  <link rel="canonical" href="https://bezeru.com/index.html">
+  <link rel="canonical" href="https://bezeru.com/">
   <meta property="og:site_name" content="BEZERU">
   <meta property="og:type" content="website">
   <meta property="og:title" content="BEZERU">
   <meta property="og:description" content="BEZERU is an independent watch journal covering design, wearability, and collecting — written with clarity, not hype.">
   <meta property="og:image" content="https://bezeru.com/images/bezeru-og.jpg">
-  <meta property="og:url" content="https://bezeru.com/index.html">
+  <meta property="og:url" content="https://bezeru.com/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="BEZERU">
   <meta name="twitter:description" content="BEZERU is an independent watch journal covering design, wearability, and collecting — written with clarity, not hype.">
@@ -67,6 +67,7 @@
 .home-subscribe-inner { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
 .home-subscribe h2 { font-size: 28px; max-width: 420px; }
 .home-subscribe p { font-family: 'Inter', sans-serif; font-size: 15px; color: #555555; margin: 0; }
+.home-subscribe-note { margin-top: 12px !important; font-size: 12px !important; color: #777777 !important; }
 .bzr-subscribe-form { display: flex; flex-shrink: 0; min-width: 380px; border: 1px solid #C8C4BE; border-radius: 4px; overflow: hidden; }
 .bzr-subscribe-form input[type="email"] { flex: 1; border: none; outline: none; padding: 14px 18px; font-family: 'Inter', sans-serif; font-size: 14px; background: #ffffff; color: #111111; min-width: 0; }
 .bzr-subscribe-form input[type="email"]::placeholder { color: #999999; }
@@ -114,6 +115,18 @@
   white-space: nowrap;
 }
 .btn-outline:hover { background: #111111; color: #ffffff; }
+
+.home-intelligence { background: #f7f5f2; border-top: 1px solid #E0DDD8; border-bottom: 1px solid #E0DDD8; padding: 82px 0; }
+.home-intelligence-inner { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr); gap: 64px; align-items: center; }
+.home-intelligence .section-kicker { color: #C0392B; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 14px; }
+.home-intelligence h2 { max-width: 520px; margin-bottom: 16px; }
+.home-intelligence-copy { color: #555555; font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; max-width: 540px; margin-bottom: 26px; }
+.home-intelligence-note { border-left: 2px solid #C0392B; padding: 8px 0 8px 18px; color: #666666; font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.6; }
+.home-intelligence-panel { background: #111111; color: #ffffff; padding: 28px; }
+.home-intelligence-panel strong { display: block; font-family: 'Playfair Display', Georgia, serif; font-size: 25px; font-weight: 600; margin-bottom: 14px; }
+.home-intelligence-panel p { color: rgba(255,255,255,.66); font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+.home-intelligence-panel a { color: #ffffff; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
+@media (max-width: 720px) { .home-intelligence-inner { grid-template-columns: 1fr; gap: 32px; } }
 
   </style>
 </head>
@@ -289,6 +302,13 @@
     <div class="container">
       <div class="section-strip"><a class="section-strip-link" href="/articles.html">See all articles →</a></div>
       <div class="latest-grid">
+        <a class="article-card" href="/articles/after-the-hype-geneva-watch-days-2026.html">
+          <div class="article-card-body">
+            <div class="article-card-top"><span class="tag tag-design">Collecting</span><span class="article-card-meta">Sep 2026 · 6 min</span></div>
+            <h3 class="article-card-title">After the Hype: What Geneva Watch Days 2026 Is Actually Telling Collectors</h3>
+            <p class="article-card-desc">Geneva Watch Days 2026 offered a clearer signal: purpose, proportion, provenance, and personality matter more than noise.</p>
+          </div>
+        </a>
         <a class="article-card" href="/articles/made-for-the-middle-east-arabic-dials.html">
           <div class="article-card-body">
             <div class="article-card-top"><span class="tag tag-middleeast">Middle East</span><span class="article-card-meta">Jun 2026 · 4 min</span></div>
@@ -343,6 +363,22 @@
     </div>
   </section>
 
+  <section class="home-intelligence" aria-labelledby="home-intelligence-title">
+    <div class="container home-intelligence-inner">
+      <div>
+        <p class="section-kicker">Read · Understand · Act</p>
+        <h2 id="home-intelligence-title">Watch intelligence for better collecting decisions.</h2>
+        <p class="home-intelligence-copy">The editorial work comes first. Bezeru Intelligence adds practical context when you are considering a reference, a listing, or a possible next move.</p>
+        <p class="home-intelligence-note">AI-assisted market context — not authentication, financial advice, or a guarantee of availability or outcome.</p>
+      </div>
+      <div class="home-intelligence-panel">
+        <strong>Understand a watch before you buy, sell, or list it.</strong>
+        <p>Review market signals, value drivers, documentation questions, and possible alternatives in one considered workspace.</p>
+        <a href="/intelligence.html">Explore Bezeru Intelligence →</a>
+      </div>
+    </div>
+  </section>
+
   <section class="home-shop">
     <div class="container home-shop-inner">
       <div>
@@ -357,11 +393,12 @@
     </div>
   </section>
 
-  <section class="home-subscribe" id="subscribe">
+  <section class="home-subscribe" id="footer-subscribe">
     <div class="container home-subscribe-inner">
       <div>
         <h2>Stories for collectors who care about the details.</h2>
         <p>New BEZERU articles on design, independents, vintage, and culture — delivered quietly. No spam, ever.</p>
+        <p class="home-subscribe-note">Newsletter delivery uses Buttondown; the service will confirm whether a subscription was accepted.</p>
       </div>
       <form
         action="https://buttondown.com/api/emails/embed-subscribe/qubain"
@@ -508,6 +545,7 @@ var searchInput = document.getElementById('bzSearchInput');
 var searchResults = document.getElementById('bzSearchResults');
 
 var BEZERU_INDEX = [
+  { title: 'After the Hype: What Geneva Watch Days 2026 Is Actually Telling Collectors', desc: 'Geneva Watch Days 2026 offered a clearer signal: purpose, proportion, provenance, and personality matter more than noise. Innovation and collecting.', url: '/articles/after-the-hype-geneva-watch-days-2026.html', tag: 'Collecting' },
   { title: 'The Return of the Double-Signed Watch', desc: 'In a softer, more provenance-led market, the second name on the dial is becoming a serious collector signal again.', url: '/articles/return-of-the-double-signed-watch.html', tag: 'Collecting' },
   { title: 'The Return of the Stone Dial', desc: 'Hardstone dials return as a quieter form of material intelligence.', url: '/articles/hardstone-gemstone-watch-dials.html', tag: 'Design' },
   { title: 'The Return of Smaller Watches: Why Proportion Is Becoming the New Luxury', desc: 'Smaller watches are becoming a signal of taste, proportion, and quiet confidence.', url: '/articles/smaller-watches-proportion-luxury.html', tag: 'Design' },
@@ -576,7 +614,7 @@ document.addEventListener('keydown', function(e) {
     <div style="display:flex;flex-direction:column;gap:10px;">
       <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:6px;">Contact</span>
       <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;">yousef.qubain@gmail.com</a>
-      <a href="#" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;">Instagram</a>
+      <span style="font-size:13px;color:rgba(255,255,255,0.6);">Instagram (coming soon)</span>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:6px;">Policies</span>

@@ -209,6 +209,14 @@
   <section class="archive-grid-sec">
     <div class="container">
       <div id="apGrid" class="archive-grid">
+        <a class="article-card" data-cat="collecting" href="/articles/after-the-hype-geneva-watch-days-2026.html">
+          <div class="article-card-body">
+            <div class="article-card-top"><span class="tag tag-design">Collecting</span><span class="article-card-meta">Sep 2026 · 6 min read</span></div>
+            <h3 class="article-card-title">After the Hype: What Geneva Watch Days 2026 Is Actually Telling Collectors</h3>
+            <p class="article-card-desc">Geneva Watch Days 2026 offered a clearer signal: purpose, proportion, provenance, and personality matter more than noise.</p>
+            <span class="article-card-read">Read article →</span>
+          </div>
+        </a>
         <a class="article-card" data-cat="middleeast" href="/articles/made-for-the-middle-east-arabic-dials.html">
           <div class="article-card-body">
             <div class="article-card-top"><span class="tag tag-middleeast">Middle East</span><span class="article-card-meta">Jun 2026 · 4 min read</span></div>
@@ -306,7 +314,7 @@
           </div>
         </a>
       </div>
-      <p id="apEmpty" style="display:none;">No stories match this filter yet.</p>
+      <p id="apEmpty" hidden>No stories match this filter yet.</p>
     </div>
   </section>
 </main>
@@ -398,24 +406,7 @@ var searchInput = document.getElementById('bzSearchInput');
 var searchResults = document.getElementById('bzSearchResults');
 
 var ARTICLES = [
-  { title: 'The Return of the Double-Signed Watch', desc: 'In a softer, more provenance-led market, the second name on the dial is becoming a serious collector signal again.', url: '/articles/return-of-the-double-signed-watch.html', tag: 'Collecting' },
-  { title: 'The Return of the Stone Dial', desc: 'Hardstone dials return as a quieter form of material intelligence.', url: '/articles/hardstone-gemstone-watch-dials.html', tag: 'Design' },
-  { title: 'The Return of Smaller Watches: Why Proportion Is Becoming the New Luxury', desc: 'Smaller watches are becoming a signal of taste, proportion, and quiet confidence.', url: '/articles/smaller-watches-proportion-luxury.html', tag: 'Design' },
-  { title: 'Independents That Are Quietly Replacing Hype', desc: 'Four names collectors are watching — often before anyone else catches on.', url: '/articles/independents-that-are-quietly-replacing-hype.html', tag: 'Underdogs' },
-  { title: 'Time Reimagined: Watchmaking Innovations of 2025–26', desc: 'Materials, mechanics, and independent energy reshaping watchmaking.', url: '/articles/time-reimagined-watchmaking-innovations-2025-26.html', tag: 'Innovation' },
-  { title: 'Timeless Stories in Timepieces: AP and Vacheron Embrace Middle Eastern Soul', desc: 'How two maisons treat regional culture as treasure, not trend.', url: '/articles/timeless-stories-in-timepieces-ap-vacheron-middle-east.html', tag: 'Middle East' },
-  { title: 'Year of the Fire Horse: 2026 Lunar New Year Watches', desc: 'Which zodiac releases will still feel right years from now.', url: '/articles/year-of-the-fire-horse-2026.html', tag: 'Design' }
-];
-
-
-// ── Search ───────────────────────────────────
-var searchToggle = document.getElementById('bzSearchToggle');
-var searchBar = document.getElementById('bzSearchBar');
-var searchClose = document.getElementById('bzSearchClose');
-var searchInput = document.getElementById('bzSearchInput');
-var searchResults = document.getElementById('bzSearchResults');
-
-var ARTICLES = [
+  { title: 'After the Hype: What Geneva Watch Days 2026 Is Actually Telling Collectors', desc: 'Geneva Watch Days 2026 offered a clearer signal: purpose, proportion, provenance, and personality matter more than noise. Innovation and collecting.', url: '/articles/after-the-hype-geneva-watch-days-2026.html', tag: 'Collecting' },
   { title: 'The Return of the Double-Signed Watch', desc: 'In a softer, more provenance-led market, the second name on the dial is becoming a serious collector signal again.', url: '/articles/return-of-the-double-signed-watch.html', tag: 'Collecting' },
   { title: 'The Return of the Stone Dial', desc: 'Hardstone dials return as a quieter form of material intelligence.', url: '/articles/hardstone-gemstone-watch-dials.html', tag: 'Design' },
   { title: 'The Return of Smaller Watches: Why Proportion Is Becoming the New Luxury', desc: 'Smaller watches are becoming a signal of taste, proportion, and quiet confidence.', url: '/articles/smaller-watches-proportion-luxury.html', tag: 'Design' },
@@ -476,7 +467,10 @@ filterBtns.forEach(function(btn) {
         card.classList.add('hidden');
       }
     });
-    if (emptyMsg) emptyMsg.style.display = count === 0 ? 'block' : 'none';
+    if (emptyMsg) {
+      emptyMsg.hidden = count !== 0;
+      emptyMsg.style.display = count === 0 ? 'block' : 'none';
+    }
   });
 });
 </script>
@@ -485,8 +479,6 @@ filterBtns.forEach(function(btn) {
 
 
 
-<footer style="background:#0a0a0a;color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;">
-  <div style="max-width:1100px;margin:0 auto;padding:48px 48px 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;border-bottom:1px solid rgba(255,255,255,0.08);">
 <footer style="background:#0a0a0a;color:rgba(255,255,255,0.6);font-family:'Inter',sans-serif;">
   <div style="max-width:1100px;margin:0 auto;padding:60px 48px 48px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;border-bottom:1px solid rgba(255,255,255,0.08);">
     <div>
@@ -505,7 +497,7 @@ filterBtns.forEach(function(btn) {
     <div style="display:flex;flex-direction:column;gap:10px;">
       <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:6px;">Contact</span>
       <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU — Hello" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;">yousef.qubain@gmail.com</a>
-      <a href="#" style="font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;">Instagram</a>
+      <span style="font-size:13px;color:rgba(255,255,255,0.6);">Instagram (coming soon)</span>
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <span style="font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:block;margin-bottom:6px;">Policies</span>

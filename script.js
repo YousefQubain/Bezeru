@@ -1639,6 +1639,39 @@ function initArticleProgressBar(){
   window.addEventListener("resize", update);
 }
 
+function initPlaceholderSocialLinks(){
+  document.querySelectorAll('a[href="#"]').forEach((link)=>{
+    if((link.textContent || "").trim().toLowerCase() !== "instagram") return;
+    const note = document.createElement("span");
+    note.textContent = "Instagram (coming soon)";
+    note.className = link.className;
+    note.style.cssText = link.style.cssText;
+    note.setAttribute("aria-label", "Instagram coming soon");
+    link.replaceWith(note);
+  });
+}
+
+function initEditorialIntelligenceCta(){
+  const isArticle = document.body?.getAttribute("data-page") === "static-article"
+    || document.body?.getAttribute("data-page") === "article"
+    || location.pathname.includes("/articles/");
+  if(!isArticle) return;
+
+  const shell = document.querySelector(".article-shell");
+  if(!shell || shell.querySelector(".article-intelligence-cta")) return;
+
+  const cta = document.createElement("aside");
+  cta.className = "article-intelligence-cta";
+  cta.innerHTML = `
+    <span class="article-intelligence-cta__eyebrow">Understand the market</span>
+    <p>Want to compare a specific reference before you buy, sell, or list it?</p>
+    <a href="/intelligence.html">Explore Bezeru Intelligence →</a>
+  `;
+  const authorBox = shell.querySelector(".article-author-box");
+  if(authorBox) authorBox.insertAdjacentElement("afterend", cta);
+  else shell.appendChild(cta);
+}
+
 function initArticleEngagement(){
   const isArticlePage = document.body?.getAttribute("data-page") === "static-article"
     || document.body?.getAttribute("data-page") === "article"
@@ -1818,6 +1851,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initBzMobileMenu();
   initTopbarDateAndTimes();
   dedupePageFooters();
+  initPlaceholderSocialLinks();
   initClockStrip();
   initLanguageMenu();
   initDropdowns();
@@ -1829,6 +1863,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initArticleProgressBar();
   initArticleEngagement();
   enhanceStaticCardMeta();
+  initEditorialIntelligenceCta();
 
   // Ensure the hero CTA appears only once if duplicate markup gets served.
   const heroCtas = document.querySelectorAll(".hero .cta");

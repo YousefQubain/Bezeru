@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Intelligence — BEZERU</title>
-  <meta name="description" content="AI-powered pre-owned watch market analysis. Instant valuations, trend data, and dealer intelligence." />
+  <meta name="description" content="AI-assisted watch market context for more considered collecting decisions. Review value drivers, market signals, and questions to verify before you buy, sell, or list." />
+  <link rel="canonical" href="https://bezeru.com/intelligence.html" />
+  <meta property="og:title" content="Watch Intelligence — BEZERU" />
+  <meta property="og:description" content="AI-assisted watch market context for more considered collecting decisions." />
+  <meta property="og:url" content="https://bezeru.com/intelligence.html" />
 
   <link rel="stylesheet" href="style.css" />
 
@@ -107,6 +111,15 @@
       color: rgba(255,255,255,0.3);
       line-height: 1.55;
       margin-bottom: 40px;
+    }
+
+    .intel-disclaimer {
+      border-left: 2px solid #e05c1a;
+      padding: 10px 0 10px 16px;
+      margin: -18px 0 28px;
+      color: rgba(240,237,231,0.52);
+      font-size: 12px;
+      line-height: 1.65;
     }
 
     .intel-form {
@@ -379,6 +392,36 @@
     .intel-error.active {
       display: block;
     }
+
+    .intel-error strong { display: block; color: #f0ede7; margin-bottom: 4px; }
+
+    .intel-textarea { min-height: 88px; resize: vertical; }
+
+    .result-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin: 0 0 12px;
+      color: rgba(255,255,255,0.36);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .result-meta:empty { display: none; }
+    .result-meta strong { color: rgba(255,255,255,0.64); font-weight: 500; }
+
+    .optional-result {
+      display: none;
+      border: 0.5px solid rgba(255,255,255,0.06);
+      border-radius: 3px;
+      padding: 16px;
+      margin-bottom: 12px;
+      color: rgba(240,237,231,0.7);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .optional-result.active { display: block; }
 
     .intel-results {
       display: none;
@@ -794,6 +837,9 @@
       .intel-wrap {
         padding: 40px 16px 80px;
       }
+
+      .intel-title { font-size: 25px; }
+      .value-block { padding: 22px; }
     }
 .nav-intel {
   position: relative;
@@ -854,7 +900,7 @@
 
       <nav class="bezeru-links">
         <a href="/index.html">Home</a>
-        <a href="/articles.html">Articles</a>
+        <a href="/articles.html">Read</a>
         <a href="/types.html">Types</a>
         <a href="/brands.html">Brands</a>
         <div class="nav-intel">
@@ -881,17 +927,17 @@
 
     <h1 class="intel-title">Watch market analysis</h1>
     <p class="intel-subtitle">
-      Enter a reference to receive an AI-generated valuation,<br>
-      trend analysis, and market intelligence.
+      Enter a reference to review AI-assisted market context, value drivers, and questions worth verifying before a transaction.
     </p>
+    <p class="intel-disclaimer">This tool is not an authentication service or financial advice. It does not guarantee availability, accuracy, pricing, or transaction outcomes. Verify condition, provenance, and authenticity with a qualified specialist.</p>
 
     <div class="intel-form">
 
       <div class="form-row">
-        <label class="intel-label">Brand</label>
+        <label class="intel-label" for="brand-trigger">Brand</label>
 
         <div class="brand-dropdown" id="brand-dropdown">
-          <button type="button" class="brand-trigger" id="brand-trigger">
+          <button type="button" class="brand-trigger" id="brand-trigger" aria-haspopup="listbox" aria-expanded="false">
             <span id="brand-label" class="brand-placeholder">Select manufacturer</span>
             <span>▾</span>
           </button>
@@ -903,12 +949,12 @@
       <div class="form-grid-16">
         <div>
           <label class="intel-label" for="ref">Reference no.</label>
-          <input type="text" id="ref" class="intel-input" placeholder="e.g. 126710BLNR" />
+          <input type="text" id="ref" class="intel-input" placeholder="e.g. 126710BLNR" autocomplete="off" required />
         </div>
 
         <div>
           <label class="intel-label" for="year">Year</label>
-          <input type="text" id="year" class="intel-input" placeholder="e.g. 2021" />
+          <input type="text" id="year" class="intel-input" placeholder="e.g. 2021" inputmode="numeric" autocomplete="off" />
         </div>
       </div>
 
@@ -941,19 +987,52 @@
         </div>
       </div>
 
-      <button id="run-btn" class="intel-btn" disabled>Run analysis</button>
+      <div class="form-grid-16">
+        <div>
+          <label class="intel-label" for="asking-price">Asking price</label>
+          <input type="number" id="asking-price" class="intel-input" placeholder="Optional" min="0" step="any" inputmode="decimal" />
+        </div>
+        <div>
+          <label class="intel-label" for="currency">Currency</label>
+          <div class="select-wrap">
+            <select id="currency" class="intel-select">
+              <option value="USD" selected>USD</option>
+              <option value="CHF">CHF</option>
+              <option value="AED">AED</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="JPY">JPY</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="intel-label" for="listing-url">Listing URL <span aria-hidden="true">(optional)</span></label>
+        <input type="url" id="listing-url" class="intel-input" placeholder="https://…" inputmode="url" autocomplete="url" />
+      </div>
+
+      <div class="form-row">
+        <label class="intel-label" for="notes">Notes <span aria-hidden="true">(optional)</span></label>
+        <textarea id="notes" class="intel-input intel-textarea" placeholder="Anything about service history, provenance, or the deal context."></textarea>
+      </div>
+
+      <button id="run-btn" class="intel-btn" disabled>Review market context</button>
     </div>
 
-    <div class="intel-loader" id="loader">
+    <div class="intel-loader" id="loader" role="status" aria-live="polite">
       <div class="sweep-track">
         <div class="sweep-bar"></div>
       </div>
       <p class="loader-text">Querying market intelligence</p>
     </div>
 
-    <div class="intel-error" id="error-msg"></div>
+    <div class="intel-error" id="error-msg" role="alert" aria-live="assertive"></div>
 
     <div class="intel-results" id="results">
+
+      <div class="result-meta" id="result-meta"></div>
 
       <div class="value-block fu">
         <div>
@@ -1007,6 +1086,8 @@
         <p class="dealer-label">Dealer intelligence</p>
         <p class="dealer-text" id="dealer-note"></p>
       </div>
+
+      <div class="optional-result" id="optional-result"></div>
 
       <div class="result-footer">
         <span>bezeru.com</span>
@@ -1158,10 +1239,16 @@
     const yearEl = document.getElementById("year");
     const condEl = document.getElementById("cond");
     const bpEl = document.getElementById("bp");
+    const askingPriceEl = document.getElementById("asking-price");
+    const currencyEl = document.getElementById("currency");
+    const listingUrlEl = document.getElementById("listing-url");
+    const notesEl = document.getElementById("notes");
     const runBtn = document.getElementById("run-btn");
     const loader = document.getElementById("loader");
     const errEl = document.getElementById("error-msg");
     const results = document.getElementById("results");
+    const resultMeta = document.getElementById("result-meta");
+    const optionalResult = document.getElementById("optional-result");
 
     function buildBrandMenu() {
       brandMenu.innerHTML = "";
@@ -1184,6 +1271,7 @@
             brandLabel.textContent = brand;
             brandLabel.classList.remove("brand-placeholder");
             brandMenu.classList.remove("active");
+            brandTrigger.setAttribute("aria-expanded", "false");
 
             document.querySelectorAll(".brand-option").forEach(option => {
               option.classList.toggle("selected", option.dataset.brand === brand);
@@ -1201,6 +1289,7 @@
 
     brandTrigger.addEventListener("click", () => {
       brandMenu.classList.toggle("active");
+      brandTrigger.setAttribute("aria-expanded", String(brandMenu.classList.contains("active")));
     });
 
     document.addEventListener("click", event => {
@@ -1208,6 +1297,7 @@
 
       if (!dropdown.contains(event.target)) {
         brandMenu.classList.remove("active");
+        brandTrigger.setAttribute("aria-expanded", "false");
       }
     });
 
@@ -1217,7 +1307,27 @@
 
     refEl.addEventListener("input", checkReady);
 
-    const fmt = n => n ? Math.round(n).toLocaleString() : "—";
+    const fmt = n => n === undefined || n === null || n === "" || Number.isNaN(Number(n)) ? "—" : Math.round(Number(n)).toLocaleString();
+
+    function resultValue(value, fallback = "") {
+      return value === undefined || value === null || value === "" ? fallback : value;
+    }
+
+    function setOptionalResult(d) {
+      const items = [];
+      const deal = resultValue(d.dealRating || d.deal_rating);
+      const confidence = resultValue(d.confidence || d.confidenceLevel || d.confidence_level);
+      const date = resultValue(d.analysisDate || d.asOf || d.as_of);
+      const room = resultValue(d.negotiationRoom || d.negotiation_room);
+      const flip = resultValue(d.flipPotential || d.flip_potential);
+      if (deal) items.push(`<strong>Deal rating:</strong> ${escapeHTML(deal)}`);
+      if (confidence) items.push(`<strong>Confidence:</strong> ${escapeHTML(confidence)}`);
+      if (date) items.push(`<strong>Analysis date:</strong> ${escapeHTML(date)}`);
+      if (room) items.push(`<strong>Negotiation room:</strong> ${escapeHTML(room)}`);
+      if (flip) items.push(`<strong>Flip potential:</strong> ${escapeHTML(flip)}`);
+      optionalResult.innerHTML = items.join("<br>");
+      optionalResult.classList.toggle("active", items.length > 0);
+    }
 
     function escapeHTML(value) {
       return String(value || "")
@@ -1294,13 +1404,35 @@
         ).join("");
 
       document.getElementById("dealer-note").textContent = `"${d.dealerNote || ""}"`;
+
+      const meta = [];
+      const perspective = resultValue(d.collectorPerspective || d.collectorNote);
+      if (perspective) meta.push(`<span><strong>Collector view:</strong> ${escapeHTML(perspective)}</span>`);
+      const marketContext = resultValue(d.marketContext || d.context);
+      if (marketContext) meta.push(`<span><strong>Market context:</strong> ${escapeHTML(marketContext)}</span>`);
+      resultMeta.innerHTML = meta.join("");
+      setOptionalResult(d);
+    }
+
+    function setError(title, detail) {
+      errEl.innerHTML = `<strong>${escapeHTML(title)}</strong>${escapeHTML(detail)}`;
+      errEl.classList.add("active");
     }
 
     runBtn.addEventListener("click", async () => {
       const brand = selectedBrand;
       const ref = refEl.value.trim();
 
-      if (!brand || !ref) return;
+      if (!brand || !ref) {
+        setError("Missing information", "Choose a brand and enter a reference number before running the analysis.");
+        return;
+      }
+
+      if (yearEl.value.trim() && !/^\d{4}$/.test(yearEl.value.trim())) {
+        setError("Check the year", "Use a four-digit year, or leave the field blank.");
+        yearEl.focus();
+        return;
+      }
 
       loader.classList.add("active");
       results.classList.remove("active");
@@ -1308,7 +1440,10 @@
       errEl.textContent = "";
 
       runBtn.disabled = true;
-      runBtn.textContent = "Analysing market data...";
+      runBtn.textContent = "Reviewing market context...";
+
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 30000);
 
       try {
         const res = await fetch(WORKER_URL, {
@@ -1316,16 +1451,23 @@
           headers: {
             "Content-Type": "application/json"
           },
+          signal: controller.signal,
           body: JSON.stringify({
             brand: brand,
             reference: ref,
             year: yearEl.value.trim() || "",
             condition: condEl.value,
-            documentation: bpEl.value
+            documentation: bpEl.value,
+            askingPrice: askingPriceEl.value.trim() || "",
+            currency: currencyEl.value,
+            listingUrl: listingUrlEl.value.trim() || "",
+            notes: notesEl.value.trim() || ""
           })
         });
 
-        const data = await res.json();
+        const raw = await res.text();
+        let data = {};
+        try { data = raw ? JSON.parse(raw) : {}; } catch (_) { data = {}; }
 
         if (!res.ok || data.error) {
           const apiMessage =
@@ -1336,7 +1478,15 @@
             data?.error ||
             "Analysis failed";
 
-          throw new Error(apiMessage);
+          const error = new Error(apiMessage);
+          error.status = res.status;
+          throw error;
+        }
+
+        if (!data || typeof data !== "object" || (!data.valueRangeUSD && !data.marketNarrative && !data.valuationFactors)) {
+          const error = new Error("The service returned an empty or incomplete response.");
+          error.status = 502;
+          throw error;
         }
 
         loader.classList.remove("active");
@@ -1346,12 +1496,23 @@
       } catch (e) {
         console.error(e);
         loader.classList.remove("active");
-        errEl.textContent = e.message || "Analysis failed";
-        errEl.classList.add("active");
+        if (e.name === "AbortError") {
+          setError("The analysis took too long", "Please retry when the service is available.");
+        } else if (e.status === 429) {
+          setError("Too many requests", "Please wait a moment before trying again.");
+        } else if (e.status === 400 || e.status === 422) {
+          setError("Check the reference details", e.message || "The service could not validate this request.");
+        } else if (e.status >= 500 || e.status === 502) {
+          setError("Intelligence is temporarily unavailable", "The form is ready to retry, but the existing analysis service did not return usable data.");
+        } else {
+          setError("Analysis unavailable", e.message || "Please retry or verify the reference with a specialist.");
+        }
       }
 
+      window.clearTimeout(timeout);
+
       runBtn.disabled = false;
-      runBtn.textContent = "Run analysis";
+      runBtn.textContent = "Review market context";
       checkReady();
     });
   </script>
