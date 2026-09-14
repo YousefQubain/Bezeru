@@ -1276,7 +1276,7 @@ function initLanguageMenu(){
 const FEATURED_POST_ID = "independents-replacing-hype-001";
 
 async function loadPosts(){
-  const res = await fetch("posts.json", { cache: "no-store" });
+  const res = await fetch("/posts.json", { cache: "no-store" });
   if(!res.ok) throw new Error("Could not load posts.json");
   const data = await res.json();
   return data.posts || [];
@@ -2150,7 +2150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const backLink = document.querySelector(".back-link");
     if (backLink) {
       backLink.textContent = "← Back to Articles";
-      backLink.setAttribute("href", location.pathname.includes("/articles/") ? "../articles.html" : "articles.html");
+      backLink.setAttribute("href", "/articles.html");
     }
     const shell = document.querySelector(".article-shell");
 
