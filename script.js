@@ -931,7 +931,7 @@ function initUnifiedFooter(){
           <h4>Contact</h4>
           <div class="footer-links">
             <a href="mailto:yousef.qubain@gmail.com?subject=BEZERU%20—%20Hello">Email</a><br>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a><br>
+            <a href="https://www.instagram.com/bezeru_watchjournal/" target="_blank" rel="noopener noreferrer" aria-label="Follow BEZERU on Instagram (opens in a new tab)">Instagram</a><br>
             <span>X coming soon</span>
           </div>
         </div>
@@ -1640,14 +1640,79 @@ function initArticleProgressBar(){
 }
 
 function initPlaceholderSocialLinks(){
-  document.querySelectorAll('a[href="#"]').forEach((link)=>{
+  const instagramUrl = "https://www.instagram.com/bezeru_watchjournal/";
+  const instagramLabel = "Follow BEZERU on Instagram (opens in a new tab)";
+
+  document.querySelectorAll("a").forEach((link)=>{
     if((link.textContent || "").trim().toLowerCase() !== "instagram") return;
-    const note = document.createElement("span");
-    note.textContent = "Instagram (coming soon)";
-    note.className = link.className;
-    note.style.cssText = link.style.cssText;
-    note.setAttribute("aria-label", "Instagram coming soon");
-    link.replaceWith(note);
+    link.href = instagramUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", instagramLabel);
+  });
+
+  document.querySelectorAll("span").forEach((note)=>{
+    if((note.textContent || "").trim().toLowerCase() !== "instagram (coming soon)") return;
+    const link = document.createElement("a");
+    link.href = instagramUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", instagramLabel);
+    link.textContent = "Instagram";
+    link.className = note.className;
+    link.style.cssText = note.style.cssText;
+    note.replaceWith(link);
+  });
+
+  const isArticle = document.body?.getAttribute("data-page") === "static-article"
+    || document.body?.getAttribute("data-page") === "article"
+    || location.pathname.includes("/articles/")
+    || location.pathname.includes("/journal/");
+  if(!isArticle) return;
+
+  const shell = document.querySelector(".article-shell");
+  if(!shell || shell.querySelector(".article-instagram-follow")) return;
+
+  const follow = document.createElement("aside");
+  follow.className = "article-instagram-follow";
+  follow.setAttribute("aria-label", "BEZERU on Instagram");
+  follow.innerHTML = `
+    <span>Continue the journal</span>
+    <a href="${instagramUrl}" target="_blank" rel="noopener noreferrer" aria-label="${instagramLabel}">Follow @bezeru_watchjournal on Instagram <span aria-hidden="true">↗</span></a>
+  `;
+  const shareAnchor = shell.querySelector(".article-share") || shell.querySelector("#bzShareX")?.closest("div");
+  const authorAnchor = shell.querySelector(".article-author-box") || shell.querySelector("[class*='author']");
+  const anchor = shareAnchor || authorAnchor;
+  if(anchor) anchor.insertAdjacentElement("afterend", follow);
+  else shell.appendChild(follow);
+}
+
+function initNativeArticleShare(){
+  if(typeof navigator.share !== "function") return;
+  const rows = new Set(document.querySelectorAll(".article-share"));
+  const legacyRow = document.querySelector("#bzShareX")?.closest("div");
+  if(legacyRow) rows.add(legacyRow);
+
+  rows.forEach((row)=>{
+    if(row.querySelector("[data-native-share]")) return;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "share-pill bz-native-share";
+    button.dataset.nativeShare = "true";
+    button.textContent = "Share…";
+    button.setAttribute("aria-label", "Share this article using your device");
+    button.addEventListener("click", async ()=>{
+      try{
+        await navigator.share({
+          title: document.querySelector(".article-title")?.textContent?.trim() || document.title,
+          text: document.querySelector(".article-excerpt")?.textContent?.trim() || "BEZERU Independent Watch Journal",
+          url: location.href,
+        });
+      }catch(error){
+        if(error?.name !== "AbortError") console.warn("Native sharing was unavailable.", error);
+      }
+    });
+    row.appendChild(button);
   });
 }
 
@@ -1852,6 +1917,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
   initTopbarDateAndTimes();
   dedupePageFooters();
   initPlaceholderSocialLinks();
+  initNativeArticleShare();
   initClockStrip();
   initLanguageMenu();
   initDropdowns();
@@ -2154,7 +2220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const shell = document.querySelector(".article-shell");
 
-    if (shell && !shell.querySelector(".article-share")) {
+    if (shell && !shell.querySelector(".article-share") && !shell.querySelector("#bzShareX")) {
       const share = document.createElement("div");
       share.className = "article-share";
       const encodedUrl = encodeURIComponent(location.href);
@@ -2176,6 +2242,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (_) {}
       });
     }
+
+    initNativeArticleShare();
 
     if (false && shell && !shell.querySelector(".article-subscribe")) { // Article subscribe injection disabled
       const subscribe = document.createElement("section");
